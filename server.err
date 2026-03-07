@@ -1,0 +1,3 @@
+[SearchService] indexAllContent error: database disk image is malformed
+Email service warning: Could not connect to SMTP server. Invalid login: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 98e67ed59e1d1-359c003c51bsm6078337a91.1 - gsmtp

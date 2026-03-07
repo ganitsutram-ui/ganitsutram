@@ -1,0 +1,132 @@
+/*
+Project: GanitSūtram
+Author: Jawahar R Mallah
+Company: AITDL | aitdl.com
+
+Date:
+Vikram Samvat: VS 2082
+Gregorian: 2026-03-07
+*/
+
+:root {
+    /* GanitSūtram Design Tokens */
+    --bg-deep: #040110;
+    --fg-main: #ffffff;
+    --accent-primary: #ff5500;
+    --accent-secondary: #ffb300;
+    --accent-soft: rgba(255, 179, 0, 0.4);
+
+    --font-logo: 'Unbounded', sans-serif;
+    --font-main: 'Space Grotesk', sans-serif;
+    --font-ancient: 'Noto Serif Devanagari', serif;
+    --font-serif: 'DM Serif Display', serif;
+
+    /* Mobile Tokens */
+    --nav-height-mobile: 56px;
+    --content-padding-mobile: 1rem;
+    --font-size-hero-mobile: clamp(1.8rem, 8vw, 2.8rem);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-deep);
+    color: var(--fg-main);
+    font-family: var(--font-main);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* ════════════════════════════
+   TOUCH & MOBILE OPTIMIZATIONS
+════════════════════════════ */
+/* Touch targets minimum 44px */
+button,
+.gs-button,
+input,
+select,
+textarea,
+.persona-card,
+.discovery-card,
+nav a {
+    min-height: 44px;
+}
+
+/* Remove tap highlight on iOS */
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Prevent zoom on input focus (iOS) */
+input,
+select,
+textarea {
+    font-size: max(16px, 1rem);
+}
+
+/* ════════════════════════════
+   SHARED UI COMPONENTS
+════════════════════════════ */
+
+.gs-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.gs-title {
+    font-family: var(--font-logo);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+}
+
+.gs-ancient-text {
+    font-family: var(--font-ancient);
+    color: var(--accent-soft);
+    letter-spacing: 0.5rem;
+}
+
+.gs-button {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background: transparent;
+    color: var(--fg-main);
+    border: 1px solid var(--accent-soft);
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    text-decoration: none;
+}
+
+.gs-button:hover {
+    background: rgba(255, 85, 0, 0.1);
+    border-color: var(--accent-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(255, 85, 0, 0.2);
+}
+
+.gs-footer {
+    text-align: center;
+    padding: 4rem 2rem;
+    font-family: var(--font-main);
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.3);
+    line-height: 1.8;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Accessibility Focus Styles */
+:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+    border-radius: 4px;
+}

@@ -1,0 +1,109 @@
+<!--
+Project: GanitSūtram
+Author: Jawahar R Mallah
+Company: AITDL | aitdl.com
+
+Date:
+Vikram Samvat: VS 2082
+Gregorian: 2026-03-07
+
+Purpose: HTML file skeleton template for all GanitSūtram websites.
+         Copy this file when creating a new website page.
+         All style/script paths must point to ../../ui-core/
+-->
+<!--
+GANITSUTRAM PLATFORM
+System Architect: Jawahar R Mallah
+Organization: AITDL | aitdl.com
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- RULE: These three meta tags are mandatory on every HTML page -->
+    <meta name="author" content="Jawahar R Mallah">
+    <meta name="company" content="AITDL">
+    <meta name="project" content="GanitSūtram">
+
+    <title>GanitSūtram | [Page Title]</title>
+
+    <!-- RULE: Always link to ui-core, never write local styles -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;400;700;900&family=DM+Serif+Display:ital@0;1&family=Syne:wght@400;600;700;800&family=Noto+Serif+Devanagari:wght@300;400;700&family=Space+Grotesk:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../../ui-core/css/main.css">
+    <!-- Add website-specific CSS in ui-core, e.g. ui-core/css/[site-name].css -->
+    <!-- <link rel="stylesheet" href="../../ui-core/css/[site-name].css"> -->
+</head>
+
+<body>
+
+    <!-- ═══════════════════ NAV ═══════════════════ -->
+    <!-- Copy from websites/portal/index.html nav section -->
+    <header class="gs-nav">
+        <div class="gs-nav-inner">
+            <a href="/" class="gs-nav-logo">
+                <span class="gs-nav-logo-dev">गणित</span>GanitSūtram
+            </a>
+            <nav class="gs-nav-links">
+                <!-- Add site-specific nav links here -->
+                <a href="https://ganitsutram.com">Portal</a>
+                <a href="gate.html" class="gs-nav-cta">Enter Platform →</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ═══════════════════ MAIN CONTENT ═══════════════════ -->
+    <main>
+        <!-- Your page content goes here -->
+        <!-- Use .gs-container to center and limit width -->
+        <div class="gs-container">
+
+            <!-- Example section structure -->
+            <section style="padding: 8rem 0;">
+                <div class="gs-section-label">Section Label</div>
+                <h1 class="gs-hero-title">[Main Heading]</h1>
+                <p class="gs-hero-sub">[Subheading / description]</p>
+
+                <div class="gs-hero-cta">
+                    <a href="#" class="gs-button gs-button-primary">Primary Action</a>
+                    <a href="#" class="gs-button gs-button-ghost">Secondary Action</a>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- ═══════════════════ FOOTER ═══════════════════ -->
+    <!-- RULE: This exact footer is mandatory on every public page -->
+    <footer class="gs-footer">
+        <div class="gs-footer-inner">
+            <div class="gs-footer-brand">
+                <div class="gs-nav-logo">
+                    <span class="gs-nav-logo-dev">गणित</span>GanitSūtram
+                </div>
+                <p>A mathematical knowledge ecosystem by AITDL.</p>
+            </div>
+            <div class="gs-footer-links">
+                <a href="https://ganitsutram.com">Portal</a>
+            </div>
+        </div>
+        <div class="gs-footer-copy">
+            © GanitSūtram | AITDL | aitdl.com &nbsp;|&nbsp;
+            Vikram Samvat: VS 2082 &nbsp;|&nbsp; Gregorian: 2026-03-07
+            <br>All Rights Reserved. Unauthorized copying, reproduction, redistribution, or reuse of this software,
+            algorithms, or educational content is prohibited without written permission from AITDL.
+        </div>
+    </footer>
+
+    <!-- RULE: Always link to ui-core scripts, not local JS -->
+    <script src="../../ui-core/js/ganit-ui.js"></script>
+    <!-- Add website-specific JS from ui-core here -->
+    <!-- <script src="../../ui-core/js/[module].js"></script> -->
+
+</body>
+
+</html>

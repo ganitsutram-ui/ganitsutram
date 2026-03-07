@@ -1,0 +1,216 @@
+<!--
+GANITSUTRAM PLATFORM
+System Architect: Jawahar R Mallah
+Organization: AITDL | aitdl.com
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Jawahar R Mallah">
+    <meta name="company" content="AITDL">
+    <meta name="project" content="GanitSūtram">
+    <title>GanitSūtram | Knowledge Map</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;400;700;900&family=DM+Serif+Display:ital@0;1&family=Syne:wght@400;600;700;800&family=Noto+Serif+Devanagari:wght@300;400;700&family=Space+Grotesk:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    
+    <!-- DNS prefetch -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//api.ganitsutram.com">
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Preload critical font -->
+    <link rel="preload" href="https://fonts.gstatic.com/s/spacegrotesk/v15/V8mQoQDjQSkGpu8Xl10K8t1wX8N1pQ.woff2" as="font" type="font/woff2" crossorigin>
+
+    <style id="gs-critical-css">
+        :root { --bg-deep: #040110; --fg-main: #ffffff; --accent-primary: #ff5500; }
+        body { margin: 0; background: var(--bg-deep); color: var(--fg-main); }
+        .gs-nav { position: fixed; width: 100%; z-index: 100; background: rgba(4,1,16,0.95); }
+    </style>
+
+    <link rel="stylesheet" href="../../ui-core/css/main.css">
+    <link rel="stylesheet" href="../../ui-core/css/knowledge-map.css">
+    <link rel="stylesheet" href="../../ui-core/css/search.css">
+    <link rel="stylesheet" href="../../ui-core/css/notifications.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#ff5500">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="GanitSūtram">
+
+    <meta name="description" content="Explore the GanitSūtram Knowledge Graph — an interactive map of Vedic mathematics concepts, sutras, and their relationships.">
+    <meta name="keywords" content="Vedic mathematics, GanitSūtram, digital root, nikhilam, ancient maths, AITDL, Jawahar R Mallah">
+    <link rel="canonical" href="https://map.ganitsutram.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="GanitSūtram">
+    <meta property="og:title" content="GanitSūtram | Knowledge Map">
+    <meta property="og:description" content="Explore the GanitSūtram Knowledge Graph — an interactive map of Vedic mathematics concepts, sutras, and their relationships.">
+    <meta property="og:url" content="https://map.ganitsutram.com/">
+    <meta property="og:image" content="https://ganitsutram.com/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_IN">
+    <meta property="og:locale:alternate" content="hi_IN">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@aitdl">
+    <meta name="twitter:title" content="GanitSūtram | Knowledge Map">
+    <meta name="twitter:description" content="Explore the GanitSūtram Knowledge Graph — an interactive map of Vedic mathematics concepts, sutras, and their relationships.">
+    <meta name="twitter:image" content="https://ganitsutram.com/assets/og-image.png">
+
+
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "GanitSūtram Knowledge Graph",
+  "description": "Knowledge graph of Vedic mathematics concepts, operations, sutras and their relationships.",
+  "url": "https://map.ganitsutram.com",
+  "creator": {
+    "@type": "Organization",
+    "name": "AITDL"
+  },
+  "license": "https://aitdl.com/license",
+  "isAccessibleForFree": true
+}
+    </script>
+</head>
+
+<body>
+    <a href="#main-content" class="gs-skip-link">Skip to main content</a>
+
+    <!-- ═══════════════════ NAV ═══════════════════ -->
+    <header class="gs-nav">
+        <div class="gs-nav-inner">
+            <a href="https://ganitsutram.com" class="gs-nav-logo">
+                <span class="gs-nav-logo-dev">गणित</span>GanitSūtram
+            </a>
+            <nav class="gs-nav-links">
+                <a href="https://ganitsutram.com">Portal</a>
+                <a href="https://discover.ganitsutram.com">Discoveries</a>
+                <a href="https://ganitsutram.com/gate.html" class="gs-nav-cta">Enter Platform →</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ═══════════════════ MAIN CONTENT ═══════════════════ -->
+    <main id="main-content">
+        <div class="gs-container">
+
+            <!-- 1. HERO -->
+            <section class="gs-map-hero">
+                <div class="gs-sanskrit-line">सर्वं गणितमयम्</div>
+                <h1 class="gs-hero-title">Knowledge Map</h1>
+                <p class="gs-hero-sub">Explore the interconnected universe of mathematical concepts and Vedic wisdom.
+                </p>
+            </section>
+
+            <!-- 2. GRAPH SEARCH -->
+            <div style="margin-bottom:16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+                <input type="text" id="gs-map-search" class="gs-search-input"
+                    placeholder="Search nodes… digital root, sutra…" style="width:240px"
+                    aria-label="Search knowledge graph nodes">
+                <span style="font-size:0.75rem;color:rgba(255,255,255,0.35)">Click any node to explore • Drag to
+                    rearrange • Scroll to zoom</span>
+            </div>
+
+            <!-- 3. LEGEND -->
+            <div class="gs-map-legend">
+                <div class="gs-legend-item"><span class="gs-dot" style="background:#ff5500"></span>Operation</div>
+                <div class="gs-legend-item"><span class="gs-dot" style="background:#ffb300"></span>Concept</div>
+                <div class="gs-legend-item"><span class="gs-dot" style="background:#7c3aed"></span>Sutra</div>
+                <div class="gs-legend-item"><span class="gs-dot" style="background:#0ea5e9"></span>Domain</div>
+                <div class="gs-legend-item"><span class="gs-dot" style="background:#22c55e"></span>Persona</div>
+                <div class="gs-legend-item"><span class="gs-dot" style="background:#ec4899"></span>Pattern</div>
+            </div>
+
+            <!-- 4. D3 GRAPH -->
+            <div class="gs-graph-wrapper">
+                <div id="knowledge-graph"></div>
+                <div id="gs-map-tooltip"></div>
+            </div>
+
+            <!-- 5. PATH FINDER -->
+            <div id="gs-path-finder"
+                style="margin-top:28px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:20px 24px;">
+                <h3 style="margin:0 0 14px;font-size:0.95rem;font-weight:700;color:rgba(255,255,255,0.75)">
+                    🗺️ Path Finder — shortest connection between two nodes
+                </h3>
+                <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center">
+                    <select id="gs-path-from"
+                        style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:6px 12px;color:#fff;font-size:0.84rem;outline:none">
+                        <option value="">From…</option>
+                    </select>
+                    <span style="color:rgba(255,255,255,0.3)">→</span>
+                    <select id="gs-path-to"
+                        style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:6px 12px;color:#fff;font-size:0.84rem;outline:none">
+                        <option value="">To…</option>
+                    </select>
+                    <button id="gs-path-find-btn"
+                        style="background:var(--accent-primary,#ff5500);color:#fff;border:none;border-radius:8px;padding:7px 18px;font-weight:700;font-size:0.84rem;cursor:pointer">
+                        Find Path →
+                    </button>
+                </div>
+                <p id="gs-path-result" style="margin-top:12px;font-size:0.83rem;color:rgba(255,255,255,0.55);"></p>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- 6. CONCEPT DETAIL PANEL -->
+    <aside id="gs-detail-panel" class="gs-detail-panel">
+        <button id="panel-close" class="gs-panel-close">&times;</button>
+        <div id="panel-badge" class="gs-panel-badge">TYPE</div>
+        <h2 id="panel-title" class="gs-panel-title">Node Label</h2>
+        <div id="panel-desc" class="gs-panel-desc">
+            <p>Select a node to explore its connections and details.</p>
+        </div>
+    </aside>
+
+    <!-- 7. FOOTER -->
+    <footer class="gs-footer">
+        <div class="gs-footer-inner">
+            <div class="gs-footer-brand">
+                <div class="gs-nav-logo">
+                    <span class="gs-nav-logo-dev">गणित</span>GanitSūtram
+                </div>
+                <p>A mathematical knowledge ecosystem by AITDL.</p>
+            </div>
+            <div class="gs-footer-links">
+                <a href="https://ganitsutram.com">Portal</a>
+                <a href="https://discover.ganitsutram.com">Discoveries</a>
+                <a href="/portal/search.html">Search</a>
+            </div>
+        </div>
+        <div class="gs-footer-copy">
+            © GanitSūtram | AITDL | aitdl.com &nbsp;|&nbsp;
+            Vikram Samvat: VS 2082 &nbsp;|&nbsp; Gregorian: 2026-03-08
+            <br>All Rights Reserved. Unauthorized copying, reproduction, redistribution, or reuse of this software,
+            algorithms, or educational content is prohibited without written permission from AITDL.
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js" async></script>
+    <script src="../../ui-core/js/seo.js" defer></script>
+    <script src="../../ui-core/js/ganit-ui.js" defer></script>
+    <script src="../../ui-core/js/notifications.js" defer></script>
+    <script src="../../ui-core/js/search.js" defer></script>
+    <script src="../../ui-core/js/knowledge-map.js" defer></script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(reg => console.log('SW registered', reg.scope))
+                .catch(err => console.warn('SW failed', err));
+        }
+    </script>
+</body>
+
+</html>

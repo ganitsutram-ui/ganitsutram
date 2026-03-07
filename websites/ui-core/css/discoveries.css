@@ -1,0 +1,226 @@
+/*
+Project: GanitSūtram
+Author: Jawahar R Mallah
+Company: AITDL | aitdl.com
+
+Date:
+Vikram Samvat: VS 2082
+Gregorian: 2026-03-07
+
+Purpose: Discoveries website specific styles.
+         Extends ui-core/css/main.css.
+*/
+
+/* ─── HERO SECTION ─────────────────────────────────────────── */
+.gs-discoveries-hero {
+    padding: 10rem 0 6rem;
+    text-align: center;
+}
+
+.gs-sanskrit-line {
+    font-family: var(--font-ancient);
+    color: var(--accent-secondary);
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.1em;
+}
+
+/* ─── DISCOVERY GRID ───────────────────────────────────────── */
+.gs-discovery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin: 4rem 0;
+}
+
+.gs-discovery-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 2.5rem;
+    border-radius: 8px;
+    transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.gs-discovery-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-soft);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.gs-discovery-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.gs-discovery-card h3 {
+    font-family: var(--font-logo);
+    font-size: 1.25rem;
+    color: var(--fg-main);
+}
+
+.gs-discovery-card p {
+    font-family: var(--font-main);
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.6;
+}
+
+.gs-discovery-link {
+    font-family: var(--font-main);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent-secondary);
+    text-decoration: none;
+    margin-top: auto;
+    display: inline-block;
+    transition: color 0.2s;
+}
+
+.gs-discovery-link:hover {
+    color: var(--accent-primary);
+}
+
+/* ─── LIVE SOLVER WIDGET ───────────────────────────────────── */
+.gs-solver-widget {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 4rem;
+    border-radius: 12px;
+    margin: 6rem 0;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.gs-solver-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 1.5rem;
+    align-items: end;
+}
+
+.gs-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.gs-form-group label {
+    font-family: var(--font-main);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent-secondary);
+}
+
+.gs-input,
+.gs-select {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--fg-main);
+    padding: 0.8rem 1rem;
+    border-radius: 4px;
+    font-family: var(--font-main);
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.gs-input:focus,
+.gs-select:focus {
+    border-color: var(--accent-primary);
+}
+
+/* ─── RESULTS DISPLAY ──────────────────────────────────────── */
+.gs-solver-result {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    display: none;
+    /* Shown via JS */
+}
+
+.gs-result-value {
+    font-family: var(--font-logo);
+    font-size: 3rem;
+    color: var(--accent-primary);
+    margin: 1rem 0;
+}
+
+.gs-steps-list {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.gs-step-item {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-family: var(--font-main);
+    font-size: 0.9rem;
+}
+
+.gs-step-arrow {
+    color: var(--accent-secondary);
+    font-weight: bold;
+}
+
+/* ─── STATES ───────────────────────────────────────────────── */
+.gs-loading-state {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.gs-error-msg {
+    color: #ff4444;
+    font-family: var(--font-main);
+    font-size: 0.9rem;
+    margin-top: 1rem;
+}
+
+/* ─── RESPONSIVE ───────────────────────────────────────────── */
+@media (max-width: 900px) {
+    .gs-discovery-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .gs-solver-form {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .gs-discovery-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Full-screen drawer on mobile */
+    .gs-drawer-content {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 100vh !important;
+        border-radius: 0 !important;
+        top: 0;
+        right: 0;
+    }
+
+    /* Category filter horizontal scroll */
+    .gs-filter-bar {
+        display: flex;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        padding-bottom: 0.5rem;
+        justify-content: flex-start;
+    }
+
+    .gs-filter-btn {
+        scroll-snap-align: start;
+        white-space: nowrap;
+    }
+}

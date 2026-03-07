@@ -1,0 +1,220 @@
+<!--
+GANITSUTRAM PLATFORM
+System Architect: Jawahar R Mallah
+Organization: AITDL | aitdl.com
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- RULE: These three meta tags are mandatory on every HTML page -->
+    <meta name="author" content="Jawahar R Mallah">
+    <meta name="company" content="AITDL">
+    <meta name="project" content="GanitSūtram">
+
+    <title>GanitSūtram | Ecosystem Gateway</title>
+
+    <!-- RULE: Always link to ui-core, never write local styles -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;400;700;900&family=DM+Serif+Display:ital@0;1&family=Syne:wght@400;600;700;800&family=Noto+Serif+Devanagari:wght@300;400;700&family=Space+Grotesk:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    
+    <!-- DNS prefetch -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//api.ganitsutram.com">
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Preload critical font -->
+    <link rel="preload" href="https://fonts.gstatic.com/s/spacegrotesk/v15/V8mQoQDjQSkGpu8Xl10K8t1wX8N1pQ.woff2" as="font" type="font/woff2" crossorigin>
+
+    <style id="gs-critical-css">
+        :root { --bg-deep: #040110; --fg-main: #ffffff; --accent-primary: #ff5500; }
+        body { margin: 0; background: var(--bg-deep); color: var(--fg-main); }
+        .gs-nav { position: fixed; width: 100%; z-index: 100; background: rgba(4,1,16,0.95); }
+    </style>
+
+    <link rel="stylesheet" href="../ui-core/css/main.css">
+    <link rel="stylesheet" href="../ui-core/css/portal.css">
+    <link rel="stylesheet" href="../ui-core/css/i18n.css">
+
+    <meta name="description" content="Enter the GanitSūtram platform. Choose your learning persona — Student, Teacher, Explorer, or School.">
+    <meta name="keywords" content="Vedic mathematics, GanitSūtram, digital root, nikhilam, ancient maths, AITDL, Jawahar R Mallah">
+    <link rel="canonical" href="https://ganitsutram.com/gate.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="GanitSūtram">
+    <meta property="og:title" content="GanitSūtram | Enter Platform">
+    <meta property="og:description" content="Enter the GanitSūtram platform. Choose your learning persona — Student, Teacher, Explorer, or School.">
+    <meta property="og:url" content="https://ganitsutram.com/gate.html">
+    <meta property="og:image" content="https://ganitsutram.com/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_IN">
+    <meta property="og:locale:alternate" content="hi_IN">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@aitdl">
+    <meta name="twitter:title" content="GanitSūtram | Enter Platform">
+    <meta name="twitter:description" content="Enter the GanitSūtram platform. Choose your learning persona — Student, Teacher, Explorer, or School.">
+    <meta name="twitter:image" content="https://ganitsutram.com/assets/og-image.png">
+
+</head>
+
+<body class="gs-gate-body">
+    <a href="#main-content" class="gs-skip-link">Skip to main content</a>
+
+    <!-- ═══════════════════ NAV ═══════════════════ -->
+    <header class="gs-nav">
+        <div class="gs-nav-inner">
+            <a href="index.html" class="gs-nav-logo">
+                <span class="gs-nav-logo-dev">गणित</span>GanitSūtram
+            </a>
+            <nav class="gs-nav-links">
+                <a href="index.html" data-i18n="nav.home">Portal</a>
+                <div class="nav-right" style="display:flex; align-items:center;">
+                    <div class="gs-lang-switcher" id="langSwitcher">
+                        <button class="gs-lang-btn active" data-lang="en">EN</button>
+                        <button class="gs-lang-btn" data-lang="hi">हि</button>
+                        <button class="gs-lang-btn" data-lang="sa">सं</button>
+                    </div>
+                    <a href="gate.html" class="gs-nav-cta" data-i18n="nav.enterPlatform">Enter Platform →</a>
+                </div>
+            </nav>
+            <button class="gs-nav-hamburger"
+                onclick="document.querySelector('.gs-nav-links').classList.toggle('active')">☰</button>
+        </div>
+    </header>
+
+    <!-- ═══════════════════ MAIN CONTENT ═══════════════════ -->
+    <main id="main-content">
+        <div class="gs-container">
+
+            <!-- SCENE 1: INTRO -->
+            <section id="gs-scene-intro" class="gs-scene active">
+                <div class="gs-section-label" data-i18n="gate.label">The Gate</div>
+                <h1 class="gs-hero-title" data-i18n="gate.title">Enter the Mathematical Universe</h1>
+                <div
+                    style="font-family: 'Noto Serif Devanagari'; font-size: 1.1rem; color: var(--accent-secondary); margin-bottom: 0.5rem; letter-spacing: 0.05em;">
+                    "गणितम् सर्वविद्यानां मूलम्"
+                </div>
+                <p class="gs-hero-sub" data-i18n="gate.sanskritMeaning"
+                    style="font-size: 0.85rem; color: rgba(255,255,255,0.5);">Mathematics is the root of all knowledge.
+                </p>
+                <div class="gs-hero-cta" style="margin-top: 2rem;">
+                    <button id="gs-btn-start" class="gs-button gs-button-primary" onclick="GanitUI.gate.start()"
+                        data-i18n="gate.beginBtn">Begin Your Journey →</button>
+                </div>
+            </section>
+
+            <!-- SCENE 2: PERSONA SELECTION -->
+            <section id="gs-scene-selection" class="gs-scene">
+                <div class="gs-section-label" data-i18n="gate.label">The Gate</div>
+                <h2 class="gs-section-title" data-i18n="gate.whoAreYou">Who are you?</h2>
+                <p class="gs-hero-sub" data-i18n="gate.selectRole" style="margin-bottom: 2rem;">Select your role to
+                    personalise your experience</p>
+
+                <div class="gs-persona-grid">
+                    <div class="gs-persona-card" data-url="https://learn.ganitsutram.com"
+                        onclick="GanitUI.gate.select(this)">
+                        <div class="gs-persona-icon">01</div>
+                        <h3 data-i18n="gate.personas.student">Student</h3>
+                        <p data-i18n="gate.personaDesc.student">Explore Vedic maths, practise problems, and track your
+                            learning progress.</p>
+                    </div>
+                    <div class="gs-persona-card" data-url="https://learn.ganitsutram.com/teacher"
+                        onclick="GanitUI.gate.select(this)">
+                        <div class="gs-persona-icon">02</div>
+                        <h3 data-i18n="gate.personas.teacher">Teacher</h3>
+                        <p data-i18n="gate.personaDesc.teacher">Access classroom tools, concept libraries, and student
+                            progress dashboards.</p>
+                    </div>
+                    <div class="gs-persona-card" data-url="https://learn.ganitsutram.com/parent"
+                        onclick="GanitUI.gate.select(this)">
+                        <div class="gs-persona-icon">03</div>
+                        <h3 data-i18n="gate.personas.parent">Parent</h3>
+                        <p data-i18n="gate.personaDesc.parent">Guide your child's mathematical journey with curated
+                            resources.</p>
+                    </div>
+                    <div class="gs-persona-card" data-url="https://learn.ganitsutram.com/adult"
+                        onclick="GanitUI.gate.select(this)">
+                        <div class="gs-persona-icon">04</div>
+                        <h3 data-i18n="gate.personas.adult">Adult Learner</h3>
+                        <p data-i18n="gate.personaDesc.adult">Rediscover mathematics at your own pace with structured
+                            adult pathways.</p>
+                    </div>
+                    <div class="gs-persona-card" data-url="https://learn.ganitsutram.com/admin.html"
+                        onclick="GanitUI.gate.select(this)">
+                        <div class="gs-persona-icon">05</div>
+                        <h3 data-i18n="gate.personas.school">School</h3>
+                        <p data-i18n="gate.personaDesc.school">Institution-level tools, curriculum alignment, and
+                            research lab access.</p>
+                    </div>
+                    <div class="gs-persona-card" data-url="https://discover.ganitsutram.com"
+                        onclick="GanitUI.gate.select(this)">
+                        <div class="gs-persona-icon">06</div>
+                        <h3 data-i18n="gate.personas.explore">Explore Maths</h3>
+                        <p data-i18n="gate.personaDesc.explore">No agenda. Just curiosity. Dive into patterns,
+                            discoveries, and the beauty of numbers.</p>
+                    </div>
+                </div>
+
+                <div class="gs-gate-actions">
+                    <button id="gs-btn-proceed" class="gs-button gs-button-primary disabled" disabled
+                        onclick="GanitUI.gate.proceed()" data-i18n="gate.proceedBtn">Enter Platform →</button>
+                    <div style="margin-top: 1rem;">
+                        <span data-i18n="gate.exploreLink" style="color: var(--text-dim); font-size: 0.9rem;">or explore
+                            without selecting — no login required</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SCENE 3: REDIRECT -->
+            <section id="gs-scene-redirect" class="gs-scene">
+                <div class="gs-redirect-loader">
+                    <div class="gs-section-label">Synchronizing</div>
+                    <h2 class="gs-section-title">Connecting to <span id="gs-redirect-persona">...</span></h2>
+                    <p class="gs-hero-sub">Deciphering the mathematical pathway...</p>
+                    <!-- Small ambient loader can go here -->
+                    <div class="gs-gate-loader"></div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- ═══════════════════ FOOTER ═══════════════════ -->
+    <footer class="gs-footer">
+        <div class="gs-footer-inner">
+            <div class="gs-footer-brand">
+                <div class="gs-nav-logo">
+                    <span class="gs-nav-logo-dev">गणित</span>GanitSūtram
+                </div>
+                <p data-i18n="footer.tagline">A mathematical knowledge ecosystem by AITDL.</p>
+            </div>
+            <div class="gs-footer-links">
+                <a href="index.html" data-i18n="footer.portal">Portal</a>
+            </div>
+        </div>
+        <div class="gs-footer-copy">
+            <span data-i18n="footer.copyright">© GanitSūtram | AITDL | aitdl.com</span> &nbsp;|&nbsp;
+            <span data-i18n="footer.date">Vikram Samvat: VS 2082 &nbsp;|&nbsp; Gregorian: 2026-03-07</span>
+            <br><span data-i18n="footer.rights">All Rights Reserved.</span> <span
+                data-i18n="footer.restriction">Unauthorized copying, reproduction, redistribution, or reuse of this
+                software,
+                algorithms, or educational content is prohibited without written permission from AITDL.</span>
+        </div>
+    </footer>
+
+    <!-- RULE: Always link to ui-core scripts, not local JS -->
+    <script src="../ui-core/js/i18n.js" defer></script>
+    <script src="../../ui-core/js/seo.js" defer></script>
+    <script src="../ui-core/js/ganit-ui.js" defer></script>
+
+</body>
+
+</html>

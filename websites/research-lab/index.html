@@ -1,0 +1,247 @@
+<!--
+GANITSUTRAM PLATFORM
+System Architect: Jawahar R Mallah
+Organization: AITDL | aitdl.com
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- RULE: These three meta tags are mandatory on every HTML page -->
+    <meta name="author" content="Jawahar R Mallah">
+    <meta name="company" content="AITDL">
+    <meta name="project" content="GanitSūtram">
+
+    <title>GanitSūtram | Research Lab</title>
+
+    <!-- RULE: Always link to ui-core, never write local styles -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;400;700;900&family=DM+Serif+Display:ital@0;1&family=Syne:wght@400;600;700;800&family=Noto+Serif+Devanagari:wght@300;400;700&family=Space+Grotesk:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    
+    <!-- DNS prefetch -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//api.ganitsutram.com">
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Preload critical font -->
+    <link rel="preload" href="https://fonts.gstatic.com/s/spacegrotesk/v15/V8mQoQDjQSkGpu8Xl10K8t1wX8N1pQ.woff2" as="font" type="font/woff2" crossorigin>
+
+    <style id="gs-critical-css">
+        :root { --bg-deep: #040110; --fg-main: #ffffff; --accent-primary: #ff5500; }
+        body { margin: 0; background: var(--bg-deep); color: var(--fg-main); }
+        .gs-nav { position: fixed; width: 100%; z-index: 100; background: rgba(4,1,16,0.95); }
+    </style>
+
+    <link rel="stylesheet" href="../../ui-core/css/main.css">
+    <link rel="stylesheet" href="../../ui-core/css/research-lab.css">
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#ff5500">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="GanitSūtram">
+
+    <meta name="description" content="Experiment with Vedic mathematics tools — Pattern Detector, Digit Frequency Analyser, Fibonacci Explorer and more.">
+    <meta name="keywords" content="Vedic mathematics, GanitSūtram, digital root, nikhilam, ancient maths, AITDL, Jawahar R Mallah">
+    <link rel="canonical" href="https://lab.ganitsutram.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="GanitSūtram">
+    <meta property="og:title" content="GanitSūtram | Research Lab">
+    <meta property="og:description" content="Experiment with Vedic mathematics tools — Pattern Detector, Digit Frequency Analyser, Fibonacci Explorer and more.">
+    <meta property="og:url" content="https://lab.ganitsutram.com/">
+    <meta property="og:image" content="https://ganitsutram.com/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_IN">
+    <meta property="og:locale:alternate" content="hi_IN">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@aitdl">
+    <meta name="twitter:title" content="GanitSūtram | Research Lab">
+    <meta name="twitter:description" content="Experiment with Vedic mathematics tools — Pattern Detector, Digit Frequency Analyser, Fibonacci Explorer and more.">
+    <meta name="twitter:image" content="https://ganitsutram.com/assets/og-image.png">
+
+</head>
+
+<body>
+    <a href="#main-content" class="gs-skip-link">Skip to main content</a>
+
+    <!-- ═══════════════════ NAV ═══════════════════ -->
+    <header class="gs-nav">
+        <div class="gs-nav-inner">
+            <a href="https://ganitsutram.com" class="gs-nav-logo">
+                <span class="gs-nav-logo-dev">गणित</span>GanitSūtram
+            </a>
+            <nav class="gs-nav-links">
+                <a href="https://ganitsutram.com">Portal</a>
+                <a href="https://discover.ganitsutram.com">Discoveries</a>
+                <a href="https://learn.ganitsutram.com">Learning</a>
+                <a href="https://ganitsutram.com/gate.html" class="gs-nav-cta">Enter Platform →</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ═══════════════════ MAIN CONTENT ═══════════════════ -->
+    <main id="main-content">
+        <div class="gs-container">
+
+            <!-- 1. HERO -->
+            <section class="gs-lab-hero">
+                <div class="gs-lab-badge">Experimental — Tools evolving continuously</div>
+                <div class="gs-sanskrit-line">अन्वेषणं परमं तपः</div>
+                <h1 class="gs-hero-title">Research Lab</h1>
+                <p class="gs-hero-sub">Where ancient algorithms meet modern computation. Exploring the boundaries of
+                    Vedic mathematics.</p>
+            </section>
+
+            <!-- 2. LAB TOOLS GRID -->
+            <section class="gs-section">
+                <div class="gs-section-label">Experimental Workbench</div>
+                <div class="gs-lab-grid">
+                    <div class="gs-lab-card" id="tool-pattern-detector">
+                        <div class="gs-lab-icon">🔬</div>
+                        <span class="gs-status-badge status-live">Live</span>
+                        <h3>Pattern Detector</h3>
+                        <p>Feed any number sequence. Detect Vedic patterns automatically.</p>
+                        <textarea class="gs-input gs-tool-input" placeholder="e.g. 1, 4, 9, 16, 25" rows="2"
+                            style="font-size:0.8rem; height:auto"></textarea>
+                        <button class="gs-button gs-button-primary gs-lab-btn">Detect Patterns →</button>
+                        <div class="gs-tool-results"></div>
+                    </div>
+                    <div class="gs-lab-card" id="tool-digit-freq">
+                        <div class="gs-lab-icon">📊</div>
+                        <span class="gs-status-badge status-live">Live</span>
+                        <h3>Digit Frequency Analyser</h3>
+                        <p>Analyse digit distribution and frequency across large number sets.</p>
+                        <input type="number" class="gs-input gs-tool-input" placeholder="Enter large number">
+                        <button class="gs-button gs-button-primary gs-lab-btn">Analyse →</button>
+                        <div class="gs-tool-results"></div>
+                    </div>
+                    <div class="gs-lab-card" id="tool-multiplier">
+                        <div class="gs-lab-icon">🧮</div>
+                        <span class="gs-status-badge status-beta">Beta</span>
+                        <h3>Vedic Multiplier Bench</h3>
+                        <p>Step-by-step Nikhilam and Urdhva multiplication workbench.</p>
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem">
+                            <input type="text" class="gs-tool-input" placeholder="A, B"
+                                style="grid-column: span 2; width:100%; box-sizing:border-box" class="gs-input">
+                            <select id="multiplier-op" class="gs-input" style="font-size:0.7rem; grid-column: span 2">
+                                <option value="nikhilam-steps">Nikhilam (Complement)</option>
+                                <option value="urdhva-steps">Urdhva (Crosswise)</option>
+                            </select>
+                        </div>
+                        <button class="gs-button gs-button-primary gs-lab-btn">Multiply →</button>
+                        <div class="gs-tool-results"></div>
+                    </div>
+                    <div class="gs-lab-card active">
+                        <div class="gs-lab-icon">🌀</div>
+                        <span class="gs-status-badge status-live">Live</span>
+                        <h3>Beejank Mapper</h3>
+                        <p>Map digital roots across number ranges. Visualise Beejank patterns.</p>
+                        <a href="#gs-mapper-bench" class="gs-button gs-button-primary">Jump to Bench →</a>
+                    </div>
+                    <div class="gs-lab-card" id="tool-kaprekar">
+                        <div class="gs-lab-icon">📐</div>
+                        <span class="gs-status-badge status-beta">Beta</span>
+                        <h3>Kaprekar Constant</h3>
+                        <p>Observe all 4-digit numbers converge to the constant 6174.</p>
+                        <input type="number" class="gs-input gs-tool-input" placeholder="e.g. 3087">
+                        <button class="gs-button gs-button-primary gs-lab-btn">Run Kaprekar →</button>
+                        <div class="gs-tool-results"></div>
+                    </div>
+                    <div class="gs-lab-card" id="tool-fibonacci">
+                        <div class="gs-lab-icon">🤖</div>
+                        <span class="gs-status-badge status-beta">Beta</span>
+                        <h3>Fibonacci Explorer</h3>
+                        <p>Explore the 24-step digital root cycle of the Fibonacci sequence.</p>
+                        <input type="range" class="gs-tool-input" min="5" max="48" value="24" style="width:100%">
+                        <button class="gs-button gs-button-primary gs-lab-btn">Generate →</button>
+                        <div class="gs-tool-results"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. LIVE EXPERIMENT — BEEJANK MAPPER -->
+            <section class="gs-lab-experiment" id="gs-mapper-bench">
+                <div class="gs-section-label">Live Lab Bench</div>
+                <h2 class="gs-section-title">Beejank Mapper</h2>
+                <p class="gs-hero-sub" style="margin-bottom: 3rem;">Observe the mathematical recurrence of digital roots
+                    across any integer range.</p>
+
+                <form id="gs-mapper-form" class="gs-mapper-form">
+                    <div class="gs-form-group">
+                        <label for="map-start">Start Range</label>
+                        <input type="number" id="map-start" class="gs-input" placeholder="e.g. 1" required>
+                    </div>
+                    <div class="gs-form-group">
+                        <label for="map-end">End Range</label>
+                        <input type="number" id="map-end" class="gs-input" placeholder="e.g. 81" required>
+                    </div>
+                    <button type="submit" id="gs-mapper-btn" class="gs-button gs-button-primary">Map Range</button>
+                </form>
+
+                <div id="gs-mapper-error" class="gs-error-msg" style="margin-bottom: 1rem;"></div>
+
+                <div id="gs-mapper-grid" class="gs-mapper-grid">
+                    <!-- Experiment results render here -->
+                </div>
+            </section>
+
+            <!-- 4. INSTITUTIONAL ACCESS BANNER -->
+            <section class="gs-lab-institutional">
+                <h2 class="gs-inst-title">School or Institution?</h2>
+                <p class="gs-hero-sub" style="margin-bottom: 2rem;">Get full lab access, curriculum tools, and dedicated
+                    institutional support.</p>
+                <a href="mailto:lab@ganitsutram.com" class="gs-button gs-button-primary">Request Access →</a>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- ═══════════════════ FOOTER ═══════════════════ -->
+    <footer class="gs-footer">
+        <div class="gs-footer-inner">
+            <div class="gs-footer-brand">
+                <div class="gs-nav-logo">
+                    <span class="gs-nav-logo-dev">गणित</span>GanitSūtram
+                </div>
+                <p>A mathematical knowledge ecosystem by AITDL.</p>
+            </div>
+            <div class="gs-footer-links">
+                <a href="https://ganitsutram.com">Portal</a>
+                <a href="https://discover.ganitsutram.com">Discoveries</a>
+                <a href="https://learn.ganitsutram.com">Learning</a>
+            </div>
+        </div>
+        <div class="gs-footer-copy">
+            © GanitSūtram | AITDL | aitdl.com &nbsp;|&nbsp;
+            Vikram Samvat: VS 2082 &nbsp;|&nbsp; Gregorian: 2026-03-07
+            <br>All Rights Reserved. Unauthorized copying, reproduction, redistribution, or reuse of this software,
+            algorithms, or educational content is prohibited without written permission from AITDL.
+        </div>
+    </footer>
+
+    <!-- RULE: Always link to ui-core scripts, not local JS -->
+    <script src="../../ui-core/js/seo.js" defer></script>
+    <script src="../../ui-core/js/ganit-ui.js" defer></script>
+    <script src="../../ui-core/js/research-lab.js" defer></script>
+
+    <!-- PWA Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(reg => console.log('SW registered', reg.scope))
+                .catch(err => console.warn('SW failed', err));
+        }
+    </script>
+</body>
+
+</html>

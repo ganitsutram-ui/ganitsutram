@@ -1,0 +1,231 @@
+<!--
+Project: GanitSūtram
+Author: Jawahar R Mallah
+Company: AITDL | aitdl.com
+
+Date:
+Vikram Samvat: VS 2082
+Gregorian: 2026-03-07
+
+Purpose: Public Leaderboard and gamification showcase.
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="Jawahar R Mallah">
+    <meta name="company" content="AITDL">
+    <meta name="project" content="GanitSūtram">
+
+    <title>GanitSūtram | Leaderboard</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;400;700;900&family=DM+Serif+Display:ital@0;1&family=Syne:wght@400;600;700;800&family=Noto+Serif+Devanagari:wght@300;400;700&family=Space+Grotesk:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    
+    <!-- DNS prefetch -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//api.ganitsutram.com">
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Preload critical font -->
+    <link rel="preload" href="https://fonts.gstatic.com/s/spacegrotesk/v15/V8mQoQDjQSkGpu8Xl10K8t1wX8N1pQ.woff2" as="font" type="font/woff2" crossorigin>
+
+    <style id="gs-critical-css">
+        :root { --bg-deep: #040110; --fg-main: #ffffff; --accent-primary: #ff5500; }
+        body { margin: 0; background: var(--bg-deep); color: var(--fg-main); }
+        .gs-nav { position: fixed; width: 100%; z-index: 100; background: rgba(4,1,16,0.95); }
+    </style>
+
+    <link rel="stylesheet" href="../../ui-core/css/main.css">
+    <link rel="stylesheet" href="../../ui-core/css/leaderboard.css">
+    <link rel="stylesheet" href="../../ui-core/css/i18n.css">
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#FF8811">
+
+    <meta name="description" content="The GanitSūtram Hall of Vedic Champions. Compete globally, earn badges, rise through the ranks.">
+    <meta name="keywords" content="Vedic mathematics, GanitSūtram, digital root, nikhilam, ancient maths, AITDL, Jawahar R Mallah">
+    <link rel="canonical" href="https://learn.ganitsutram.com/leaderboard.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="GanitSūtram">
+    <meta property="og:title" content="GanitSūtram | Leaderboard">
+    <meta property="og:description" content="The GanitSūtram Hall of Vedic Champions. Compete globally, earn badges, rise through the ranks.">
+    <meta property="og:url" content="https://learn.ganitsutram.com/leaderboard.html">
+    <meta property="og:image" content="https://ganitsutram.com/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_IN">
+    <meta property="og:locale:alternate" content="hi_IN">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@aitdl">
+    <meta name="twitter:title" content="GanitSūtram | Leaderboard">
+    <meta name="twitter:description" content="The GanitSūtram Hall of Vedic Champions. Compete globally, earn badges, rise through the ranks.">
+    <meta name="twitter:image" content="https://ganitsutram.com/assets/og-image.png">
+
+</head>
+
+<body>
+    <a href="#main-content" class="gs-skip-link">Skip to main content</a>
+
+    <!-- ═══════════════════ NAV ═══════════════════ -->
+    <header class="gs-nav">
+        <div class="gs-nav-inner">
+            <a href="/" class="gs-nav-logo">
+                <span class="gs-nav-logo-dev">गणित</span>GanitSūtram
+            </a>
+            <nav class="gs-nav-links">
+                <a href="https://ganitsutram.com">Portal</a>
+                <a href="index.html">Learning</a>
+                <a href="leaderboard.html" class="active" data-i18n="nav.leaderboard">Leaderboard</a>
+            </nav>
+            <div id="gs-auth-nav" class="gs-nav-auth"></div>
+        </div>
+    </header>
+
+    <!-- ═══════════════════ MAIN CONTENT ═══════════════════ -->
+    <main id="main-content">
+        <div class="gs-container leaderboard-container">
+
+            <section class="gs-hero gs-center">
+                <div class="gs-section-label" data-i18n="leaderboard.sanskrit">श्रेष्ठो भव</div>
+                <h1 class="gs-hero-title" data-i18n="leaderboard.heading">Hall of Vedic Champions</h1>
+                <p class="gs-hero-sub" data-i18n="leaderboard.subheading">Earn points. Earn badges. Earn glory.</p>
+            </section>
+
+            <!-- My Rank Panel (Hidden if not logged in) -->
+            <section id="my-rank-panel" class="my-rank-panel hidden">
+                <h2 data-i18n="leaderboard.myRank">Your Rank</h2>
+                <div class="my-rank-grid">
+                    <div class="my-rank-stat">
+                        <span class="stat-label">Global Rank</span>
+                        <strong class="stat-val" id="my-rank-global">--</strong>
+                    </div>
+                    <div class="my-rank-stat">
+                        <span class="stat-label">Weekly Rank</span>
+                        <strong class="stat-val" id="my-rank-weekly">--</strong>
+                    </div>
+                    <div class="my-rank-stat">
+                        <span class="stat-label">Total Points</span>
+                        <strong class="stat-val" id="my-points">0</strong>
+                    </div>
+                    <div class="my-rank-stat">
+                        <span class="stat-label">Percentile</span>
+                        <strong class="stat-val" id="my-percentile">--</strong>
+                    </div>
+                </div>
+
+                <div class="display-name-setter">
+                    <label data-i18n="leaderboard.setDisplayName">Set Display Name</label>
+                    <div class="input-group">
+                        <input type="text" id="display-name-input" placeholder="e.g. VedicHero" maxlength="20">
+                        <button class="gs-button gs-button-primary" id="save-display-name"
+                            data-i18n="leaderboard.saveBtn">Save →</button>
+                    </div>
+                    <div class="alias-msg" id="alias-msg"></div>
+                </div>
+            </section>
+
+            <!-- Leaderboard Type Tabs -->
+            <div class="lb-tabs">
+                <button class="lb-tab active" data-type="global" data-i18n="leaderboard.tabGlobal">Global
+                    All-Time</button>
+                <button class="lb-tab" data-type="weekly" data-i18n="leaderboard.tabWeekly">This Week</button>
+                <button class="lb-tab" data-type="monthly" data-i18n="leaderboard.tabMonthly">This Month</button>
+            </div>
+
+            <!-- Top 3 Podium -->
+            <section class="lb-podium" id="lb-podium">
+                <!-- Injected via JS -->
+            </section>
+
+            <!-- Leaderboard Table -->
+            <section class="lb-table-wrapper">
+                <table class="lb-table">
+                    <thead>
+                        <tr>
+                            <th data-i18n="leaderboard.rank">Rank</th>
+                            <th>Avatar</th>
+                            <th>Player</th>
+                            <th data-i18n="leaderboard.points">Points</th>
+                            <th data-i18n="leaderboard.weekly">Weekly</th>
+                            <th data-i18n="leaderboard.streak">Streak</th>
+                            <th data-i18n="leaderboard.badges">Badges</th>
+                        </tr>
+                    </thead>
+                    <tbody id="lb-table-body">
+                        <!-- Injected via JS -->
+                    </tbody>
+                </table>
+                <div class="lb-load-more gs-center">
+                    <button class="gs-button gs-button-ghost" id="lb-load-more" data-i18n="leaderboard.loadMore">Load
+                        More →</button>
+                </div>
+            </section>
+
+            <!-- Point History Panel (Hidden if not logged in) -->
+            <section id="point-history-panel" class="point-history-panel hidden">
+                <h2 data-i18n="leaderboard.pointHistory">Point History</h2>
+                <div class="history-list" id="point-history-list">
+                    <!-- Injected via JS -->
+                </div>
+            </section>
+
+            <!-- Badges Showcase -->
+            <section class="badges-showcase" id="badges-showcase">
+                <h2 class="gs-center" data-i18n="leaderboard.allBadges">All Badges</h2>
+                <div class="badge-filters gs-center">
+                    <button class="badge-filter active" data-filter="all">All</button>
+                    <button class="badge-filter" data-filter="earned" id="filter-earned"
+                        style="display:none;">Earned</button>
+                    <button class="badge-filter" data-filter="progress" id="filter-progress" style="display:none;">In
+                        Progress</button>
+                </div>
+                <div class="badge-grid" id="badge-grid">
+                    <!-- Injected via JS -->
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- ═══════════════════ FOOTER ═══════════════════ -->
+    <footer class="gs-footer">
+        <div class="gs-footer-inner">
+            <div class="gs-footer-brand">
+                <div class="gs-nav-logo">
+                    <span class="gs-nav-logo-dev">गणित</span>GanitSūtram
+                </div>
+                <p>A mathematical knowledge ecosystem by AITDL.</p>
+            </div>
+            <div class="gs-footer-links">
+                <a href="https://ganitsutram.com">Portal</a>
+            </div>
+        </div>
+        <div class="gs-footer-copy">
+            © GanitSūtram | AITDL | aitdl.com &nbsp;|&nbsp;
+            Vikram Samvat: VS 2082 &nbsp;|&nbsp; Gregorian: 2026-03-07
+            <br>All Rights Reserved. Unauthorized copying, reproduction, redistribution, or reuse of this software,
+            algorithms, or educational content is prohibited without written permission from AITDL.
+        </div>
+    </footer>
+
+    <script src="../../ui-core/js/i18n.js" defer></script>
+    <script src="../../ui-core/js/seo.js" defer></script>
+    <script src="../../ui-core/js/ganit-ui.js" defer></script>
+    <script src="../../ui-core/js/leaderboard.js" defer></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+# Walkthrough - Auth UI Modal System
+
+I have successfully built and verified the **Auth UI Modal System** for GanitSūtram. This system provides a seamless, premium identity experience across the platform.
+
+## Key Features
+
+### 1. Unified Auth Modal
+- A single, high-performance modal for both **Login** and **Registration**.
+- **Tabs**: Smooth switching between forms with subtle fade-in animations.
+- **Visuals**: Backdrop blur, glassmorphism-inspired card, and custom branding.
+
+### 2. Intelligent Registration
+- **Password Strength**: Real-time indicator measuring complexity (score 0-4) with color-coded feedback.
+- **Persona Selection**: Custom-styled role selector for Student, Teacher, Parent, Adult Learner, etc.
+- **Validation**: Robust client-side checks for email format, password matching, and mandatory fields.
+
+### 3. State-Aware Navigation
+- **Guest State**: Shows "Sign In" and "Enter Platform" buttons.
+- **Authenticated State**: Dynamically updates to show a user avatar (initial), truncated email, and a personalized dropdown menu.
+- **Memory-Only Session**: Complies with privacy requirements by storing tokens only in JS memory.
+
+### 4. Toast Notification System
+- Lightweight, slide-in notifications for success and error states.
+- Auto-dismissing after 4 seconds with a smooth slide-out exit.
+
+## Verification Highlights
+
+### Successful Auth Lifecycle
+The full cycle was verified in the browser on a live Vite instance:
+
+1.  **Register**: User `final_test_v4@ganitsutram.com` created with a "Very Strong" password.
+2.  **Navigation Update**: Nav bar immediately reflected the new session.
+3.  **Logout**: Verified token clearing and guest state restoration.
+
+### Media Evidence
+
+![Authenticated State](file:///C:/Users/netma/.gemini/antigravity/brain/225e4aa9-e40c-4bc9-bccf-5e347ee1c5d0/logged_in_state_1772874139035.png)
+*The navigation bar in its authenticated state, showing the user avatar and dropdown menu.*
+
+![Auth Verification Recording](file:///C:/Users/netma/.gemini/antigravity/brain/225e4aa9-e40c-4bc9-bccf-5e347ee1c5d0/auth_ui_final_verification_v4_robust_1772874052172.webp)
+*Recording of the full authentication flow: registration, strength meter, nav update, and toast feedback.*
+
+## Compliance
+- **Attribution**: All files include the mandatory VS 2082 | 2026-03-07 headers.
+- **No Local Storage**: Tokens are strictly handled in memory-only closures within [auth.js](file:///d:/IMP/GitHub/ganitsutram/websites/ui-core/js/auth.js).
+- **UI Core Integration**: Externalized all styles and logic into the platform's shared assets.

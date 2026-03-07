@@ -1,0 +1,224 @@
+/*
+Project: GanitSūtram
+Author: Jawahar R Mallah
+Company: AITDL | aitdl.com
+
+Date:
+Vikram Samvat: VS 2082
+Gregorian: 2026-03-07
+
+Purpose: Solver specific styles.
+         Adaptive forms, pill-chain step visualization, and history layouts.
+*/
+
+/* ─── LAYOUT ───────────────────────────────────────────────── */
+.gs-solver-layout {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 3rem;
+    align-items: start;
+    margin-top: 4rem;
+}
+
+/* ─── FORM ─────────────────────────────────────────────────── */
+.gs-solver-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 3rem;
+    border-radius: 12px;
+}
+
+.gs-form-row {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    transition: opacity 0.3s, transform 0.3s;
+}
+
+.gs-form-row.hidden {
+    display: none;
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.gs-input-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.gs-input-group label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent-soft);
+}
+
+.gs-warning-inline {
+    grid-column: 1 / -1;
+    font-size: 0.75rem;
+    color: #ffb300;
+    margin-top: -1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* ─── RESULT PANEL ─────────────────────────────────────────── */
+.gs-result-area {
+    margin-top: 3rem;
+    padding-top: 3rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.gs-result-header {
+    margin-bottom: 2rem;
+}
+
+.gs-result-title {
+    font-family: var(--font-logo);
+    font-size: 1.5rem;
+}
+
+.gs-result-sutra {
+    font-family: var(--font-main);
+    font-style: italic;
+    color: var(--accent-soft);
+    font-size: 0.9rem;
+}
+
+.gs-equation {
+    font-family: var(--font-mono);
+    font-size: 2rem;
+    color: var(--accent-primary);
+    margin: 2rem 0;
+}
+
+/* Pill Chain */
+.gs-pill-chain {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.gs-pill {
+    background: rgba(124, 58, 237, 0.15);
+    border: 1px solid var(--accent-primary);
+    padding: 0.5rem 1.2rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    color: #fff;
+}
+
+.gs-arrow {
+    color: var(--accent-soft);
+    font-weight: 700;
+}
+
+/* ─── HISTORY LOG ──────────────────────────────────────────── */
+.gs-history-panel {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 2rem;
+    border-radius: 8px;
+}
+
+.gs-history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.gs-history-table {
+    width: 100%;
+    font-size: 0.8rem;
+    border-collapse: collapse;
+}
+
+.gs-history-table th {
+    text-align: left;
+    color: var(--accent-soft);
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.gs-history-table td {
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+/* ─── REFERENCE PANEL ──────────────────────────────────────── */
+.gs-ref-panel {
+    margin-top: 2rem;
+}
+
+.gs-ref-item {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.gs-ref-title {
+    font-weight: 700;
+    color: var(--accent-secondary);
+}
+
+.gs-ref-sutra {
+    display: block;
+    font-size: 0.75rem;
+    font-style: italic;
+    margin: 0.25rem 0;
+}
+
+.gs-ref-desc {
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+/* ─── RESPONSIVE ───────────────────────────────────────────── */
+@media (max-width: 1024px) {
+    .gs-solver-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .gs-solver-card {
+        padding: 1.5rem;
+    }
+
+    .gs-equation {
+        font-size: 1.5rem;
+    }
+
+    .gs-form-row {
+        flex-direction: column;
+    }
+
+    .gs-history-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+@media (max-width: 480px) {
+    .gs-pill-chain {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .gs-hero-title {
+        font-size: clamp(2rem, 8vw, 2.5rem);
+    }
+
+    .gs-solver-layout {
+        margin-top: 2rem;
+    }
+}

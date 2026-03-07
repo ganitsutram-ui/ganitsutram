@@ -1,0 +1,85 @@
+{
+    "errors": {
+        "validation": {
+            "invalidEmail": "Please enter a valid email address.",
+            "weakPassword": "Password must be at least 8 characters with 1 uppercase letter and 1 number.",
+            "passwordMismatch": "Passwords do not match.",
+            "invalidRole": "Please select a valid role.",
+            "requiredField": "This field is required.",
+            "invalidInteger": "Please enter a valid positive integer.",
+            "inputTooLarge": "Input too large. Maximum value is 10¹⁵.",
+            "invalidRange": "Start must be less than end.",
+            "rangeTooLarge": "Range too large. Maximum 10,000 numbers.",
+            "invalidArray": "Please provide a valid list of positive integers.",
+            "arrayTooShort": "Please provide at least 3 numbers.",
+            "arrayTooLong": "Maximum 100 numbers allowed.",
+            "mustEndIn5": "This operation requires a number ending in 5.",
+            "invalidKaprekar": "Please enter a 3 or 4 digit number (not all same digits).",
+            "countTooLarge": "Count must be between 1 and 50.",
+            "invalidToken": "This link is invalid or has expired.",
+            "tokenUsed": "This reset link has already been used.",
+            "tokenExpired": "This reset link has expired. Please request a new one."
+        },
+        "auth": {
+            "invalidCredentials": "Invalid email or password.",
+            "emailExists": "An account with this email already exists.",
+            "userNotFound": "No account found with this email.",
+            "unauthorised": "Please log in to continue.",
+            "forbidden": "You do not have permission to access this.",
+            "sessionExpired": "Your session has expired. Please log in again.",
+            "sessionRevoked": "Your session was revoked. Please log in again.",
+            "tokenReuse": "Security alert: suspicious activity detected. All sessions have been revoked.",
+            "refreshExpired": "Your session has expired. Please log in again."
+        },
+        "solve": {
+            "unknownOperation": "Unknown operation. Please select a valid operation.",
+            "computationFailed": "Computation failed. Please check your input.",
+            "serverError": "Something went wrong. Please try again."
+        },
+        "practice": {
+            "invalidDifficulty": "Please select a valid difficulty level.",
+            "invalidCount": "Count must be between 1 and 15.",
+            "checkFailed": "Answer verification failed. Please try again."
+        },
+        "admin": {
+            "notSchoolRole": "Only school administrators can perform this action.",
+            "schoolExists": "You have already created a school.",
+            "studentNotFound": "No student found with this email.",
+            "notStudent": "Only students can be enrolled.",
+            "alreadyEnrolled": "This student is already enrolled.",
+            "capacityReached": "School capacity reached. Maximum {{cap}} students.",
+            "notYourSchool": "You do not have permission to manage this school."
+        },
+        "rate": {
+            "tooManyRequests": "Too many requests. Please wait {{minutes}} minutes.",
+            "authLimit": "Too many login attempts. Please wait 15 minutes.",
+            "resetLimit": "Too many reset requests. Please wait 1 hour.",
+            "solverLimit": "Solver rate limit reached. Maximum 60 requests per minute.",
+            "beaconLimit": "Beacon rate limit reached."
+        },
+        "general": {
+            "notFound": "The requested resource was not found.",
+            "serverError": "An unexpected error occurred. Please try again.",
+            "payloadTooLarge": "Request body too large. Maximum 10KB.",
+            "offline": "You are offline. Please reconnect."
+        }
+    },
+    "success": {
+        "auth": {
+            "registered": "Account created successfully.",
+            "loggedOut": "Logged out successfully.",
+            "passwordReset": "Password reset successfully. Please log in.",
+            "resetEmailSent": "If that email is registered, a reset link has been sent.",
+            "sessionRevoked": "Session revoked.",
+            "allSessionsRevoked": "All sessions revoked."
+        },
+        "admin": {
+            "schoolCreated": "School created successfully.",
+            "studentEnrolled": "Student enrolled successfully.",
+            "studentRemoved": "Student removed."
+        },
+        "progress": {
+            "cleared": "Progress cleared."
+        }
+    }
+}

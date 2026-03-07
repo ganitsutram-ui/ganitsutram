@@ -1,0 +1,363 @@
+/*
+ * Project: GanitSūtram
+ * Author: Jawahar R Mallah
+ * Company: AITDL | aitdl.com
+ *
+ * Date:
+ * Vikram Samvat: VS 2082
+ * Gregorian: 2026-03-08
+ *
+ * Purpose: Notification system styles — bell icon, dropdown, toast, prefs panel.
+ */
+
+/* ─── BELL ─────────────────────────────────────────────────────────────── */
+.gs-notif-bell {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.gs-bell-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.25rem;
+    position: relative;
+    padding: 4px 6px;
+    border-radius: 8px;
+    color: var(--fg-main, #fff);
+    transition: background 0.15s ease;
+    line-height: 1;
+}
+
+.gs-bell-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* ─── UNREAD BADGE ─────────────────────────────────────────────────────── */
+.gs-bell-badge {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    background: var(--accent-primary, #ff5500);
+    color: #fff;
+    border-radius: 999px;
+    font-size: 0.6rem;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 3px;
+    text-align: center;
+    line-height: 16px;
+    font-family: var(--font-main, 'Inter', sans-serif);
+    font-weight: 700;
+    pointer-events: none;
+}
+
+.gs-bell-badge.hidden {
+    display: none;
+}
+
+/* ─── DROPDOWN ─────────────────────────────────────────────────────────── */
+.gs-notif-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: 360px;
+    max-height: 480px;
+    background: var(--bg-deep, #0a0a0f);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 1000;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    animation: dropdownFadeIn 0.18s ease;
+}
+
+@keyframes dropdownFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.gs-notif-dropdown.hidden {
+    display: none;
+}
+
+.gs-notif-loading {
+    padding: 24px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.85rem;
+}
+
+/* ─── DROPDOWN HEADER ──────────────────────────────────────────────────── */
+.gs-notif-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 16px 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    position: sticky;
+    top: 0;
+    background: var(--bg-deep, #0a0a0f);
+    z-index: 1;
+}
+
+.gs-notif-heading {
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: var(--fg-main, #fff);
+    letter-spacing: 0.02em;
+}
+
+.gs-notif-mark-all {
+    background: none;
+    border: none;
+    color: var(--accent-primary, #ff5500);
+    font-size: 0.75rem;
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 6px;
+    transition: background 0.15s;
+}
+
+.gs-notif-mark-all:hover {
+    background: rgba(255, 85, 0, 0.1);
+}
+
+/* ─── NOTIFICATION ITEMS ───────────────────────────────────────────────── */
+.gs-notif-item {
+    display: flex;
+    gap: 12px;
+    padding: 13px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    cursor: pointer;
+    transition: background 0.15s;
+    align-items: flex-start;
+}
+
+.gs-notif-item:hover {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.gs-notif-item.unread {
+    background: rgba(255, 85, 0, 0.06);
+    border-left: 3px solid var(--accent-primary, #ff5500);
+}
+
+.gs-notif-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    line-height: 1.2;
+    margin-top: 1px;
+}
+
+.gs-notif-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.gs-notif-title {
+    font-weight: 600;
+    font-size: 0.84rem;
+    color: var(--fg-main, #fff);
+    line-height: 1.3;
+}
+
+.gs-notif-body {
+    font-size: 0.77rem;
+    color: rgba(255, 255, 255, 0.55);
+    margin-top: 3px;
+    line-height: 1.4;
+}
+
+.gs-notif-time {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.35);
+    margin-top: 5px;
+}
+
+/* ─── DROPDOWN FOOTER ──────────────────────────────────────────────────── */
+.gs-notif-footer {
+    padding: 12px 16px;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.gs-notif-footer a {
+    color: var(--accent-primary, #ff5500);
+    font-size: 0.8rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: opacity 0.15s;
+}
+
+.gs-notif-footer a:hover {
+    opacity: 0.7;
+}
+
+.gs-notif-empty {
+    padding: 32px 16px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.85rem;
+}
+
+/* ─── TOAST ────────────────────────────────────────────────────────────── */
+.gs-notif-toast {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    background: var(--bg-deep, #0a0a0f);
+    border: 1px solid var(--accent-primary, #ff5500);
+    border-radius: 12px;
+    padding: 14px 18px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    z-index: 9999;
+    max-width: 320px;
+    box-shadow: 0 6px 24px rgba(255, 85, 0, 0.2);
+    animation: slideInRight 0.3s ease;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(110%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.gs-toast-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+}
+
+.gs-toast-title {
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: var(--fg-main, #fff);
+    line-height: 1.3;
+}
+
+.gs-toast-action {
+    font-size: 0.75rem;
+    color: var(--accent-primary, #ff5500);
+    margin-top: 2px;
+}
+
+/* ─── PREFS PANEL ──────────────────────────────────────────────────────── */
+.gs-prefs-panel {
+    padding: 16px;
+}
+
+.gs-prefs-panel h3 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 14px;
+    color: var(--fg-main, #fff);
+    letter-spacing: 0.02em;
+}
+
+.gs-pref-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.84rem;
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    gap: 12px;
+}
+
+.gs-pref-toggle {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 36px;
+    height: 20px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.15);
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0;
+    transition: background 0.2s;
+}
+
+.gs-pref-toggle::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #fff;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.2s;
+}
+
+.gs-pref-toggle:checked {
+    background: var(--accent-primary, #ff5500);
+}
+
+.gs-pref-toggle:checked::after {
+    transform: translateX(16px);
+}
+
+.gs-pref-saved {
+    margin-top: 12px;
+    padding: 8px 12px;
+    background: rgba(0, 200, 100, 0.12);
+    border: 1px solid rgba(0, 200, 100, 0.3);
+    border-radius: 8px;
+    color: #00c864;
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+.gs-pref-saved.hidden {
+    display: none;
+}
+
+/* ─── SCROLLBAR ────────────────────────────────────────────────────────── */
+.gs-notif-dropdown::-webkit-scrollbar {
+    width: 4px;
+}
+
+.gs-notif-dropdown::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.gs-notif-dropdown::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+}
+
+/* ─── MOBILE ───────────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+    .gs-notif-dropdown {
+        width: calc(100vw - 16px);
+        right: -8px;
+        border-radius: 12px 12px 0 0;
+        max-height: 70vh;
+    }
+
+    .gs-notif-toast {
+        right: 8px;
+        left: 8px;
+        max-width: unset;
+        top: 68px;
+    }
+}

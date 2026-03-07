@@ -1,0 +1,11 @@
+
+body { font-family: 'Space Grotesk', sans-serif; font-size: 11pt; line-height: 1.6; }
+h1, h2, h3 { color: #040110; }
+h1, h2 { border-bottom: 1px solid #ff5500; font-weight: bold; }
+table { width: 100%; border-collapse: collapse; margin-bottom: 2em; }
+th, td { border: 1px solid #ddd; padding: 8px; }
+th { background-color: #040110; color: #fff; font-weight: bold; }
+tr:nth-child(even) { background-color: #f9f9f9; }
+pre, code { background-color: #f8f8f8; font-family: monospace; font-size: 9pt; }
+pre { border-left: 3px solid #ff5500; padding: 12px; }
+.cover { background-color: #040110; color: #fff; text-align: center; }

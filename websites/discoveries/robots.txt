@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://discover.ganitsutram.com/sitemap.xml

@@ -1,0 +1,207 @@
+<!--
+GANITSUTRAM PLATFORM
+System Architect: Jawahar R Mallah
+Organization: AITDL | aitdl.com
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="Jawahar R Mallah">
+    <meta name="company" content="AITDL">
+    <meta name="project" content="GanitSūtram">
+
+    <title>GanitSūtram | Platform Analytics</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;400;700;900&family=Syne:wght@400;600;700;800&family=Noto+Serif+Devanagari:wght@300;400;700&family=Space+Grotesk:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    
+    <!-- DNS prefetch -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//api.ganitsutram.com">
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Preload critical font -->
+    <link rel="preload" href="https://fonts.gstatic.com/s/spacegrotesk/v15/V8mQoQDjQSkGpu8Xl10K8t1wX8N1pQ.woff2" as="font" type="font/woff2" crossorigin>
+
+    <style id="gs-critical-css">
+        :root { --bg-deep: #040110; --fg-main: #ffffff; --accent-primary: #ff5500; }
+        body { margin: 0; background: var(--bg-deep); color: var(--fg-main); }
+        .gs-nav { position: fixed; width: 100%; z-index: 100; background: rgba(4,1,16,0.95); }
+    </style>
+
+    <link rel="stylesheet" href="../ui-core/css/main.css">
+    <link rel="stylesheet" href="../ui-core/css/analytics.css">
+
+    <meta name="description" content="Platform Analytics.">
+    <meta name="keywords" content="Vedic mathematics, GanitSūtram, digital root, nikhilam, ancient maths, AITDL, Jawahar R Mallah">
+    <link rel="canonical" href="https://ganitsutram.com/analytics.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="GanitSūtram">
+    <meta property="og:title" content="Analytics | GanitSūtram">
+    <meta property="og:description" content="Platform Analytics.">
+    <meta property="og:url" content="https://ganitsutram.com/analytics.html">
+    <meta property="og:image" content="https://ganitsutram.com/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_IN">
+    <meta property="og:locale:alternate" content="hi_IN">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@aitdl">
+    <meta name="twitter:title" content="Analytics | GanitSūtram">
+    <meta name="twitter:description" content="Platform Analytics.">
+    <meta name="twitter:image" content="https://ganitsutram.com/assets/og-image.png">
+
+</head>
+
+<body class="admin-body" style="display: none;">
+    <a href="#main-content" class="gs-skip-link">Skip to main content</a> <!-- Hidden until auth logic approves admin -->
+
+    <!-- Header -->
+    <header class="gs-header">
+        <div class="gs-nav">
+            <a href="../portal/index.html" class="gs-nav-logo">
+                <span class="gs-nav-logo-dev">गणित</span>GanitSūtram
+            </a>
+            <nav class="nav-links">
+                <a href="../portal/index.html">Portal</a>
+                <a href="../learning/index.html">Learning</a>
+                <a href="https://solve.ganitsutram.com">Solver</a>
+                <div class="nav-right" id="authNavRight">
+                    <!-- Populated by auth.js -->
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Realtime HUD -->
+    <div class="realtime-strip">
+        <div class="realtime-header">
+            <span class="pulse-dot"></span> LIVE TELEMETRY
+        </div>
+        <div class="rt-grid" id="realtimeStats">
+            Loading real-time signal...
+        </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <main class="dashboard-wrap">
+
+        <div class="dashboard-header">
+            <div>
+                <h1 style="font-family: var(--font-primary); font-size: 2rem; margin-bottom: 0.5rem;">Platform Analytics
+                    <span
+                        style="font-size:0.5em; background:var(--color-primary); color:#000; padding:2px 8px; border-radius:4px; vertical-align:middle; font-weight:700;">ADMIN</span>
+                </h1>
+                <p style="color:var(--color-fg-muted);">Real-time usage metrics and progression geometry.</p>
+            </div>
+            <div class="dashboard-controls">
+                <select id="periodSelect" class="gs-input" style="width: auto;">
+                    <option value="7">Last 7 Days</option>
+                    <option value="30" selected>Last 30 Days</option>
+                    <option value="90">Last 90 Days</option>
+                </select>
+                <button id="btnRefresh" class="gs-btn">Refresh &rarr;</button>
+                <label class="toggle-label"><input type="checkbox" id="realtimeToggle" checked> Auto-sync</label>
+            </div>
+        </div>
+
+        <!-- Summary Row -->
+        <section class="summary-grid" id="summaryGrid">
+            <!-- JS populated -->
+        </section>
+
+        <!-- Charts Grid 1 -->
+        <div class="charts-row">
+            <div class="chart-card">
+                <h3>Daily Active Users</h3>
+                <div class="chart-container" id="dauChart"></div>
+            </div>
+            <div class="chart-card">
+                <h3>New User Registrations</h3>
+                <div class="chart-container" id="newUsersChart"></div>
+            </div>
+        </div>
+
+        <div class="charts-row">
+            <div class="chart-card">
+                <h3>Vedic Solves Volume</h3>
+                <div class="chart-container" id="solvesChart"></div>
+            </div>
+            <div class="chart-card" style="display: flex; flex-direction:column;">
+                <h3>Practice Accuracy</h3>
+                <div id="accuracyGauge" class="accuracy-panel"></div>
+            </div>
+        </div>
+
+        <!-- Tables -->
+        <div class="charts-row" style="grid-template-columns: 2fr 1fr;">
+            <div class="chart-card">
+                <h3>Top Operations</h3>
+                <table class="gs-table">
+                    <thead>
+                        <tr>
+                            <th>Rank</th>
+                            <th>Operation</th>
+                            <th>Total Calls</th>
+                            <th>Volume Share</th>
+                        </tr>
+                    </thead>
+                    <tbody id="topOpsTable"></tbody>
+                </table>
+            </div>
+            <div class="chart-card">
+                <h3>Event Distribution</h3>
+                <table class="gs-table">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Count</th>
+                        </tr>
+                    </thead>
+                    <tbody id="eventsTable"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Hourly -->
+        <div class="charts-row">
+            <div class="chart-card">
+                <h3>Hourly Activity Heatmap (24H)</h3>
+                <div class="chart-container" id="hourlyChart"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="gs-footer">
+        <div class="gs-footer-inner">
+            <div class="gs-footer-brand">
+                <div class="gs-nav-logo">
+                    <span class="gs-nav-logo-dev">गणित</span>GanitSūtram
+                </div>
+                <p>Decoding the mathematical universe through Vedic insights.</p>
+            </div>
+        </div>
+        <div class="gs-footer-copy">
+            © GanitSūtram | AITDL | aitdl.com &nbsp;|&nbsp;
+            Vikram Samvat: VS 2082 &nbsp;|&nbsp; Gregorian: 2026-03-07
+            <br>All Rights Reserved.
+        </div>
+    </footer>
+
+    <script src="../../ui-core/js/seo.js" defer></script>
+    <script src="../ui-core/js/ganit-ui.js" defer></script>
+    <script src="../ui-core/js/auth.js" defer></script>
+    <script src="../ui-core/js/analytics.js" defer></script>
+</body>
+
+</html>

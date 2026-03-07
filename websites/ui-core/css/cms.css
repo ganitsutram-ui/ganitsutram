@@ -1,0 +1,462 @@
+/**
+ * Project: GanitSūtram
+ * Author: Jawahar R Mallah
+ * Company: AITDL | aitdl.com
+ * 
+ * Date:
+ * Vikram Samvat: VS 2082
+ * Gregorian: 2026-03-07
+ * 
+ * Purpose: Styling for the Content Management System (CMS).
+ */
+
+/* Layout */
+.gs-admin-body {
+    background: var(--bg-dark);
+    color: var(--text-light);
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.cms-layout {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* Topbar */
+.cms-topbar {
+    background: #0a0a0a;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.75rem 1.5rem;
+    z-index: 100;
+}
+
+.cms-topbar-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cms-brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.cms-top-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.cms-back-link {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.cms-back-link:hover {
+    color: var(--accent);
+}
+
+.cms-user-pill {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Sidebar */
+.cms-sidebar {
+    width: 280px;
+    background: #0f0f0f;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    overflow-y: auto;
+}
+
+.cms-label {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+}
+
+.cms-filter-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.cms-filter-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    text-align: left;
+    padding: 0.6rem 0.8rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+}
+
+.cms-filter-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-light);
+}
+
+.cms-filter-btn.active {
+    background: var(--accent);
+    color: #000;
+    font-weight: 600;
+}
+
+.cms-select,
+.cms-input,
+.cms-textarea-sm,
+.cms-textarea-lg {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding: 0.6rem 0.8rem;
+    border-radius: 6px;
+    font-family: inherit;
+    transition: border-color 0.3s;
+}
+
+.cms-select:focus,
+.cms-input:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+/* Main Table Area */
+.cms-main-content {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+    position: relative;
+    background: #050505;
+}
+
+.cms-table-wrapper {
+    background: #0f0f0f;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+}
+
+.cms-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.cms-table th {
+    text-align: left;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.02);
+    color: var(--text-muted);
+    font-weight: 500;
+    font-size: 0.85rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cms-table td {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cms-table tr:hover {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.cms-pill {
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.cms-pill-published {
+    background: #2ecc7133;
+    color: #2ecc71;
+}
+
+.cms-pill-draft {
+    background: #f1c40f33;
+    color: #f1c40f;
+}
+
+.cms-pill-featured {
+    border: 1px solid var(--accent);
+    color: var(--accent);
+}
+
+.cms-actions-cell {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+/* Modal / Editor Overlay */
+.cms-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cms-editor-panel {
+    width: 95vw;
+    height: 90vh;
+    background: #0d0d0d;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.cms-editor-header {
+    padding: 1rem 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #111;
+}
+
+.cms-editor-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 2rem;
+}
+
+.cms-form-grid {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 3rem;
+}
+
+.cms-editor-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-right: 2rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cms-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.cms-field label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.cms-field-inline {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.cms-title-fld {
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: transparent !important;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 0 !important;
+    padding-left: 0 !important;
+}
+
+.cms-title-fld:focus {
+    border-color: var(--accent) !important;
+}
+
+/* Tabs */
+.cms-tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cms-tab-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    padding: 0.75rem 0;
+    cursor: pointer;
+    font-weight: 500;
+    position: relative;
+    font-family: var(--font-syne);
+}
+
+.cms-tab-btn.active {
+    color: var(--accent);
+}
+
+.cms-tab-btn.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--accent);
+}
+
+/* Markdown Editor & Preview */
+.cms-md-container {
+    background: #161616;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+}
+
+.cms-md-toolbar {
+    background: #1f1f1f;
+    padding: 0.5rem;
+    display: flex;
+    gap: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cms-md-toolbar button {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.cms-md-toolbar button:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.cms-md-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 400px;
+}
+
+.cms-textarea-lg {
+    border: none !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 0 !important;
+    resize: none;
+    height: 100%;
+    background: #1a1a1a !important;
+    padding: 1.5rem !important;
+    font-family: 'Space Grotesk', monospace;
+    line-height: 1.6;
+}
+
+.cms-preview-panel {
+    padding: 1.5rem;
+    overflow-y: auto;
+    background: #0d0d0d;
+}
+
+/* Revision History List */
+.cms-rev-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.8rem;
+}
+
+.cms-rev-item {
+    padding: 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.cms-rev-meta {
+    color: var(--text-muted);
+}
+
+.cms-rev-summary {
+    color: var(--accent);
+}
+
+/* Media List */
+.cms-media-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.cms-media-row {
+    display: grid;
+    grid-template-columns: 120px 1fr 60px;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 0.5rem;
+    border-radius: 6px;
+}
+
+/* Loader */
+.cms-placeholder {
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.gs-loader {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: gs-spin 1s linear infinite;
+}
+
+@keyframes gs-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Language Script Overrides */
+.font-hi {
+    font-family: 'Noto Serif Devanagari', serif !important;
+}
+
+.font-sa {
+    font-family: 'Noto Serif Devanagari', serif !important;
+}

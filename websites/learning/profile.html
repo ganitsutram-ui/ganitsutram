@@ -1,0 +1,234 @@
+<!--
+GANITSUTRAM PLATFORM
+System Architect: Jawahar R Mallah
+Organization: AITDL | aitdl.com
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- RULE: These three meta tags are mandatory on every HTML page -->
+    <meta name="author" content="Jawahar R Mallah">
+    <meta name="company" content="AITDL">
+    <meta name="project" content="GanitSūtram">
+
+    <title>GanitSūtram | My Profile & Progress</title>
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;400;700;900&family=Syne:wght@400;600;700;800&family=Noto+Serif+Devanagari:wght@300;400;700&family=Space+Grotesk:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- RULE: Always link to ui-core, never write local styles -->
+    
+    <!-- DNS prefetch -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//api.ganitsutram.com">
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Preload critical font -->
+    <link rel="preload" href="https://fonts.gstatic.com/s/spacegrotesk/v15/V8mQoQDjQSkGpu8Xl10K8t1wX8N1pQ.woff2" as="font" type="font/woff2" crossorigin>
+
+    <style id="gs-critical-css">
+        :root { --bg-deep: #040110; --fg-main: #ffffff; --accent-primary: #ff5500; }
+        body { margin: 0; background: var(--bg-deep); color: var(--fg-main); }
+        .gs-nav { position: fixed; width: 100%; z-index: 100; background: rgba(4,1,16,0.95); }
+    </style>
+
+    <link rel="stylesheet" href="../ui-core/css/main.css">
+    <link rel="stylesheet" href="../ui-core/css/profile.css">
+    <link rel="stylesheet" href="../ui-core/css/auth.css">
+
+    <meta name="description" content="Your learning profile.">
+    <meta name="keywords" content="Vedic mathematics, GanitSūtram, digital root, nikhilam, ancient maths, AITDL, Jawahar R Mallah">
+    <link rel="canonical" href="https://learn.ganitsutram.com/profile.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="GanitSūtram">
+    <meta property="og:title" content="Profile | GanitSūtram">
+    <meta property="og:description" content="Your learning profile.">
+    <meta property="og:url" content="https://learn.ganitsutram.com/profile.html">
+    <meta property="og:image" content="https://ganitsutram.com/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_IN">
+    <meta property="og:locale:alternate" content="hi_IN">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@aitdl">
+    <meta name="twitter:title" content="Profile | GanitSūtram">
+    <meta name="twitter:description" content="Your learning profile.">
+    <meta name="twitter:image" content="https://ganitsutram.com/assets/og-image.png">
+
+</head>
+
+<body class="profile-body">
+    <a href="#main-content" class="gs-skip-link">Skip to main content</a>
+
+    <!-- ══════════════════ HEADER ══════════════════ -->
+    <header class="gs-header">
+        <div class="gs-nav">
+            <a href="../portal/index.html" class="gs-nav-logo">
+                <span class="gs-nav-logo-dev">गणित</span>GanitSūtram
+            </a>
+            <nav class="nav-links">
+                <a href="../portal/index.html">Portal</a>
+                <a href="../learning/index.html">Learning</a>
+                <a href="https://solve.ganitsutram.com">Solver</a>
+                <div class="nav-right">
+                    <!-- Populated by auth.js -->
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ══════════════════ CONTENT ══════════════════ -->
+    <main class="profile-container">
+
+        <!-- Profile Header Section -->
+        <section id="profileHeader" class="profile-header">
+            <div class="history-empty">Loading profile...</div>
+        </section>
+
+        <!-- Achievement Badges -->
+        <section class="badges-section">
+            <h2 class="section-title">🏆 Achievement Badges</h2>
+            <div id="badgesRow" class="badges-row">
+                <!-- Populated by profile.js -->
+            </div>
+        </section>
+
+        <!-- Stats Row -->
+        <section id="statsGrid" class="stats-grid">
+            <!-- Populated by profile.js -->
+        </section>
+
+        <div class="panels-grid">
+            <!-- Mastery Panel -->
+            <section class="panel">
+                <h2 class="section-title">🔥 Operation Mastery</h2>
+                <div id="masteryList">
+                    <!-- Populated by profile.js -->
+                </div>
+            </section>
+
+            <!-- Practice Panel -->
+            <section class="panel">
+                <h2 class="section-title">🎯 Practice Performance</h2>
+                <div id="practicePanel">
+                    <!-- Populated by profile.js -->
+                </div>
+                <div style="margin-top: 1.5rem; text-align: center;">
+                    <a href="practice.html" class="btn-logout"
+                        style="text-decoration: none; border-color: var(--profile-accent); color: var(--profile-accent);">Go
+                        to Practice Arena &rarr;</a>
+                </div>
+            </section>
+        </div>
+
+        <!-- Active Sessions -->
+        <section id="sessionsPanel" class="history-panel" style="margin-bottom: 2rem;">
+            <div class="history-header-wrap">
+                <h2 class="section-title">🛡️ Active Sessions</h2>
+                <button id="btnRevokeAllSessions" class="btn-clear"
+                    style="border-color: #ef4444; color: #ef4444;">Revoke All Others</button>
+            </div>
+            <div class="history-table-container">
+                <table class="gs-table">
+                    <thead>
+                        <tr>
+                            <th>Device</th>
+                            <th>IP Hint</th>
+                            <th>Issued At</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sessionsTableBody">
+                        <tr>
+                            <td colspan="4" class="history-empty">Loading sessions...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Solve History -->
+        <section id="progress" class="history-panel">
+            <div class="history-header-wrap">
+                <h2 class="section-title">🕒 Solve History</h2>
+                <button id="btnClearHistory" class="btn-clear">Clear History</button>
+            </div>
+            <div class="history-table-container">
+                <table class="gs-table">
+                    <thead>
+                        <tr>
+                            <th>Operation</th>
+                            <th>Input(s)</th>
+                            <th>Result</th>
+                            <th>Solved At</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyTableBody">
+                        <!-- Populated by profile.js -->
+                    </tbody>
+                </table>
+            </div>
+            <button id="btnLoadMore" class="btn-load-more" style="display: none;">Load More</button>
+        </section>
+
+        <!-- Learning Path -->
+        <section class="learning-path-section">
+            <h2 class="section-title">🗺️ Your Learning Path</h2>
+            <div id="learningPathList">
+                <!-- Populated by profile.js -->
+            </div>
+            <div style="margin-top: 2rem; text-align: center;">
+                <a href="index.html" class="btn-logout" style="text-decoration: none;">Continue Learning &rarr;</a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ══════════════════ FOOTER ══════════════════ -->
+    <footer class="gs-footer">
+        <div class="gs-footer-inner">
+            <div class="gs-footer-brand">
+                <div class="gs-nav-logo">
+                    <span class="gs-nav-logo-dev">गणित</span>GanitSūtram
+                </div>
+                <p>Decoding the mathematical universe through Vedic insights.</p>
+            </div>
+            <div class="gs-footer-links">
+                <a href="../portal/index.html">Portal</a>
+                <a href="../portal/api-docs.html">API Docs</a>
+                <a href="index.html">Learning</a>
+                <a href="https://solve.ganitsutram.com">Solver</a>
+            </div>
+        </div>
+        <div class="gs-footer-copy">
+            © GanitSūtram | AITDL | aitdl.com &nbsp;|&nbsp;
+            Vikram Samvat: VS 2082 &nbsp;|&nbsp; Gregorian: 2026-03-07
+            <br>All Rights Reserved.
+        </div>
+    </footer>
+
+    <!-- Auth Modal Container (mandatory for pages using auth.js) -->
+    <div id="gs-auth-overlay" class="gs-auth-overlay">
+        <!-- Structure handled by auth.js/auth.css if needed, but usually pre-defined in HTML -->
+        <!-- For this page, we assume user is already logged in, but we include it for safety -->
+    </div>
+
+    <!-- RULE: Always link to ui-core scripts, not local JS -->
+    <script src="../../ui-core/js/seo.js" defer></script>
+    <script src="../ui-core/js/ganit-ui.js" defer></script>
+    <script src="../ui-core/js/auth.js" defer></script>
+    <script src="../ui-core/js/profile.js" defer></script>
+
+</body>
+
+</html>

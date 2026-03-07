@@ -1,0 +1,59 @@
+/*
+Project: GanitSūtram
+Author: Jawahar R Mallah
+Company: AITDL | aitdl.com
+
+Purpose: i18n Script-specific & Switcher Styles
+*/
+
+/* Language Switcher */
+.gs-lang-switcher {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-right: 1.5rem;
+}
+
+.gs-lang-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.8rem;
+    font-family: var(--font-main, sans-serif);
+    padding: 0.2rem 0.5rem;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.gs-lang-btn:hover {
+    color: #fff;
+    border-color: rgba(255, 85, 0, 0.5);
+    box-shadow: 0 0 8px rgba(255, 85, 0, 0.2);
+}
+
+.gs-lang-btn.active {
+    background: #ff5500;
+    color: #fff;
+    border-color: #ff5500;
+}
+
+/* Devanagari font boost */
+[lang="hi"] body,
+[lang="sa-Deva"] body {
+    font-family: var(--font-ancient), var(--font-main);
+    line-height: 1.8;
+    /* Devanagari needs more line height */
+}
+
+/* Hindi/Sanskrit larger base font */
+[lang="hi"] p,
+[lang="sa-Deva"] p {
+    font-size: 1.05rem;
+}
+
+/* Ensure Devanagari renders in correct font limit */
+[data-i18n]:lang(hi),
+[data-i18n]:lang(sa-Deva) {
+    font-family: var(--font-ancient);
+}

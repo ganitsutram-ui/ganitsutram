@@ -1,0 +1,109 @@
+/**
+ * Project: GanitSūtram
+ * Author: Jawahar R Mallah
+ * Company: AITDL | aitdl.com
+ * 
+ * Date:
+ * Vikram Samvat: VS 2082
+ * Gregorian: 2026-03-07
+ * 
+ * Purpose: Express router for the gamification ecosystem.
+ */
+
+const express = require('express');
+const router = express.Router();
+const { requireAuth } = require('../auth/auth-middleware');
+const leaderboardService = require('../services/leaderboard-service');
+const badgeService = require('../services/badge-service');
+const { errorResponse } = require('../services/i18n-service');
+
+const ATTRIBUTION = "GanitSūtram | AITDL";
+
+/**
+ * GET /api/leaderboard
+ * Public endpoint exposing ranked users
+ */
+router.get('/', (req, res) => {
+    try {
+        const type = req.query.type || 'global';
+        const limit = parseInt(req.query.limit) || 25;
+        const offset = parseInt(req.query.offset) || 0;
+
+        const data = leaderboardService.getLeaderboard(type, limit, offset);
+
+        res.status(200).json({
+            type,
+            total: data.length, // Not actual total, but array length
+            leaderboard: data,
+            generatedAt: new Date().toISOString(),
+            attribution: ATTRIBUTION
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json(errorResponse(req.locale, 'errors.general.serverError'));
+    }
+});
+
+/**
+ * GET /api/leaderboard/me
+ * Protected endpoint returning user rank and badge progress
+ */
+router.get('/me', requireAuth, (req, res) => {
+    try {
+        const userId = req.user.userId;
+        const rank = leaderboardService.getUserRank(userId) || { rankGlobal: null, rankWeekly: null, totalPoints: 0, weeklyPoints: 0, percentile: 100 };
+        const pointHistory = leaderboardService.getPointHistory(userId, 20);
+
+        const stats = leaderboardService.gatherUserStats(userId);
+        const earnedBadgesData = badgeService.getUserBadges(userId);
+        const badgeProgress = badgeService.getBadgeProgress(userId, stats).filter(bp => !bp.earned);
+        const badges = earnedBadgesData.map(ub => ({
+            ...badgeService.getBadgeById(ub.badge_id),
+            earned_at: ub.earned_at
+        }));
+
+        res.status(200).json({
+            rank,
+            pointHistory,
+            badges,
+            badgeProgress,
+            attribution: ATTRIBUTION
+        });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json(errorResponse(req.locale, 'errors.general.serverError'));
+    }
+});
+
+/**
+ * POST /api/leaderboard/display-name
+ * Protected endpoint for updating alias
+ */
+router.post('/display-name', requireAuth, (req, res) => {
+    try {
+        const { displayName } = req.body;
+        const alias = leaderboardService.setDisplayName(req.user.userId, displayName);
+
+        res.status(200).json({
+            displayName: alias,
+            attribution: ATTRIBUTION
+        });
+    } catch (err) {
+        res.status(400).json({ error: err.message || "Failed to set display name" });
+    }
+});
+
+/**
+ * GET /api/leaderboard/badges
+ * Public endpoint exposing all possible badges
+ */
+router.get('/badges', (req, res) => {
+    const badges = badgeService.getAllBadges();
+    res.status(200).json({
+        badges,
+        total: badges.length,
+        attribution: ATTRIBUTION
+    });
+});
+
+module.exports = router;

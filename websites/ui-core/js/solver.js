@@ -1,0 +1,316 @@
+/*
+Project: GanitSūtram
+Author: Jawahar R Mallah
+Company: AITDL | aitdl.com
+
+Date:
+Vikram Samvat: VS 2082
+Gregorian: 2026-03-07
+
+Purpose: Advanced Solver interactive logic.
+         Dynamic concepts, adaptive inputs, and history tracking.
+*/
+
+(function () {
+    'use strict';
+
+    const API_BASE = window.location.hostname === 'localhost'
+        ? 'http://localhost:3000/api'
+        : 'https://api.ganitsutram.com/api';
+
+    const API_SOLVE = `${API_BASE}/solve`;
+    const API_CONCEPTS = `${API_BASE}/concepts`;
+
+    let conceptData = [];
+    let history = [];
+    let lastResultData = null;
+    let lastResultConcept = null;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        loadConcepts();
+        initForm();
+    });
+
+    /**
+     * Fetches and populates mathematical concepts.
+     */
+    async function loadConcepts() {
+        try {
+            const res = await fetch(API_CONCEPTS);
+            if (!res.ok) throw new Error();
+            conceptData = await res.json();
+        } catch (err) {
+            console.error("Using static fallback for concepts.");
+            conceptData = getFallbackConcepts();
+        }
+        renderSelectors();
+        renderReference();
+    }
+
+    /**
+     * Initializes the solver form and input switching logic.
+     */
+    function initForm() {
+        const selector = document.getElementById('op-selector');
+        const form = document.getElementById('solver-form');
+        const clearHistory = document.getElementById('clear-history');
+
+        if (!selector) return;
+
+        selector.addEventListener('change', (e) => {
+            const opId = e.target.value;
+            const concept = conceptData.find(c => c.operations && c.operations.includes(opId)) ||
+                conceptData.find(c => c.id === opId.split('-steps')[0]);
+            toggleInputs(concept);
+            validateInputs();
+        });
+
+        form.addEventListener('submit', handleSolve);
+
+        if (clearHistory) {
+            clearHistory.addEventListener('click', () => {
+                history = [];
+                renderHistory();
+            });
+        }
+
+        document.addEventListener('ganit:locale:changed', () => {
+            if (lastResultData && lastResultConcept) {
+                renderResult(lastResultData, lastResultConcept);
+            }
+            if (history.length > 0) {
+                renderHistory();
+            }
+        });
+
+        // Live validation listeners
+        ['input-num', 'input-a', 'input-b'].forEach(id => {
+            document.getElementById(id)?.addEventListener('input', validateInputs);
+        });
+    }
+
+    /**
+     * Toggles between single, dual, and sequence input UI.
+     */
+    function toggleInputs(concept) {
+        const rowSingle = document.getElementById('row-single');
+        const rowDual = document.getElementById('row-dual');
+        const rowSeq = document.getElementById('row-sequence');
+
+        // Hide all first
+        [rowSingle, rowDual, rowSeq].forEach(r => r && r.classList.add('hidden'));
+
+        const inputType = concept ? (concept.inputType || 'integer') : 'integer';
+        const inputs = concept ? concept.inputs : 1;
+
+        if (inputType === 'sequence') {
+            rowSeq && rowSeq.classList.remove('hidden');
+        } else if (inputs === 2) {
+            rowDual && rowDual.classList.remove('hidden');
+        } else {
+            rowSingle && rowSingle.classList.remove('hidden');
+        }
+    }
+
+    /**
+     * Handles the mathematical solver request.
+     */
+    async function handleSolve(e) {
+        e.preventDefault();
+        if (!validateInputs()) return;
+
+        const selector = document.getElementById('op-selector');
+        const operation = selector.value;
+        const opId = operation.split('-steps')[0];
+        const concept = conceptData.find(c => c.id === opId);
+        const form = document.getElementById('solver-form');
+        const submitBtn = form.querySelector('button[type="submit"]');
+
+        const body = { operation };
+        if (concept && concept.inputType === 'sequence') {
+            const seqInput = document.getElementById('input-seq');
+            body.input = seqInput ? seqInput.value : '';
+        } else if (concept && concept.inputs === 2) {
+            body.inputA = document.getElementById('input-a').value;
+            body.inputB = document.getElementById('input-b').value;
+        } else {
+            body.input = document.getElementById('input-num').value;
+        }
+
+        try {
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Computing...';
+
+            const res = await fetch(API_SOLVE, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            });
+
+            const data = await res.json();
+            if (!res.ok) throw new Error(data.error || "Internal Error");
+
+            lastResultData = data;
+            lastResultConcept = concept;
+
+            renderResult(data, concept);
+            addToHistory(data, concept);
+
+        } catch (err) {
+            alert(`Error: ${err.message}`);
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Solve Equation';
+        }
+    }
+
+    /**
+     * Performs inline validation and warnings.
+     */
+    function validateInputs() {
+        const selector = document.getElementById('op-selector');
+        const op = selector.value;
+        const warning = document.getElementById('gs-warning');
+        warning.innerHTML = '';
+
+        const singleVal = document.getElementById('input-num').value;
+        const aval = document.getElementById('input-a').value;
+        const bval = document.getElementById('input-b').value;
+
+        if (op.startsWith('squares-ending-5')) {
+            if (singleVal && singleVal % 10 !== 5) {
+                warning.innerHTML = '⚠️ Number must end in 5 for this sutra.';
+            }
+        }
+
+        if (op.startsWith('nikhilam')) {
+            if (aval && bval) {
+                const baseA = Math.pow(10, Math.ceil(Math.log10(aval)));
+                const baseB = Math.pow(10, Math.ceil(Math.log10(bval)));
+                if (baseA !== baseB) {
+                    warning.innerHTML = '⚠️ Nikhilam works best for numbers near the SAME power of 10.';
+                }
+            }
+        }
+
+        return true; // Form submission will trigger native browser required check too
+    }
+
+    /**
+     * Renders result panel.
+     */
+    function renderResult(data, concept) {
+        const area = document.getElementById('result-area');
+        area.classList.remove('hidden');
+
+        document.getElementById('res-title').textContent = concept.title;
+        document.getElementById('res-sutra').textContent = concept.sutra;
+
+        let eq = '';
+        if (data.inputA !== undefined) {
+            eq = `${window.GanitI18n.formatResult(data.inputA)} × ${window.GanitI18n.formatResult(data.inputB)} = ${window.GanitI18n.formatResult(data.result)}`;
+        } else {
+            const symbol = concept.id === 'squares-ending-5' ? '²' : ' × 11';
+            eq = `${window.GanitI18n.formatResult(data.input)}${symbol} = ${window.GanitI18n.formatResult(data.result)}`;
+        }
+        document.getElementById('res-eq').textContent = eq;
+
+        // Steps
+        const chain = document.getElementById('res-steps');
+        chain.innerHTML = '';
+        if (data.steps) {
+            data.steps.forEach((s, i) => {
+                const pill = document.createElement('div');
+                pill.className = 'gs-pill';
+                pill.textContent = String(s).replace(/\d+/g, match => window.GanitI18n.formatResult(match));
+                chain.appendChild(pill);
+                if (i < data.steps.length - 1) {
+                    const arrow = document.createElement('span');
+                    arrow.className = 'gs-arrow';
+                    arrow.textContent = '→';
+                    chain.appendChild(arrow);
+                }
+            });
+        }
+    }
+
+    function addToHistory(data, concept) {
+        const entry = {
+            op: concept.title,
+            sutra: concept.sutra,
+            inputA: data.inputA,
+            inputB: data.inputB,
+            input: data.input,
+            result: data.result,
+            time: new Date()
+        };
+        history.unshift(entry);
+        if (history.length > 10) history.pop();
+        renderHistory();
+    }
+
+    function renderHistory() {
+        const tbody = document.getElementById('history-body');
+        tbody.innerHTML = history.map(h => {
+            const histInput = h.inputA !== undefined
+                ? `${window.GanitI18n.formatResult(h.inputA)} × ${window.GanitI18n.formatResult(h.inputB)}`
+                : window.GanitI18n.formatResult(h.input);
+            return `
+            <tr>
+                <td>${h.op}</td>
+                <td>${histInput}</td>
+                <td style="color:var(--accent-primary)">${window.GanitI18n.formatResult(h.result)}</td>
+                <td>${h.sutra}</td>
+                <td style="opacity:0.5">${window.GanitI18n.formatDate(h.time.toISOString())}</td>
+            </tr>
+        `}).join('');
+    }
+
+    function renderSelectors() {
+        const selector = document.getElementById('op-selector');
+        let html = '';
+
+        const singles = conceptData.filter(c => c.inputs === 1);
+        const duals = conceptData.filter(c => c.inputs === 2);
+
+        html += `<optgroup label="Single Input">`;
+        singles.forEach(c => {
+            html += `<option value="${c.operations[0]}">${c.title}</option>`;
+            html += `<option value="${c.operations[1]}">${c.title} + Steps</option>`;
+        });
+        html += `</optgroup>`;
+
+        html += `<optgroup label="Dual Input">`;
+        duals.forEach(c => {
+            html += `<option value="${c.operations[0]}">${c.title}</option>`;
+            html += `<option value="${c.operations[1]}">${c.title} + Steps</option>`;
+        });
+        html += `</optgroup>`;
+
+        selector.innerHTML = html;
+    }
+
+    function renderReference() {
+        const container = document.getElementById('ref-container');
+        container.innerHTML = conceptData.map(c => `
+            <div class="gs-ref-item">
+                <div class="gs-ref-title">${c.title}</div>
+                <span class="gs-ref-sutra">${c.sutra}</span>
+                <p class="gs-ref-desc">${c.desc}</p>
+                <div style="font-size:0.7rem; color:var(--accent-primary); margin-top:0.5rem">
+                    Inputs: ${c.inputs}
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function getFallbackConcepts() {
+        return [
+            { "id": "digital-root", "title": "Digital Root", "sutra": "Beejank", "desc": "Reduce any number to a single digit.", "inputs": 1, "operations": ["digital-root", "digital-root-steps"] },
+            { "id": "squares-ending-5", "title": "Squares Ending in 5", "sutra": "Ekadhikena Purvena", "desc": "Instantly square any number ending in 5.", "inputs": 1, "operations": ["squares-ending-5", "squares-ending-5-steps"] },
+            { "id": "multiply-by-11", "title": "Multiply by 11", "sutra": "Vedic 11x Pattern", "desc": "Multiply any number by 11 using digit bridging.", "inputs": 1, "operations": ["multiply-by-11", "multiply-by-11-steps"] },
+            { "id": "nikhilam", "title": "Nikhilam", "sutra": "Nikhilam Navatashcaramam Dashatah", "desc": "Multiply numbers near a power-of-10 base.", "inputs": 2, "operations": ["nikhilam", "nikhilam-steps"] },
+            { "id": "urdhva", "title": "Urdhva Tiryak", "sutra": "Urdhva Tiryagbhyam", "desc": "General multiplication vertically and crosswise.", "inputs": 2, "operations": ["urdhva", "urdhva-steps"] }
+        ];
+    }
+})();

@@ -1,0 +1,162 @@
+<!--
+GANITSUTRAM PLATFORM
+System Architect: Jawahar R Mallah
+Organization: AITDL | aitdl.com
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- RULE: These three meta tags are mandatory on every HTML page -->
+    <meta name="author" content="Jawahar R Mallah">
+    <meta name="company" content="AITDL">
+    <meta name="project" content="GanitSūtram">
+
+    
+    
+    
+
+    <title>GanitSūtram | API Reference v1.0</title>
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;400;700;900&family=DM+Serif+Display:ital@0;1&family=Syne:wght@400;600;700;800&family=Noto+Serif+Devanagari:wght@300;400;700&family=Space+Grotesk:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Highlight.js (atom-one-dark — no npm) -->
+    
+    <!-- DNS prefetch -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//api.ganitsutram.com">
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Preload critical font -->
+    <link rel="preload" href="https://fonts.gstatic.com/s/spacegrotesk/v15/V8mQoQDjQSkGpu8Xl10K8t1wX8N1pQ.woff2" as="font" type="font/woff2" crossorigin>
+
+    <style id="gs-critical-css">
+        :root { --bg-deep: #040110; --fg-main: #ffffff; --accent-primary: #ff5500; }
+        body { margin: 0; background: var(--bg-deep); color: var(--fg-main); }
+        .gs-nav { position: fixed; width: 100%; z-index: 100; background: rgba(4,1,16,0.95); }
+    </style>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js" async></script>
+
+    <!-- RULE: Always link to ui-core, never write local styles -->
+    <link rel="stylesheet" href="../ui-core/css/main.css">
+    <link rel="stylesheet" href="../ui-core/css/api-docs.css">
+
+    <meta name="description" content="API Documentation.">
+    <meta name="keywords" content="Vedic mathematics, GanitSūtram, digital root, nikhilam, ancient maths, AITDL, Jawahar R Mallah">
+    <link rel="canonical" href="https://ganitsutram.com/api-docs.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="GanitSūtram">
+    <meta property="og:title" content="API Docs | GanitSūtram">
+    <meta property="og:description" content="API Documentation.">
+    <meta property="og:url" content="https://ganitsutram.com/api-docs.html">
+    <meta property="og:image" content="https://ganitsutram.com/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_IN">
+    <meta property="og:locale:alternate" content="hi_IN">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@aitdl">
+    <meta name="twitter:title" content="API Docs | GanitSūtram">
+    <meta name="twitter:description" content="API Documentation.">
+    <meta name="twitter:image" content="https://ganitsutram.com/assets/og-image.png">
+
+</head>
+
+<body class="gs-docs-body">
+    <a href="#main-content" class="gs-skip-link">Skip to main content</a>
+
+    <!-- ══════════════════ TOPBAR ══════════════════ -->
+    <header class="docs-topbar">
+        <div class="docs-topbar-left">
+            <button class="docs-menu-toggle" id="docs-menu-toggle" title="Toggle nav">☰</button>
+            <a href="https://ganitsutram.com" class="docs-logo">
+                <span class="docs-logo-dev">गणित</span>GanitSūtram API
+            </a>
+            <span class="docs-version-badge">v1.0</span>
+        </div>
+        <div class="docs-topbar-right">
+            <a href="https://github.com/aitdl/ganitsutram" target="_blank" rel="noopener" class="docs-topbar-link"
+                title="GitHub">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path
+                        d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0 1 12 6.8c.85.004 1.71.12 2.51.35 1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48C19.13 20.17 22 16.42 22 12c0-5.52-4.48-10-10-10z" />
+                </svg>
+                GitHub
+            </a>
+            <a href="https://ganitsutram.com" class="docs-topbar-link">← Back to Portal</a>
+        </div>
+    </header>
+
+    <!-- ══════════════════ LAYOUT ══════════════════ -->
+    <div class="docs-layout">
+
+        <!-- ── SIDEBAR ── -->
+        <aside class="docs-sidebar" id="docs-sidebar">
+            <nav id="docs-nav">
+                <!-- Populated by api-docs.js renderSidebarNav() -->
+            </nav>
+        </aside>
+
+        <!-- Overlay for mobile -->
+        <div class="docs-sidebar-overlay" id="docs-sidebar-overlay"></div>
+
+        <!-- ── MAIN CONTENT ── -->
+        <main class="docs-content">
+            <div id="docs-main-content">
+                <!-- Populated by api-docs.js renderContent() -->
+                <noscript>
+                    <p style="color:#ef4444;padding:3rem;">JavaScript is required to view this documentation.</p>
+                </noscript>
+            </div>
+
+            <!-- ══════════════════ FOOTER ══════════════════ -->
+            <!-- RULE: Mandatory footer on every public page -->
+            <footer class="gs-footer"
+                style="margin-top:4rem;margin-left:-4rem;margin-right:-4rem;padding-left:4rem;padding-right:4rem;">
+                <div class="gs-footer-inner">
+                    <div class="gs-footer-brand">
+                        <div class="gs-nav-logo">
+                            <span class="gs-nav-logo-dev">गणित</span>GanitSūtram
+                        </div>
+                        <p>A mathematical knowledge ecosystem by AITDL.</p>
+                    </div>
+                    <div class="gs-footer-links">
+                        <a href="https://ganitsutram.com">Portal</a>
+                        <a href="https://discover.ganitsutram.com">Discoveries</a>
+                        <a href="https://learn.ganitsutram.com">Learning</a>
+                        <a href="https://solve.ganitsutram.com">Solver</a>
+                    </div>
+                </div>
+                <div class="gs-footer-copy">
+                    © GanitSūtram | AITDL | aitdl.com &nbsp;|&nbsp;
+                    Vikram Samvat: VS 2082 &nbsp;|&nbsp; Gregorian: 2026-03-07
+                    <br>All Rights Reserved. Unauthorized copying, reproduction, redistribution, or reuse of this
+                    software,
+                    algorithms, or educational content is prohibited without written permission from AITDL.
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- RULE: Always link to ui-core scripts, not local JS -->
+    <script src="../../ui-core/js/seo.js" defer></script>
+    <script src="../ui-core/js/ganit-ui.js" defer></script>
+    <script src="../ui-core/js/auth.js" defer></script>
+    <script src="../ui-core/js/api-docs.js" defer></script>
+
+</body>
+
+</html>

@@ -1,0 +1,201 @@
+/**
+ * Project: GanitSūtram
+ * Author: Jawahar R Mallah
+ * Company: AITDL | aitdl.com
+ * 
+ * Date:
+ * Vikram Samvat: VS 2082
+ * Gregorian: 2026-03-07
+ * 
+ * Purpose: Progress Dashboard Styles.
+ */
+
+.gs-progress-section {
+    margin-top: 4rem;
+    padding-top: 4rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.gs-progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.gs-progress-nudge {
+    background: rgba(0, 163, 255, 0.05);
+    border: 1px dashed var(--accent-primary);
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.gs-progress-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 2rem;
+}
+
+@media (max-width: 992px) {
+    .gs-progress-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* --- STATS PANEL --- */
+.gs-stats-panel {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 30px;
+}
+
+.gs-stat-hero {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.gs-stat-hero-val {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--accent-primary);
+    line-height: 1;
+}
+
+.gs-stat-hero-lbl {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    margin-top: 5px;
+}
+
+.gs-stat-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.gs-stat-row:last-child {
+    border-bottom: none;
+}
+
+.gs-stat-label {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+}
+
+.gs-stat-value {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* --- MINI BAR CHART (CSS) --- */
+.gs-breakdown {
+    margin-top: 30px;
+}
+
+.gs-breakdown-title {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+    margin-bottom: 15px;
+}
+
+.gs-chart-item {
+    margin-bottom: 15px;
+}
+
+.gs-chart-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    margin-bottom: 5px;
+}
+
+.gs-chart-bar-wrap {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.gs-chart-bar {
+    height: 100%;
+    background: var(--accent-primary);
+    border-radius: 3px;
+    transition: width 1s ease-out;
+}
+
+/* --- PROGRESS TABLE --- */
+.gs-table-wrap {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+.gs-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.gs-table th {
+    padding: 15px 20px;
+    background: rgba(255, 255, 255, 0.03);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-dim);
+}
+
+.gs-table td {
+    padding: 15px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.9rem;
+}
+
+.gs-table-op {
+    font-weight: 600;
+    color: var(--accent-primary);
+}
+
+.gs-table-date {
+    color: var(--text-dim);
+    font-size: 0.8rem;
+}
+
+.gs-table-empty {
+    padding: 60px;
+    text-align: center;
+    color: var(--text-dim);
+}
+
+.gs-progress-footer {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+/* --- BUTTONS --- */
+.btn-clear {
+    color: #ff4d4d;
+    background: none;
+    border: 1px solid rgba(255, 77, 77, 0.2);
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.2s;
+}
+
+.btn-clear:hover {
+    background: rgba(255, 77, 77, 0.1);
+    border-color: #ff4d4d;
+}

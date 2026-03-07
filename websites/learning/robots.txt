@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /profile.html
+Disallow: /leaderboard.html
+Sitemap: https://learn.ganitsutram.com/sitemap.xml

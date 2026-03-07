@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://solve.ganitsutram.com/sitemap.xml

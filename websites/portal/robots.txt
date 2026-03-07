@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /cms.html
+Disallow: /analytics.html
+Disallow: /admin.html
+Sitemap: https://ganitsutram.com/sitemap.xml

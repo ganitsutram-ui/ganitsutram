@@ -1,0 +1,219 @@
+<!--
+GANITSUTRAM PLATFORM
+System Architect: Jawahar R Mallah
+Organization: AITDL | aitdl.com
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- RULE: These three meta tags are mandatory on every HTML page -->
+    <meta name="author" content="Jawahar R Mallah">
+    <meta name="company" content="AITDL">
+    <meta name="project" content="GanitSūtram">
+
+    <title>GanitSūtram | Learning Paths</title>
+
+    <!-- RULE: Always link to ui-core, never write local styles -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;400;700;900&family=DM+Serif+Display:ital@0;1&family=Syne:wght@400;600;700;800&family=Noto+Serif+Devanagari:wght@300;400;700&family=Space+Grotesk:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    
+    <!-- DNS prefetch -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//api.ganitsutram.com">
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Preload critical font -->
+    <link rel="preload" href="https://fonts.gstatic.com/s/spacegrotesk/v15/V8mQoQDjQSkGpu8Xl10K8t1wX8N1pQ.woff2" as="font" type="font/woff2" crossorigin>
+
+    <style id="gs-critical-css">
+        :root { --bg-deep: #040110; --fg-main: #ffffff; --accent-primary: #ff5500; }
+        body { margin: 0; background: var(--bg-deep); color: var(--fg-main); }
+        .gs-nav { position: fixed; width: 100%; z-index: 100; background: rgba(4,1,16,0.95); }
+    </style>
+
+    <link rel="stylesheet" href="../../ui-core/css/main.css">
+    <link rel="stylesheet" href="../../ui-core/css/learning.css">
+    <link rel="stylesheet" href="../../ui-core/css/i18n.css">
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#ff5500">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="GanitSūtram">
+
+    <meta name="description" content="Learn Vedic mathematics at your own pace. Practice problems, track progress, and earn badges.">
+    <meta name="keywords" content="Vedic mathematics, GanitSūtram, digital root, nikhilam, ancient maths, AITDL, Jawahar R Mallah">
+    <link rel="canonical" href="https://learn.ganitsutram.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="GanitSūtram">
+    <meta property="og:title" content="GanitSūtram | Learning">
+    <meta property="og:description" content="Learn Vedic mathematics at your own pace. Practice problems, track progress, and earn badges.">
+    <meta property="og:url" content="https://learn.ganitsutram.com/">
+    <meta property="og:image" content="https://ganitsutram.com/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_IN">
+    <meta property="og:locale:alternate" content="hi_IN">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@aitdl">
+    <meta name="twitter:title" content="GanitSūtram | Learning">
+    <meta name="twitter:description" content="Learn Vedic mathematics at your own pace. Practice problems, track progress, and earn badges.">
+    <meta name="twitter:image" content="https://ganitsutram.com/assets/og-image.png">
+
+
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "name": "Vedic Mathematics",
+  "description": "Learn Vedic mathematics at your own pace. Practice problems, track progress, and earn badges.",
+  "provider": {
+    "@type": "Organization",
+    "name": "AITDL",
+    "url": "https://aitdl.com"
+  },
+  "url": "https://learn.ganitsutram.com",
+  "educationalLevel": "Beginner to Advanced",
+  "inLanguage": [
+    "en",
+    "hi",
+    "sa"
+  ],
+  "isAccessibleForFree": true
+}
+    </script>
+</head>
+
+<body>
+    <a href="#main-content" class="gs-skip-link">Skip to main content</a>
+
+    <!-- ═══════════════════ NAV ═══════════════════ -->
+    <header class="gs-nav">
+        <div class="gs-nav-inner">
+            <a href="https://ganitsutram.com" class="gs-nav-logo">
+                <span class="gs-nav-logo-dev">गणित</span>GanitSūtram
+            </a>
+            <nav class="gs-nav-links">
+                <a href="https://ganitsutram.com" data-i18n="nav.home">Portal</a>
+                <a href="https://discover.ganitsutram.com" data-i18n="nav.discover">Discoveries</a>
+                <a href="https://map.ganitsutram.com" data-i18n="nav.map">Map</a>
+                <div class="nav-right" style="display:flex; align-items:center;">
+                    <div class="gs-lang-switcher" id="langSwitcher">
+                        <button class="gs-lang-btn active" data-lang="en">EN</button>
+                        <button class="gs-lang-btn" data-lang="hi">हि</button>
+                        <button class="gs-lang-btn" data-lang="sa">सं</button>
+                    </div>
+                    <a href="https://ganitsutram.com/gate.html" class="gs-nav-cta" data-i18n="nav.enterPlatform">Enter
+                        Platform →</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ═══════════════════ MAIN CONTENT ═══════════════════ -->
+    <main id="main-content">
+        <div class="gs-container">
+
+            <!-- 1. HERO -->
+            <section class="gs-learning-hero">
+                <div class="gs-sanskrit-line">विद्या ददाति विनयम्</div>
+                <div style="font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-bottom: 1rem; text-align: center;"
+                    data-i18n="learning.sanskritMeaning">
+                    Knowledge brings humility.
+                </div>
+                <h1 class="gs-hero-title" data-i18n="learning.heading">Learning Paths</h1>
+                <p class="gs-hero-sub" data-i18n="learning.subheading">Your path. Your pace. Ancient wisdom adapted for
+                    the modern mind.</p>
+                <div class="gs-hero-ctas" style="margin-top: 2rem; display: flex; gap: 15px; justify-content: center;">
+                    <a href="practice.html" class="gs-button gs-button-primary"
+                        data-i18n="learning.practiceBtn">Practice Arena &rarr;</a>
+                </div>
+            </section>
+
+            <!-- 2. PERSONA PATH TABS -->
+            <section class="gs-tab-container">
+                <div class="gs-tabs">
+                    <button class="gs-tab-btn active" data-persona="student"
+                        data-i18n="gate.personas.student">Student</button>
+                    <button class="gs-tab-btn" data-persona="teacher" data-i18n="gate.personas.teacher">Teacher</button>
+                    <button class="gs-tab-btn" data-persona="parent" data-i18n="gate.personas.parent">Parent</button>
+                    <button class="gs-tab-btn" data-persona="adult" data-i18n="gate.personas.adult">Adult
+                        Learner</button>
+                </div>
+
+                <div id="learning-content" class="gs-tab-panel active">
+                    <div class="gs-panel-header">
+                        <h2 id="panel-title" class="gs-panel-title" data-i18n="learning.studentPath">Student Path</h2>
+                        <p id="panel-desc" class="gs-panel-desc" data-i18n="learning.studentDesc">Structured modules
+                            from basics to advanced Vedic
+                            techniques.</p>
+                    </div>
+
+                    <!-- 3. MODULE CARD GRID -->
+                    <div id="module-grid" class="gs-module-grid">
+                        <!-- Loaded via learning.js -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. PROGRESS NUDGE BANNER -->
+            <section class="gs-nudge-banner">
+                <div class="gs-nudge-text" data-i18n="learning.nudgeText">Save your progress — create a free account to
+                    track your journey.</div>
+                <a href="#" class="gs-button gs-button-primary" data-i18n="learning.nudgeBtn">Sign Up Free →</a>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- ═══════════════════ FOOTER ═══════════════════ -->
+    <footer class="gs-footer">
+        <div class="gs-footer-inner">
+            <div class="gs-footer-brand">
+                <div class="gs-nav-logo">
+                    <span class="gs-nav-logo-dev">गणित</span>GanitSūtram
+                </div>
+                <p data-i18n="footer.tagline">A mathematical knowledge ecosystem by AITDL.</p>
+            </div>
+            <div class="gs-footer-links">
+                <a href="https://ganitsutram.com" data-i18n="footer.portal">Portal</a>
+                <a href="https://discover.ganitsutram.com" data-i18n="nav.discover">Discoveries</a>
+            </div>
+        </div>
+        <div class="gs-footer-copy">
+            <span data-i18n="footer.copyright">© GanitSūtram | AITDL | aitdl.com</span> &nbsp;|&nbsp;
+            <span data-i18n="footer.date">Vikram Samvat: VS 2082 &nbsp;|&nbsp; Gregorian: 2026-03-07</span>
+            <br><span data-i18n="footer.rights">All Rights Reserved.</span> <span
+                data-i18n="footer.restriction">Unauthorized copying, reproduction, redistribution, or reuse of this
+                software,
+                algorithms, or educational content is prohibited without written permission from AITDL.</span>
+        </div>
+    </footer>
+
+    <!-- RULE: Always link to ui-core scripts, not local JS -->
+    <script src="../../ui-core/js/i18n.js" defer></script>
+    <script src="../../ui-core/js/seo.js" defer></script>
+    <script src="../../ui-core/js/ganit-ui.js" defer></script>
+    <script src="../../ui-core/js/learning.js" defer></script>
+
+    <!-- PWA Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(reg => console.log('SW registered', reg.scope))
+                .catch(err => console.warn('SW failed', err));
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,163 @@
+<!--
+GANITSUTRAM PLATFORM
+System Architect: Jawahar R Mallah
+Organization: AITDL | aitdl.com
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Jawahar R Mallah">
+    <meta name="company" content="AITDL">
+    <meta name="project" content="GanitSūtram">
+    
+    <title>GanitSūtram | Search Results</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;400;700;900&family=Space+Grotesk:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    
+    <!-- DNS prefetch -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//api.ganitsutram.com">
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Preload critical font -->
+    <link rel="preload" href="https://fonts.gstatic.com/s/spacegrotesk/v15/V8mQoQDjQSkGpu8Xl10K8t1wX8N1pQ.woff2" as="font" type="font/woff2" crossorigin>
+
+    <style id="gs-critical-css">
+        :root { --bg-deep: #040110; --fg-main: #ffffff; --accent-primary: #ff5500; }
+        body { margin: 0; background: var(--bg-deep); color: var(--fg-main); }
+        .gs-nav { position: fixed; width: 100%; z-index: 100; background: rgba(4,1,16,0.95); }
+    </style>
+
+    <link rel="stylesheet" href="../ui-core/css/main.css">
+    <link rel="stylesheet" href="../ui-core/css/search.css">
+    <link rel="stylesheet" href="../ui-core/css/notifications.css">
+
+    <meta name="description" content="Search Vedic mathematics discoveries, operations, sutras, and learning content on GanitSūtram.">
+    <meta name="keywords" content="Vedic mathematics, GanitSūtram, digital root, nikhilam, ancient maths, AITDL, Jawahar R Mallah">
+    <link rel="canonical" href="https://ganitsutram.com/search.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="GanitSūtram">
+    <meta property="og:title" content="GanitSūtram | Search">
+    <meta property="og:description" content="Search Vedic mathematics discoveries, operations, sutras, and learning content on GanitSūtram.">
+    <meta property="og:url" content="https://ganitsutram.com/search.html">
+    <meta property="og:image" content="https://ganitsutram.com/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_IN">
+    <meta property="og:locale:alternate" content="hi_IN">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@aitdl">
+    <meta name="twitter:title" content="GanitSūtram | Search">
+    <meta name="twitter:description" content="Search Vedic mathematics discoveries, operations, sutras, and learning content on GanitSūtram.">
+    <meta name="twitter:image" content="https://ganitsutram.com/assets/og-image.png">
+
+</head>
+
+<body>
+    <a href="#main-content" class="gs-skip-link">Skip to main content</a>
+
+    <!-- ═══════════════════ NAV ═══════════════════ -->
+    <header class="gs-nav">
+        <div class="gs-nav-inner">
+            <a href="/portal/index.html" class="gs-nav-logo">
+                <span class="gs-nav-logo-dev">गणित</span>GanitSūtram
+            </a>
+            <nav class="gs-nav-links">
+                <a href="/discoveries/index.html">Discoveries</a>
+                <a href="/learning/index.html">Learn</a>
+                <a href="/knowledge-map/index.html">Map</a>
+                <a href="/portal/index.html" class="gs-nav-cta">Portal →</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ═══════════════════ SEARCH PAGE ═══════════════════ -->
+    <div class="gs-search-page">
+
+        <!-- ─── MAIN COLUMN ─── -->
+        <div>
+            <!-- Search hero input -->
+            <div class="gs-search-hero">
+                <h1 style="font-size:1.4rem;margin-bottom:14px;font-weight:700;">Search GanitSūtram</h1>
+                <input type="text" id="gs-search-input" class="gs-search-hero-input"
+                    placeholder="Search… digital root, nikhilam, Fibonacci…" autocomplete="off" autofocus>
+            </div>
+
+            <!-- Filter bar -->
+            <div class="gs-filter-bar">
+                <button class="gs-filter-btn active" data-filter="">All</button>
+                <button class="gs-filter-btn" data-filter="discovery">Discoveries</button>
+                <button class="gs-filter-btn" data-filter="lesson">Lessons</button>
+                <button class="gs-filter-btn" data-filter="operation">Operations</button>
+                <button class="gs-filter-btn" data-filter="sutra">Sutras</button>
+                <button class="gs-filter-btn" data-filter="concept">Concepts</button>
+            </div>
+
+            <!-- Results count -->
+            <p class="gs-results-count" id="gs-results-count"></p>
+
+            <!-- Results container -->
+            <div id="gs-results-container">
+                <div class="gs-search-empty">
+                    <div class="gs-search-empty-icon">🔍</div>
+                    <p>Enter a search term above.</p>
+                    <p class="gs-search-empty-hint">Try: digital root, nikhilam, Vedic…</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ─── SIDEBAR ─── -->
+        <aside class="gs-search-sidebar">
+            <div class="gs-sidebar-heading">Popular Searches</div>
+            <div class="gs-sidebar-tags" id="gs-popular-list">
+                <a href="/portal/search.html?q=digital+root" class="gs-sidebar-tag">digital root</a>
+                <a href="/portal/search.html?q=nikhilam" class="gs-sidebar-tag">nikhilam</a>
+                <a href="/portal/search.html?q=fibonacci" class="gs-sidebar-tag">fibonacci</a>
+                <a href="/portal/search.html?q=vedic" class="gs-sidebar-tag">vedic</a>
+            </div>
+
+            <div class="gs-sidebar-heading">Trending Today</div>
+            <div class="gs-sidebar-tags" id="gs-trending-list">
+                <a href="/portal/search.html?q=kaprekar" class="gs-sidebar-tag">kaprekar</a>
+                <a href="/portal/search.html?q=urdhva" class="gs-sidebar-tag">urdhva</a>
+            </div>
+
+            <a href="/knowledge-map/index.html" class="gs-sidebar-cta">🗺️ Explore the Knowledge Map →</a>
+        </aside>
+
+    </div>
+
+    <!-- ═══════════════════ FOOTER ═══════════════════ -->
+    <footer class="gs-footer">
+        <div class="gs-footer-inner">
+            <div class="gs-footer-brand">
+                <div class="gs-nav-logo"><span class="gs-nav-logo-dev">गणित</span>GanitSūtram</div>
+                <p>A mathematical knowledge ecosystem by AITDL.</p>
+            </div>
+        </div>
+        <div class="gs-footer-copy">
+            © GanitSūtram | AITDL | aitdl.com &nbsp;|&nbsp;
+            Vikram Samvat: VS 2082 &nbsp;|&nbsp; Gregorian: 2026-03-08
+        </div>
+    </footer>
+
+    <script src="../../ui-core/js/seo.js" defer></script>
+    <script src="../ui-core/js/ganit-ui.js" defer></script>
+    <script src="../ui-core/js/notifications.js" defer></script>
+    <script src="../ui-core/js/search.js" defer></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            window.GanitSearch.initResultsPage();
+        });
+    </script>
+</body>
+
+</html>

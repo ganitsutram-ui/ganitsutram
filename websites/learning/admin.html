@@ -1,0 +1,260 @@
+<!--
+GANITSUTRAM PLATFORM
+System Architect: Jawahar R Mallah
+Organization: AITDL | aitdl.com
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- RULE: These three meta tags are mandatory on every HTML page -->
+    <meta name="author" content="Jawahar R Mallah">
+    <meta name="company" content="AITDL">
+    <meta name="project" content="GanitSūtram">
+
+    <title>GanitSūtram | School Admin Dashboard</title>
+    
+
+    <!-- RULE: Always link to ui-core, never write local styles -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;400;700;900&family=DM+Serif+Display:ital@0;1&family=Syne:wght@400;600;700;800&family=Noto+Serif+Devanagari:wght@300;400;700&family=Space+Grotesk:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    
+    <!-- DNS prefetch -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//api.ganitsutram.com">
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Preload critical font -->
+    <link rel="preload" href="https://fonts.gstatic.com/s/spacegrotesk/v15/V8mQoQDjQSkGpu8Xl10K8t1wX8N1pQ.woff2" as="font" type="font/woff2" crossorigin>
+
+    <style id="gs-critical-css">
+        :root { --bg-deep: #040110; --fg-main: #ffffff; --accent-primary: #ff5500; }
+        body { margin: 0; background: var(--bg-deep); color: var(--fg-main); }
+        .gs-nav { position: fixed; width: 100%; z-index: 100; background: rgba(4,1,16,0.95); }
+    </style>
+
+    <link rel="stylesheet" href="../../ui-core/css/main.css">
+    <link rel="stylesheet" href="../../ui-core/css/admin.css">
+
+    <meta name="description" content="Learning Administration.">
+    <meta name="keywords" content="Vedic mathematics, GanitSūtram, digital root, nikhilam, ancient maths, AITDL, Jawahar R Mallah">
+    <link rel="canonical" href="https://learn.ganitsutram.com/admin.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="GanitSūtram">
+    <meta property="og:title" content="Admin | GanitSūtram">
+    <meta property="og:description" content="Learning Administration.">
+    <meta property="og:url" content="https://learn.ganitsutram.com/admin.html">
+    <meta property="og:image" content="https://ganitsutram.com/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_IN">
+    <meta property="og:locale:alternate" content="hi_IN">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@aitdl">
+    <meta name="twitter:title" content="Admin | GanitSūtram">
+    <meta name="twitter:description" content="Learning Administration.">
+    <meta name="twitter:image" content="https://ganitsutram.com/assets/og-image.png">
+
+</head>
+
+<body>
+    <a href="#main-content" class="gs-skip-link">Skip to main content</a>
+
+    <!-- ═══════════════════ NAV ═══════════════════ -->
+    <header class="gs-nav">
+        <div class="gs-nav-inner">
+            <a href="https://ganitsutram.com" class="gs-nav-logo">
+                <span class="gs-nav-logo-dev">गणित</span>GanitSūtram
+            </a>
+            <nav class="gs-nav-links">
+                <a href="https://ganitsutram.com">Portal</a>
+                <a href="https://discover.ganitsutram.com">Discoveries</a>
+                <a href="https://map.ganitsutram.com">Map</a>
+                <a href="index.html">Learning</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ═══════════════════ MAIN CONTENT ═══════════════════ -->
+    <main id="main-content">
+        <div class="gs-container">
+
+            <!-- ACCESS DENIED STATE -->
+            <div id="admin-access-denied" class="gs-access-denied" style="display:none;">
+                <h2>🔒 Access Denied</h2>
+                <p style="color:rgba(255,255,255,0.5); font-size:0.95rem; margin-bottom:2rem;">
+                    This dashboard is restricted to School Administrators.<br>
+                    Please log in with a <strong>school</strong> or <strong>admin</strong> account to continue.
+                </p>
+                <a href="https://ganitsutram.com/gate.html" class="gs-button gs-button-primary">Return to Gateway →</a>
+            </div>
+
+            <!-- AUTHENTICATED ADMIN ROOT -->
+            <div id="admin-root" style="display:none;">
+
+                <!-- Loading State -->
+                <div id="admin-loading" class="gs-admin-loading">
+                    <p>Loading your dashboard…</p>
+                </div>
+
+                <!-- SCHOOL SETUP FORM (shown when no school exists) -->
+                <div id="admin-setup" style="display:none;">
+                    <div class="gs-school-setup">
+                        <div style="font-size:2.5rem; margin-bottom:1rem;">🏫</div>
+                        <h2>Create Your School</h2>
+                        <p>You haven't set up a school yet. Give it a name to get started and begin enrolling students.</p>
+                        <form id="school-setup-form" class="gs-setup-form">
+                            <input
+                                id="school-name-input"
+                                class="gs-input"
+                                type="text"
+                                placeholder="e.g. Vedic Maths Academy, Mumbai"
+                                autocomplete="off"
+                                required>
+                            <div id="setup-error" class="gs-enroll-error"></div>
+                            <button type="submit" class="gs-button gs-button-primary">Create School →</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- FULL DASHBOARD LAYOUT -->
+                <div id="admin-layout" class="gs-admin-layout" style="display:none;">
+
+                    <!-- 1. HEADER BAR -->
+                    <div class="gs-admin-header">
+                        <div>
+                            <div class="gs-admin-school-name" id="admin-school-name">Loading…</div>
+                            <div class="gs-admin-email" id="admin-admin-email"></div>
+                        </div>
+                        <div class="gs-admin-badge">School Admin</div>
+                    </div>
+
+                    <!-- 2. STATS ROW -->
+                    <section>
+                        <div class="gs-admin-section-title">Overview</div>
+                        <div class="gs-admin-stats">
+                            <div class="gs-admin-stat-card">
+                                <span class="gs-admin-stat-val" id="stat-students">—</span>
+                                <span class="gs-admin-stat-lbl">Total Students</span>
+                            </div>
+                            <div class="gs-admin-stat-card">
+                                <span class="gs-admin-stat-val" id="stat-active">—</span>
+                                <span class="gs-admin-stat-lbl">Active Learners</span>
+                            </div>
+                            <div class="gs-admin-stat-card">
+                                <span class="gs-admin-stat-val" id="stat-solved">—</span>
+                                <span class="gs-admin-stat-lbl">Problems Solved</span>
+                            </div>
+                            <div class="gs-admin-stat-card">
+                                <span class="gs-admin-stat-val" id="stat-accuracy">—</span>
+                                <span class="gs-admin-stat-lbl">Practice Accuracy</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 3. ENROLL PANEL -->
+                    <section>
+                        <div class="gs-admin-section-title">Enrol a Student</div>
+                        <form id="enroll-form" class="gs-enroll-panel">
+                            <input
+                                id="enroll-email-input"
+                                class="gs-input"
+                                type="email"
+                                placeholder="student@email.com"
+                                autocomplete="off">
+                            <button type="submit" id="enroll-btn" class="gs-button gs-button-primary">Enroll</button>
+                            <div id="enroll-error" class="gs-enroll-error"></div>
+                        </form>
+                    </section>
+
+                    <!-- 4. STUDENT TABLE -->
+                    <section>
+                        <div class="gs-admin-section-title">Enrolled Students</div>
+                        <div class="gs-student-table-wrap">
+                            <table class="gs-student-table">
+                                <thead>
+                                    <tr>
+                                        <th>Email</th>
+                                        <th>Role</th>
+                                        <th>Status</th>
+                                        <th>Enrolled</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="student-tbody">
+                                    <!-- Rendered by admin.js -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="student-pagination" class="gs-pagination"></div>
+                    </section>
+
+                    <!-- 5. ANALYTICS SECTION -->
+                    <section>
+                        <div class="gs-admin-section-title">Class Analytics</div>
+                        <div class="gs-analytics-grid">
+                            <div class="gs-analytics-card">
+                                <h4>Practice by Operation</h4>
+                                <div id="analytics-op-bars">
+                                    <!-- Rendered by admin.js -->
+                                </div>
+                            </div>
+                            <div class="gs-analytics-card">
+                                <h4>Key Insights</h4>
+                                <div id="analytics-insights">
+                                    <!-- Rendered by admin.js -->
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+                <!-- end #admin-layout -->
+
+            </div>
+            <!-- end #admin-root -->
+
+        </div>
+    </main>
+
+    <!-- ═══════════════════ FOOTER ═══════════════════ -->
+    <footer class="gs-footer">
+        <div class="gs-footer-inner">
+            <div class="gs-footer-brand">
+                <div class="gs-nav-logo">
+                    <span class="gs-nav-logo-dev">गणित</span>GanitSūtram
+                </div>
+                <p>A mathematical knowledge ecosystem by AITDL.</p>
+            </div>
+            <div class="gs-footer-links">
+                <a href="https://ganitsutram.com">Portal</a>
+                <a href="https://discover.ganitsutram.com">Discoveries</a>
+            </div>
+        </div>
+        <div class="gs-footer-copy">
+            © GanitSūtram | AITDL | aitdl.com &nbsp;|&nbsp;
+            Vikram Samvat: VS 2082 &nbsp;|&nbsp; Gregorian: 2026-03-07
+            <br>All Rights Reserved. Unauthorized copying, reproduction, redistribution, or reuse of this software,
+            algorithms, or educational content is prohibited without written permission from AITDL.
+        </div>
+    </footer>
+
+    <!-- TOAST -->
+    <div id="gs-admin-toast" class="gs-toast"></div>
+
+    <!-- RULE: Always link to ui-core scripts, not local JS -->
+    <script src="../../ui-core/js/seo.js" defer></script>
+    <script src="../../ui-core/js/ganit-ui.js" defer></script>
+    <script src="../../ui-core/js/admin.js" defer></script>
+
+</body>
+
+</html>

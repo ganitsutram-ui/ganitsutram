@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice Arena | GanitSūtram</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Base styles -->
+    
+    <!-- DNS prefetch -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//api.ganitsutram.com">
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Preload critical font -->
+    <link rel="preload" href="https://fonts.gstatic.com/s/spacegrotesk/v15/V8mQoQDjQSkGpu8Xl10K8t1wX8N1pQ.woff2" as="font" type="font/woff2" crossorigin>
+
+    <style id="gs-critical-css">
+        :root { --bg-deep: #040110; --fg-main: #ffffff; --accent-primary: #ff5500; }
+        body { margin: 0; background: var(--bg-deep); color: var(--fg-main); }
+        .gs-nav { position: fixed; width: 100%; z-index: 100; background: rgba(4,1,16,0.95); }
+    </style>
+
+    <link rel="stylesheet" href="../ui-core/css/base.css">
+    <link rel="stylesheet" href="../ui-core/css/auth.css">
+    <link rel="stylesheet" href="../ui-core/css/practice.css">
+
+    <style>
+        :root {
+            --bg-dark: #050505;
+            --bg-card: #0d0d0d;
+            --text-primary: #ffffff;
+            --text-dim: #a0a0a0;
+            --accent-primary: #00a3ff;
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+    </style>
+
+    <meta name="description" content="Practice Vedic mathematics problems — Beginner, Intermediate, and Advanced levels.">
+    <meta name="keywords" content="Vedic mathematics, GanitSūtram, digital root, nikhilam, ancient maths, AITDL, Jawahar R Mallah">
+    <link rel="canonical" href="https://learn.ganitsutram.com/practice.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="GanitSūtram">
+    <meta property="og:title" content="GanitSūtram | Practice">
+    <meta property="og:description" content="Practice Vedic mathematics problems — Beginner, Intermediate, and Advanced levels.">
+    <meta property="og:url" content="https://learn.ganitsutram.com/practice.html">
+    <meta property="og:image" content="https://ganitsutram.com/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="en_IN">
+    <meta property="og:locale:alternate" content="hi_IN">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@aitdl">
+    <meta name="twitter:title" content="GanitSūtram | Practice">
+    <meta name="twitter:description" content="Practice Vedic mathematics problems — Beginner, Intermediate, and Advanced levels.">
+    <meta name="twitter:image" content="https://ganitsutram.com/assets/og-image.png">
+
+</head>
+
+<body class="gs-theme-dark">
+    <a href="#main-content" class="gs-skip-link">Skip to main content</a>
+
+    <nav class="gs-nav">
+        <div class="gs-nav-container">
+            <a href="/" class="gs-logo">गणित GanitSūtram</a>
+            <div class="gs-nav-links">
+                <a href="index.html">Learning Path</a>
+                <a href="#" class="active">Practice Arena</a>
+                <a href="../solver/index.html">Universal Solver</a>
+            </div>
+            <div id="auth-nav-container">
+                <!-- Auth JS will inject here -->
+            </div>
+        </div>
+    </nav>
+
+    <main class="gs-container gs-practice-layout">
+        <section class="gs-hero-section" style="text-align:center; padding-bottom:3rem;">
+            <div class="gs-label">अभ्यासात् निपुणता</div>
+            <h1 class="gs-hero-title">Practice Arena</h1>
+            <p class="gs-hero-subtitle">Sharpen your Vedic mathematics skills through interactive challenges.</p>
+        </section>
+
+        <section class="gs-practice-controls">
+            <div class="gs-form-group">
+                <label>Operation</label>
+                <select id="practice-op" class="gs-select" style="width:100%">
+                    <option value="all">All Operations (Mixed)</option>
+                    <option value="digital-root">Digital Root (Beejank)</option>
+                    <option value="squares-ending-5">Squares Ending in 5</option>
+                    <option value="multiply-by-11">Multiply by 11</option>
+                    <option value="nikhilam">Nikhilam Multiplication</option>
+                    <option value="urdhva">Urdhva Multiplication</option>
+                </select>
+            </div>
+            <div class="gs-form-group">
+                <label>Difficulty</label>
+                <select id="practice-diff" class="gs-select" style="width:100%">
+                    <option value="beginner">Beginner (Basic)</option>
+                    <option value="intermediate">Intermediate (Medium)</option>
+                    <option value="advanced">Advanced (High Speed)</option>
+                </select>
+            </div>
+            <div class="gs-form-group" style="flex: 0.5; min-width: 100px;">
+                <label>Count</label>
+                <select id="practice-count" class="gs-select" style="width:100%">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                </select>
+            </div>
+            <button onclick="window.GanitPractice.start()" class="gs-button gs-button-primary"
+                style="height: 52px; padding: 0 2rem;">
+                Generate Practice Set &rarr;
+            </button>
+        </section>
+
+        <div id="arena-surface">
+            <!-- Practice Arena or Stats Panel will render here -->
+            <div id="gs-practice-stats"></div>
+        </div>
+    </main>
+
+    <footer class="gs-footer">
+        <div class="gs-container">
+            <div class="gs-footer-content">
+                <div class="gs-footer-brand">
+                    <span class="gs-logo">गणित GanitSūtram</span>
+                    <p>Ancient algorithms for modern minds.</p>
+                </div>
+                <!-- Standard Footer Links Removed for Conciseness -->
+            </div>
+            <div class="gs-footer-bottom">
+                <p>&copy; VS 2082 | 2026 GanitSūtram. All rights reserved. <br> Built by AITDL | aitdl.com</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Infrastructure -->
+    <script src="../ui-core/js/auth.js" defer></script>
+    <script src="../ui-core/js/practice.js" defer></script>
+
+    <script>
+        // Check for URL parameters to auto-start specific practice
+        window.addEventListener('load', () => {
+            const params = new URLSearchParams(window.location.search);
+            const op = params.get('operation');
+            const diff = params.get('difficulty');
+
+            if (op) document.getElementById('practice-op').value = op;
+            if (diff) document.getElementById('practice-diff').value = diff;
+
+            if (op && diff) {
+                window.GanitPractice.start();
+            }
+        });
+    </script>
+<script src="../../ui-core/js/seo.js" defer></script>
+</body>
+
+</html>

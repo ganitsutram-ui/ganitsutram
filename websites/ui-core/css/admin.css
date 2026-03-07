@@ -1,0 +1,447 @@
+/*
+Project: GanitSūtram
+Author: Jawahar R Mallah
+Company: AITDL | aitdl.com
+
+Date:
+Vikram Samvat: VS 2082
+Gregorian: 2026-03-07
+
+Purpose: School Admin Dashboard specific styles.
+*/
+
+/* ─── CSS VARIABLES ──────────────────────────────────────────── */
+:root {
+    --admin-accent: #0ea5e9;
+    --admin-danger: #ef4444;
+    --admin-success: #22c55e;
+    --admin-warn: #f59e0b;
+    --admin-card-bg: rgba(255, 255, 255, 0.04);
+    --admin-border: rgba(255, 255, 255, 0.08);
+}
+
+/* ─── LAYOUT ─────────────────────────────────────────────────── */
+.gs-admin-layout {
+    display: grid;
+    gap: 2rem;
+    padding: 2rem 0 4rem;
+}
+
+/* ─── HEADER BAR ──────────────────────────────────────────────── */
+.gs-admin-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 2rem;
+    background: var(--admin-card-bg);
+    border: 1px solid var(--admin-border);
+    border-radius: 12px;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.gs-admin-school-name {
+    font-family: var(--font-logo);
+    font-size: 1.5rem;
+    color: var(--fg-main);
+}
+
+.gs-admin-email {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 0.25rem;
+}
+
+.gs-admin-badge {
+    padding: 0.35rem 1rem;
+    background: rgba(14, 165, 233, 0.15);
+    border: 1px solid rgba(14, 165, 233, 0.4);
+    border-radius: 50px;
+    color: var(--admin-accent);
+    font-size: 0.75rem;
+    font-family: var(--font-main);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+/* ─── ACCESS DENIED ──────────────────────────────────────────── */
+.gs-access-denied {
+    text-align: center;
+    padding: 6rem 2rem;
+}
+
+.gs-access-denied h2 {
+    font-size: 2rem;
+    color: var(--admin-danger);
+    margin-bottom: 1rem;
+}
+
+/* ─── STATS ROW ───────────────────────────────────────────────── */
+.gs-admin-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+@media (max-width: 900px) {
+    .gs-admin-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 500px) {
+    .gs-admin-stats {
+        grid-template-columns: 1fr;
+    }
+}
+
+.gs-admin-stat-card {
+    padding: 1.5rem;
+    background: var(--admin-card-bg);
+    border: 1px solid var(--admin-border);
+    border-radius: 12px;
+    text-align: center;
+    transition: border-color 0.2s;
+}
+
+.gs-admin-stat-card:hover {
+    border-color: rgba(14, 165, 233, 0.4);
+}
+
+.gs-admin-stat-val {
+    font-family: var(--font-logo);
+    font-size: 2.5rem;
+    color: var(--admin-accent);
+    display: block;
+}
+
+.gs-admin-stat-lbl {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 0.5rem;
+    display: block;
+}
+
+/* ─── ENROLL PANEL ───────────────────────────────────────────── */
+.gs-enroll-panel {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    padding: 1.5rem;
+    background: var(--admin-card-bg);
+    border: 1px solid var(--admin-border);
+    border-radius: 12px;
+}
+
+.gs-enroll-panel .gs-input {
+    flex: 1;
+    min-width: 200px;
+}
+
+.gs-enroll-error {
+    width: 100%;
+    color: var(--admin-danger);
+    font-size: 0.85rem;
+    min-height: 1.2rem;
+}
+
+/* ─── STUDENT TABLE ──────────────────────────────────────────── */
+.gs-student-table-wrap {
+    overflow-x: auto;
+    background: var(--admin-card-bg);
+    border: 1px solid var(--admin-border);
+    border-radius: 12px;
+}
+
+.gs-student-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-main);
+    font-size: 0.875rem;
+}
+
+.gs-student-table th {
+    padding: 1rem 1.25rem;
+    text-align: left;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.4);
+    border-bottom: 1px solid var(--admin-border);
+    white-space: nowrap;
+}
+
+.gs-student-table td {
+    padding: 0.875rem 1.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    color: rgba(255, 255, 255, 0.8);
+    vertical-align: middle;
+}
+
+.gs-student-table tr:last-child td {
+    border-bottom: none;
+}
+
+.gs-student-table tr:hover td {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.gs-student-table .gs-status-pill {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+}
+
+.gs-status-pill.active {
+    background: rgba(34, 197, 94, 0.15);
+    color: var(--admin-success);
+}
+
+.gs-status-pill.suspended {
+    background: rgba(239, 68, 68, 0.15);
+    color: var(--admin-danger);
+}
+
+.gs-table-remove-btn {
+    background: none;
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    color: var(--admin-danger);
+    padding: 0.3rem 0.75rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    transition: background 0.2s;
+}
+
+.gs-table-remove-btn:hover {
+    background: rgba(239, 68, 68, 0.15);
+}
+
+.gs-empty-table {
+    padding: 3rem;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 0.9rem;
+}
+
+/* ─── PAGINATION ──────────────────────────────────────────────── */
+.gs-pagination {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    padding-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.gs-page-btn {
+    padding: 0.4rem 0.9rem;
+    border: 1px solid var(--admin-border);
+    border-radius: 6px;
+    background: none;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.2s;
+}
+
+.gs-page-btn.active,
+.gs-page-btn:hover {
+    background: var(--admin-accent);
+    color: #fff;
+    border-color: var(--admin-accent);
+}
+
+/* ─── ANALYTICS SECTION ──────────────────────────────────────── */
+.gs-analytics-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+@media (max-width: 700px) {
+    .gs-analytics-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.gs-analytics-card {
+    padding: 1.5rem;
+    background: var(--admin-card-bg);
+    border: 1px solid var(--admin-border);
+    border-radius: 12px;
+}
+
+.gs-analytics-card h4 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.4);
+    margin-bottom: 1rem;
+}
+
+/* Operation bar chart */
+.gs-op-bar-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.gs-op-label {
+    width: 130px;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.6);
+    flex-shrink: 0;
+    text-transform: capitalize;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.gs-op-bar-track {
+    flex: 1;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.gs-op-bar-fill {
+    height: 100%;
+    background: var(--admin-accent);
+    border-radius: 3px;
+    transition: width 0.6s ease;
+}
+
+.gs-op-count {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.4);
+    min-width: 30px;
+    text-align: right;
+}
+
+/* Accuracy insight items */
+.gs-insight-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.gs-insight-item:last-child {
+    border-bottom: none;
+}
+
+.gs-insight-label {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.gs-insight-val {
+    font-family: var(--font-logo);
+    font-size: 1.1rem;
+    color: var(--admin-accent);
+}
+
+/* ─── SCHOOL SETUP FORM ──────────────────────────────────────── */
+.gs-school-setup {
+    max-width: 500px;
+    margin: 4rem auto;
+    text-align: center;
+    padding: 3rem;
+    background: var(--admin-card-bg);
+    border: 1px solid var(--admin-border);
+    border-radius: 16px;
+}
+
+.gs-school-setup h2 {
+    font-family: var(--font-logo);
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.gs-school-setup p {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+}
+
+.gs-setup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* ─── TOAST ──────────────────────────────────────────────────── */
+.gs-toast {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: rgba(34, 197, 94, 0.15);
+    border: 1px solid rgba(34, 197, 94, 0.4);
+    color: var(--admin-success);
+    padding: 0.875rem 2rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-family: var(--font-main);
+    transition: transform 0.35s ease, opacity 0.35s ease;
+    opacity: 0;
+    z-index: 9999;
+    white-space: nowrap;
+}
+
+.gs-toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+.gs-toast.error {
+    background: rgba(239, 68, 68, 0.15);
+    border-color: rgba(239, 68, 68, 0.4);
+    color: var(--admin-danger);
+}
+
+/* ─── SECTION HEADINGS ───────────────────────────────────────── */
+.gs-admin-section-title {
+    font-family: var(--font-logo);
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
+    color: var(--fg-main);
+}
+
+/* ─── LOADING STATE ──────────────────────────────────────────── */
+.gs-admin-loading {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.95rem;
+}
+
+@media (max-width: 480px) {
+    .gs-admin-header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1.25rem;
+    }
+
+    .gs-admin-stat-card {
+        padding: 1.25rem;
+    }
+
+    .gs-enroll-panel {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .gs-school-setup {
+        padding: 1.5rem;
+        margin: 2rem auto;
+    }
+}

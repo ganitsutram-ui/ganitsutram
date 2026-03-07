@@ -1,0 +1,266 @@
+/**
+ * Project: GanitSūtram
+ * Author: Jawahar R Mallah
+ * Company: AITDL | aitdl.com
+ */
+
+.admin-body {
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+}
+
+.realtime-strip {
+    background-color: #000;
+    border-bottom: 1px solid var(--color-border);
+    padding: 0.5rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+}
+
+.pulse-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #22c55e;
+    margin-right: 8px;
+    box-shadow: 0 0 8px #22c55e;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.4;
+        transform: scale(1.2);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.rt-grid {
+    display: flex;
+    gap: 2rem;
+}
+
+.rt-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.rt-val {
+    color: var(--color-primary);
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.rt-lbl {
+    color: var(--color-fg-muted);
+    text-transform: uppercase;
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+}
+
+.dashboard-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 1.5rem;
+}
+
+.dashboard-controls {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.toggle-label {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--color-fg-muted);
+    cursor: pointer;
+}
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.summary-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    padding: 1.5rem;
+    border-radius: 12px;
+}
+
+.summary-val {
+    font-family: var(--font-primary);
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--color-fg);
+}
+
+.summary-lbl {
+    font-size: 0.85rem;
+    color: var(--color-fg-muted);
+}
+
+.charts-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.chart-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.chart-card h3 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    font-family: var(--font-primary);
+    color: var(--color-fg);
+}
+
+/* CSS ONLY BAR CHART SYSTEM */
+.chart-container {
+    height: 250px;
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    padding-bottom: 25px;
+    position: relative;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.bar-wrap {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+    group-hover: show-tooltip;
+}
+
+.bar {
+    width: 100%;
+    background: linear-gradient(to top, var(--color-primary-dark), var(--color-primary));
+    border-radius: 4px 4px 0 0;
+    transition: height 0.5s ease;
+    min-height: 2px;
+    position: relative;
+    cursor: crosshair;
+}
+
+.bar:hover {
+    filter: brightness(1.2);
+}
+
+.bar-label {
+    position: absolute;
+    bottom: -25px;
+    width: 100%;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: var(--color-fg-muted);
+    transform: rotate(-45deg);
+    transform-origin: top left;
+    white-space: nowrap;
+}
+
+.bar-tooltip {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    color: #000;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    white-space: nowrap;
+    z-index: 10;
+    font-weight: 700;
+}
+
+.bar:hover .bar-tooltip {
+    opacity: 1;
+}
+
+/* GAUGE PANEL */
+.accuracy-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.acc-big {
+    font-family: var(--font-primary);
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--color-primary);
+}
+
+.acc-sub {
+    color: var(--color-fg-muted);
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+/* VOL BAR */
+.vol-bar-outer {
+    width: 100%;
+    height: 8px;
+    background: var(--color-bg);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.vol-bar-inner {
+    height: 100%;
+    background: var(--color-primary);
+}
+
+@media (max-width: 900px) {
+    .charts-row {
+        grid-template-columns: 1fr !important;
+    }
+
+    .summary-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}

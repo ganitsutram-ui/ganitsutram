@@ -1,0 +1,396 @@
+/**
+ * Project: GanitSūtram
+ * Author: Jawahar R Mallah
+ * Company: AITDL | aitdl.com
+ * 
+ * Date:
+ * Vikram Samvat: VS 2082
+ * Gregorian: 2026-03-07
+ * 
+ * Purpose: Styles for leaderboard UI.
+ */
+
+.leaderboard-container {
+    padding: 2rem 0;
+}
+
+.gs-hero {
+    margin-bottom: 2rem;
+}
+
+/* Tabs */
+.lb-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.lb-tab {
+    background: transparent;
+    border: 2px solid var(--gs-color-primary);
+    color: var(--gs-color-primary);
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-weight: 700;
+    transition: all 0.2s ease;
+    border-radius: 4px;
+}
+
+.lb-tab.active,
+.lb-tab:hover {
+    background: var(--gs-color-primary);
+    color: var(--gs-color-background);
+}
+
+/* My Rank Panel */
+.my-rank-panel {
+    background: var(--gs-color-surface);
+    border: 1px solid var(--gs-color-border);
+    padding: 1.5rem;
+    margin-bottom: 3rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.my-rank-panel.hidden {
+    display: none;
+}
+
+.my-rank-grid {
+    display: flex;
+    gap: 2rem;
+    justify-content: flex-start;
+    /* Ensure elements don't get squished */
+    flex-wrap: wrap;
+    /* Instead of grid to better manage variable width */
+}
+
+.my-rank-stat {
+    display: flex;
+    flex-direction: column;
+}
+
+.my-rank-stat .stat-label {
+    font-size: 0.8rem;
+    color: var(--gs-color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.my-rank-stat .stat-val {
+    font-size: 1.5rem;
+    color: var(--gs-color-primary);
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.display-name-setter {
+    margin-top: 1.5rem;
+    border-top: 1px solid var(--gs-color-border);
+    padding-top: 1rem;
+}
+
+.display-name-setter .input-group {
+    display: flex;
+    gap: 1rem;
+    max-width: 400px;
+}
+
+.display-name-setter input {
+    flex: 1;
+    padding: 0.5rem;
+    background: var(--gs-color-background);
+    border: 1px solid var(--gs-color-border);
+    color: var(--gs-color-text);
+}
+
+.alias-msg {
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+    color: var(--gs-color-accent);
+}
+
+/* Podium */
+.lb-podium {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 1rem;
+    margin-bottom: 4rem;
+    min-height: 250px;
+    padding-top: 2rem;
+}
+
+.podium-place {
+    text-align: center;
+    background: var(--gs-color-surface);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    padding: 1rem;
+    width: 150px;
+    position: relative;
+    border: 1px solid var(--gs-color-border);
+    border-bottom: none;
+    transition: transform 0.3s;
+}
+
+.podium-place:hover {
+    transform: translateY(-5px);
+}
+
+.podium-place.rank-1 {
+    height: 200px;
+    border-color: gold;
+    box-shadow: 0 -5px 20px rgba(255, 215, 0, 0.2);
+}
+
+.podium-place.rank-2 {
+    height: 160px;
+    border-color: silver;
+}
+
+.podium-place.rank-3 {
+    height: 130px;
+    border-color: #cd7f32;
+}
+
+.podium-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--gs-color-primary);
+    color: var(--gs-color-background);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: -40px auto 10px;
+    border: 3px solid var(--gs-color-background);
+}
+
+.rank-1 .podium-avatar {
+    border-color: gold;
+}
+
+.rank-2 .podium-avatar {
+    border-color: silver;
+}
+
+.rank-3 .podium-avatar {
+    border-color: #cd7f32;
+}
+
+.podium-crown {
+    position: absolute;
+    top: -65px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2rem;
+    color: gold;
+}
+
+.podium-name {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.podium-score {
+    color: var(--gs-color-primary);
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+}
+
+.podium-badge {
+    margin-top: 0.5rem;
+    font-size: 1.5rem;
+}
+
+/* Table */
+.lb-table-wrapper {
+    margin-bottom: 4rem;
+    overflow-x: auto;
+}
+
+.lb-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.lb-table th,
+.lb-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--gs-color-border);
+}
+
+.lb-table th {
+    color: var(--gs-color-text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+.lb-table tr.me {
+    background: rgba(var(--gs-color-primary-rgb), 0.1);
+}
+
+.table-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--gs-color-surface);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.8rem;
+    vertical-align: middle;
+}
+
+.table-name {
+    margin-left: 0.5rem;
+    font-weight: 600;
+}
+
+.lb-load-more {
+    margin-top: 1rem;
+}
+
+/* Badges Showcase */
+.badges-showcase {
+    margin-bottom: 4rem;
+}
+
+.badge-filters {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    justify-content: center;
+}
+
+.badge-filter {
+    background: transparent;
+    border: none;
+    color: var(--gs-color-text-muted);
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.badge-filter.active {
+    color: var(--gs-color-primary);
+    border-bottom: 2px solid var(--gs-color-primary);
+}
+
+.badge-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.badge-card {
+    background: var(--gs-color-surface);
+    border: 1px solid var(--gs-color-border);
+    border-radius: 8px;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.badge-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
+}
+
+.badge-title {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.badge-desc {
+    font-size: 0.8rem;
+    color: var(--gs-color-text-muted);
+}
+
+.badge-card.unearned {
+    filter: grayscale(1);
+    opacity: 0.7;
+}
+
+.badge-card.unearned .badge-title {
+    opacity: 0.8;
+}
+
+.badge-card.earned {
+    border-color: var(--gs-color-primary);
+    box-shadow: 0 0 15px rgba(255, 136, 17, 0.1);
+}
+
+.badge-date {
+    font-size: 0.7rem;
+    color: var(--gs-color-primary);
+    margin-top: 0.5rem;
+}
+
+.badge-progress-bar {
+    width: 100%;
+    height: 4px;
+    background: var(--gs-color-background);
+    margin-top: 1rem;
+    border-radius: 2px;
+}
+
+.badge-progress-fill {
+    height: 100%;
+    background: var(--gs-color-primary);
+    border-radius: 2px;
+}
+
+.badge-progress-text {
+    font-size: 0.7rem;
+    color: var(--gs-color-text-muted);
+    float: right;
+    margin-top: 0.2rem;
+}
+
+/* Point History */
+.point-history-panel {
+    background: var(--gs-color-surface);
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 4rem;
+}
+
+.point-history-panel.hidden {
+    display: none;
+}
+
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--gs-color-border);
+}
+
+.history-item:last-child {
+    border-bottom: none;
+}
+
+.h-reason {
+    font-size: 0.9rem;
+}
+
+.h-op {
+    color: var(--gs-color-accent);
+    font-size: 0.8rem;
+    margin-left: 0.5rem;
+}
+
+.h-pts {
+    font-weight: 700;
+    color: var(--gs-color-primary);
+}

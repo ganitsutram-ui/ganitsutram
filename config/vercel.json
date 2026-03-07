@@ -1,0 +1,58 @@
+{
+    "version": 2,
+    "builds": [
+        {
+            "src": "websites/portal/**",
+            "use": "@vercel/static"
+        },
+        {
+            "src": "websites/discoveries/**",
+            "use": "@vercel/static"
+        },
+        {
+            "src": "websites/learning/**",
+            "use": "@vercel/static"
+        },
+        {
+            "src": "websites/knowledge-map/**",
+            "use": "@vercel/static"
+        },
+        {
+            "src": "websites/research-lab/**",
+            "use": "@vercel/static"
+        },
+        {
+            "src": "websites/solver/**",
+            "use": "@vercel/static"
+        }
+    ],
+    "rewrites": [
+        {
+            "source": "/(.*)",
+            "destination": "/index.html"
+        }
+    ],
+    "headers": [
+        {
+            "source": "/(.*)",
+            "headers": [
+                {
+                    "key": "X-Content-Type-Options",
+                    "value": "nosniff"
+                },
+                {
+                    "key": "X-Frame-Options",
+                    "value": "DENY"
+                },
+                {
+                    "key": "X-XSS-Protection",
+                    "value": "1; mode=block"
+                },
+                {
+                    "key": "Content-Security-Policy",
+                    "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://api.ganitsutram.com; img-src 'self' data:"
+                }
+            ]
+        }
+    ]
+}
