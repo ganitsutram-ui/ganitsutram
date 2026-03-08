@@ -178,12 +178,12 @@ module.exports = {
     generatePracticeSet,
     checkAnswer,
     calculateAnswer,
-    saveAttempt: (userId, attempt) => {
-        return practiceRepository.saveAttempt({
+    saveAttempt: async (userId, attempt) => {
+        return await practiceRepository.saveAttempt({
             ...attempt,
             userId,
             attemptedAt: new Date().toISOString()
         });
     },
-    getPracticeStats: (userId) => practiceRepository.getPracticeStats(userId)
+    getPracticeStats: async (userId) => await practiceRepository.getPracticeStats(userId)
 };

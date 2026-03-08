@@ -20,7 +20,7 @@ const progressRepository = require('../database/progress-repository');
  * @param {Object} entryData 
  * @returns {Object}
  */
-function addProgress(userId, entryData) {
+async function addProgress(userId, entryData) {
     const entry = {
         progressId: uuidv4(),
         userId,
@@ -34,9 +34,9 @@ function addProgress(userId, entryData) {
         timeTakenMs: entryData.timeTakenMs || 0
     };
 
-    progressRepository.insertProgress(entry);
+    await progressRepository.insertProgress(entry);
     // Maintain the 500-entry limit in DB too
-    progressRepository.pruneUserProgress(userId, 500);
+    await progressRepository.pruneUserProgress(userId, 500);
 
     return entry;
 }
@@ -44,15 +44,15 @@ function addProgress(userId, entryData) {
 /**
  * Retrieves progress history with filtering and pagination.
  */
-function getProgress(userId, options = {}) {
-    return progressRepository.getByUserId(userId, options);
+async function getProgress(userId, options = {}) {
+    return await progressRepository.getByUserId(userId, options);
 }
 
 /**
  * Calculates user statistics.
  */
-function getStats(userId) {
-    const totalSolved = progressRepository.countByUserId(userId);
+async function getStats(userId) {
+    const totalSolved = await progressRepository.countByUserId(userId);
 
     if (totalSolved === 0) {
         return {
@@ -65,7 +65,7 @@ function getStats(userId) {
         };
     }
 
-    const breakdownRows = progressRepository.getOperationBreakdown(userId);
+    const breakdownRows = await progressRepository.getOperationBreakdown(userId);
     const operationBreakdown = {};
     let mostUsedOperation = null;
     let maxCount = 0;
@@ -78,12 +78,12 @@ function getStats(userId) {
         }
     });
 
-    const dates = progressRepository.getDistinctDays(userId);
+    const dates = await progressRepository.getDistinctDays(userId);
     const streak = calculateStreakFromDates(dates);
 
     // Get first and last solve dates
-    const lastEntries = progressRepository.getByUserId(userId, { limit: 1, offset: 0 });
-    const firstEntries = progressRepository.getByUserId(userId, { limit: 1, offset: totalSolved - 1 });
+    const lastEntries = await progressRepository.getByUserId(userId, { limit: 1, offset: 0 });
+    const firstEntries = await progressRepository.getByUserId(userId, { limit: 1, offset: totalSolved - 1 });
 
     return {
         totalSolved,
@@ -126,8 +126,8 @@ function calculateStreakFromDates(sortedDates) {
 /**
  * Clears all progress for a user.
  */
-function clearProgress(userId) {
-    return progressRepository.deleteByUserId(userId);
+async function clearProgress(userId) {
+    return await progressRepository.deleteByUserId(userId);
 }
 
 module.exports = {

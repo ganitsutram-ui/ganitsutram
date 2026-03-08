@@ -11,6 +11,9 @@
  */
 
 (function () {
+    const { API_BASE } = window.GanitConfig;
+    const API_ROOT = API_BASE.replace('/api', '');
+
     const GanitCMS = {
         state: {
             content: [],
@@ -53,7 +56,7 @@
             }
 
             try {
-                const res = await fetch('/api/auth/me', {
+                const res = await fetch(`${API_ROOT}/api/auth/me`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 const data = await res.json();
@@ -162,12 +165,12 @@
             this.els.placeholder.style.display = 'flex';
             this.els.listView.style.display = 'none';
 
-            let url = `/api/cms/admin/content?limit=${this.state.pagination.limit}&offset=${this.state.pagination.offset}`;
+            let url = `${API_ROOT}/api/cms/admin/content?limit=${this.state.pagination.limit}&offset=${this.state.pagination.offset}`;
             if (this.state.filters.type !== 'all') url += `&type=${this.state.filters.type}`;
             if (this.state.filters.published !== 'all') url += `&published=${this.state.filters.published === 'published'}`;
 
             // If searching, use search API
-            if (this.state.filters.q) url = `/api/cms/search?q=${encodeURIComponent(this.state.filters.q)}`;
+            if (this.state.filters.q) url = `${API_ROOT}/api/cms/search?q=${encodeURIComponent(this.state.filters.q)}`;
 
             try {
                 const res = await fetch(url, {
@@ -276,8 +279,8 @@
 
             const method = this.state.currentEditingId ? 'PUT' : 'POST';
             const url = this.state.currentEditingId
-                ? `/api/cms/admin/content/${this.state.currentEditingId}`
-                : `/api/cms/admin/content`;
+                ? `${API_ROOT}/api/cms/admin/content/${this.state.currentEditingId}`
+                : `${API_ROOT}/api/cms/admin/content`;
 
             try {
                 const res = await fetch(url, {
@@ -305,7 +308,7 @@
         togglePublish: async function (id, currentStatus) {
             const endpoint = currentStatus ? 'unpublish' : 'publish';
             try {
-                const res = await fetch(`/api/cms/admin/content/${id}/${endpoint}`, {
+                const res = await fetch(`${API_ROOT}/api/cms/admin/content/${id}/${endpoint}`, {
                     method: 'POST',
                     headers: { 'Authorization': `Bearer ${localStorage.getItem('gs_token')}` }
                 });
@@ -316,7 +319,7 @@
         deleteContent: async function (id) {
             if (!confirm("Permanently delete this content?")) return;
             try {
-                const res = await fetch(`/api/cms/admin/content/${id}`, {
+                const res = await fetch(`${API_ROOT}/api/cms/admin/content/${id}`, {
                     method: 'DELETE',
                     headers: { 'Authorization': `Bearer ${localStorage.getItem('gs_token')}` }
                 });
@@ -326,7 +329,7 @@
 
         syncDiscoveries: async function () {
             try {
-                const res = await fetch(`/api/cms/admin/sync`, {
+                const res = await fetch(`${API_ROOT}/api/cms/admin/sync`, {
                     method: 'POST',
                     headers: { 'Authorization': `Bearer ${localStorage.getItem('gs_token')}` }
                 });
@@ -338,7 +341,7 @@
 
         fetchRevisions: async function (id) {
             try {
-                const res = await fetch(`/api/cms/admin/content/${id}/revisions`, {
+                const res = await fetch(`${API_ROOT}/api/cms/admin/content/${id}/revisions`, {
                     headers: { 'Authorization': `Bearer ${localStorage.getItem('gs_token')}` }
                 });
                 const data = await res.json();

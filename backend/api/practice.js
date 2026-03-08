@@ -22,7 +22,7 @@ const ATTRIBUTION = "GanitSūtram | AITDL";
  * GET /api/practice
  * Generate a set of questions.
  */
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     const { operation = 'all', difficulty = 'beginner', count = 5 } = req.query;
 
     try {
@@ -37,11 +37,6 @@ router.get('/', (req, res) => {
             const { correctAnswer, ...rest } = q;
             return rest;
         });
-
-        // We store the correct answers in the response but they are NOT for the user.
-        // Wait, the requirement says "correctAnswer NOT included in response".
-        // But how will the client check? Requirement says "checked server-side".
-        // So client must send the answer back.
 
         res.status(200).json({
             operation,
@@ -58,7 +53,7 @@ router.get('/', (req, res) => {
  * POST /api/practice/check
  * Validate an answer and log attempt if authenticated.
  */
-router.post('/check', optionalAuth, (req, res) => {
+router.post('/check', optionalAuth, async (req, res) => {
     let { questionId, operation, difficulty = 'beginner', correctAnswer, userAnswer, timeTakenMs, question } = req.body;
 
     if (!questionId) {
@@ -83,28 +78,36 @@ router.post('/check', optionalAuth, (req, res) => {
 
     // Save attempt if logged in
     if (req.user) {
-        Promise.resolve().then(() => {
-            practiceService.saveAttempt(req.user.userId, {
-                attemptId: questionId,
-                operation,
-                question: req.body.question || "N/A",
-                correctAnswer,
-                userAnswer,
-                isCorrect: result.isCorrect,
-                difficulty,
-                timeTakenMs: parseInt(timeTakenMs) || 0
-            });
+        (async () => {
+            try {
+                await practiceService.saveAttempt(req.user.userId, {
+                    attemptId: questionId,
+                    operation,
+                    question: req.body.question || "N/A",
+                    correctAnswer,
+                    userAnswer,
+                    isCorrect: result.isCorrect,
+                    difficulty,
+                    timeTakenMs: parseInt(timeTakenMs) || 0
+                });
 
-            const leaderboardService = require('../services/leaderboard-service');
-            const { POINTS, awardPoints } = leaderboardService;
-            if (result.isCorrect) {
-                if (parseInt(timeTakenMs) < 10000) {
-                    awardPoints(req.user.userId, 'practice_correct_fast', POINTS.practice_correct_fast, operation);
-                } else {
-                    awardPoints(req.user.userId, 'practice_correct', POINTS.practice_correct, operation);
+                try {
+                    const leaderboardService = require('../services/leaderboard-service');
+                    const { POINTS, awardPoints } = leaderboardService;
+                    if (result.isCorrect) {
+                        if (parseInt(timeTakenMs) < 10000) {
+                            await awardPoints(req.user.userId, 'practice_correct_fast', POINTS.practice_correct_fast, operation);
+                        } else {
+                            await awardPoints(req.user.userId, 'practice_correct', POINTS.practice_correct, operation);
+                        }
+                    }
+                } catch (serviceErr) {
+                    console.error('[Practice Gamification Hook]', serviceErr.message);
                 }
+            } catch (err) {
+                console.error('[Practice Async Hook]', err);
             }
-        }).catch(err => console.error('[Practice Async Hook]', err));
+        })();
     }
 
     res.status(200).json({
@@ -118,9 +121,9 @@ router.post('/check', optionalAuth, (req, res) => {
  * GET /api/practice/stats
  * Personal performance stats.
  */
-router.get('/stats', requireAuth, (req, res) => {
+router.get('/stats', requireAuth, async (req, res) => {
     try {
-        const stats = practiceService.getPracticeStats(req.user.userId);
+        const stats = await practiceService.getPracticeStats(req.user.userId);
         res.status(200).json({
             stats,
             attribution: ATTRIBUTION

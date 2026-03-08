@@ -24,10 +24,10 @@ const ATTRIBUTION = "GanitSūtram | AITDL";
  * GET /api/analytics/dashboard
  * Protected: Admin only
  */
-router.get('/dashboard', requireAuth, requireRole('admin'), (req, res) => {
+router.get('/dashboard', requireAuth, requireRole('admin'), async (req, res) => {
     try {
         const days = parseInt(req.query.days) || 30;
-        const dashboard = analyticsService.getPlatformDashboard({ days });
+        const dashboard = await analyticsService.getPlatformDashboard({ days });
         res.status(200).json({
             dashboard,
             attribution: ATTRIBUTION
@@ -42,9 +42,9 @@ router.get('/dashboard', requireAuth, requireRole('admin'), (req, res) => {
  * GET /api/analytics/realtime
  * Protected: Admin only
  */
-router.get('/realtime', requireAuth, requireRole('admin'), (req, res) => {
+router.get('/realtime', requireAuth, requireRole('admin'), async (req, res) => {
     try {
-        const realtime = analyticsService.getRealtimeStats();
+        const realtime = await analyticsService.getRealtimeStats();
         res.status(200).json({
             realtime,
             generatedAt: new Date().toISOString(),

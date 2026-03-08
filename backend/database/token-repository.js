@@ -16,51 +16,45 @@ const { v4: uuidv4 } = require('uuid');
 /**
  * Creates a new reset token in the database.
  */
-function createResetToken({ tokenId, userId, tokenHash, expiresAt, createdAt }) {
-    const stmt = db.prepare(`
+async function createResetToken({ tokenId, userId, tokenHash, expiresAt, createdAt }) {
+    await db.run(`
         INSERT INTO reset_tokens (token_id, user_id, token_hash, expires_at, created_at)
         VALUES (?, ?, ?, ?, ?)
-    `);
+    `, tokenId, userId, tokenHash, expiresAt, createdAt);
 
-    stmt.run(tokenId, userId, tokenHash, expiresAt, createdAt);
-
-    return db.prepare('SELECT * FROM reset_tokens WHERE token_id = ?').get(tokenId);
+    return await db.get('SELECT * FROM reset_tokens WHERE token_id = ?', tokenId);
 }
 
 /**
  * Finds a token by its hash.
  */
-function findByTokenHash(tokenHash) {
-    const stmt = db.prepare('SELECT * FROM reset_tokens WHERE token_hash = ?');
-    return stmt.get(tokenHash);
+async function findByTokenHash(tokenHash) {
+    return await db.get('SELECT * FROM reset_tokens WHERE token_hash = ?', tokenHash);
 }
 
 /**
  * Marks a token as used.
  */
-function markTokenUsed(tokenId) {
-    const stmt = db.prepare('UPDATE reset_tokens SET used = 1 WHERE token_id = ?');
-    stmt.run(tokenId);
-    return db.prepare('SELECT * FROM reset_tokens WHERE token_id = ?').get(tokenId);
+async function markTokenUsed(tokenId) {
+    await db.run('UPDATE reset_tokens SET used = 1 WHERE token_id = ?', tokenId);
+    return await db.get('SELECT * FROM reset_tokens WHERE token_id = ?', tokenId);
 }
 
 /**
  * Deletes tokens that have expired and have not been used.
  * Returns the number of deleted tokens.
  */
-function deleteExpiredTokens() {
+async function deleteExpiredTokens() {
     const now = new Date().toISOString();
-    const stmt = db.prepare('DELETE FROM reset_tokens WHERE expires_at < ? AND used = 0');
-    const result = stmt.run(now);
+    const result = await db.run('DELETE FROM reset_tokens WHERE expires_at < ? AND used = 0', now);
     return result.changes;
 }
 
 /**
  * Deletes all reset tokens associated with a given user.
  */
-function deleteUserTokens(userId) {
-    const stmt = db.prepare('DELETE FROM reset_tokens WHERE user_id = ?');
-    const result = stmt.run(userId);
+async function deleteUserTokens(userId) {
+    const result = await db.run('DELETE FROM reset_tokens WHERE user_id = ?', userId);
     return result.changes;
 }
 

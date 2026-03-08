@@ -14,7 +14,8 @@
 (function () {
     'use strict';
 
-    const API = '/api/notifications';
+    const { API_BASE, SSE_URL } = window.GanitConfig;
+    const API = `${API_BASE.replace('/api', '')}/api/notifications`;
     let _token = null;
     let _sse = null;
     let _sseRetryMs = 2000;
@@ -46,7 +47,7 @@
         if (_sse) { _sse.close(); }
 
         try {
-            _sse = new EventSource(`${API}/stream?token=${encodeURIComponent(token)}`);
+            _sse = new EventSource(`${SSE_URL}?token=${encodeURIComponent(token)}`);
 
             _sse.onmessage = (e) => {
                 try {

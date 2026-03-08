@@ -12,6 +12,7 @@
 
 window.GanitSEO = (function () {
     'use strict';
+    const { CANONICAL_BASE, PORTAL_URL, DISCOVER_URL } = window.GanitConfig;
 
     function setMetaContent(nameOrProperty, content) {
         if (!content) return;
@@ -92,7 +93,7 @@ window.GanitSEO = (function () {
     function setDiscoveryMeta(discovery) {
         const title = `${discovery.title} | GanitSūtram`;
         const description = discovery.excerpt_en || discovery.excerpt_hi || "Mathematical discovery on GanitSūtram.";
-        const url = `https://discover.ganitsutram.com/#${discovery.slug}`;
+        const url = `${DISCOVER_URL}/#${discovery.slug}`;
 
         updatePageMeta({
             title,
@@ -112,13 +113,13 @@ window.GanitSEO = (function () {
                     "@type": "ListItem",
                     "position": 1,
                     "name": "Home",
-                    "item": "https://ganitsutram.com"
+                    "item": PORTAL_URL
                 },
                 {
                     "@type": "ListItem",
                     "position": 2,
                     "name": "Discoveries",
-                    "item": "https://discover.ganitsutram.com"
+                    "item": DISCOVER_URL
                 },
                 {
                     "@type": "ListItem",
@@ -177,7 +178,7 @@ window.GanitSEO = (function () {
     function generateOGImage(title, subtitle) {
         // Phase 21 Enhancement Stub
         // Returns static template until canvas implementation
-        return 'https://ganitsutram.com/assets/og-image.png';
+        return `${CANONICAL_BASE}/assets/og-image.png`;
     }
 
     function init() {

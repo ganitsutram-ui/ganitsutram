@@ -26,7 +26,8 @@ Purpose: JavaScript module skeleton for ui-core or backend use.
      */
 
     // ─── CONSTANTS ───────────────────────────────────────────
-    const API_BASE = 'http://localhost:3000/api'; // Replace with api.ganitsutram.com in production
+    // RULE: Use window.GanitConfig as the single source of truth.
+    const { API_BASE } = window.GanitConfig;
 
     // ─── INIT ────────────────────────────────────────────────
     document.addEventListener('DOMContentLoaded', () => {

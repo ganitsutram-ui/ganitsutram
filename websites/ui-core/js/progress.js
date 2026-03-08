@@ -12,9 +12,7 @@
  */
 
 (function () {
-    const API_BASE = window.location.hostname === 'localhost'
-        ? 'http://localhost:3000/api'
-        : 'https://api.ganitsutram.com/api';
+    const { API_BASE } = window.GanitConfig;
 
     const PROGRESS_BASE = `${API_BASE}/user-progress`;
 

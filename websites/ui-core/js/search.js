@@ -14,7 +14,8 @@
 (function () {
     'use strict';
 
-    const API = '/api/search';
+    const { API_BASE, PORTAL_URL } = window.GanitConfig;
+    const API = `${API_BASE.replace('/api', '')}/api/search`;
 
     // ─── SEARCH BAR (NAV AUTOCOMPLETE) ─────────────────────────────────────
 

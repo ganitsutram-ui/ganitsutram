@@ -40,7 +40,7 @@ function trackEvent(eventType, req, metadata = {}) {
             const userAgent = (req?.headers['user-agent'] || '').slice(0, 80);
             const createdAt = new Date().toISOString();
 
-            repo.insertEvent({
+            await repo.insertEvent({
                 eventId,
                 eventType,
                 userId,

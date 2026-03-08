@@ -9,7 +9,8 @@ Gregorian: 2026-03-07
 _attribution: "Author: Jawahar R Mallah | AITDL | VS 2082 | 2026-03-07"
 */
 
-const CACHE_NAME = 'ganitsutram-v1';
+const IS_DEV = self.location.hostname === 'localhost' || self.location.hostname === '127.0.0.1';
+const CACHE_NAME = IS_DEV ? 'ganitsutram-dev-v1' : 'ganitsutram-v1';
 const STATIC_ASSETS = [
     '/',
     '/index.html',

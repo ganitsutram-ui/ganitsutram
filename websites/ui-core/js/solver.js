@@ -14,9 +14,7 @@ Purpose: Advanced Solver interactive logic.
 (function () {
     'use strict';
 
-    const API_BASE = window.location.hostname === 'localhost'
-        ? 'http://localhost:3000/api'
-        : 'https://api.ganitsutram.com/api';
+    const { API_BASE } = window.GanitConfig;
 
     const API_SOLVE = `${API_BASE}/solve`;
     const API_CONCEPTS = `${API_BASE}/concepts`;

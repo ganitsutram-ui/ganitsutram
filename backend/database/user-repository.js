@@ -15,14 +15,13 @@ const db = require('./db');
 /**
  * Creates a new user in the database.
  * @param {Object} user 
- * @returns {Object}
+ * @returns {Promise<Object>}
  */
-function createUser({ userId, email, passwordHash, role, createdAt }) {
-    const stmt = db.prepare(`
+async function createUser({ userId, email, passwordHash, role, createdAt }) {
+    await db.run(`
         INSERT INTO users (user_id, email, password_hash, role, created_at)
         VALUES (?, ?, ?, ?, ?)
-    `);
-    stmt.run(userId, email, passwordHash, role, createdAt);
+    `, userId, email, passwordHash, role, createdAt);
     return { userId, email, role, createdAt };
 }
 
@@ -43,33 +42,32 @@ function mapUser(row) {
 /**
  * Finds a user by email.
  */
-function findByEmail(email) {
-    const row = db.prepare('SELECT * FROM users WHERE email = ?').get(email);
+async function findByEmail(email) {
+    const row = await db.get('SELECT * FROM users WHERE email = ?', email);
     return mapUser(row);
 }
 
 /**
  * Finds a user by ID.
  */
-function findById(userId) {
-    const row = db.prepare('SELECT * FROM users WHERE user_id = ?').get(userId);
+async function findById(userId) {
+    const row = await db.get('SELECT * FROM users WHERE user_id = ?', userId);
     return mapUser(row);
 }
 
 /**
  * Checks if email already exists.
  */
-function emailExists(email) {
-    const row = db.prepare('SELECT 1 FROM users WHERE email = ?').get(email);
+async function emailExists(email) {
+    const row = await db.get('SELECT 1 FROM users WHERE email = ?', email);
     return !!row;
 }
 
 /**
  * Updates a user's password.
  */
-function updatePassword(userId, passwordHash) {
-    const stmt = db.prepare('UPDATE users SET password_hash = ? WHERE user_id = ?');
-    stmt.run(passwordHash, userId);
+async function updatePassword(userId, passwordHash) {
+    await db.run('UPDATE users SET password_hash = ? WHERE user_id = ?', passwordHash, userId);
 }
 
 module.exports = {

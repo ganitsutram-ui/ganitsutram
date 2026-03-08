@@ -19,7 +19,7 @@ const VALID_TYPES = ['discovery', 'lesson', 'sutra', 'concept', 'announcement'];
 /**
  * Validates and creates content.
  */
-function createContent(authorId, data) {
+async function createContent(authorId, data) {
     if (!data.title_en || !data.body_en) {
         throw new Error('Title (English) and Body (English) are required.');
     }
@@ -34,40 +34,42 @@ function createContent(authorId, data) {
     }
 
     // Ensure slug uniqueness
-    data.slug = ensureUniqueSlug(data.slug);
+    data.slug = await ensureUniqueSlug(data.slug);
     data.author_id = authorId;
 
-    return repo.createContent(data);
+    return await repo.createContent(data);
 }
 
 /**
  * Updates content with validation.
  */
-function updateContent(contentId, authorId, changes) {
+async function updateContent(contentId, authorId, changes) {
     if (changes.slug) {
-        changes.slug = ensureUniqueSlug(sanitizeSlug(changes.slug), contentId);
+        changes.slug = await ensureUniqueSlug(sanitizeSlug(changes.slug), contentId);
     }
     changes.author_id = authorId;
-    return repo.updateContent(contentId, changes);
+    return await repo.updateContent(contentId, changes);
 }
 
 /**
  * Publishes content if user is admin.
  */
-function publishContent(contentId, adminId) {
-    const user = db.prepare('SELECT role FROM users WHERE user_id = ?').get(adminId);
+async function publishContent(contentId, adminId) {
+    const user = await db.get('SELECT role FROM users WHERE user_id = ?', adminId);
     if (!user || user.role !== 'admin') {
         throw new Error('Unauthorized. Admin role required.');
     }
-    return repo.publishContent(contentId);
+    return await repo.publishContent(contentId);
 }
 
-function getPublishedContent(type, options = {}, locale = 'en') {
-    return repo.getAllContent({
+async function getPublishedContent(type, options = {}, locale = 'en') {
+    const content = await repo.getAllContent({
         ...options,
         type,
         published: true
-    }).map(row => ({
+    });
+
+    return content.map(row => ({
         ...row,
         title: row[`title_${locale}`] || row.title_en,
         body: row[`body_${locale}`] || row.body_en,
@@ -75,21 +77,21 @@ function getPublishedContent(type, options = {}, locale = 'en') {
     }));
 }
 
-function getContentForAdmin(type, options = {}) {
-    return repo.getAllContent({ ...options, type });
+async function getContentForAdmin(type, options = {}) {
+    return await repo.getAllContent({ ...options, type });
 }
 
 /**
  * Syncs legacy discoveries to CMS.
  */
-function syncDiscoveriesToCMS() {
-    const discoveries = db.prepare('SELECT * FROM discoveries').all();
+async function syncDiscoveriesToCMS() {
+    const discoveries = await db.all('SELECT * FROM discoveries');
     let synced = 0;
 
-    discoveries.forEach(d => {
-        const existing = repo.getContentBySlug(d.slug);
+    for (const d of discoveries) {
+        const existing = await repo.getContentBySlug(d.slug);
         if (!existing) {
-            repo.createContent({
+            await repo.createContent({
                 content_type: 'discovery',
                 slug: d.slug,
                 title_en: d.title,
@@ -106,7 +108,7 @@ function syncDiscoveriesToCMS() {
             });
             synced++;
         }
-    });
+    }
 
     return synced;
 }
@@ -131,12 +133,12 @@ function sanitizeSlug(slug) {
         .trim();
 }
 
-function ensureUniqueSlug(slug, excludeId = null) {
+async function ensureUniqueSlug(slug, excludeId = null) {
     let finalSlug = slug;
     let counter = 1;
 
     while (true) {
-        const existing = db.prepare('SELECT content_id FROM cms_content WHERE slug = ?').get(finalSlug);
+        const existing = await db.get('SELECT content_id FROM cms_content WHERE slug = ?', finalSlug);
         if (!existing || (excludeId && existing.content_id === excludeId)) {
             break;
         }

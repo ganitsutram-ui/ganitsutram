@@ -12,20 +12,22 @@
 
 const repo = require('../database/analytics-repository');
 
-function getPlatformDashboard(options = {}) {
+async function getPlatformDashboard(options = {}) {
     const days = parseInt(options.days) || 30;
     const now = new Date();
     const startDate = new Date(now.getTime() - days * 24 * 60 * 60 * 1000).toISOString();
     const endDate = now.toISOString();
 
-    const summary = repo.getPlatformSummary();
-    const dailyActiveUsers = repo.getDailyActiveUsers(startDate, endDate);
-    const newUsersByDay = repo.getNewUsersByDay(startDate, endDate);
-    const topOperations = repo.getTopOperations(10);
-    const eventBreakdown = repo.getEventCounts({ startDate, endDate }).byType;
-    const solvesPerDay = repo.getSolvesPerDay(startDate, endDate);
-    const practiceAccuracy = repo.getPracticeAccuracyOverall();
-    const hourlyDistribution = repo.getHourlyDistribution();
+    const [summary, dailyActiveUsers, newUsersByDay, topOperations, eventCounts, solvesPerDay, practiceAccuracy, hourlyDistribution] = await Promise.all([
+        repo.getPlatformSummary(),
+        repo.getDailyActiveUsers(startDate, endDate),
+        repo.getNewUsersByDay(startDate, endDate),
+        repo.getTopOperations(10),
+        repo.getEventCounts({ startDate, endDate }),
+        repo.getSolvesPerDay(startDate, endDate),
+        repo.getPracticeAccuracyOverall(),
+        repo.getHourlyDistribution()
+    ]);
 
     return {
         summary,
@@ -33,27 +35,26 @@ function getPlatformDashboard(options = {}) {
         dailyActiveUsers,
         newUsersByDay,
         topOperations,
-        eventBreakdown,
+        eventBreakdown: eventCounts.byType,
         solvesPerDay,
         practiceAccuracy,
         hourlyDistribution
     };
 }
 
-function getRealtimeStats() {
+async function getRealtimeStats() {
     const now = new Date();
     const lastHour = new Date(now.getTime() - 60 * 60 * 1000).toISOString();
 
-    const counts = repo.getEventCounts({ startDate: lastHour, endDate: now.toISOString() });
+    const counts = await repo.getEventCounts({ startDate: lastHour, endDate: now.toISOString() });
 
     // Calculate distinct DAU manually for the hour
-    const db = require('../database/db');
     const activeSql = `
         SELECT COUNT(DISTINCT user_id) as count 
         FROM analytics_events 
         WHERE user_id IS NOT NULL AND created_at >= ?
     `;
-    const activeRows = db.prepare(activeSql).get(lastHour);
+    const activeRows = await db.get(activeSql, lastHour);
 
     const topSql = `
         SELECT operation 
@@ -62,7 +63,7 @@ function getRealtimeStats() {
         GROUP BY operation
         ORDER BY COUNT(*) DESC LIMIT 1
     `;
-    const topOpRes = db.prepare(topSql).get(lastHour);
+    const topOpRes = await db.get(topSql, lastHour);
 
     const solvesThisHour = counts.byType.find(e => e.eventType === 'solve')?.count || 0;
 

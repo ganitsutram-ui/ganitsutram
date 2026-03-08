@@ -15,15 +15,13 @@ const db = require('./db');
 /**
  * Inserts a progress entry.
  */
-function insertProgress(entry) {
-    const stmt = db.prepare(`
+async function insertProgress(entry) {
+    await db.run(`
         INSERT INTO progress (
             progress_id, user_id, operation, input, input_a, input_b, 
             result, steps, solved_at, time_taken_ms
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `);
-
-    stmt.run(
+    `,
         entry.progressId,
         entry.userId,
         entry.operation,
@@ -61,7 +59,7 @@ function mapProgress(row) {
 /**
  * Fetch entries with limit/offset.
  */
-function getByUserId(userId, { operation, limit = 50, offset = 0 } = {}) {
+async function getByUserId(userId, { operation, limit = 50, offset = 0 } = {}) {
     let query = 'SELECT * FROM progress WHERE user_id = ?';
     const params = [userId];
 
@@ -73,14 +71,14 @@ function getByUserId(userId, { operation, limit = 50, offset = 0 } = {}) {
     query += ' ORDER BY solved_at DESC LIMIT ? OFFSET ?';
     params.push(limit, offset);
 
-    const rows = db.prepare(query).all(...params);
+    const rows = await db.all(query, ...params);
     return rows.map(mapProgress);
 }
 
 /**
  * Count entries.
  */
-function countByUserId(userId, operation = null) {
+async function countByUserId(userId, operation = null) {
     let query = 'SELECT COUNT(*) as count FROM progress WHERE user_id = ?';
     const params = [userId];
 
@@ -89,48 +87,48 @@ function countByUserId(userId, operation = null) {
         params.push(operation);
     }
 
-    const row = db.prepare(query).get(...params);
+    const row = await db.get(query, ...params);
     return row.count;
 }
 
 /**
  * Get Breakdown.
  */
-function getOperationBreakdown(userId) {
-    return db.prepare(`
+async function getOperationBreakdown(userId) {
+    return await db.all(`
         SELECT operation, COUNT(*) as count 
         FROM progress 
         WHERE user_id = ? 
         GROUP BY operation
-    `).all(userId);
+    `, userId);
 }
 
 /**
  * Get Distinct Days.
  */
-function getDistinctDays(userId) {
-    const rows = db.prepare(`
+async function getDistinctDays(userId) {
+    const rows = await db.all(`
         SELECT DISTINCT date(solved_at) as day 
         FROM progress 
         WHERE user_id = ? 
         ORDER BY day DESC
-    `).all(userId);
+    `, userId);
     return rows.map(r => r.day);
 }
 
 /**
  * Clear user history.
  */
-function deleteByUserId(userId) {
-    const info = db.prepare('DELETE FROM progress WHERE user_id = ?').run(userId);
+async function deleteByUserId(userId) {
+    const info = await db.run('DELETE FROM progress WHERE user_id = ?', userId);
     return info.changes;
 }
 
 /**
  * Cleanup: Maintain 500 entries per user limit.
  */
-function pruneUserProgress(userId, limit = 500) {
-    db.prepare(`
+async function pruneUserProgress(userId, limit = 500) {
+    await db.run(`
         DELETE FROM progress 
         WHERE progress_id IN (
             SELECT progress_id FROM progress 
@@ -138,7 +136,7 @@ function pruneUserProgress(userId, limit = 500) {
             ORDER BY solved_at DESC 
             LIMIT -1 OFFSET ?
         )
-    `).run(userId, limit);
+    `, userId, limit);
 }
 
 module.exports = {

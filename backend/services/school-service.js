@@ -23,15 +23,15 @@ const db = require('../database/db');
  * @param {string} schoolName
  * @returns {Object} school
  */
-function createSchool(adminUserId, schoolName) {
+async function createSchool(adminUserId, schoolName) {
     // Validate admin role
-    const admin = db.prepare('SELECT role FROM users WHERE user_id = ?').get(adminUserId);
+    const admin = await db.get('SELECT role FROM users WHERE user_id = ?', adminUserId);
     if (!admin || !['school', 'admin'].includes(admin.role)) {
         throw new Error('Only school admins can create a school.');
     }
 
     // Prevent duplicate schools
-    const existing = repo.findSchoolByAdminId(adminUserId);
+    const existing = await repo.findSchoolByAdminId(adminUserId);
     if (existing) {
         throw new Error('A school already exists for this admin.');
     }
@@ -40,7 +40,7 @@ function createSchool(adminUserId, schoolName) {
         throw new Error('School name must be at least 2 characters.');
     }
 
-    const school = repo.createSchool({
+    const school = await repo.createSchool({
         schoolId: uuidv4(),
         name: schoolName.trim(),
         adminId: adminUserId,
@@ -58,24 +58,24 @@ function createSchool(adminUserId, schoolName) {
  * @param {string} studentEmail
  * @returns {Object} enrollment
  */
-function enrollStudent(schoolId, studentEmail) {
-    const school = repo.findSchoolById(schoolId);
+async function enrollStudent(schoolId, studentEmail) {
+    const school = await repo.findSchoolById(schoolId);
     if (!school) throw new Error('School not found.');
 
-    const student = repo.findUserByEmail(studentEmail);
+    const student = await repo.findUserByEmail(studentEmail);
     if (!student) throw new Error('Student not found. Ask them to register first.');
     if (student.role !== 'student') throw new Error('Only students can be enrolled.');
 
-    if (repo.isEnrolled(schoolId, student.user_id)) {
+    if (await repo.isEnrolled(schoolId, student.user_id)) {
         throw new Error('Student is already enrolled in this school.');
     }
 
-    const count = repo.getEnrollmentCount(schoolId);
+    const count = await repo.getEnrollmentCount(schoolId);
     if (count >= school.student_cap) {
         throw new Error(`School capacity (${school.student_cap}) reached.`);
     }
 
-    const enrollment = repo.enrollStudent({
+    const enrollment = await repo.enrollStudent({
         enrollmentId: uuidv4(),
         schoolId,
         userId: student.user_id,
@@ -91,16 +91,18 @@ function enrollStudent(schoolId, studentEmail) {
  * @param {string} adminUserId
  * @returns {Object} dashboard
  */
-function getSchoolDashboard(adminUserId) {
-    const school = repo.findSchoolByAdminId(adminUserId);
+async function getSchoolDashboard(adminUserId) {
+    const school = await repo.findSchoolByAdminId(adminUserId);
     if (!school) return null;
 
-    const enrollmentCount = repo.getEnrollmentCount(school.school_id);
-    const enrollments = repo.getEnrollments(school.school_id);
-    const practiceOps = repo.getPracticeStats(school.school_id);
-    const progressStats = repo.getProgressStats(school.school_id);
-    const solveStats = repo.getStudentSolveStats(school.school_id);
-    const accuracyStats = repo.getStudentAccuracyStats(school.school_id);
+    const [enrollmentCount, enrollments, practiceOps, progressStats, solveStats, accuracyStats] = await Promise.all([
+        repo.getEnrollmentCount(school.school_id),
+        repo.getEnrollments(school.school_id),
+        repo.getPracticeStats(school.school_id),
+        repo.getProgressStats(school.school_id),
+        repo.getStudentSolveStats(school.school_id),
+        repo.getStudentAccuracyStats(school.school_id)
+    ]);
 
     // Aggregate practice stats
     const totalAttempts = practiceOps.reduce((s, r) => s + r.attempts, 0);
@@ -153,18 +155,18 @@ function getSchoolDashboard(adminUserId) {
  * @param {string} adminUserId
  * @returns {Object} updated enrollment
  */
-function removeStudent(schoolId, enrollmentId, adminUserId) {
-    const school = repo.findSchoolByAdminId(adminUserId);
+async function removeStudent(schoolId, enrollmentId, adminUserId) {
+    const school = await repo.findSchoolByAdminId(adminUserId);
     if (!school || school.school_id !== schoolId) {
         throw new Error('Access denied. You do not own this school.');
     }
 
-    const enrollment = repo.findEnrollmentById(enrollmentId);
+    const enrollment = await repo.findEnrollmentById(enrollmentId);
     if (!enrollment || enrollment.school_id !== schoolId) {
         throw new Error('Enrollment not found.');
     }
 
-    return repo.updateEnrollmentStatus(enrollmentId, 'suspended');
+    return await repo.updateEnrollmentStatus(enrollmentId, 'suspended');
 }
 
 module.exports = {

@@ -20,10 +20,10 @@ const ATTRIBUTION = "GanitSūtram | AITDL";
 /**
  * GET /api/discoveries
  */
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     const { category } = req.query;
     try {
-        const discoveries = discoveriesService.listDiscoveries(category);
+        const discoveries = await discoveriesService.listDiscoveries(category);
         res.status(200).json({
             total: discoveries.length,
             category: category || 'all',
@@ -38,10 +38,10 @@ router.get('/', (req, res) => {
 /**
  * GET /api/discoveries/:slug
  */
-router.get('/:slug', (req, res) => {
+router.get('/:slug', async (req, res) => {
     const { slug } = req.params;
     try {
-        const discovery = discoveriesService.getDiscoveryDetail(slug);
+        const discovery = await discoveriesService.getDiscoveryDetail(slug);
 
         // Track the view event
         trackEvent('discovery_view', req, { slug });

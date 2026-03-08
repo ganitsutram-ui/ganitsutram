@@ -14,6 +14,21 @@ Rate limiting is enforced via `express-rate-limit` to prevent brute force and Do
 | `patternLimiter` | `/api/patterns/*` | 1 min | 30 | Prevents heavy query loops. |
 | `adminLimiter` | `/api/admin/*` | 15 mins | 100 | General admin API limit. |
 
+## IP Blacklisting & Whitelisting
+To protect against persistent attackers, the Node layer implements dynamic IP filtering.
+- **`ip-blacklist`**: Runs first on every request. Blocks IPs in the global blacklist with HTTP 403.
+- **In-Memory Cache**: Blacklist is cached in memory with a 60-second TTL for zero-latency filtering.
+- **Cloudflare Ready**: Automatically detects the real client IP via `CF-Connecting-IP`.
+- **Whitelisting**: Administrative IPs can be whitelisted to bypass all security filters.
+
+## Threat Detection
+The `threat-detector` middleware monitors request patterns for:
+- **SQL Injection**: Detects common SQL keywords and tautologies in the request body.
+- **XSS**: Detects `<script>`, `javascript:`, and common HTML injection patterns.
+- **Path Traversal**: Detects `../`, `etc/passwd`, and system file access attempts in URLs.
+- **Scanners**: Detects User-Agents of known vulnerability scanners (sqlmap, nikto, etc.).
+- **Auto-Blocking**: IPs exceeding specific threat thresholds (e.g., 1 scanner attempt or 3 SQLi attempts) are automatically blacklisted for 24 hours or permanently.
+
 ## Input Sanitisation
 - **`xss`**: Strips malicious HTML and scripts from all string inputs in the request body automatically across all routes via the `sanitiseBody` middleware.
 - **`validator`**: Used strictly on endpoints to validate emails and integers.
@@ -42,16 +57,16 @@ Applied globally via `helmet`.
 
 ## CORS Policy
 - **Development**: Permissive for `localhost:8080`.
-- **Production**: Strictly confined to `*.ganitsutram.com` subdomains defined via environment variable injection.
+- **CORS Primitives**: Strictly confined to `*.ganitsutram.com` subdomains in production.
 
-## Known Limitations (Post-Phase 10)
-- SQLite Database is single-file; it is not suited for concurrent writes scaling past ~10,000 active concurrent users.
-- No global firewall or dynamic IP blacklisting applied at the Node layer.
+## Known Limitations (Post-Phase 6)
+- SQLite Database is single-file; it is not suited for concurrent writes scaling past ~10,000 active concurrent users. PostgreSQL is recommended for production scaling.
 
 ## Security Checklist
-- [x] Configure robust refresh token sliding windows
+- [x] Implement Node-layer IP Blacklisting.
+- [x] Configure robust refresh token sliding windows.
 - [ ] Set strong `JWT_SECRET` (min 64 chars) in production.
 - [ ] Set `NODE_ENV=production` on hosting provider.
 - [ ] Rotate SMTP credentials regularly.
-- [ ] Enable Volume/EBS block backups for the SQLite database.
+- [x] Enable Volume/EBS block backups for the database.
 - [ ] Audit `ALLOWED_ORIGINS` strictly before triggering production deployment pipelines.

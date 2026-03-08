@@ -12,64 +12,68 @@
 
 const db = require('./db');
 
-function createSession({ sessionId, userId, refreshTokenHash, familyId, deviceHint, ipHint, issuedAt, expiresAt }) {
-    const stmt = db.prepare(`
+async function createSession({ sessionId, userId, refreshTokenHash, familyId, deviceHint, ipHint, issuedAt, expiresAt }) {
+    return await db.run(`
         INSERT INTO refresh_sessions (
             session_id, user_id, refresh_token_hash, family_id, 
             device_hint, ip_hint, issued_at, expires_at, last_used_at
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `);
-    const info = stmt.run(
-        sessionId, userId, refreshTokenHash, familyId,
-        deviceHint, ipHint, issuedAt, expiresAt, issuedAt
-    );
-    return info;
+    `, sessionId, userId, refreshTokenHash, familyId, deviceHint, ipHint, issuedAt, expiresAt, issuedAt);
 }
 
-function findByTokenHash(refreshTokenHash) {
-    return db.prepare('SELECT * FROM refresh_sessions WHERE refresh_token_hash = ?').get(refreshTokenHash);
+async function findByTokenHash(refreshTokenHash) {
+    return await db.get('SELECT * FROM refresh_sessions WHERE refresh_token_hash = ?', refreshTokenHash);
 }
 
-function findByFamilyId(familyId) {
-    return db.prepare('SELECT * FROM refresh_sessions WHERE family_id = ?').all(familyId);
+async function findByFamilyId(familyId) {
+    return await db.all('SELECT * FROM refresh_sessions WHERE family_id = ?', familyId);
 }
 
-function rotateSession(oldSessionId, newSession) {
-    const rotate = db.transaction((oldId, newSess) => {
-        db.prepare('UPDATE refresh_sessions SET rotated = 1 WHERE session_id = ?').run(oldId);
-        createSession(newSess);
+async function rotateSession(oldSessionId, newSession) {
+    await db.transaction(async (tx) => {
+        await tx.run('UPDATE refresh_sessions SET rotated = 1 WHERE session_id = ?', oldSessionId);
+
+        await tx.run(`
+            INSERT INTO refresh_sessions (
+                session_id, user_id, refresh_token_hash, family_id, 
+                device_hint, ip_hint, issued_at, expires_at, last_used_at
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `,
+            newSession.sessionId, newSession.userId, newSession.refreshTokenHash,
+            newSession.familyId, newSession.deviceHint, newSession.ipHint,
+            newSession.issuedAt, newSession.expiresAt, newSession.issuedAt
+        );
     });
-    rotate(oldSessionId, newSession);
 }
 
-function revokeSession(sessionId) {
-    return db.prepare('UPDATE refresh_sessions SET revoked = 1 WHERE session_id = ?').run(sessionId);
+async function revokeSession(sessionId) {
+    return await db.run('UPDATE refresh_sessions SET revoked = 1 WHERE session_id = ?', sessionId);
 }
 
-function revokeAllUserSessions(userId) {
-    return db.prepare('UPDATE refresh_sessions SET revoked = 1 WHERE user_id = ?').run(userId);
+async function revokeAllUserSessions(userId) {
+    return await db.run('UPDATE refresh_sessions SET revoked = 1 WHERE user_id = ?', userId);
 }
 
-function revokeFamilyId(familyId) {
-    return db.prepare('UPDATE refresh_sessions SET revoked = 1 WHERE family_id = ?').run(familyId);
+async function revokeFamilyId(familyId) {
+    return await db.run('UPDATE refresh_sessions SET revoked = 1 WHERE family_id = ?', familyId);
 }
 
-function getActiveSessions(userId) {
-    return db.prepare(`
+async function getActiveSessions(userId) {
+    return await db.all(`
         SELECT session_id as sessionId, device_hint as deviceHint, 
                ip_hint as ipHint, issued_at as issuedAt, last_used_at as lastUsedAt
         FROM refresh_sessions 
         WHERE user_id = ? AND rotated = 0 AND revoked = 0
-    `).all(userId);
+    `, userId);
 }
 
-function updateLastUsed(sessionId, lastUsedAt) {
-    return db.prepare('UPDATE refresh_sessions SET last_used_at = ? WHERE session_id = ?').run(lastUsedAt, sessionId);
+async function updateLastUsed(sessionId, lastUsedAt) {
+    return await db.run('UPDATE refresh_sessions SET last_used_at = ? WHERE session_id = ?', lastUsedAt, sessionId);
 }
 
-function deleteExpiredSessions() {
+async function deleteExpiredSessions() {
     const now = new Date().toISOString();
-    const info = db.prepare('DELETE FROM refresh_sessions WHERE expires_at < ?').run(now);
+    const info = await db.run('DELETE FROM refresh_sessions WHERE expires_at < ?', now);
     return info.changes;
 }
 

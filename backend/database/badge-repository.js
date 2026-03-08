@@ -13,29 +13,30 @@
 const db = require('./db');
 const { v4: uuidv4 } = require('uuid');
 
-function getUserBadges(userId) {
-    return db.prepare(`
+async function getUserBadges(userId) {
+    return await db.all(`
         SELECT * FROM user_badges
         WHERE user_id = ?
         ORDER BY earned_at DESC
-    `).all(userId);
+    `, userId);
 }
 
-function hasAwardedBadge(userId, badgeId) {
-    const row = db.prepare(`SELECT 1 FROM user_badges WHERE user_id = ? AND badge_id = ?`).get(userId, badgeId);
+async function hasAwardedBadge(userId, badgeId) {
+    const row = await db.get(`SELECT 1 FROM user_badges WHERE user_id = ? AND badge_id = ?`, userId, badgeId);
     return !!row;
 }
 
-function awardBadge(userId, badgeId) {
-    if (hasAwardedBadge(userId, badgeId)) return false;
+async function awardBadge(userId, badgeId) {
+    const exists = await hasAwardedBadge(userId, badgeId);
+    if (exists) return false;
 
     const id = uuidv4();
     const now = new Date().toISOString();
 
-    db.prepare(`
+    await db.run(`
         INSERT INTO user_badges (user_badge_id, user_id, badge_id, earned_at)
         VALUES (?, ?, ?, ?)
-    `).run(id, userId, badgeId, now);
+    `, id, userId, badgeId, now);
 
     return true;
 }

@@ -15,7 +15,8 @@
 (function () {
     'use strict';
 
-    const GRAPH_API = '/api/graph';
+    const { API_BASE } = window.GanitConfig;
+    const GRAPH_API = `${API_BASE.replace('/api', '')}/api/graph`;
 
     // Node type → colour mapping
     const typeColors = {

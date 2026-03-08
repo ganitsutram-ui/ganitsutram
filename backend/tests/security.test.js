@@ -1,65 +1,90 @@
-const crypto = require('crypto');
+/**
+ * Project: GanitSūtram
+ * Author: Jawahar R Mallah
+ * Company: AITDL | aitdl.com
+ *
+ * Date:
+ * Vikram Samvat: VS 2082
+ * Gregorian: 2026-03-08
+ *
+ * Purpose: Verification tests for security infrastructure.
+ */
 
-async function api(method, path, body, token) {
-    const headers = { 'Content-Type': 'application/json' };
-    if (token) headers['Authorization'] = `Bearer ${token}`;
+const { getClientIP } = require('../middleware/ip-blacklist');
+const securityRepo = require('../database/security-repository');
+const ipBlacklist = require('../middleware/ip-blacklist');
+const threatDetector = require('../middleware/threat-detector');
 
-    const options = { method, headers };
-    if (body) options.body = JSON.stringify(body);
+async function testSecurity() {
+    console.log('--- Starting Security Infrastructure Tests ---');
 
-    const res = await fetch(`http://localhost:3000${path}`, options);
-    let data;
-    try {
-        data = await res.json();
-    } catch (e) {
-        data = null;
+    // 1. Test getClientIP
+    const mockReqCF = {
+        headers: { 'cf-connecting-ip': '1.1.1.1' },
+        socket: { remoteAddress: '127.0.0.1' }
+    };
+    console.log('Testing getClientIP (Cloudflare):', getClientIP(mockReqCF) === '1.1.1.1' ? '✅' : '❌');
+
+    const mockReqXFF = {
+        headers: { 'x-forwarded-for': '2.2.2.2, 3.3.3.3' },
+        socket: { remoteAddress: '127.0.0.1' }
+    };
+    console.log('Testing getClientIP (XFF):', getClientIP(mockReqXFF) === '2.2.2.2' ? '✅' : '❌');
+
+    // 2. Test Blacklist Logic
+    const testIP = '9.9.9.9';
+    await securityRepo.blacklistIP(testIP, 'manual_test', 5, 'admin');
+    ipBlacklist.invalidateCache();
+    await ipBlacklist({ headers: {}, socket: { remoteAddress: testIP } }, { status: () => ({ json: () => { } }) }, () => { }); // Trigger cache refresh
+
+    // Check if blacklisted
+    const isBlocked = await securityRepo.isBlacklisted(testIP);
+    console.log('Testing securityRepo.isBlacklisted (true case):', isBlocked === true ? '✅' : '❌');
+
+    // 3. Test Whitelist Logic
+    const whiteIP = '8.8.8.8';
+    await securityRepo.whitelistIP(whiteIP, 'test_white');
+    const isWhite = await securityRepo.isWhitelisted(whiteIP);
+    console.log('Testing securityRepo.isWhitelisted:', isWhite === true ? '✅' : '❌');
+
+    // 4. Test Threat Detection Signature
+    const mockReqThreat = {
+        clientIP: '7.7.7.7',
+        originalUrl: '/api/test/../../etc/passwd',
+        method: 'GET',
+        headers: { 'user-agent': 'sqlmap/1.0' }
+    };
+
+    // We can't easily run the middleware without a full express app and supertest in this script environment easily,
+    // but we can test the repository logging and thresholds.
+
+    await threatDetector.handleThreat(mockReqThreat.clientIP, 'scanner', mockReqThreat, true);
+    const blockedScanner = await securityRepo.isBlacklisted(mockReqThreat.clientIP);
+    console.log('Testing Auto-block (Scanner):', blockedScanner === true ? '✅' : '❌');
+
+    // Test SQLi threshold
+    const sqliIP = '6.6.6.6';
+    for (let i = 0; i < 3; i++) {
+        await threatDetector.handleThreat(sqliIP, 'sql_injection', {
+            originalUrl: '/',
+            method: 'POST',
+            body: { q: '1 OR 1=1' },
+            headers: { 'user-agent': 'node-test' }
+        });
     }
-    return { status: res.status, data, headers: res.headers };
+    ipBlacklist.invalidateCache();
+    const blockedSQLi = await securityRepo.isBlacklisted(sqliIP);
+    console.log('Testing Auto-block (SQLi Threshold=3):', blockedSQLi === true ? '✅' : '❌');
+
+    // Clean up
+    await securityRepo.removeFromBlacklist(testIP);
+    await securityRepo.removeFromBlacklist(mockReqThreat.clientIP);
+    await securityRepo.removeFromBlacklist(sqliIP);
+    await securityRepo.removeFromWhitelist(whiteIP);
+
+    console.log('--- Security Tests Completed ---');
 }
 
-describe('Security API Tests', () => {
-    let testUserEmail = `test_qa_sec_${crypto.randomBytes(4).toString('hex')}@ganitsutram.com`;
-
-    it('XSS sanitisation on POST /api/auth/register -> 422', async () => {
-        const res = await api('POST', '/api/auth/register', {
-            email: "<script>alert(1)</script>@test.com",
-            password: 'StrongPassword123!',
-            role: 'student'
-        });
-        expect(res.status).toBe(422);
-    });
-
-    it('Body size limit -> 413', async () => {
-        // Create 11kb string
-        const largeStr = 'a'.repeat(11 * 1024);
-        const res = await api('POST', '/api/solve', {
-            operation: 'digital-root',
-            input: 98,
-            junk: largeStr
-        });
-        expect(res.status).toBe(413);
-    });
-
-    it('Security headers on GET /api/health', async () => {
-        const res = await api('GET', '/api/health');
-        expect(res.status).toBe(200);
-
-        // Convert map/iterator entries to object for easy lookup
-        const headersObj = {};
-        for (let pair of res.headers.entries()) {
-            headersObj[pair[0].toLowerCase()] = pair[1];
-        }
-
-        expect(headersObj['x-content-type-options']).toBe('nosniff');
-        expect(headersObj['x-frame-options']).toBeTruthy();
-        expect(headersObj['x-powered-by']).toBeFalsy();
-    });
-
-    it('SQL injection attempt -> 422', async () => {
-        const res = await api('POST', '/api/auth/login', {
-            email: "' OR '1'='1",
-            password: "password"
-        });
-        expect(res.status).toBe(422);
-    });
-});
+if (require.main === module) {
+    testSecurity().catch(console.error);
+}

@@ -23,13 +23,13 @@ const ATTRIBUTION = "GanitSūtram | AITDL";
  * GET /api/leaderboard
  * Public endpoint exposing ranked users
  */
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const type = req.query.type || 'global';
         const limit = parseInt(req.query.limit) || 25;
         const offset = parseInt(req.query.offset) || 0;
 
-        const data = leaderboardService.getLeaderboard(type, limit, offset);
+        const data = await leaderboardService.getLeaderboard(type, limit, offset);
 
         res.status(200).json({
             type,
@@ -48,25 +48,29 @@ router.get('/', (req, res) => {
  * GET /api/leaderboard/me
  * Protected endpoint returning user rank and badge progress
  */
-router.get('/me', requireAuth, (req, res) => {
+router.get('/me', requireAuth, async (req, res) => {
     try {
         const userId = req.user.userId;
-        const rank = leaderboardService.getUserRank(userId) || { rankGlobal: null, rankWeekly: null, totalPoints: 0, weeklyPoints: 0, percentile: 100 };
-        const pointHistory = leaderboardService.getPointHistory(userId, 20);
+        const [rank, pointHistory, stats, earnedBadgesData] = await Promise.all([
+            leaderboardService.getUserRank(userId),
+            leaderboardService.getPointHistory(userId, 20),
+            leaderboardService.gatherUserStats(userId),
+            badgeService.getUserBadges(userId)
+        ]);
 
-        const stats = leaderboardService.gatherUserStats(userId);
-        const earnedBadgesData = badgeService.getUserBadges(userId);
-        const badgeProgress = badgeService.getBadgeProgress(userId, stats).filter(bp => !bp.earned);
-        const badges = earnedBadgesData.map(ub => ({
-            ...badgeService.getBadgeById(ub.badge_id),
+        const rankFinal = rank || { rankGlobal: null, rankWeekly: null, totalPoints: 0, weeklyPoints: 0, percentile: 100 };
+        const badgeProgress = await badgeService.getBadgeProgress(userId, stats);
+
+        const badges = await Promise.all(earnedBadgesData.map(async ub => ({
+            ...await badgeService.getBadgeById(ub.badge_id),
             earned_at: ub.earned_at
-        }));
+        })));
 
         res.status(200).json({
-            rank,
+            rank: rankFinal,
             pointHistory,
             badges,
-            badgeProgress,
+            badgeProgress: badgeProgress.filter(bp => !bp.earned),
             attribution: ATTRIBUTION
         });
     } catch (err) {
@@ -79,10 +83,10 @@ router.get('/me', requireAuth, (req, res) => {
  * POST /api/leaderboard/display-name
  * Protected endpoint for updating alias
  */
-router.post('/display-name', requireAuth, (req, res) => {
+router.post('/display-name', requireAuth, async (req, res) => {
     try {
         const { displayName } = req.body;
-        const alias = leaderboardService.setDisplayName(req.user.userId, displayName);
+        const alias = await leaderboardService.setDisplayName(req.user.userId, displayName);
 
         res.status(200).json({
             displayName: alias,
@@ -97,8 +101,8 @@ router.post('/display-name', requireAuth, (req, res) => {
  * GET /api/leaderboard/badges
  * Public endpoint exposing all possible badges
  */
-router.get('/badges', (req, res) => {
-    const badges = badgeService.getAllBadges();
+router.get('/badges', async (req, res) => {
+    const badges = await badgeService.getAllBadges();
     res.status(200).json({
         badges,
         total: badges.length,

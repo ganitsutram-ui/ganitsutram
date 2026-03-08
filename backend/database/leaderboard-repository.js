@@ -13,66 +13,62 @@
 const db = require('./db');
 const { v4: uuidv4 } = require('uuid');
 
-function getScore(userId) {
-    const stmt = db.prepare('SELECT * FROM user_scores WHERE user_id = ?');
-    return stmt.get(userId);
+async function getScore(userId) {
+    return await db.get('SELECT * FROM user_scores WHERE user_id = ?', userId);
 }
 
-function initScore(userId) {
+async function initScore(userId) {
     const scoreId = uuidv4();
     const now = new Date().toISOString();
     try {
-        db.prepare(`
+        await db.run(`
             INSERT INTO user_scores (score_id, user_id, total_points, weekly_points, monthly_points, streak, last_updated)
             VALUES (?, ?, 0, 0, 0, 0, ?)
-        `).run(scoreId, userId, now);
-        return getScore(userId);
+        `, scoreId, userId, now);
+        return await getScore(userId);
     } catch (e) {
         // Handle concurrent insert if happens
-        return getScore(userId);
+        return await getScore(userId);
     }
 }
 
-function updateScore(userId, totalPoints, weeklyPoints, monthlyPoints, streak) {
+async function updateScore(userId, totalPoints, weeklyPoints, monthlyPoints, streak) {
     const now = new Date().toISOString();
-    const stmt = db.prepare(`
+    await db.run(`
         UPDATE user_scores 
         SET total_points = ?, weekly_points = ?, monthly_points = ?, streak = ?, last_updated = ?
         WHERE user_id = ?
-    `);
-    stmt.run(totalPoints, weeklyPoints, monthlyPoints, streak, now, userId);
+    `, totalPoints, weeklyPoints, monthlyPoints, streak, now, userId);
 }
 
-function updateDisplayName(userId, displayName) {
+async function updateDisplayName(userId, displayName) {
     const now = new Date().toISOString();
-    let score = getScore(userId);
-    if (!score) score = initScore(userId);
+    let score = await getScore(userId);
+    if (!score) score = await initScore(userId);
 
-    const stmt = db.prepare(`UPDATE user_scores SET display_name = ?, last_updated = ? WHERE user_id = ?`);
-    stmt.run(displayName, now, userId);
+    await db.run(`UPDATE user_scores SET display_name = ?, last_updated = ? WHERE user_id = ?`, displayName, now, userId);
 }
 
-function insertPointEvent(userId, points, reason, operation) {
+async function insertPointEvent(userId, points, reason, operation) {
     const eventId = uuidv4();
     const now = new Date().toISOString();
-    const stmt = db.prepare(`
+    await db.run(`
         INSERT INTO point_events (event_id, user_id, points, reason, operation, created_at)
         VALUES (?, ?, ?, ?, ?, ?)
-    `);
-    stmt.run(eventId, userId, points, reason, operation || null, now);
+    `, eventId, userId, points, reason, operation || null, now);
     return { eventId, points, reason, operation, created_at: now };
 }
 
-function getPointHistory(userId, limit = 20) {
-    return db.prepare(`
+async function getPointHistory(userId, limit = 20) {
+    return await db.all(`
         SELECT * FROM point_events 
         WHERE user_id = ? 
         ORDER BY created_at DESC 
         LIMIT ?
-    `).all(userId, limit);
+    `, userId, limit);
 }
 
-function getLeaderboard(type = 'global', limit = 25, offset = 0) {
+async function getLeaderboard(type = 'global', limit = 25, offset = 0) {
     let orderCol = 'total_points';
     if (type === 'weekly') orderCol = 'weekly_points';
     if (type === 'monthly') orderCol = 'monthly_points';
@@ -86,34 +82,33 @@ function getLeaderboard(type = 'global', limit = 25, offset = 0) {
         ORDER BY us.${orderCol} DESC, us.last_updated ASC
         LIMIT ? OFFSET ?
     `;
-    return db.prepare(sql).all(limit, offset);
+    return await db.all(sql, limit, offset);
 }
 
-function recalculateRanks() {
-    // SQLite subquery rank update
+async function recalculateRanks() {
     // Update global rank
-    db.prepare(`
+    await db.run(`
         UPDATE user_scores 
         SET rank_global = (
             SELECT COUNT(1) + 1 
             FROM user_scores s2 
             WHERE s2.total_points > user_scores.total_points
         )
-    `).run();
+    `);
 
     // Update weekly rank
-    db.prepare(`
+    await db.run(`
         UPDATE user_scores 
         SET rank_weekly = (
             SELECT COUNT(1) + 1 
             FROM user_scores s2 
             WHERE s2.weekly_points > user_scores.weekly_points
         )
-    `).run();
+    `);
 }
 
-function resetWeeklyPoints() {
-    db.prepare(`UPDATE user_scores SET weekly_points = 0, rank_weekly = NULL`).run();
+async function resetWeeklyPoints() {
+    await db.run(`UPDATE user_scores SET weekly_points = 0, rank_weekly = NULL`);
 }
 
 module.exports = {

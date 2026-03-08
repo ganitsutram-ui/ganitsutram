@@ -15,7 +15,7 @@ const db = require('./db');
 /**
  * Retrieves all discoveries.
  */
-function getAllDiscoveries(category = null) {
+async function getAllDiscoveries(category = null) {
     let query = 'SELECT * FROM discoveries';
     const params = [];
 
@@ -25,17 +25,17 @@ function getAllDiscoveries(category = null) {
     }
 
     query += ' ORDER BY sort_order ASC';
-    return db.prepare(query).all(...params);
+    return await db.all(query, ...params);
 }
 
 /**
  * Finds a discovery by its slug.
  */
-function getDiscoveryBySlug(slug) {
-    const discovery = db.prepare('SELECT * FROM discoveries WHERE slug = ?').get(slug);
+async function getDiscoveryBySlug(slug) {
+    const discovery = await db.get('SELECT * FROM discoveries WHERE slug = ?', slug);
     if (!discovery) return null;
 
-    const patterns = getPatternsByDiscoveryId(discovery.discovery_id);
+    const patterns = await getPatternsByDiscoveryId(discovery.discovery_id);
     return {
         ...discovery,
         patterns
@@ -45,8 +45,8 @@ function getDiscoveryBySlug(slug) {
 /**
  * Retrieves patterns for a specific discovery.
  */
-function getPatternsByDiscoveryId(discoveryId) {
-    return db.prepare('SELECT * FROM discovery_patterns WHERE discovery_id = ?').all(discoveryId);
+async function getPatternsByDiscoveryId(discoveryId) {
+    return await db.all('SELECT * FROM discovery_patterns WHERE discovery_id = ?', discoveryId);
 }
 
 module.exports = {

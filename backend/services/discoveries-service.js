@@ -15,15 +15,15 @@ const discoveriesRepository = require('../database/discoveries-repository');
 /**
  * Lists discoveries with optional categorization.
  */
-function listDiscoveries(category = null) {
-    return discoveriesRepository.getAllDiscoveries(category);
+async function listDiscoveries(category = null) {
+    return await discoveriesRepository.getAllDiscoveries(category);
 }
 
 /**
  * Gets full details for a discovery including patterns.
  */
-function getDiscoveryDetail(slug) {
-    const discovery = discoveriesRepository.getDiscoveryBySlug(slug);
+async function getDiscoveryDetail(slug) {
+    const discovery = await discoveriesRepository.getDiscoveryBySlug(slug);
     if (!discovery) {
         throw new Error("Discovery not found");
     }

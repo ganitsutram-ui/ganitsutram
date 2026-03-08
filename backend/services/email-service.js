@@ -32,7 +32,7 @@ function verifyConnection() {
     });
 }
 
-function sendPasswordResetEmail({ toEmail, resetLink, expiresMinutes }) {
+async function sendPasswordResetEmail({ toEmail, resetLink, expiresMinutes }) {
     const html = `
         <div style="font-family: sans-serif; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
             <div style="text-align: center; margin-bottom: 30px;">
@@ -49,18 +49,21 @@ function sendPasswordResetEmail({ toEmail, resetLink, expiresMinutes }) {
         </div>
     `;
 
-    return transporter.sendMail({
-        from: process.env.EMAIL_FROM,
-        to: toEmail,
-        subject: 'Reset your GanitSūtram password',
-        html: html
-    }).then(() => ({ success: true })).catch(err => {
+    try {
+        await transporter.sendMail({
+            from: process.env.EMAIL_FROM,
+            to: toEmail,
+            subject: 'Reset your GanitSūtram password',
+            html: html
+        });
+        return { success: true };
+    } catch (err) {
         console.error('Failed to send reset email:', err);
         throw err;
-    });
+    }
 }
 
-function sendWelcomeEmail({ toEmail, role }) {
+async function sendWelcomeEmail({ toEmail, role }) {
     const html = `
         <div style="font-family: sans-serif; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
             <div style="text-align: center; margin-bottom: 30px;">
@@ -78,15 +81,18 @@ function sendWelcomeEmail({ toEmail, role }) {
         </div>
     `;
 
-    return transporter.sendMail({
-        from: process.env.EMAIL_FROM,
-        to: toEmail,
-        subject: 'Welcome to GanitSūtram',
-        html: html
-    }).then(() => ({ success: true })).catch(err => {
+    try {
+        await transporter.sendMail({
+            from: process.env.EMAIL_FROM,
+            to: toEmail,
+            subject: 'Welcome to GanitSūtram',
+            html: html
+        });
+        return { success: true };
+    } catch (err) {
         console.error('Failed to send welcome email:', err);
         throw err;
-    });
+    }
 }
 
 module.exports = {

@@ -22,7 +22,7 @@ const ATTRIBUTION = "GanitSūtram | AITDL";
  * GET /api/patterns/vedic
  * Returns all Vedic pattern definitions.
  */
-router.get('/vedic', (req, res) => {
+router.get('/vedic', async (req, res) => {
     try {
         const patterns = engine.listVedicPatterns().map(p => engine.getVedicPattern(p.name));
         res.json({
@@ -39,7 +39,7 @@ router.get('/vedic', (req, res) => {
  * GET /api/patterns/vedic/:name
  * Returns single Vedic pattern by name.
  */
-router.get('/vedic/:name', (req, res) => {
+router.get('/vedic/:name', async (req, res) => {
     try {
         const pattern = engine.getVedicPattern(req.params.name);
         if (!pattern) return res.status(404).json(errorResponse(req.locale, 'errors.general.notFound'));
@@ -53,7 +53,7 @@ router.get('/vedic/:name', (req, res) => {
  * POST /api/patterns/analyse
  * Body: { "numbers": [2,4,6,8,10] }
  */
-router.post('/analyse', (req, res) => {
+router.post('/analyse', async (req, res) => {
     try {
         const { numbers } = req.body;
         engine.validateNumberArray(numbers, 3, 100);
@@ -71,7 +71,7 @@ router.post('/analyse', (req, res) => {
  * POST /api/patterns/digital-root-cycle
  * Body: { "start": 1, "end": 27 }
  */
-router.post('/digital-root-cycle', (req, res) => {
+router.post('/digital-root-cycle', async (req, res) => {
     try {
         const { start, end } = req.body;
         engine.validateRange(start, end);
@@ -86,7 +86,7 @@ router.post('/digital-root-cycle', (req, res) => {
  * POST /api/patterns/kaprekar
  * Body: { "n": 3087 }
  */
-router.post('/kaprekar', (req, res) => {
+router.post('/kaprekar', async (req, res) => {
     try {
         const { n } = req.body;
         const result = engine.kaprekarRoutine(n);
@@ -100,7 +100,7 @@ router.post('/kaprekar', (req, res) => {
  * POST /api/patterns/fibonacci
  * Body: { "count": 24 }
  */
-router.post('/fibonacci', (req, res) => {
+router.post('/fibonacci', async (req, res) => {
     try {
         const { count } = req.body;
         const fib = engine.fibonacci(count);
@@ -119,7 +119,7 @@ router.post('/fibonacci', (req, res) => {
  * POST /api/patterns/squares
  * Body: { "count": 9 }
  */
-router.post('/squares', (req, res) => {
+router.post('/squares', async (req, res) => {
     try {
         const { count } = req.body;
         const squares = engine.detectSquarePattern(count);

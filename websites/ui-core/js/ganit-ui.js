@@ -12,7 +12,7 @@ Gregorian: 2026-03-07
  * Shared UI Logic for GanitSūtram.
  * Ensures consistent behavior and attribution across all websites.
  */
-const API_BASE = '/api';
+const { API_BASE, PORTAL_URL } = window.GanitConfig;
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log("%cGANITSUTRAM", "color: #ff5500; font-weight: bold; font-size: 20px;");
@@ -53,11 +53,13 @@ window.GanitUI.renderMarkdown = function (text) {
 window.GanitUI.sendBeacon = function (eventType, metadata = {}) {
     // Fire and forget
     setTimeout(() => {
-        fetch(`${API_BASE}/analytics/beacon`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ eventType, metadata })
-        }).catch(() => { }); // Suppress errors silently
+        if (window.GanitConfig?.ENABLE_ANALYTICS_BEACON) {
+            fetch(`${GanitConfig.API_BASE.replace('/api', '')}/api/analytics/beacon`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ eventType, metadata })
+            }).catch(() => { }); // Suppress errors silently
+        }
     }, 10);
 };
 

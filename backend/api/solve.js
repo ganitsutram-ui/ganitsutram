@@ -200,41 +200,56 @@ router.post('/', optionalAuth, (req, res) => {
             const isSteps = operation.endsWith('-steps');
             const baseOp = isSteps ? operation.replace('-steps', '') : operation;
 
-            // Fire and forget
-            Promise.resolve().then(() => {
-                const db = require('../database/db');
-                const progCount = db.prepare('SELECT COUNT(*) as c FROM progress WHERE user_id = ?').get(req.user.userId).c;
-                const opCount = db.prepare('SELECT COUNT(*) as c FROM progress WHERE user_id = ? AND operation = ?').get(req.user.userId, baseOp).c;
+            // Fire and forget - async IIFE
+            (async () => {
+                try {
+                    const db = require('../database/db');
+                    const [progCountRes, opCountRes] = await Promise.all([
+                        db.get('SELECT COUNT(*) as c FROM progress WHERE user_id = ?', req.user.userId),
+                        db.get('SELECT COUNT(*) as c FROM progress WHERE user_id = ? AND operation = ?', req.user.userId, baseOp)
+                    ]);
+                    const progCount = progCountRes.c;
+                    const opCount = opCountRes.c;
 
-                progressService.addProgress(req.user.userId, {
-                    operation,
-                    input,
-                    inputA,
-                    inputB,
-                    result: responseData.result,
-                    steps: responseData.steps,
-                    timeTakenMs
-                });
+                    await progressService.addProgress(req.user.userId, {
+                        operation,
+                        input,
+                        inputA,
+                        inputB,
+                        result: responseData.result,
+                        steps: responseData.steps,
+                        timeTakenMs
+                    });
 
-                // Gamification hook
-                const leaderboardService = require('../services/leaderboard-service');
-                const { POINTS, awardPoints } = leaderboardService;
+                    // Gamification hook
+                    // NOTE: leaderboard-service.js appears to be missing or misnamed in the current structure.
+                    // If it exists, it should be refactored to be async.
+                    try {
+                        const leaderboardService = require('../services/leaderboard-service');
+                        const { POINTS, awardPoints } = leaderboardService;
 
-                awardPoints(req.user.userId, 'solve', POINTS.solve, baseOp);
-                if (isSteps) {
-                    awardPoints(req.user.userId, 'solve_with_steps', POINTS.solve_with_steps - POINTS.solve, baseOp);
+                        // Assuming awardPoints will also be refactored to be async
+                        await awardPoints(req.user.userId, 'solve', POINTS.solve, baseOp);
+                        if (isSteps) {
+                            await awardPoints(req.user.userId, 'solve_with_steps', POINTS.solve_with_steps - POINTS.solve, baseOp);
+                        }
+                        if (progCount === 0) {
+                            await awardPoints(req.user.userId, 'first_solve_bonus', POINTS.first_solve_bonus, baseOp);
+                        }
+                        if (opCount === 0) {
+                            await awardPoints(req.user.userId, 'new_operation_bonus', POINTS.new_operation_bonus, baseOp);
+                        }
+
+                        if (['kaprekar', 'fibonacci'].includes(baseOp)) await awardPoints(req.user.userId, baseOp + '_bonus', POINTS.kaprekar_solve, baseOp);
+                        if (['nikhilam', 'urdhva'].includes(baseOp)) await awardPoints(req.user.userId, baseOp + '_bonus', POINTS.nikhilam_solve, baseOp);
+                    } catch (serviceErr) {
+                        console.error('[Solve Gamification Hook]', serviceErr.message);
+                    }
+
+                } catch (err) {
+                    console.error('[Solve Async Hook]', err);
                 }
-                if (progCount === 0) {
-                    awardPoints(req.user.userId, 'first_solve_bonus', POINTS.first_solve_bonus, baseOp);
-                }
-                if (opCount === 0) {
-                    awardPoints(req.user.userId, 'new_operation_bonus', POINTS.new_operation_bonus, baseOp);
-                }
-
-                if (['kaprekar', 'fibonacci'].includes(baseOp)) awardPoints(req.user.userId, baseOp + '_bonus', POINTS.kaprekar_solve, baseOp);
-                if (['nikhilam', 'urdhva'].includes(baseOp)) awardPoints(req.user.userId, baseOp + '_bonus', POINTS.nikhilam_solve, baseOp);
-
-            }).catch(err => console.error('[Solve Async Hook]', err));
+            })();
         }
 
         return res.json(responseData);

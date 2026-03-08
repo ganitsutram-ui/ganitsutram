@@ -5,24 +5,29 @@
  * 
  * Date:
  * Vikram Samvat: VS 2082
- * Gregorian: 2026-03-07
+ * Gregorian: 2026-03-08
  * 
- * Purpose: Single shared SQLite connection via better-sqlite3.
+ * Purpose: Central database access point. 
+ *          Loads either SQLite or PostgreSQL adapter based on DATABASE_URL.
  */
 
-const Database = require('better-sqlite3');
-const path = require('path');
+// Load environment early, just in case
+require('dotenv').config({ path: require('path').resolve(process.cwd(), '../config/.env') });
 
-// Support DB_PATH from .env, fallback to local data folder
-const DB_PATH = process.env.DB_PATH
-    ? path.resolve(process.cwd(), process.env.DB_PATH)
-    : path.join(__dirname, '../data/ganitsutram.db');
+const sqliteAdapter = require('./adapters/sqlite');
+const postgresAdapter = require('./adapters/postgres');
 
-const db = new Database(DB_PATH);
+let adapter;
 
-// Optimization: Write-Ahead Logging for better performance
-db.pragma('journal_mode = WAL');
-// Integrity: Enforce foreign key constraints
-db.pragma('foreign_keys = ON');
+if (process.env.DATABASE_URL) {
+    console.log('[DB] Using PostgreSQL Adapter');
+    adapter = postgresAdapter;
+} else {
+    console.log('[DB] Using SQLite Adapter');
+    adapter = sqliteAdapter;
+}
 
-module.exports = db;
+// Initialize the selected adapter
+adapter.init();
+
+module.exports = adapter;

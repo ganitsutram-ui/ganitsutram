@@ -12,6 +12,9 @@
 
 const rateLimit = require('express-rate-limit');
 const { errorResponse } = require('../services/i18n-service');
+const securityRepo = require('../database/security-repository');
+const ipBlacklist = require('./ip-blacklist');
+const threatDetector = require('./threat-detector');
 
 const isTest = process.env.NODE_ENV === 'test';
 const bypassLimit = (req, res, next) => next();
@@ -21,7 +24,14 @@ const globalLimiter = isTest ? bypassLimit : rateLimit({
     max: 500, // 500 requests per IP
     message: (req, res) => errorResponse(req.locale || 'en', 'errors.rate.tooManyRequests', { minutes: 15 }),
     standardHeaders: true,
-    legacyHeaders: false
+    legacyHeaders: false,
+    handler: async (req, res) => {
+        const ip = req.clientIP;
+        await threatDetector.handleThreat(ip, 'rate_abuse', req, false);
+        return res.status(429).json(
+            errorResponse(req.locale || 'en', 'errors.rate.tooManyRequests', { minutes: 15 })
+        );
+    }
 });
 
 const authLimiter = isTest ? bypassLimit : rateLimit({

@@ -13,9 +13,7 @@
 (function () {
     'use strict';
 
-    const API_BASE = window.location.hostname === 'localhost'
-        ? 'http://localhost:3000/api'
-        : 'https://api.ganitsutram.com/api';
+    const { API_BASE } = window.GanitConfig;
 
     let realtimeInterval = null;
 

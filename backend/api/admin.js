@@ -32,12 +32,12 @@ router.use(requireAuth, requireRole('school', 'admin'));
  * POST /api/admin/school
  * Creates a new school for the authenticated school admin.
  */
-router.post('/school', (req, res) => {
+router.post('/school', async (req, res) => {
     try {
         const { name } = req.body;
         if (!name) return res.status(400).json(errorResponse(req.locale, 'errors.validation.requiredField'));
 
-        const school = createSchool(req.user.userId, name);
+        const school = await createSchool(req.user.userId, name);
         res.status(201).json({ school, attribution: ATTR });
     } catch (err) {
         res.status(400).json({ error: err.message });
@@ -48,9 +48,9 @@ router.post('/school', (req, res) => {
  * GET /api/admin/dashboard
  * Returns the full dashboard for the authenticated school admin.
  */
-router.get('/dashboard', (req, res) => {
+router.get('/dashboard', async (req, res) => {
     try {
-        const dashboard = getSchoolDashboard(req.user.userId);
+        const dashboard = await getSchoolDashboard(req.user.userId);
         if (!dashboard) {
             return res.status(404).json(errorResponse(req.locale, 'errors.general.notFound'));
         }
@@ -64,15 +64,15 @@ router.get('/dashboard', (req, res) => {
  * POST /api/admin/enroll
  * Enrolls a student by email into the admin's school.
  */
-router.post('/enroll', (req, res) => {
+router.post('/enroll', async (req, res) => {
     try {
         const { studentEmail } = req.body;
         if (!studentEmail) return res.status(400).json(errorResponse(req.locale, 'errors.validation.requiredField'));
 
-        const school = repo.findSchoolByAdminId(req.user.userId);
+        const school = await repo.findSchoolByAdminId(req.user.userId);
         if (!school) return res.status(404).json(errorResponse(req.locale, 'errors.general.notFound'));
 
-        const enrollment = enrollStudent(school.school_id, studentEmail);
+        const enrollment = await enrollStudent(school.school_id, studentEmail);
         res.status(201).json({ enrollment, attribution: ATTR });
     } catch (err) {
         res.status(400).json({ error: err.message });
@@ -83,12 +83,12 @@ router.post('/enroll', (req, res) => {
  * GET /api/admin/students
  * Returns all enrolled students for the admin's school.
  */
-router.get('/students', (req, res) => {
+router.get('/students', async (req, res) => {
     try {
-        const school = repo.findSchoolByAdminId(req.user.userId);
+        const school = await repo.findSchoolByAdminId(req.user.userId);
         if (!school) return res.status(404).json(errorResponse(req.locale, 'errors.general.notFound'));
 
-        const students = repo.getEnrollments(school.school_id);
+        const students = await repo.getEnrollments(school.school_id);
         res.json({ students, total: students.length, attribution: ATTR });
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -99,12 +99,12 @@ router.get('/students', (req, res) => {
  * DELETE /api/admin/students/:enrollmentId
  * Removes (suspends) a student from the admin's school.
  */
-router.delete('/students/:enrollmentId', (req, res) => {
+router.delete('/students/:enrollmentId', async (req, res) => {
     try {
-        const school = repo.findSchoolByAdminId(req.user.userId);
+        const school = await repo.findSchoolByAdminId(req.user.userId);
         if (!school) return res.status(404).json(errorResponse(req.locale, 'errors.general.notFound'));
 
-        removeStudent(school.school_id, req.params.enrollmentId, req.user.userId);
+        await removeStudent(school.school_id, req.params.enrollmentId, req.user.userId);
         res.json({ message: 'Student removed.', attribution: ATTR });
     } catch (err) {
         res.status(400).json({ error: err.message });

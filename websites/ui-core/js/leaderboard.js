@@ -11,7 +11,8 @@
  */
 
 window.GanitLeaderboard = (function () {
-    const API_BASE = 'http://localhost:3000/api/leaderboard';
+    const { API_BASE: API_ROOT, LEARN_URL } = window.GanitConfig;
+    const API_BASE = `${API_ROOT}/leaderboard`;
 
     let currentType = 'global';
     let currentLimit = 25;

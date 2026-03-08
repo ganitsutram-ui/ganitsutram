@@ -16,7 +16,7 @@ const sessionRepo = require('../database/session-repository');
 
 const REFRESH_TOKEN_EXPIRES_DAYS = parseInt(process.env.REFRESH_TOKEN_EXPIRES_DAYS) || 30;
 
-function createRefreshSession(userId, req) {
+async function createRefreshSession(userId, req) {
     const rawRefreshToken = crypto.randomBytes(40).toString('hex');
     const refreshTokenHash = crypto.createHash('sha256').update(rawRefreshToken).digest('hex');
     const sessionId = uuidv4();
@@ -32,7 +32,7 @@ function createRefreshSession(userId, req) {
     const issuedAt = now.toISOString();
     const expiresAt = new Date(now.getTime() + REFRESH_TOKEN_EXPIRES_DAYS * 24 * 60 * 60 * 1000).toISOString();
 
-    sessionRepo.createSession({
+    await sessionRepo.createSession({
         sessionId,
         userId,
         refreshTokenHash,
@@ -46,9 +46,9 @@ function createRefreshSession(userId, req) {
     return { rawRefreshToken, sessionId, expiresAt };
 }
 
-function rotateRefreshSession(rawRefreshToken, req) {
+async function rotateRefreshSession(rawRefreshToken, req) {
     const tokenHash = crypto.createHash('sha256').update(rawRefreshToken).digest('hex');
-    const session = sessionRepo.findByTokenHash(tokenHash);
+    const session = await sessionRepo.findByTokenHash(tokenHash);
 
     if (!session) {
         throw new Error('Invalid refresh token');
@@ -60,7 +60,7 @@ function rotateRefreshSession(rawRefreshToken, req) {
 
     if (session.rotated === 1) {
         // SECURITY: Token reuse detected. Attacker or race condition. We must terminate the entire session lineage.
-        sessionRepo.revokeFamilyId(session.family_id);
+        await sessionRepo.revokeFamilyId(session.family_id);
         throw new Error('Refresh token reuse detected. All sessions in this chain are revoked.');
     }
 
@@ -83,7 +83,7 @@ function rotateRefreshSession(rawRefreshToken, req) {
     const now = new Date();
     const newExpiresAt = new Date(now.getTime() + REFRESH_TOKEN_EXPIRES_DAYS * 24 * 60 * 60 * 1000).toISOString();
 
-    sessionRepo.rotateSession(session.session_id, {
+    await sessionRepo.rotateSession(session.session_id, {
         sessionId: newSessionId,
         userId: session.user_id,
         refreshTokenHash: newRefreshTokenHash,
@@ -97,19 +97,19 @@ function rotateRefreshSession(rawRefreshToken, req) {
     return { rawRefreshToken: newRawRefreshToken, sessionId: newSessionId, userId: session.user_id };
 }
 
-function revokeSession(sessionId, userId) {
-    const list = sessionRepo.getActiveSessions(userId);
+async function revokeSession(sessionId, userId) {
+    const list = await sessionRepo.getActiveSessions(userId);
     const ownsSession = list.some(s => s.sessionId === sessionId);
     if (!ownsSession) return;
-    return sessionRepo.revokeSession(sessionId);
+    return await sessionRepo.revokeSession(sessionId);
 }
 
-function revokeAllSessions(userId) {
-    return sessionRepo.revokeAllUserSessions(userId);
+async function revokeAllSessions(userId) {
+    return await sessionRepo.revokeAllUserSessions(userId);
 }
 
-function listSessions(userId) {
-    return sessionRepo.getActiveSessions(userId);
+async function listSessions(userId) {
+    return await sessionRepo.getActiveSessions(userId);
 }
 
 module.exports = {

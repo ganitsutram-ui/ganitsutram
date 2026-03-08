@@ -22,21 +22,22 @@ const ATTRIBUTION = "GanitSūtram | AITDL";
  * GET /api/user-progress
  * Returns paginated progress entries for the authenticated user.
  */
-router.get('/', requireAuth, (req, res) => {
+router.get('/', requireAuth, async (req, res) => {
     const { operation, limit, offset } = req.query;
     const userId = req.user.userId;
 
-    const entries = progressService.getProgress(userId, {
-        operation,
-        limit: parseInt(limit) || 50,
-        offset: parseInt(offset) || 0
-    });
-
-    const total = progressService.getStats(userId).totalSolved;
+    const [entries, stats] = await Promise.all([
+        progressService.getProgress(userId, {
+            operation,
+            limit: parseInt(limit) || 50,
+            offset: parseInt(offset) || 0
+        }),
+        progressService.getStats(userId)
+    ]);
 
     res.json({
         userId,
-        total,
+        total: stats.totalSolved,
         entries,
         attribution: ATTRIBUTION
     });
@@ -46,7 +47,7 @@ router.get('/', requireAuth, (req, res) => {
  * POST /api/user-progress
  * Manually adds a progress entry.
  */
-router.post('/', requireAuth, (req, res) => {
+router.post('/', requireAuth, async (req, res) => {
     const userId = req.user.userId;
     const { operation, input, inputA, inputB, result, steps, timeTakenMs } = req.body;
 
@@ -54,7 +55,7 @@ router.post('/', requireAuth, (req, res) => {
         return res.status(422).json(errorResponse(req.locale, 'errors.validation.requiredField'));
     }
 
-    const entry = progressService.addProgress(userId, {
+    const entry = await progressService.addProgress(userId, {
         operation,
         input,
         inputA,
@@ -75,9 +76,9 @@ router.post('/', requireAuth, (req, res) => {
  * GET /api/user-progress/stats
  * Returns calculated statistics for the authenticated user.
  */
-router.get('/stats', requireAuth, (req, res) => {
+router.get('/stats', requireAuth, async (req, res) => {
     const userId = req.user.userId;
-    const stats = progressService.getStats(userId);
+    const stats = await progressService.getStats(userId);
 
     res.json({
         stats,
@@ -89,9 +90,9 @@ router.get('/stats', requireAuth, (req, res) => {
  * DELETE /api/user-progress
  * Clears all progress for the authenticated user.
  */
-router.delete('/', requireAuth, (req, res) => {
+router.delete('/', requireAuth, async (req, res) => {
     const userId = req.user.userId;
-    progressService.clearProgress(userId);
+    await progressService.clearProgress(userId);
 
     res.json(successResponse(req.locale, 'success.progress.cleared'));
 });

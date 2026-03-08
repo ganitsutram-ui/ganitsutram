@@ -13,10 +13,7 @@ Purpose: Discoveries website interactive logic and API integration.
 (function () {
     'use strict';
 
-    const API_ROOT = window.location.hostname === 'localhost'
-        ? 'http://localhost:3000/api'
-        : 'https://api.ganitsutram.com/api';
-
+    const { API_BASE: API_ROOT, SOLVER_URL } = window.GanitConfig;
     const API_BASE = `${API_ROOT}/discoveries`;
     const SOLVE_URL = `${API_ROOT}/solve`;
 
@@ -211,10 +208,10 @@ Purpose: Discoveries website interactive logic and API integration.
 
             <div class="gs-drawer-actions">
                 ${d.category === 'pattern' && d.slug === 'fibonacci-digital-roots'
-                ? `<a href="https://lab.ganitsutram.com" class="gs-button gs-button-primary">Try Fibonacci Explorer →</a>`
+                ? `<a href="${window.GanitConfig.LAB_URL}" class="gs-button gs-button-primary">Try Fibonacci Explorer →</a>`
                 : d.category === 'pattern' && d.slug === 'kaprekar-constant'
-                    ? `<a href="https://lab.ganitsutram.com" class="gs-button gs-button-primary">Try Kaprekar Routine →</a>`
-                    : `<a href="https://solve.ganitsutram.com?op=${d.slug}" class="gs-button gs-button-primary">Try in Solver →</a>`
+                    ? `<a href="${window.GanitConfig.LAB_URL}" class="gs-button gs-button-primary">Try Kaprekar Routine →</a>`
+                    : `<a href="${SOLVER_URL}?op=${d.slug}" class="gs-button gs-button-primary">Try in Solver →</a>`
             }
                 <a href="https://ganitsutram.com/learning/practice.html?operation=${d.slug}" class="gs-button">Practice This →</a>
             </div>

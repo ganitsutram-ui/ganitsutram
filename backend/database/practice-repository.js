@@ -15,16 +15,14 @@ const db = require('./db');
 /**
  * Saves a practice attempt.
  */
-function saveAttempt(attempt) {
-    const stmt = db.prepare(`
+async function saveAttempt(attempt) {
+    await db.run(`
         INSERT INTO practice_attempts (
             attempt_id, user_id, operation, question, 
             correct_answer, user_answer, is_correct, 
             difficulty, attempted_at, time_taken_ms
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `);
-
-    stmt.run(
+    `,
         attempt.attemptId,
         attempt.userId || null,
         attempt.operation,
@@ -43,7 +41,7 @@ function saveAttempt(attempt) {
 /**
  * Retrieves attempts for a user.
  */
-function getAttemptsByUser(userId, { operation, difficulty, limit = 50, offset = 0 } = {}) {
+async function getAttemptsByUser(userId, { operation, difficulty, limit = 50, offset = 0 } = {}) {
     let query = 'SELECT * FROM practice_attempts WHERE user_id = ?';
     const params = [userId];
 
@@ -59,40 +57,40 @@ function getAttemptsByUser(userId, { operation, difficulty, limit = 50, offset =
     query += ' ORDER BY attempted_at DESC LIMIT ? OFFSET ?';
     params.push(limit, offset);
 
-    return db.prepare(query).all(...params);
+    return await db.all(query, ...params);
 }
 
 /**
  * Aggregates practice statistics.
  */
-function getPracticeStats(userId) {
-    const overall = db.prepare(`
+async function getPracticeStats(userId) {
+    const overall = await db.get(`
         SELECT 
             COUNT(*) as attempted,
             SUM(is_correct) as correct
         FROM practice_attempts 
         WHERE user_id = ?
-    `).get(userId);
+    `, userId);
 
-    const byOperation = db.prepare(`
+    const byOperation = await db.all(`
         SELECT 
             operation,
             COUNT(*) as attempted,
             SUM(is_correct) as correct
         FROM practice_attempts 
-        WHERE user_id = ?
-        GROUP BY operation
-    `).all(userId);
+            WHERE user_id = ?
+            GROUP BY operation
+    `, userId);
 
-    const byDifficulty = db.prepare(`
+    const byDifficulty = await db.all(`
         SELECT 
             difficulty,
             COUNT(*) as attempted,
             SUM(is_correct) as correct
         FROM practice_attempts 
-        WHERE user_id = ?
-        GROUP BY difficulty
-    `).all(userId);
+            WHERE user_id = ?
+            GROUP BY difficulty
+    `, userId);
 
     const format = (data) => ({
         ...data,
