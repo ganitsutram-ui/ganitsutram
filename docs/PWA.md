@@ -1,3 +1,18 @@
+<!--
+  GANITSUTRAM
+  A Living Knowledge Ecosystem for Mathematical Discovery
+
+  Creator:   Jawahar R. Mallah
+  Email:     jawahar@aitdl.com
+  GitHub:    https://github.com/jawahar-mallah
+  Websites:  https://ganitsutram.com
+             https://aitdl.com
+
+  Then:  628 CE · Brahmasphutasiddhanta
+  Now:   8 March MMXXVI · Vikram Samvat 2082
+
+  Copyright © 2026 Jawahar R. Mallah · AITDL | GANITSUTRAM
+-->
 ## GanitSūtram PWA Implementation
 Author: Jawahar R Mallah | AITDL
 VS 2082 | 2026-03-07
