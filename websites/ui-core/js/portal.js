@@ -44,7 +44,7 @@ Purpose: Portal-specific logic for the main landing page.
 
     const API_BASE = window.location.hostname === 'localhost'
         ? 'http://localhost:3000/api'
-        : 'https://api.ganitsutram.com/api';
+        : 'http://localhost:3000/api';
 
     const API_CONCEPTS = `${API_BASE}/concepts`;
     const API_DISCOVERIES = `${API_BASE}/discoveries`;
@@ -177,7 +177,7 @@ Purpose: Portal-specific logic for the main landing page.
             const strip = document.getElementById('concept-strip');
             if (strip && concepts.length) {
                 strip.innerHTML = concepts.map(c => `
-                    <a href="https://discover.ganitsutram.com" class="gs-concept-card">
+                    <a href='' class="gs-concept-card">
                         <span class="gs-concept-icon">${getIconFor(c.id)}</span>
                         <h3>${c.title}</h3>
                         <span class="gs-concept-sutra">${c.sutra}</span>

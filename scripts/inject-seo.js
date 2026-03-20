@@ -16,7 +16,7 @@ const pages = {
                 {
                     "@type": "WebSite",
                     "name": "GanitSūtram",
-                    "url": "https://ganitsutram.com",
+                    "url": 'http://localhost:5173',
                     "description": "A living knowledge ecosystem built on Vedic mathematics. Explore digital roots, Nikhilam, Ūrdhva-Tiryak and more.",
                     "potentialAction": {
                         "@type": "SearchAction",
@@ -67,7 +67,7 @@ const pages = {
             "@context": "https://schema.org",
             "@type": "ItemList",
             "name": "Mathematical Discoveries",
-            "url": "https://discover.ganitsutram.com",
+            "url": '',
             "itemListElement": [
                 { "@type": "ListItem", "position": 1, "name": "Digital Root", "url": "https://discover.ganitsutram.com/#digital-root" },
                 { "@type": "ListItem", "position": 2, "name": "Nikhilam Navataścaramaṃ Daśataḥ", "url": "https://discover.ganitsutram.com/#nikhilam" },
@@ -92,7 +92,7 @@ const pages = {
                 "name": "AITDL",
                 "url": "https://aitdl.com"
             },
-            "url": "https://learn.ganitsutram.com",
+            "url": '',
             "educationalLevel": "Beginner to Advanced",
             "inLanguage": ["en", "hi", "sa"],
             "isAccessibleForFree": true
@@ -123,7 +123,7 @@ const pages = {
             "@type": "Dataset",
             "name": "GanitSūtram Knowledge Graph",
             "description": "Knowledge graph of Vedic mathematics concepts, operations, sutras and their relationships.",
-            "url": "https://map.ganitsutram.com",
+            "url": '',
             "creator": {
                 "@type": "Organization",
                 "name": "AITDL"
@@ -149,7 +149,7 @@ const pages = {
             "@context": "https://schema.org",
             "@type": "WebApplication",
             "name": "GanitSūtram Solver",
-            "url": "https://solve.ganitsutram.com",
+            "url": '',
             "applicationCategory": "EducationalApplication",
             "operatingSystem": "Any",
             "description": "The GanitSūtram Solver — compute Digital Root, Nikhilam, Ūrdhva, Kaprekar and all Vedic operations instantly.",
@@ -166,7 +166,7 @@ const resourceHints = `
     <!-- DNS prefetch -->
     <link rel="dns-prefetch" href="//fonts.googleapis.com">
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link rel="dns-prefetch" href="//api.ganitsutram.com">
+    
 
     <!-- Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

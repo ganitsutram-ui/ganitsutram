@@ -1,121 +1,33 @@
-{
-  // TODO: sa translations pending
-  "nav": {
-    "map": "Map",
-    "lab": "Lab",
-    "apiDocs": "API Docs",
-    "enterPlatform": "Enter Platform →",
-    "myProfile": "My Profile",
-    "myProgress": "My Progress",
-    "logout": "Logout"
-  },
-  "hero": {
-    "invocationMeaning": "Truth is one, the wise call it by many names."
-  },
-  "gate": {
-    "sanskritMeaning": "Mathematics is the root of all knowledge.",
-    "beginBtn": "Begin Your Journey →",
-    "selectRole": "Select your role to personalise your experience",
-    "proceedBtn": "Enter Platform →",
-    "exploreLink": "or explore without selecting — no login required",
-    "personas": {
-      "student": "Student",
-      "teacher": "Teacher",
-      "parent": "Parent",
-      "adult": "Adult Learner",
-      "school": "School",
-      "explore": "Explore Maths"
-    },
-    "personaDesc": {
-      "student": "Explore Vedic maths, practise problems, and track your learning progress.",
-      "teacher": "Access classroom tools, concept libraries, and student progress dashboards.",
-      "parent": "Guide your child's mathematical journey with curated resources.",
-      "adult": "Rediscover mathematics at your own pace with structured adult pathways.",
-      "school": "Institution-level tools, curriculum alignment, and research lab access.",
-      "explore": "No agenda. Just curiosity. Dive into patterns, discoveries, and the beauty of numbers."
-    }
-  },
-  "solver": {
-    "sanskritMeaning": "Computation is all-powerful.",
-    "operationLabel": "Select Operation",
-    "inputLabel": "Number",
-    "inputPlaceholder": "Enter any positive integer…",
-    "resultHeading": "Result",
-    "solveAnotherBtn": "Solve Another →",
-    "historyHeading": "History",
-    "clearHistoryBtn": "Clear History",
-    "emptyHistory": "No computations yet.",
-    "referenceHeading": "What can the Solver do?",
-    "loading": "Computing…",
-    "error": "Something went wrong. Please try again."
-  },
-  "discoveries": {
-    "heading": "Mathematical Discoveries",
-    "subheading": "Ancient patterns. Modern clarity.",
-    "sanskritMeaning": "Where there is Mathematics, there is Truth.",
-    "filterAll": "All",
-    "filterCore": "Core",
-    "filterVedic": "Vedic",
-    "filterEngine": "Engine",
-    "filterFoundation": "Foundation",
-    "filterPattern": "Pattern",
-    "exploreBtn": "Explore →",
-    "tryInSolver": "Try in Solver →",
-    "practiceThis": "Practice This →"
-  },
-  "learning": {
-    "heading": "Learn Mathematics",
-    "subheading": "Your path. Your pace. Ancient wisdom.",
-    "sanskritMeaning": "Knowledge gives humility.",
-    "practiceBtn": "Practice Arena →",
-    "startBtn": "Start →",
-    "tabs": {
-      "student": "Student",
-      "teacher": "Teacher",
-      "parent": "Parent",
-      "adult": "Adult Learner"
-    },
-    "progressNudge": "Save your progress — create a free account",
-    "signUpBtn": "Sign Up Free →"
-  },
-  "auth": {
-    "loginTab": "Login",
-    "registerTab": "Register",
-    "emailLabel": "Email",
-    "passwordLabel": "Password",
-    "confirmPasswordLabel": "Confirm Password",
-    "roleLabel": "I am a…",
-    "forgotPassword": "Forgot password?",
-    "loginBtn": "Login →",
-    "registerBtn": "Create Account →",
-    "noAccount": "No account? Register →",
-    "hasAccount": "Have an account? Login →",
-    "sendResetBtn": "Send Reset Link →",
-    "resetSuccess": "Check your email for a reset link.",
-    "welcomeToast": "Welcome to GanitSūtram!",
-    "loginSuccessToast": "Welcome back!",
-    "logoutToast": "Logged out."
-  },
-  "footer": {
-    "tagline": "A mathematical knowledge ecosystem by AITDL.",
-    "portal": "Portal",
-    "copyright": "© GanitSūtram | AITDL | aitdl.com",
-    "date": "Vikram Samvat: VS 2082 | Gregorian: 2026-03-07",
-    "rights": "All Rights Reserved.",
-    "restriction": "Unauthorized copying, reproduction, redistribution, or reuse of this software, algorithms, or educational content is prohibited without written permission from AITDL."
-  },
-  "common": {
-    "retry": "Retry",
-    "back": "Back",
-    "next": "Next",
-    "previous": "Previous",
-    "save": "Save",
-    "cancel": "Cancel",
-    "confirm": "Confirm",
-    "delete": "Delete",
-    "edit": "Edit",
-    "search": "Search",
-    "noResults": "No results found.",
-    "attribution": "GanitSūtram | AITDL"
-  }
-}
+// Sanskrit (sa) translation status — COMPLETED 2026-03-09
+// All keys have been translated in:
+//   websites/ui-core/locales/sa.json   (frontend UI strings)
+//   backend/locales/sa.json            (backend error/success messages)
+
+// FRONTEND — websites/ui-core/locales/sa.json
+// ============================================================
+// [x] nav.*             — All nav items translated
+// [x] hero.*            — Hero section including invocationMeaning
+// [x] gate.*            — All personas, personaDesc, buttons
+// [x] solver.*          — operationLabel, inputLabel, result, history, loading
+// [x] discoveries.*     — heading, subheading, all filters and buttons
+// [x] learning.*        — heading, subheading, all tabs and buttons
+// [x] auth.*            — Full auth flow: login, register, forgot password, toasts
+// [x] footer.*          — tagline, copyright, rights, restriction
+// [x] common.*          — retry, back, next, previous, save, cancel, confirm, delete, edit, search
+// [x] notifications.*   — All notification type labels and preferences
+// [x] search.*          — All search filters, prompts, and action buttons
+// [x] graph.*           — Knowledge graph UI strings
+// [x] leaderboard.*     — All leaderboard strings (were already done)
+
+// BACKEND — backend/locales/sa.json
+// ============================================================
+// [x] errors.validation.*   — 17 validation error messages
+// [x] errors.auth.*         — 9 auth error messages
+// [x] errors.solve.*        — 3 compute error messages
+// [x] errors.practice.*     — 3 practice error messages
+// [x] errors.admin.*        — 7 admin error messages
+// [x] errors.rate.*         — 5 rate limit messages
+// [x] errors.general.*      — 4 general error messages
+// [x] success.auth.*        — 6 auth success messages
+// [x] success.admin.*       — 3 admin success messages
+// [x] success.progress.*    — 1 progress success message

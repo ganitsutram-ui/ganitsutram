@@ -156,7 +156,7 @@
 
         if (currentUser) {
             const initial = currentUser.email.charAt(0).toUpperCase();
-            const learnBase = window.location.hostname === 'localhost' ? '/learning' : 'https://learn.ganitsutram.com';
+            const learnBase = window.location.hostname === 'localhost' ? '/learning' : '';
             navRight.innerHTML = `
                         <div class="user-profile-wrap">
                             <div class="user-avatar-circle" id="userAvatarTrigger">

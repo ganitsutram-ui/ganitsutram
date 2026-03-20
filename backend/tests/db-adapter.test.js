@@ -105,7 +105,7 @@ function testCorsMiddleware() {
     if (fs.existsSync(corsPath)) {
         const content = fs.readFileSync(corsPath, 'utf8');
 
-        assert.ok(content.includes('https://ganitsutram.com'), "Contains prod origins");
+        assert.ok(content.includes('http://localhost:5173'), "Contains prod origins");
         assert.ok(content.includes('http://localhost:3000'), "Contains dev origins");
 
         console.log(`  Passed cors.js assertions.`);

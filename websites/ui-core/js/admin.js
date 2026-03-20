@@ -45,7 +45,7 @@ Purpose: School Admin Dashboard frontend module.
 
     const API_BASE = window.location.hostname === 'localhost'
         ? 'http://localhost:3000/api'
-        : 'https://api.ganitsutram.com/api';
+        : 'http://localhost:3000/api';
 
     const PAGE_SIZE = 10;
 

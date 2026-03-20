@@ -41,7 +41,7 @@
 (function () {
     const API_ROOT = window.location.hostname === 'localhost'
         ? 'http://localhost:3000/api'
-        : 'https://api.ganitsutram.com/api';
+        : 'http://localhost:3000/api';
 
     const API_BASE = `${API_ROOT}/practice`;
     let currentSet = [];

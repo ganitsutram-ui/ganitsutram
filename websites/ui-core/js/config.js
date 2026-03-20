@@ -47,8 +47,13 @@ window.GanitConfig = (function () {
   );
 
   // Base port for local dev
-  // (Express serves all sites from port 3000)
   const DEV_BASE = 'http://localhost:3000';
+
+  // For GitHub Pages, detect if we are in a subfolder (e.g. /ganitsutram)
+  const BASE_PATH = window.location.pathname.startsWith('/ganitsutram') ? '/ganitsutram' : '';
+
+  // Railway API URL goes here. Replace this when deployed.
+  window.RAILWAY_URL = 'https://ganitsutram-production.up.railway.app';
 
   const config = {
     IS_DEV: isDev,
@@ -56,42 +61,42 @@ window.GanitConfig = (function () {
     // ── API ──────────────────────────────
     API_BASE: isDev
       ? `${DEV_BASE}/api`
-      : 'https://api.ganitsutram.com/api',
+      : `${window.RAILWAY_URL}/api`,
 
     // ── Site URLs ────────────────────────
     PORTAL_URL: isDev
       ? `${DEV_BASE}/portal`
-      : 'https://ganitsutram.com',
+      : `${BASE_PATH}/websites/portal`,
 
     SOLVER_URL: isDev
       ? `${DEV_BASE}/solver`
-      : 'https://solve.ganitsutram.com',
+      : `${BASE_PATH}/websites/solver`,
 
     LEARN_URL: isDev
       ? `${DEV_BASE}/learning`
-      : 'https://learn.ganitsutram.com',
+      : `${BASE_PATH}/websites/learning`,
 
     DISCOVER_URL: isDev
       ? `${DEV_BASE}/discoveries`
-      : 'https://discover.ganitsutram.com',
+      : `${BASE_PATH}/websites/discoveries`,
 
     MAP_URL: isDev
       ? `${DEV_BASE}/knowledge-map`
-      : 'https://map.ganitsutram.com',
+      : `${BASE_PATH}/websites/knowledge-map`,
 
     LAB_URL: isDev
       ? `${DEV_BASE}/research-lab`
-      : 'https://lab.ganitsutram.com',
+      : `${BASE_PATH}/websites/research-lab`,
 
     // ── Canonical base (for SEO) ─────────
     CANONICAL_BASE: isDev
       ? DEV_BASE
-      : 'https://ganitsutram.com',
+      : `${BASE_PATH}`,
 
     // ── SSE stream URL ───────────────────
     SSE_URL: isDev
       ? `${DEV_BASE}/api/notifications/stream`
-      : 'https://api.ganitsutram.com/api/notifications/stream',
+      : `${window.RAILWAY_URL}/api/notifications/stream`,
 
     // ── Feature flags ────────────────────
     ENABLE_ANALYTICS_BEACON: !isDev,

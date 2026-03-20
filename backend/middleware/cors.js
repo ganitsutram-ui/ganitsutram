@@ -1,31 +1,3 @@
-/*
- * GANITSUTRAM
- * A Living Knowledge Ecosystem for Mathematical Discovery
- *
- * "यथा शिखा मयूराणां नागानां मणयो यथा
- *  तद्वद् वेदाङ्गशास्त्राणां गणितं मूर्ध्नि वर्तते"
- *
- * As the crest of a peacock, as the gem on the hood
- * of a cobra — so stands mathematics at the crown
- * of all knowledge.
- *                                       — Brahmagupta
- *                                         628 CE · Brahmasphutasiddhanta
- *
- * Creator:   Jawahar R. Mallah
- * Email:     jawahar@aitdl.com
- * GitHub:    https://github.com/jawahar-mallah
- * Websites:  https://ganitsutram.com
- *            https://aitdl.com
- *
- * Then:  628 CE · Brahmasphutasiddhanta
- * Now:   8 March MMXXVI · Vikram Samvat 2082
- *
- * Copyright © 2026 Jawahar R. Mallah · AITDL | GANITSUTRAM
- *
- * Developer Note:
- * If you intend to reuse this code, please respect
- * the creator and the work behind it.
- */
 'use strict';
 /*
 Project: GanitSūtram
@@ -37,12 +9,12 @@ VS 2082 | 2026-03-08
 const cors = require('cors');
 
 const PROD_ORIGINS = [
-    'https://ganitsutram.com',
-    'https://discover.ganitsutram.com',
-    'https://learn.ganitsutram.com',
-    'https://map.ganitsutram.com',
-    'https://lab.ganitsutram.com',
-    'https://solve.ganitsutram.com'
+    'http://localhost:5173',
+    '',
+    '',
+    '',
+    '',
+    ''
 ];
 
 const DEV_ORIGINS = [
@@ -61,8 +33,8 @@ const ALLOWED_ORIGINS = process.env.NODE_ENV === 'production'
 module.exports = cors({
     origin: (origin, callback) => {
         // Allow non-browser tools (Postman, curl)
-        // and same-origin requests in dev
-        if (!origin || ALLOWED_ORIGINS.includes(origin)) {
+        // and same-origin requests in dev, plus any github pages site
+        if (!origin || ALLOWED_ORIGINS.includes(origin) || (origin && origin.endsWith('.github.io'))) {
             callback(null, true);
         } else {
             callback(new Error(`CORS: origin ${origin} not allowed`));

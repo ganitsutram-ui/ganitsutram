@@ -45,7 +45,7 @@ Purpose: API Documentation page — data-driven rendering, sidebar nav,
 
     const API_BASE = window.location.hostname === 'localhost'
         ? 'http://localhost:3000/api'
-        : 'https://api.ganitsutram.com/api';
+        : 'http://localhost:3000/api';
 
     // ─── ENDPOINT DATA ───────────────────────────────────────────────
     const SECTIONS = [
