@@ -241,7 +241,7 @@ Purpose: Discoveries website interactive logic and API integration.
                     ? `<a href="${window.GanitConfig.LAB_URL}" class="gs-button gs-button-primary">Try Kaprekar Routine →</a>`
                     : `<a href="${SOLVER_URL}?op=${d.slug}" class="gs-button gs-button-primary">Try in Solver →</a>`
             }
-                <a href="https://ganitsutram.com/learning/practice.html?operation=${d.slug}" class="gs-button">Practice This →</a>
+                <a href="../learning/practice.html?operation=" class="gs-button">Practice This →</a>
             </div>
         `;
     }

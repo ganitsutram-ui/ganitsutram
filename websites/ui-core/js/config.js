@@ -101,7 +101,9 @@ window.GanitConfig = (function () {
     // ── Feature flags ────────────────────
     ENABLE_ANALYTICS_BEACON: !isDev,
     ENABLE_SW: !isDev,       // service workers prod only
-    LOG_LEVEL: isDev ? 'debug' : 'error'
+    LOG_LEVEL: isDev ? 'debug' : 'error',
+    getBasePath: () => BASE_PATH ? `${BASE_PATH}/websites/` : '/websites/',
+    getApiBase: () => isDev ? `${DEV_BASE}/api` : `${window.RAILWAY_URL}/api`
   };
 
   // Freeze to prevent accidental mutation

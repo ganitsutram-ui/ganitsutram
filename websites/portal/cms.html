@@ -72,18 +72,18 @@ Purpose: Administrative CMS portal for Discoveries and Learning.
         .gs-nav { position: fixed; width: 100%; z-index: 100; background: rgba(4,1,16,0.95); }
     </style>
 
-    <link rel="stylesheet" href="../../ui-core/css/main.css">
-    <link rel="stylesheet" href="../../ui-core/css/cms.css">
+    <link rel="stylesheet" href="../ui-core/css/main.css">
+    <link rel="stylesheet" href="../ui-core/css/cms.css">
 
     <meta name="description" content="Content Management System.">
     <meta name="keywords" content="Vedic mathematics, GanitSūtram, digital root, nikhilam, ancient maths, AITDL, Jawahar R Mallah">
-    <link rel="canonical" href="https://ganitsutram.com/cms.html">
+    <link rel="canonical" href="/cms.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="GanitSūtram">
     <meta property="og:title" content="CMS | GanitSūtram">
     <meta property="og:description" content="Content Management System.">
-    <meta property="og:url" content="https://ganitsutram.com/cms.html">
-    <meta property="og:image" content="https://ganitsutram.com/assets/og-image.png">
+    <meta property="og:url" content="/cms.html">
+    <meta property="og:image" content="/assets/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_IN">
@@ -92,7 +92,7 @@ Purpose: Administrative CMS portal for Discoveries and Learning.
     <meta name="twitter:site" content="@aitdl">
     <meta name="twitter:title" content="CMS | GanitSūtram">
     <meta name="twitter:description" content="Content Management System.">
-    <meta name="twitter:image" content="https://ganitsutram.com/assets/og-image.png">
+    <meta name="twitter:image" content="/assets/og-image.png">
 
 </head>
 
@@ -373,15 +373,38 @@ Purpose: Administrative CMS portal for Discoveries and Learning.
     </main>
 
     <footer class="gs-footer">
+        <div class="gs-footer-inner">
+            <div class="gs-footer-brand">
+                <div class="gs-nav-logo">
+                    <span class="gs-nav-logo-dev">गणित</span>GanitSūtram
+                </div>
+                <p data-i18n="footer.tagline">A mathematical knowledge ecosystem by AITDL.</p>
+            </div>
+            <div class="gs-footer-links">
+                <a href="../portal/index.html" data-i18n="footer.portal">Portal</a>
+                <a href="../discoveries/index.html" data-i18n="nav.discover">Discover</a>
+                <a href="../learning/index.html" data-i18n="nav.learn">Learn</a>
+                <a href="../knowledge-map/index.html" data-i18n="nav.map">Map</a>
+                <a href="../research-lab/index.html" data-i18n="nav.lab">Lab</a>
+                <a href="../solver/index.html" data-i18n="nav.solver">Solver</a>
+                <a href="../learning/leaderboard.html" data-i18n="nav.leaderboard">Leaderboard</a>
+                <a href="../learning/profile.html" data-i18n="nav.myProfile">Profile</a>
+                <a href="../portal/api-docs.html" data-i18n="nav.apiDocs">API Docs</a>
+            </div>
+        </div>
         <div class="gs-footer-copy">
-            © GanitSūtram | Admin CMS | VS 2082 | 2026-03-07
+            <span data-i18n="footer.copyright">© GanitSūtram | AITDL | aitdl.com</span> &nbsp;|&nbsp;
+            <span data-i18n="footer.date">Vikram Samvat: VS 2082 &nbsp;|&nbsp; Gregorian: 2026-03-07</span>
+            <br><span data-i18n="footer.rights">All Rights Reserved.</span> <span
+                data-i18n="footer.restriction">Unauthorized copying, reproduction, redistribution, or reuse of this software,
+                algorithms, or educational content is prohibited without written permission from AITDL.</span>
         </div>
     </footer>
 
     <!-- Scripts -->
-    <script src="../../ui-core/js/seo.js" defer></script>
-    <script src="../../ui-core/js/ganit-ui.js" defer></script>
-    <script src="../../ui-core/js/cms.js" defer></script>
+    <script src="../ui-core/js/seo.js" defer></script>
+    <script src="../ui-core/js/ganit-ui.js" defer></script>
+    <script src="../ui-core/js/cms.js" defer></script>
 </body>
 
 </html>

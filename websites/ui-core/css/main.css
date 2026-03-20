@@ -28,7 +28,31 @@
  */
 /*
 Project: GanitSūtram
+Author: Jawahar R Mallah
+Company: AITDL | aitdl.com
+*/
 
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+
+:root {
+    /* GanitSūtram Design Tokens */
+    --bg-deep: #040110;
+    --fg-main: #ffffff;
+    --accent-primary: #ff5500;
+    --accent-secondary: #ffb300;
+    --accent-soft: rgba(255, 179, 0, 0.4);
+
+    /* Typography from Book Cover */
+    --font-logo: 'Cinzel Decorative', serif;
+    --font-main: 'Cormorant Garamond', serif;
+    --font-ancient: 'Noto Serif Devanagari', serif;
+    --font-serif: 'Cinzel', serif;
+
+    /* Mobile Tokens */
+    --nav-height-mobile: 56px;
+    --content-padding-mobile: 1rem;
+    --font-size-hero-mobile: clamp(1.8rem, 8vw, 2.8rem);
+}
 * {
     box-sizing: border-box;
     margin: 0;

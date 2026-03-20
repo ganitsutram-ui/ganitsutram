@@ -72,22 +72,22 @@ Purpose: Public Leaderboard and gamification showcase.
         .gs-nav { position: fixed; width: 100%; z-index: 100; background: rgba(4,1,16,0.95); }
     </style>
 
-    <link rel="stylesheet" href="../../ui-core/css/main.css">
-    <link rel="stylesheet" href="../../ui-core/css/leaderboard.css">
-    <link rel="stylesheet" href="../../ui-core/css/i18n.css">
+    <link rel="stylesheet" href="../ui-core/css/main.css">
+    <link rel="stylesheet" href="../ui-core/css/leaderboard.css">
+    <link rel="stylesheet" href="../ui-core/css/i18n.css">
     <!-- PWA -->
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#FF8811">
 
     <meta name="description" content="The GanitSūtram Hall of Vedic Champions. Compete globally, earn badges, rise through the ranks.">
     <meta name="keywords" content="Vedic mathematics, GanitSūtram, digital root, nikhilam, ancient maths, AITDL, Jawahar R Mallah">
-    <link rel="canonical" href="https://learn.ganitsutram.com/leaderboard.html">
+    <link rel="canonical" href="../learning/leaderboard.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="GanitSūtram">
     <meta property="og:title" content="GanitSūtram | Leaderboard">
     <meta property="og:description" content="The GanitSūtram Hall of Vedic Champions. Compete globally, earn badges, rise through the ranks.">
-    <meta property="og:url" content="https://learn.ganitsutram.com/leaderboard.html">
-    <meta property="og:image" content="https://ganitsutram.com/assets/og-image.png">
+    <meta property="og:url" content="../learning/leaderboard.html">
+    <meta property="og:image" content="/assets/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:locale" content="en_IN">
@@ -96,7 +96,7 @@ Purpose: Public Leaderboard and gamification showcase.
     <meta name="twitter:site" content="@aitdl">
     <meta name="twitter:title" content="GanitSūtram | Leaderboard">
     <meta name="twitter:description" content="The GanitSūtram Hall of Vedic Champions. Compete globally, earn badges, rise through the ranks.">
-    <meta name="twitter:image" content="https://ganitsutram.com/assets/og-image.png">
+    <meta name="twitter:image" content="/assets/og-image.png">
 
 </head>
 
@@ -106,15 +106,23 @@ Purpose: Public Leaderboard and gamification showcase.
     <!-- ═══════════════════ NAV ═══════════════════ -->
     <header class="gs-nav">
         <div class="gs-nav-inner">
-            <a href="/" class="gs-nav-logo">
+            <a href="../portal/index.html" class="gs-nav-logo">
                 <span class="gs-nav-logo-dev">गणित</span>GanitSūtram
             </a>
             <nav class="gs-nav-links">
-                <a href='http://localhost:5173'>Portal</a>
-                <a href="index.html">Learning</a>
-                <a href="leaderboard.html" class="active" data-i18n="nav.leaderboard">Leaderboard</a>
+                <div class="nav-right" style="display:flex; align-items:center;">
+                    <div class="gs-lang-switcher" id="langSwitcher">
+                        <button class="gs-lang-btn active" data-lang="en">EN</button>
+                        <button class="gs-lang-btn" data-lang="hi">हि</button>
+                        <button class="gs-lang-btn" data-lang="sa">सं</button>
+                    </div>
+                    <button class="nav-link btn-ghost" onclick="window.GanitAuth ? window.GanitAuth.openModal('login') : location.href='../portal/index.html#login'"
+                        data-i18n="nav.signIn">Sign In</button>
+                    <a href="../portal/gate.html" class="gs-nav-cta" data-i18n="nav.enterPlatform">Enter Platform &rarr;</a>
+                </div>
             </nav>
-            <div id="gs-auth-nav" class="gs-nav-auth"></div>
+            <button class="gs-nav-hamburger"
+                onclick="document.querySelector('.gs-nav-links').classList.toggle('active')">☰</button>
         </div>
     </header>
 
@@ -231,24 +239,34 @@ Purpose: Public Leaderboard and gamification showcase.
                 <div class="gs-nav-logo">
                     <span class="gs-nav-logo-dev">गणित</span>GanitSūtram
                 </div>
-                <p>A mathematical knowledge ecosystem by AITDL.</p>
+                <p data-i18n="footer.tagline">A mathematical knowledge ecosystem by AITDL.</p>
             </div>
             <div class="gs-footer-links">
-                <a href='http://localhost:5173'>Portal</a>
+                <a href="../portal/index.html" data-i18n="footer.portal">Portal</a>
+                <a href="../discoveries/index.html" data-i18n="nav.discover">Discover</a>
+                <a href="../learning/index.html" data-i18n="nav.learn">Learn</a>
+                <a href="../knowledge-map/index.html" data-i18n="nav.map">Map</a>
+                <a href="../research-lab/index.html" data-i18n="nav.lab">Lab</a>
+                <a href="../solver/index.html" data-i18n="nav.solver">Solver</a>
+                <a href="../learning/leaderboard.html" data-i18n="nav.leaderboard">Leaderboard</a>
+                <a href="../learning/profile.html" data-i18n="nav.myProfile">Profile</a>
+                <a href="../portal/api-docs.html" data-i18n="nav.apiDocs">API Docs</a>
             </div>
         </div>
         <div class="gs-footer-copy">
-            © GanitSūtram | AITDL | aitdl.com &nbsp;|&nbsp;
-            Vikram Samvat: VS 2082 &nbsp;|&nbsp; Gregorian: 2026-03-07
-            <br>All Rights Reserved. Unauthorized copying, reproduction, redistribution, or reuse of this software,
-            algorithms, or educational content is prohibited without written permission from AITDL.
+            <span data-i18n="footer.copyright">© GanitSūtram | AITDL | aitdl.com</span> &nbsp;|&nbsp;
+            <span data-i18n="footer.date">Vikram Samvat: VS 2082 &nbsp;|&nbsp; Gregorian: 2026-03-07</span>
+            <br><span data-i18n="footer.rights">All Rights Reserved.</span> <span
+                data-i18n="footer.restriction">Unauthorized copying, reproduction, redistribution, or reuse of this software,
+                algorithms, or educational content is prohibited without written permission from AITDL.</span>
         </div>
     </footer>
 
-    <script src="../../ui-core/js/i18n.js" defer></script>
-    <script src="../../ui-core/js/seo.js" defer></script>
-    <script src="../../ui-core/js/ganit-ui.js" defer></script>
-    <script src="../../ui-core/js/leaderboard.js" defer></script>
+    <script src="../ui-core/js/config.js" defer></script>
+    <script src="../ui-core/js/i18n.js" defer></script>
+    <script src="../ui-core/js/seo.js" defer></script>
+    <script src="../ui-core/js/ganit-ui.js" defer></script>
+    <script src="../ui-core/js/leaderboard.js" defer></script>
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('sw.js');
