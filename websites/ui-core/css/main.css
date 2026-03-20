@@ -28,32 +28,6 @@
  */
 /*
 Project: GanitSūtram
-Author: Jawahar R Mallah
-Company: AITDL | aitdl.com
-
-Date:
-Vikram Samvat: VS 2082
-Gregorian: 2026-03-07
-*/
-
-:root {
-    /* GanitSūtram Design Tokens */
-    --bg-deep: #040110;
-    --fg-main: #ffffff;
-    --accent-primary: #ff5500;
-    --accent-secondary: #ffb300;
-    --accent-soft: rgba(255, 179, 0, 0.4);
-
-    --font-logo: 'Unbounded', sans-serif;
-    --font-main: 'Space Grotesk', sans-serif;
-    --font-ancient: 'Noto Serif Devanagari', serif;
-    --font-serif: 'DM Serif Display', serif;
-
-    /* Mobile Tokens */
-    --nav-height-mobile: 56px;
-    --content-padding-mobile: 1rem;
-    --font-size-hero-mobile: clamp(1.8rem, 8vw, 2.8rem);
-}
 
 * {
     box-sizing: border-box;

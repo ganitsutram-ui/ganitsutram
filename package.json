@@ -1,0 +1,16 @@
+{
+  "name": "ganitsutram",
+  "version": "1.0.0",
+  "description": "GaṇitSūtram - Split Architecture (GitHub Pages + Railway)",
+  "private": true,
+  "scripts": {
+    "install:all": "npm install && cd backend && npm install && cd ../websites/portal && npm install",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && node server.js",
+    "dev:frontend": "cd websites/portal && npx vite",
+    "build": "echo \"This project uses unbuilt vanilla HTML/JS for GitHub Pages. No frontend build step required!\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
