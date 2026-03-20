@@ -7,7 +7,7 @@
     "install:all": "npm install && cd backend && npm install && cd ../websites/portal && npm install",
     "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
     "dev:backend": "cd backend && node server.js",
-    "dev:frontend": "npx vite . --open /websites/portal/gate.html",
+    "dev:frontend": "npx vite . --open /",
     "build": "echo \"This project uses unbuilt vanilla HTML/JS for GitHub Pages. No frontend build step required!\""
   },
   "devDependencies": {
