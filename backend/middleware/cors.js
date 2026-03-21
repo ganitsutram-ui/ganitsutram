@@ -33,8 +33,8 @@ const ALLOWED_ORIGINS = process.env.NODE_ENV === 'production'
 module.exports = cors({
     origin: (origin, callback) => {
         // Allow non-browser tools (Postman, curl)
-        // and same-origin requests in dev, plus any github pages site
-        if (!origin || ALLOWED_ORIGINS.includes(origin) || (origin && origin.endsWith('.github.io'))) {
+        // and same-origin requests in dev, plus any github pages site or cloudflare pages
+        if (!origin || ALLOWED_ORIGINS.includes(origin) || (origin && (origin.endsWith('.github.io') || origin.endsWith('.pages.dev')))) {
             callback(null, true);
         } else {
             callback(new Error(`CORS: origin ${origin} not allowed`));
