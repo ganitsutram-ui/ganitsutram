@@ -662,3 +662,70 @@ body.profile-body {
         text-align: center;
     }
 }
+
+/* --- AVATAR ENHANCEMENTS --- */
+.avatar-circle-wrapper {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    flex-shrink: 0;
+    box-shadow: 0 0 30px rgba(255, 85, 0, 0.2);
+    border: 3px solid var(--profile-accent);
+}
+
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.avatar-circle-wrapper:hover .avatar-img {
+    transform: scale(1.1);
+}
+
+.avatar-edit-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 4px 0;
+    background: rgba(255, 85, 0, 0.8);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.avatar-circle-wrapper:hover .avatar-edit-overlay {
+    opacity: 1;
+}
+
+/* Avatar Modal Grid */
+.avatar-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin: 1rem 0;
+}
+
+.avatar-option img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    transition: all 0.2s;
+    background: var(--profile-card);
+}
+
+.avatar-option:hover img {
+    border-color: var(--profile-accent);
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(255, 85, 0, 0.3);
+}

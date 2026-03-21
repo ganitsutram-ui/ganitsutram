@@ -71,14 +71,16 @@ Purpose: Discoveries website interactive logic and API integration.
         try {
             // STEP 1: Try CMS API first
             const lang = localStorage.getItem('gs_locale') || 'en';
-            let cmsUrl = `${API_ROOT}/cms/content?type=discovery&locale=${lang}`;
-            if (category !== 'all') cmsUrl += `&category=${category}`;
+            const type = category === 'sutra' ? 'sutra' : 'discovery';
+            let cmsUrl = `${API_ROOT}/cms/content/${type}?locale=${lang}`;
+            if (category !== 'all' && category !== 'sutra') cmsUrl += `&category=${category}`;
 
             const cmsRes = await fetch(cmsUrl);
             if (cmsRes.ok) {
                 const cmsData = await cmsRes.json();
-                if (cmsData.content && cmsData.content.length > 0) {
-                    allDiscoveries = cmsData.content;
+                const content = cmsData.data || cmsData.content; // Compatibility
+                if (content && content.length > 0) {
+                    allDiscoveries = content;
                     renderDiscoveryGrid(allDiscoveries, grid);
                     return;
                 }
@@ -197,8 +199,8 @@ Purpose: Discoveries website interactive logic and API integration.
                 <div class="gs-drawer-icon">${d.icon}</div>
                 <h2 class="gs-drawer-title">${d.title}</h2>
                 <div class="gs-sutra-block">
-                    <div class="gs-sutra-name">${d.sutra || ''}</div>
-                    <div class="gs-sutra-meaning">${d.sutra_meaning || ''}</div>
+                    <div class="gs-sutra-name">${d.content_type === 'sutra' ? d.title : (d.sutra || '')}</div>
+                    <div class="gs-sutra-meaning">${d.content_type === 'sutra' ? d.excerpt : (d.sutra_meaning || '')}</div>
                 </div>
             </div>
             

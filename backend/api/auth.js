@@ -158,10 +158,32 @@ router.post('/login', async (req, res) => {
  * GET /api/auth/me
  */
 router.get('/me', requireAuth, async (req, res) => {
+    // Fetch fresh user record to include profile fields
+    const user = await userRepo.findById(req.user.userId);
     res.status(200).json({
-        user: req.user,
+        user,
         attribution: ATTRIBUTION
     });
+});
+
+/**
+ * PATCH /api/auth/me
+ * Update user profile (display name, avatar).
+ */
+router.patch('/me', requireAuth, async (req, res) => {
+    try {
+        const { displayName, avatarUrl } = req.body;
+        await userRepo.updateProfile(req.user.userId, { displayName, avatarUrl });
+        
+        const updatedUser = await userRepo.findById(req.user.userId);
+        res.status(200).json({
+            message: "Profile updated successfully.",
+            user: updatedUser,
+            attribution: ATTRIBUTION
+        });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
 
 /**

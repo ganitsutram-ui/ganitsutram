@@ -47,9 +47,9 @@ const db = require('./db');
  */
 async function createUser({ userId, email, passwordHash, role, createdAt }) {
     await db.run(`
-        INSERT INTO users (user_id, email, password_hash, role, created_at)
-        VALUES (?, ?, ?, ?, ?)
-    `, userId, email, passwordHash, role, createdAt);
+        INSERT INTO users (user_id, email, password_hash, role, display_name, avatar_url, created_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+    `, userId, email, passwordHash, role, null, null, createdAt);
     return { userId, email, role, createdAt };
 }
 
@@ -63,6 +63,8 @@ function mapUser(row) {
         email: row.email,
         passwordHash: row.password_hash,
         role: row.role,
+        displayName: row.display_name,
+        avatarUrl: row.avatar_url,
         createdAt: row.created_at
     };
 }
@@ -98,10 +100,23 @@ async function updatePassword(userId, passwordHash) {
     await db.run('UPDATE users SET password_hash = ? WHERE user_id = ?', passwordHash, userId);
 }
 
+/**
+ * Updates user profile details.
+ */
+async function updateProfile(userId, { displayName, avatarUrl }) {
+    await db.run(`
+        UPDATE users 
+        SET display_name = COALESCE(?, display_name), 
+            avatar_url = COALESCE(?, avatar_url) 
+        WHERE user_id = ?
+    `, displayName, avatarUrl, userId);
+}
+
 module.exports = {
     createUser,
     findByEmail,
     findById,
     emailExists,
-    updatePassword
+    updatePassword,
+    updateProfile
 };
