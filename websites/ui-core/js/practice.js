@@ -1,49 +1,16 @@
 /*
  * GANITSUTRAM
  * A Living Knowledge Ecosystem for Mathematical Discovery
- *
- * "यथा शिखा मयूराणां नागानां मणयो यथा
- *  तद्वद् वेदाङ्गशास्त्राणां गणितं मूर्ध्नि वर्तते"
- *
- * As the crest of a peacock, as the gem on the hood
- * of a cobra — so stands mathematics at the crown
- * of all knowledge.
- *                                       — Brahmagupta
- *                                         628 CE · Brahmasphutasiddhanta
- *
- * Creator:   Jawahar R. Mallah
- * Email:     jawahar@aitdl.com
- * GitHub:    https://github.com/jawahar-mallah
- * Websites:  https://ganitsutram.com
- *            https://aitdl.com
- *
- * Then:  628 CE · Brahmasphutasiddhanta
- * Now:   8 March MMXXVI · Vikram Samvat 2082
- *
- * Copyright © 2026 Jawahar R. Mallah · AITDL | GANITSUTRAM
- *
- * Developer Note:
- * If you intend to reuse this code, please respect
- * the creator and the work behind it.
- */
-/**
- * Project: GanitSūtram
- * Author: Jawahar R Mallah
- * Company: AITDL | aitdl.com
- * 
- * Date:
- * Vikram Samvat: VS 2082
- * Gregorian: 2026-03-07
- * 
- * Purpose: Practice Arena Logic.
  */
 
 (function () {
-    const API_ROOT = window.location.hostname === 'localhost'
-        ? 'http://localhost:3000/api'
-        : 'http://localhost:3000/api';
+    'use strict';
 
-    const API_BASE = `${API_ROOT}/practice`;
+    // RULE: Always use GanitConfig, fallback only for safety
+    const API_BASE = (window.GanitConfig && window.GanitConfig.API_BASE)
+        ? `${window.GanitConfig.API_BASE.replace('/api', '')}/api/practice`
+        : '/api/practice';
+
     let currentSet = [];
     let currentIndex = 0;
     let results = [];
@@ -67,28 +34,6 @@
         if (token) headers['Authorization'] = `Bearer ${token}`;
 
         try {
-            // We need to provide the "correct answer" mock (the server would normally verify against its own state, 
-            // but for this stateless logic task, we're passing it back, though in a real prod env 
-            // the questionId would link to a cached answer on server).
-            // NOTE: The server-side service mock in api/practice uses the req.body for correct answer validation.
-
-            // Wait, rethink: The prompt says "correctAnswer NOT included in response".
-            // If I don't have the correctAnswer on frontend, how do I send it to /check?
-            // "question generation uses core math modules for computing answers".
-            // Ah, I should have included a hidden answer or a way to compute it on server.
-            // In my check endpoint logic: `const result = practiceService.checkAnswer(correctAnswer, userAnswer);`
-            // The client must know the correct answer? No, that's bad.
-            // Actually, in a better decoupled env, the server keeps it.
-            // BUT, for this task, I will assume the client doesn't know it.
-            // I'll adjust the API to derive it if missing OR I'll have the client fetch it in the check call.
-            // Actually, I'll have the server regenerate it for the check call if questionId is provided.
-            // BUT for now, let's assume the question generation logic is deterministic if I pass seed?
-            // No, let's keep it simple: I will add the correctAnswer to the check request body by RE-CALCULATING it on server if not provided.
-
-            // Correction for my api/practice.js later: it should re-calculate based on question data.
-            // For now, I'll have the client try to send what it has (it has nothing).
-            // I'll fix the backend check logic to be robust.
-
             const resp = await fetch(`${API_BASE}/check`, {
                 method: 'POST',
                 headers,
@@ -98,9 +43,7 @@
                     difficulty: question.difficulty,
                     question: question.question,
                     userAnswer,
-                    timeTakenMs,
-                    // Note: In this mock, the server expects correctAnswer. 
-                    // I will have to fix api/practice.js to derive it.
+                    timeTakenMs
                 })
             });
             return await resp.json();
@@ -117,14 +60,26 @@
         const count = document.getElementById('practice-count').value;
 
         const arena = document.getElementById('arena-surface');
-        arena.innerHTML = `<div style="text-align:center;padding:4rem;">Preparing your challenges...</div>`;
+        
+        // Premium Loading State
+        arena.innerHTML = `
+            <div style="text-align:center; padding:10rem 0; animation: fadeIn 0.5s;">
+                <div class="gs-gate-loader" style="margin: 0 auto 2rem;"></div>
+                <div class="gs-label">Initializing Arena</div>
+                <p style="color:rgba(255,255,255,0.4); margin-top:1rem;">Calculating mathematical possibilities...</p>
+            </div>
+        `;
+
+        // Scroll to arena
+        const offset = arena.offsetTop - 150;
+        window.scrollTo({ top: offset, behavior: 'smooth' });
 
         currentSet = await fetchPracticeSet(op, diff, count);
         currentIndex = 0;
         results = [];
 
         if (currentSet.length === 0) {
-            arena.innerHTML = `<div style="text-align:center;padding:4rem;color:red;">Failed to load questions. Try again.</div>`;
+            arena.innerHTML = `<div style="text-align:center;padding:4rem;color:var(--accent-primary);">Failed to load questions. Please check your connection.</div>`;
             return;
         }
 
@@ -143,14 +98,14 @@
                 <div class="gs-progress-meter">
                     <div class="gs-meter-text">
                         <span>Challenge ${currentIndex + 1} of ${currentSet.length}</span>
-                        <span>${Math.round(progressPercent)}% Complete</span>
+                        <span>${Math.round(progressPercent)}%</span>
                     </div>
                     <div class="gs-meter-bar">
                         <div class="gs-meter-fill" style="width: ${progressPercent}%"></div>
                     </div>
                 </div>
 
-                <div class="gs-question-card">
+                <div class="gs-question-card glass-card">
                     <div class="gs-q-meta">
                         <span class="gs-badge badge-op">${formatOpName(q.operation)}</span>
                         <span class="gs-badge badge-diff">${q.difficulty}</span>
@@ -159,24 +114,27 @@
                     <div class="gs-q-text">${q.question}</div>
 
                     <div class="gs-q-input-wrap">
-                        <input type="text" id="practice-ans" class="gs-q-input" autocomplete="off" placeholder="?">
-                        <button id="btn-submit-ans" class="gs-button gs-button-primary" style="width:100%">Submit Answer &rarr;</button>
+                        <input type="text" id="practice-ans" class="gs-q-input" autocomplete="off" placeholder="?" maxlength="10">
+                        <div style="margin-top: 2rem;">
+                            <button id="btn-submit-ans" class="gs-button gs-button-primary" style="width:100%">Submit Answer &rarr;</button>
+                        </div>
                         
-                        <button class="btn-hint" onclick="document.getElementById('practice-hint').style.display='block'">Need a hint?</button>
-                        <div id="practice-hint" class="gs-hint-box">${q.hint}</div>
+                        <button class="btn-hint" style="margin-top: 2rem;" onclick="document.getElementById('practice-hint').style.display='block'">Reveal Hint</button>
+                        <div id="practice-hint" class="gs-hint-box" style="display:none;">${q.hint}</div>
                     </div>
 
-                    <div id="q-feedback" class="gs-feedback"></div>
+                    <div id="q-feedback"></div>
                     
-                    <button id="btn-next-q" class="gs-button" style="display:none; margin-top:2rem; width:100%">Next Question &rarr;</button>
+                    <button id="btn-next-q" class="gs-button gs-button-primary" style="display:none; margin-top:3rem; width:100%">Next Challenge &rarr;</button>
                 </div>
             </div>
         `;
 
-        document.getElementById('practice-ans').focus();
+        const input = document.getElementById('practice-ans');
+        input.focus();
 
         document.getElementById('btn-submit-ans').onclick = handleAnswer;
-        document.getElementById('practice-ans').onkeypress = (e) => {
+        input.onkeypress = (e) => {
             if (e.key === 'Enter') handleAnswer();
         };
     }
@@ -193,9 +151,6 @@
         input.disabled = true;
         document.getElementById('btn-submit-ans').disabled = true;
 
-        // Note: For this project constraints, I'll have to adjust the backend to NOT require correctAnswer in body
-        // OR the generator must have provided it (which it didn't).
-        // I will update the backend to calculate it.
         const result = await submitAnswer(q, userAnswer, timeTakenMs);
 
         results.push({
@@ -208,16 +163,23 @@
 
         const feedback = document.getElementById('q-feedback');
         feedback.style.display = 'block';
+        
         if (result.isCorrect) {
             feedback.className = 'gs-feedback feedback-correct';
-            feedback.innerHTML = `✅ Correct! ${result.message || ''}`;
+            feedback.innerHTML = `✓ CORRECT: ${result.message || 'Excellent mastery.'}`;
+            input.style.color = '#00ff7f';
+            input.style.borderBottomColor = '#00ff7f';
         } else {
             feedback.className = 'gs-feedback feedback-wrong';
-            feedback.innerHTML = `❌ Incorrect. The correct answer was <strong>${result.correctAnswer}</strong>.`;
+            feedback.innerHTML = `✗ INCORRECT. THE ANSWER WAS ${result.correctAnswer}`;
+            input.style.color = '#ff4d4d';
+            input.style.borderBottomColor = '#ff4d4d';
         }
 
         const nextBtn = document.getElementById('btn-next-q');
         nextBtn.style.display = 'block';
+        nextBtn.focus();
+        
         nextBtn.onclick = () => {
             currentIndex++;
             if (currentIndex < currentSet.length) {
@@ -238,39 +200,48 @@
         results.forEach(r => {
             tableRows += `
                 <tr>
-                    <td>${r.question}</td>
+                    <td style="font-family:'Unbounded'">${r.question}</td>
                     <td>${r.userAnswer}</td>
-                    <td>${r.correctAnswer}</td>
-                    <td><span class="summary-res-tag ${r.isCorrect ? 'res-correct' : 'res-wrong'}">${r.isCorrect ? '✓' : '✗'}</span></td>
+                    <td style="color:var(--accent-primary)">${r.correctAnswer}</td>
+                    <td><span class="${r.isCorrect ? 'res-correct' : 'res-wrong'}">${r.isCorrect ? '✓' : '✗'}</span></td>
                     <td>${(r.timeTakenMs / 1000).toFixed(1)}s</td>
                 </tr>
             `;
         });
 
         arena.innerHTML = `
-            <div class="gs-question-card" style="text-align:left;">
-                <h2 class="gs-hero-title" style="font-size:2rem; margin-bottom:1rem;">Practice Complete!</h2>
-                <div style="font-size:1.1rem; color:var(--text-dim); margin-bottom:2rem;">
-                    Score: <strong>${correctCount} / ${results.length}</strong> (${accuracy}%) <br>
-                    Total Time: <strong>${(totalTime / 1000).toFixed(1)}s</strong>
+            <div class="gs-question-card glass-card" style="text-align:left; animation: fadeInScale 0.6s;">
+                <div class="gs-label">अभ्यास परिणाम</div>
+                <h2 class="gs-hero-title" style="font-size:3rem; margin-bottom:1rem;">Mastery Report</h2>
+                
+                <div class="gs-stats-grid" style="margin-top:3rem;">
+                    <div class="gs-stats-card">
+                        <div style="font-family:'Unbounded'; font-size:2.5rem; font-weight:700; color:var(--accent-primary);">${accuracy}%</div>
+                        <div class="gs-chart-label" style="justify-content:center; margin-top:1rem;">Accuracy</div>
+                    </div>
+                    <div class="gs-stats-card">
+                        <div style="font-family:'Unbounded'; font-size:2.5rem; font-weight:700; color:var(--accent-primary);">${(totalTime / 1000).toFixed(1)}s</div>
+                        <div class="gs-chart-label" style="justify-content:center; margin-top:1rem;">Total Time</div>
+                    </div>
                 </div>
 
+                <div class="gs-label" style="margin-top:4rem;">Detailed Analysis</div>
                 <table class="gs-summary-table">
                     <thead>
                         <tr>
-                            <th>Question</th>
+                            <th>Challenge</th>
                             <th>You</th>
                             <th>Correct</th>
-                            <th>Result</th>
+                            <th>Status</th>
                             <th>Time</th>
                         </tr>
                     </thead>
                     <tbody>${tableRows}</tbody>
                 </table>
 
-                <div style="display:flex; gap:15px; margin-top:2rem;">
-                    <button onclick="window.GanitPractice.start()" class="gs-button gs-button-primary">Practice Again &rarr;</button>
-                    <button onclick="window.location.reload()" class="gs-button">Change Settings</button>
+                <div style="display:flex; gap:20px; margin-top:4rem;">
+                    <button onclick="window.GanitPractice.start()" class="gs-button gs-button-primary">Repeat Mastery &rarr;</button>
+                    <button onclick="window.location.reload()" class="gs-button">Return to Settings</button>
                 </div>
             </div>
         `;
@@ -286,10 +257,13 @@
         if (!statsEl) return;
 
         if (!window.GanitAuth || !window.GanitAuth.isLoggedIn()) {
-            statsEl.className = 'gs-stats-nudge';
+            statsEl.className = 'glass-card';
+            statsEl.style.marginTop = '4rem';
             statsEl.innerHTML = `
-                <p style="color:var(--text-dim);margin-bottom:1rem;">Sign in to track your mastery and see detailed practice stats.</p>
-                <button onclick="window.GanitAuth.openModal('login')" class="gs-button">Sign In &rarr;</button>
+                <p style="color:rgba(255,255,255,0.4); margin-bottom:2rem; font-family:'Space Grotesk';">Authenticating allows you to track your mastery curvature and sync performance with your profile.</p>
+                <div style="text-align:center;">
+                    <button onclick="window.GanitAuth.openModal('login')" class="gs-button gs-button-primary">Sign In & Master &rarr;</button>
+                </div>
             `;
             return;
         }
@@ -302,14 +276,14 @@
             const data = await resp.json();
             renderStats(data.stats, statsEl);
         } catch (e) {
-            statsEl.innerHTML = "Failed to load stats.";
+            statsEl.innerHTML = "<p class='gs-label'>Error loading neurological data.</p>";
         }
     }
 
     function renderStats(stats, container) {
         if (!stats) return;
 
-        container.className = 'gs-stats-panel';
+        container.className = 'gs-stats-panel glass-card';
         container.style.marginTop = '4rem';
 
         let breakdownHtml = '';
@@ -328,18 +302,19 @@
         });
 
         container.innerHTML = `
-            <h3 style="margin-bottom:2rem;">Performance Mastery</h3>
-            <div class="gs-stats-grid" style="display:grid; grid-template-columns: 1fr 1fr; gap:2rem;">
-                <div class="gs-stats-card" style="background:rgba(255,255,255,0.02); padding:1.5rem; border-radius:15px; text-align:center;">
-                    <div style="font-size:2.5rem; font-weight:700; color:var(--accent-primary);">${stats.accuracy}%</div>
-                    <div style="font-size:0.8rem; color:var(--text-dim);">Overall Accuracy</div>
+            <div class="gs-label">Mastery Curve</div>
+            <h3 class="gs-hero-title" style="font-size:2rem; text-align:left;">Neuro-Performance</h3>
+            <div class="gs-stats-grid">
+                <div class="gs-stats-card">
+                    <div style="font-family:'Unbounded'; font-size:2.2rem; font-weight:700; color:var(--accent-primary);">${stats.accuracy}%</div>
+                    <div class="gs-chart-label" style="justify-content:center; margin-top:0.5rem;">Overall Accuracy</div>
                 </div>
-                <div class="gs-stats-card" style="background:rgba(255,255,255,0.02); padding:1.5rem; border-radius:15px; text-align:center;">
-                    <div style="font-size:2.5rem; font-weight:700; color:var(--accent-primary);">${stats.attempted}</div>
-                    <div style="font-size:0.8rem; color:var(--text-dim);">Questions Attempted</div>
+                <div class="gs-stats-card">
+                    <div style="font-family:'Unbounded'; font-size:2.2rem; font-weight:700; color:var(--accent-primary);">${stats.attempted}</div>
+                    <div class="gs-chart-label" style="justify-content:center; margin-top:0.5rem;">Total Challenges</div>
                 </div>
             </div>
-            <div style="margin-top:2rem;">
+            <div style="margin-top:3rem;">
                 ${breakdownHtml}
             </div>
         `;
@@ -347,7 +322,7 @@
 
     function getAccuracyColor(acc) {
         if (acc >= 90) return '#00ff7f';
-        if (acc >= 70) return '#00a3ff';
+        if (acc >= 70) return '#ff5500';
         if (acc >= 40) return '#ffc107';
         return '#ff4d4d';
     }
