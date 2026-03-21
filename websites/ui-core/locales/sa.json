@@ -107,6 +107,7 @@
         "filterEngine": "यन्त्रम्",
         "filterFoundation": "आधारम्",
         "filterPattern": "प्रतिरूपम्",
+        "filterSutras": "सूत्राणि",
         "exploreBtn": "अन्वेषयतु →",
         "tryInSolver": "गणके प्रायोगयतु →",
         "practiceThis": "इदम् अभ्यसतु →"
@@ -125,7 +126,9 @@
             "adult": "वयस्कः अध्येता"
         },
         "progressNudge": "प्रगतिं रक्षतु — निःशुल्कखातं निर्मातु",
-        "signUpBtn": "निःशुल्कं नामाङ्कयतु →"
+        "signUpBtn": "निःशुल्कं नामाङ्कयतु →",
+        "studentPath": "छात्रमार्गः",
+        "studentDesc": "छात्रणां कृते विशेषमार्गः।"
     },
     "auth": {
         "loginTab": "प्रवेशः",
@@ -192,6 +195,15 @@
         "emailBadge": "ईमेल: चिह्नम् लब्धम्",
         "emailMilestone": "ईमेल: महत्त्वपूर्णसिद्धिः",
         "emailSystem": "ईमेल: प्रणालीसूचना"
+    },
+    "practice": {
+        "label": "अभ्यासः",
+        "title": "अभ्यासरङ्गः",
+        "subtitle": "स्वगत्या गणितीयकौशलं परिष्कुर्वन्तु।",
+        "opLabel": "क्रिया",
+        "diffLabel": "काठिन्यम्",
+        "countLabel": "प्रश्नानां संख्या",
+        "startBtn": "अभ्यासं आरभतु →"
     },
     "search": {
         "placeholder": "GanitSūtram अन्वेषयतु…",

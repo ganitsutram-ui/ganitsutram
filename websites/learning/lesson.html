@@ -1,0 +1,138 @@
+<!-- 
+GANITSUTRAM PLATFORM
+Lesson Viewer
+System Architect: Jawahar R Mallah
+Organization: AITDL | aitdl.com
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Jawahar R Mallah">
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <link rel="stylesheet" href="../ui-core/css/main.css">
+    <link rel="stylesheet" href="../ui-core/css/learning.css">
+    <link rel="stylesheet" href="../ui-core/css/i18n.css">
+
+    <style>
+        .gs-lesson-header {
+            padding: 4rem 0 2rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 3rem;
+        }
+        .gs-lesson-title {
+            font-size: 3rem;
+            font-family: 'Space Grotesk', sans-serif;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #ffffff, #ff5500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gs-lesson-body {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.25rem;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.85);
+        }
+        .gs-lesson-body h2, .gs-lesson-body h3 {
+            color: #ff5500;
+            margin-top: 2.5rem;
+        }
+        .gs-example-box {
+            background: rgba(255,85,0,0.05);
+            border-left: 4px solid #ff5500;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 4px;
+        }
+        .gs-lesson-nav {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .gs-sub-modules {
+            margin-top: 4rem;
+        }
+        .gs-sub-modules h2 {
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+    </style>
+
+    <title>GanitSūtram | Lesson</title>
+</head>
+
+<body>
+    <header class="gs-nav">
+        <div class="gs-nav-inner">
+            <a href="../portal/index.html" class="gs-nav-logo">
+                <span class="gs-nav-logo-dev">गणित</span>GanitSūtram
+            </a>
+            <nav class="gs-nav-links">
+                <div class="nav-right">
+                    <div class="gs-lang-switcher" id="langSwitcher">
+                        <button class="gs-lang-btn active" data-lang="en">EN</button>
+                        <button class="gs-lang-btn" data-lang="hi">हि</button>
+                        <button class="gs-lang-btn" data-lang="sa">सं</button>
+                    </div>
+                    <a href="index.html" class="gs-nav-cta">&larr; Back to Path</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <div class="gs-container">
+            <article id="lesson-viewer" class="gs-fade-in">
+                <div class="gs-lesson-header">
+                    <div class="gs-sanskrit-line" id="lesson-sanskrit"></div>
+                    <h1 class="gs-lesson-title" id="lesson-title">Loading Lesson...</h1>
+                    <p class="gs-hero-sub" id="lesson-excerpt"></p>
+                </div>
+
+                <div class="gs-lesson-body" id="lesson-body">
+                    <!-- Markdown body injected here -->
+                </div>
+
+                <div id="sub-modules-section" class="gs-sub-modules" style="display: none;">
+                    <h2>Deep Dive: Exploration Modules</h2>
+                    <div id="sub-module-grid" class="gs-module-grid">
+                        <!-- Related modules loaded here -->
+                    </div>
+                </div>
+
+                <div class="gs-lesson-nav">
+                    <a href="index.html" class="gs-button btn-ghost">&larr; Dashboard</a>
+                    <button id="next-lesson-btn" class="gs-button gs-button-primary" style="display: none;">Next Lesson &rarr;</button>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <footer class="gs-footer">
+        <div class="gs-footer-copy">
+            <span>© GanitSūtram | AITDL | aitdl.com</span>
+        </div>
+    </footer>
+
+    <script src="../ui-core/js/config.js"></script>
+    <script src="../ui-core/js/i18n.js"></script>
+    <script src="../ui-core/js/ganit-ui.js"></script>
+    <script src="../ui-core/js/lesson.js"></script>
+</body>
+
+</html>

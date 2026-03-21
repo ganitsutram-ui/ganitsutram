@@ -107,22 +107,6 @@ async function getAllContent(options = {}) {
     const params = [];
     const wheres = [];
 
-    if (options.type) {
-        wheres.push('content_type = ?');
-        params.push(options.type);
-    }
-
-    if (options.published !== undefined) {
-        wheres.push('published = ?');
-        params.push(options.published ? 1 : 0);
-    }
-
-    if (wheres.length > 0) {
-        query += ' WHERE ' + wheres.join(' AND ');
-    }
-
-    query += ' ORDER BY sort_order ASC, created_at DESC';
-
     return await db.all(query, ...params);
 }
 

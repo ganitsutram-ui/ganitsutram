@@ -107,6 +107,7 @@
         "filterEngine": "Engine",
         "filterFoundation": "Foundation",
         "filterPattern": "Pattern",
+        "filterSutras": "Sutras",
         "exploreBtn": "Explore →",
         "tryInSolver": "Try in Solver →",
         "practiceThis": "Practice This →"

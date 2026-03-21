@@ -1,12 +1,12 @@
 {
-    "_attribution": "Author: Jawahar R Mallah | AITDL | VS 2082 | 2026-03-07",
-    "name": "GanitSūtram Portal",
+    "_attribution": "Author: Jawahar R Mallah | AITDL | GanitSūtram | VS 2082",
+    "name": "GanitSūtram — Ancient Vedic Mathematics",
     "short_name": "GanitSūtram",
-    "description": "Gateway to the GanitSūtram ecosystem.",
-    "start_url": "/",
+    "description": "Unlock the secrets of ancient Indian mathematics with our interactive discovery platform.",
+    "start_url": "./index.html",
     "display": "standalone",
-    "background_color": "#040110",
-    "theme_color": "#ff5500",
+    "background_color": "#04080F",
+    "theme_color": "#D4AF37",
     "orientation": "portrait-primary",
     "lang": "en",
     "icons": [
@@ -25,12 +25,19 @@
     ],
     "shortcuts": [
         {
-            "name": "Enter Gate",
-            "url": "gate.html"
+            "name": "Enter Portal",
+            "url": "./index.html",
+            "icons": [{ "src": "../ui-core/assets/icon-192.png", "sizes": "192x192" }]
+        },
+        {
+            "name": "Master Gate",
+            "url": "./gate.html",
+            "icons": [{ "src": "../ui-core/assets/icon-192.png", "sizes": "192x192" }]
         },
         {
             "name": "Discoveries",
-            "url": "../discoveries/index.html"
+            "url": "../discoveries/index.html",
+            "icons": [{ "src": "../ui-core/assets/icon-192.png", "sizes": "192x192" }]
         }
     ],
     "categories": [

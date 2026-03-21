@@ -2,38 +2,12 @@
  * GANITSUTRAM
  * A Living Knowledge Ecosystem for Mathematical Discovery
  *
- * "यथा शिखा मयूराणां नागानां मणयो यथा
- *  तद्वद् वेदाङ्गशास्त्राणां गणितं मूर्ध्नि वर्तते"
- *
- * As the crest of a peacock, as the gem on the hood
- * of a cobra — so stands mathematics at the crown
- * of all knowledge.
- *                                       — Brahmagupta
- *                                         628 CE · Brahmasphutasiddhanta
- *
- * Creator:   Jawahar R. Mallah
- * Email:     jawahar@aitdl.com
- * GitHub:    https://github.com/jawahar-mallah
- * Websites:  https://ganitsutram.com
- *            https://aitdl.com
- *
- * Then:  628 CE · Brahmasphutasiddhanta
- * Now:   8 March MMXXVI · Vikram Samvat 2082
- *
- * Copyright © 2026 Jawahar R. Mallah · AITDL | GANITSUTRAM
- *
- * Developer Note:
- * If you intend to reuse this code, please respect
- * the creator and the work behind it.
+ * Achievement Service: Logic for awarding and checking user badges.
  */
 /**
  * Project: GanitSūtram
  * Author: Jawahar R Mallah
  * Company: AITDL | aitdl.com
- * 
- * Date:
- * Vikram Samvat: VS 2082
- * Gregorian: 2026-03-07
  * 
  * Purpose: API routes for user progress tracking.
  */
@@ -41,6 +15,8 @@
 const express = require('express');
 const router = express.Router();
 const progressService = require('../services/progress-service');
+const achievementService = require('../services/achievement-service');
+const practiceService = require('../services/practice-service');
 const { requireAuth } = require('../auth/auth-middleware');
 const { errorResponse, successResponse } = require('../services/i18n-service');
 
@@ -93,6 +69,17 @@ router.post('/', requireAuth, async (req, res) => {
         timeTakenMs
     });
 
+    // Check for achievements asynchronously
+    (async () => {
+        try {
+            const stats = await progressService.getStats(userId);
+            const prStats = await practiceService.getStats(userId);
+            await achievementService.checkAndAwardBadges(userId, stats, prStats);
+        } catch (e) {
+            console.error("Achievement check failed:", e);
+        }
+    })();
+
     res.status(201).json({
         progressId: entry.progressId,
         savedAt: entry.solvedAt,
@@ -123,6 +110,17 @@ router.delete('/', requireAuth, async (req, res) => {
     await progressService.clearProgress(userId);
 
     res.json(successResponse(req.locale, 'success.progress.cleared'));
+});
+
+/**
+ * GET /api/user-progress/badges
+ * Returns the earned badges for the authenticated user.
+ */
+router.get('/badges', requireAuth, async (req, res) => {
+    const userId = req.user.userId;
+    const badgeRepo = require('../database/badge-repository');
+    const badges = await badgeRepo.getUserBadges(userId);
+    res.json({ badges, attribution: ATTRIBUTION });
 });
 
 module.exports = router;

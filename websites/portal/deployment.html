@@ -1,0 +1,139 @@
+<!--
+GANITSUTRAM PLATFORM
+Deployment Manual: The Zero-Cost Infrastructure
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Jawahar R Mallah">
+
+    <style id="gs-critical-css">
+        :root { --bg-deep: #040110; --fg-main: #ffffff; --accent-primary: #ff5500; }
+        body { margin: 0; background: var(--bg-deep); color: var(--fg-main); min-height: 100vh; font-family: 'Space Grotesk', sans-serif; }
+        .gs-nav { position: fixed; width: 100%; z-index: 1000; background: rgba(4,1,16,0.95); min-height: 72px; }
+    </style>
+
+    <link rel="stylesheet" href="../ui-core/css/main.css">
+    <link rel="stylesheet" href="../ui-core/css/portal.css">
+    <link rel="stylesheet" href="../ui-core/css/deployment.css">
+    
+    <title>Deployment Manual | GanitSūtram Community</title>
+    <meta name="description" content="Step-by-step guide to deploying a professional web platform for zero cost. GitHub, Render, Supabase, and Cloudflare.">
+</head>
+
+<body>
+    <!-- ═══════════════════ NAV ═══════════════════ -->
+    <header class="gs-nav">
+        <div class="gs-nav-inner">
+            <a href="index.html" class="gs-nav-logo">
+                <span class="gs-nav-logo-dev">गणित</span>GanitSūtram
+            </a>
+            <nav class="gs-nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="gate.html" class="gs-nav-cta">Go to Platform &rarr;</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="gs-deploy-content">
+        <div class="gs-deploy-hero">
+            <h1 class="gs-deploy-title gs-gold-foil">The Zero-Cost<br>Community Manual</h1>
+            <p class="gs-deploy-intro">How we built a professional, scalable infrastructure for GanitSūtram using the "Golden Quadrilateral" of modern cloud providers—globally, for $0/month.</p>
+        </div>
+
+        <section class="gs-deploy-section">
+            <h2>🏛️ Architecture Overview</h2>
+            <p>We use a decentralized architecture to leverage the best-in-class free tiers of several specialized providers. This ensures maximum performance without overhead.</p>
+            <div class="gs-arch-grid">
+                <div class="gs-arch-item">
+                    <h4>Database</h4>
+                    <p><strong>Supabase</strong> (PostgreSQL) - Persistent storage with built-in connection pooling.</p>
+                </div>
+                <div class="gs-arch-item">
+                    <h4>Backend API</h4>
+                    <p><strong>Render</strong> (Node.js) - Auto-deployment from GitHub with robust health monitoring.</p>
+                </div>
+                <div class="gs-arch-item">
+                    <h4>Frontend UI</h4>
+                    <p><strong>Cloudflare Pages</strong> - Global Edge CDN with zero-latency static hosting.</p>
+                </div>
+                <div class="gs-arch-item">
+                    <h4>Orchestration</h4>
+                    <p><strong>GitHub</strong> - The source of truth and automated CI/CD pipeline.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="gs-deploy-section">
+            <h2>🌍 Step 1: Database (Supabase)</h2>
+            <ul class="gs-deploy-step-list">
+                <li>Create a free project on Supabase and choose a region closest to your users.</li>
+                <li>Go to <strong>Settings &rarr; Database</strong> and find your Connection String.</li>
+            </ul>
+            <div class="gs-alert gs-alert-important">
+                <span class="gs-alert-title">Crucial Tip</span>
+                Use the <strong>Session Pooler (Port 5432)</strong> for your production string. This prevents your Express app from overwhelming the database during traffic spikes.
+            </div>
+        </section>
+
+        <section class="gs-deploy-section">
+            <h2>⚡ Step 2: Backend (Render)</h2>
+            <ul class="gs-deploy-step-list">
+                <li>Create a new <strong>Web Service</strong> and link your GitHub repository.</li>
+                <li>Set the build command to <code>npm install</code> and start command to <code>npm start</code>.</li>
+                <li>Add your <code>DATABASE_URL</code> and <code>JWT_SECRET</code> in the <strong>Environment</strong> tab.</li>
+            </ul>
+        </section>
+
+        <section class="gs-deploy-section">
+            <h2>☁️ Step 3: Frontend (Cloudflare Pages)</h2>
+            <p>Cloudflare Pages is the secret weapon for lightning-fast performance. Be careful not to use "Workers" for static files.</p>
+            <div class="gs-alert gs-alert-tip">
+                <span class="gs-alert-title">Correct Settings</span>
+                Build Output Directory: <code>websites</code><br>
+                This ensures your entire website's structure is served starting from the websites folder.
+            </div>
+            <ul class="gs-deploy-step-list">
+                <li>Link your repo and set the "Build Output" to the folder containing your <code>index.html</code>.</li>
+                <li>Add a custom domain in the project settings for a professional look.</li>
+            </ul>
+        </section>
+
+        <section class="gs-deploy-section">
+            <h2>🧩 Step 4: Connecting the Dots</h2>
+            <p>Your code must be smart enough to know where it's running. Use a dynamic configuration pattern.</p>
+            <div class="gs-code-block">
+                const API_BASE = window.location.hostname === 'localhost'<br>
+                &nbsp;&nbsp;&nbsp;? 'http://localhost:3000/api'<br>
+                &nbsp;&nbsp;&nbsp;: 'https://ganitsutram.onrender.com/api';
+            </div>
+            <p>Ensure your backend CORS settings allow requests from your Cloudflare domain.</p>
+        </section>
+
+        <div style="text-align: center; margin-top: 4rem;">
+            <p style="opacity: 0.6; font-style: italic;">"Ancient Wisdom. Modern Implementation."</p>
+            <p style="font-size: 0.8rem; margin-top: 1rem;">Created by Jawahar R. Mallah | AITDL</p>
+        </div>
+    </main>
+
+    <footer class="gs-footer">
+        <div class="gs-footer-inner">
+            <div class="gs-footer-brand">
+                <div class="gs-nav-logo">
+                    <span class="gs-nav-logo-dev">गणित</span>GanitSūtram
+                </div>
+                <p>A mathematical knowledge ecosystem by AITDL.</p>
+            </div>
+            <div class="gs-footer-links">
+                <a href="index.html">Portal Home</a>
+                <a href="https://aitdl.com" target="_blank">AITDL</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../ui-core/js/config.js" defer></script>
+</body>
+</html>

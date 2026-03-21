@@ -114,97 +114,151 @@ Organization: AITDL | aitdl.com
                                 autocomplete="off"
                                 required>
                             <div id="setup-error" class="gs-enroll-error"></div>
-                            <button type="submit" class="gs-button gs-button-primary">Create School →</button>
-                        </form>
-                    </div>
-                </div>
+                                <!-- FULL DASHBOARD LAYOUT -->
+                <div id="admin-layout" class="gs-admin-page-wrap" style="display:none;">
 
-                <!-- FULL DASHBOARD LAYOUT -->
-                <div id="admin-layout" class="gs-admin-layout" style="display:none;">
+                    <!-- SIDEBAR -->
+                    <aside class="gs-admin-sidebar" id="admin-sidebar" style="display:none;">
+                        <button class="gs-admin-sidebar-btn active" data-view="school">
+                            <span>🏫</span> School Management
+                        </button>
+                        <button class="gs-admin-sidebar-btn" data-view="platform" id="btn-view-platform" style="display:none;">
+                            <span>🌍</span> Platform Analytics
+                        </button>
+                        <button class="gs-admin-sidebar-btn" data-view="cms" id="btn-view-cms" style="display:none;">
+                            <span>📝</span> CMS Content
+                        </button>
+                    </aside>
 
-                    <!-- 1. HEADER BAR -->
-                    <div class="gs-admin-header">
-                        <div>
-                            <div class="gs-admin-school-name" id="admin-school-name">Loading…</div>
-                            <div class="gs-admin-email" id="admin-admin-email"></div>
+                    <div class="gs-admin-layout">
+
+                        <!-- 1. HEADER BAR -->
+                        <div class="gs-admin-header">
+                            <div>
+                                <div class="gs-admin-school-name" id="admin-school-name">Loading…</div>
+                                <div class="gs-admin-email" id="admin-admin-email"></div>
+                            </div>
+                            <div class="gs-admin-badge" id="admin-role-badge">School Admin</div>
                         </div>
-                        <div class="gs-admin-badge">School Admin</div>
-                    </div>
 
-                    <!-- 2. STATS ROW -->
-                    <section>
-                        <div class="gs-admin-section-title">Overview</div>
-                        <div class="gs-admin-stats">
-                            <div class="gs-admin-stat-card">
-                                <span class="gs-admin-stat-val" id="stat-students">—</span>
-                                <span class="gs-admin-stat-lbl">Total Students</span>
-                            </div>
-                            <div class="gs-admin-stat-card">
-                                <span class="gs-admin-stat-val" id="stat-active">—</span>
-                                <span class="gs-admin-stat-lbl">Active Learners</span>
-                            </div>
-                            <div class="gs-admin-stat-card">
-                                <span class="gs-admin-stat-val" id="stat-solved">—</span>
-                                <span class="gs-admin-stat-lbl">Problems Solved</span>
-                            </div>
-                            <div class="gs-admin-stat-card">
-                                <span class="gs-admin-stat-val" id="stat-accuracy">—</span>
-                                <span class="gs-admin-stat-lbl">Practice Accuracy</span>
-                            </div>
+                        <!-- ─── VIEW: SCHOOL ─── -->
+                        <div id="view-school" class="admin-view-section active">
+                            <!-- STATS ROW -->
+                            <section>
+                                <div class="gs-admin-section-title">School Overview</div>
+                                <div class="gs-admin-stats">
+                                    <div class="gs-admin-stat-card">
+                                        <span class="gs-admin-stat-val" id="stat-students">—</span>
+                                        <span class="gs-admin-stat-lbl">Total Students</span>
+                                    </div>
+                                    <div class="gs-admin-stat-card">
+                                        <span class="gs-admin-stat-val" id="stat-active">—</span>
+                                        <span class="gs-admin-stat-lbl">Active Learners</span>
+                                    </div>
+                                    <div class="gs-admin-stat-card">
+                                        <span class="gs-admin-stat-val" id="stat-solved">—</span>
+                                        <span class="gs-admin-stat-lbl">Problems Solved</span>
+                                    </div>
+                                    <div class="gs-admin-stat-card">
+                                        <span class="gs-admin-stat-val" id="stat-accuracy">—</span>
+                                        <span class="gs-admin-stat-lbl">Practice Accuracy</span>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <!-- ENROLL PANEL -->
+                            <section>
+                                <div class="gs-admin-section-title">Enrol a Student</div>
+                                <form id="enroll-form" class="gs-enroll-panel">
+                                    <input id="enroll-email-input" class="gs-input" type="email" placeholder="student@email.com">
+                                    <button type="submit" id="enroll-btn" class="gs-button gs-button-primary">Enroll</button>
+                                    <div id="enroll-error" class="gs-enroll-error"></div>
+                                </form>
+                            </section>
+
+                            <!-- STUDENT TABLE -->
+                            <section>
+                                <div class="gs-admin-section-title">Enrolled Students</div>
+                                <div class="gs-student-table-wrap">
+                                    <table class="gs-student-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Email</th>
+                                                <th>Role</th>
+                                                <th>Status</th>
+                                                <th>Enrolled</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="student-tbody"></tbody>
+                                    </table>
+                                </div>
+                                <div id="student-pagination" class="gs-pagination"></div>
+                            </section>
                         </div>
-                    </section>
 
-                    <!-- 3. ENROLL PANEL -->
-                    <section>
-                        <div class="gs-admin-section-title">Enrol a Student</div>
-                        <form id="enroll-form" class="gs-enroll-panel">
-                            <input
-                                id="enroll-email-input"
-                                class="gs-input"
-                                type="email"
-                                placeholder="student@email.com"
-                                autocomplete="off">
-                            <button type="submit" id="enroll-btn" class="gs-button gs-button-primary">Enroll</button>
-                            <div id="enroll-error" class="gs-enroll-error"></div>
-                        </form>
-                    </section>
-
-                    <!-- 4. STUDENT TABLE -->
-                    <section>
-                        <div class="gs-admin-section-title">Enrolled Students</div>
-                        <div class="gs-student-table-wrap">
-                            <table class="gs-student-table">
-                                <thead>
-                                    <tr>
-                                        <th>Email</th>
-                                        <th>Role</th>
-                                        <th>Status</th>
-                                        <th>Enrolled</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="student-tbody">
-                                    <!-- Rendered by admin.js -->
-                                </tbody>
-                            </table>
-                        </div>
-                        <div id="student-pagination" class="gs-pagination"></div>
-                    </section>
-
-                    <!-- 5. ANALYTICS SECTION -->
-                    <section>
-                        <div class="gs-admin-section-title">Class Analytics</div>
-                        <div class="gs-analytics-grid">
-                            <div class="gs-analytics-card">
-                                <h4>Practice by Operation</h4>
-                                <div id="analytics-op-bars">
-                                    <!-- Rendered by admin.js -->
+                        <!-- ─── VIEW: PLATFORM ─── -->
+                        <div id="view-platform" class="admin-view-section">
+                            <section>
+                                <div class="gs-admin-section-title">Global Platform Analytics</div>
+                                <div class="gs-admin-stats" id="global-stats-row">
+                                    <div class="gs-admin-stat-card">
+                                        <span class="gs-admin-stat-val" id="stat-global-users">—</span>
+                                        <span class="gs-admin-stat-lbl">Total Users</span>
+                                    </div>
+                                    <div class="gs-admin-stat-card">
+                                        <span class="gs-admin-stat-val" id="stat-global-solves">—</span>
+                                        <span class="gs-admin-stat-lbl">Global Solves</span>
+                                    </div>
+                                    <div class="gs-admin-stat-card">
+                                        <span class="gs-admin-stat-val" id="stat-global-schools">—</span>
+                                        <span class="gs-admin-stat-lbl">Active Schools</span>
+                                    </div>
+                                    <div class="gs-admin-stat-card">
+                                        <span class="gs-admin-stat-val" id="stat-global-events">—</span>
+                                        <span class="gs-admin-stat-lbl">Events (30d)</span>
+                                    </div>
+                                </div>
+                            </section>
+                            
+                            <div class="gs-analytics-grid">
+                                <div class="gs-analytics-card">
+                                    <h4>Top Operations (Global)</h4>
+                                    <div id="global-op-bars"></div>
+                                </div>
+                                <div class="gs-analytics-card">
+                                    <h4>Hourly Traffic Distribution</h4>
+                                    <div id="global-hourly-insights"></div>
                                 </div>
                             </div>
-                            <div class="gs-analytics-card">
-                                <h4>Key Insights</h4>
-                                <div id="analytics-insights">
-                                    <!-- Rendered by admin.js -->
+                        </div>
+
+                        <!-- ─── VIEW: CMS ─── -->
+                        <div id="view-cms" class="admin-view-section">
+                            <section>
+                                <div class="gs-admin-section-title">CMS Content Management</div>
+                                <div class="gs-student-table-wrap">
+                                    <table class="gs-student-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Title</th>
+                                                <th>Type</th>
+                                                <th>Category</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="cms-tbody">
+                                            <tr><td colspan="5" class="gs-empty-table">Loading content...</td></tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </section>
+                        </div>
+
+                    </div>
+                </div>
+-- Rendered by admin.js -->
                                 </div>
                             </div>
                         </div>

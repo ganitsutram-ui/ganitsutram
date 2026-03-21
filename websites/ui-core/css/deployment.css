@@ -1,0 +1,157 @@
+/*
+ * GANITSUTRAM
+ * Deployment Manual styles.
+ */
+
+.gs-deploy-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 100px 1.5rem 100px;
+}
+
+.gs-deploy-hero {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.gs-deploy-title {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    margin-bottom: 1rem;
+    line-height: 1.1;
+}
+
+.gs-deploy-intro {
+    font-size: 1.25rem;
+    color: var(--fg-muted);
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.gs-deploy-section {
+    margin-bottom: 5rem;
+    padding: 3rem;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    backdrop-filter: blur(10px);
+}
+
+.gs-deploy-section h2 {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: var(--accent-primary);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.gs-deploy-step-list {
+    list-style: none;
+    padding: 0;
+}
+
+.gs-deploy-step-list li {
+    position: relative;
+    padding-left: 3.5rem;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.gs-deploy-step-list li::before {
+    content: counter(step-counter);
+    counter-increment: step-counter;
+    position: absolute;
+    left: 0;
+    top: 5px;
+    width: 2.5rem;
+    height: 2.5rem;
+    background: rgba(255, 85, 0, 0.1);
+    border: 1px solid var(--accent-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: var(--accent-primary);
+}
+
+.gs-deploy-step-list {
+    counter-reset: step-counter;
+}
+
+/* Alert Boxes (GitHub style) */
+.gs-alert {
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin: 2rem 0;
+    border-left: 5px solid;
+}
+
+.gs-alert-important {
+    background: rgba(255, 85, 0, 0.05);
+    border-color: #ff5500;
+}
+
+.gs-alert-tip {
+    background: rgba(34, 197, 94, 0.05);
+    border-color: #22c55e;
+}
+
+.gs-alert-title {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    margin-bottom: 0.5rem;
+    display: block;
+    letter-spacing: 0.1em;
+}
+
+/* Images */
+.gs-deploy-img {
+    width: 100%;
+    border-radius: 16px;
+    margin: 2rem 0;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+
+/* Code Blocks */
+.gs-code-block {
+    background: #000;
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin: 1.5rem 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    color: #e8e8f0;
+    overflow-x: auto;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+/* Architecture Map */
+.gs-arch-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin: 3rem 0;
+}
+
+.gs-arch-item {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--glass-border);
+    padding: 1.5rem;
+    border-radius: 16px;
+}
+
+.gs-arch-item h4 {
+    margin: 0 0 0.5rem;
+    color: var(--accent-primary);
+}
+
+@media (max-width: 768px) {
+    .gs-deploy-content { padding-top: 80px; }
+    .gs-deploy-section { padding: 1.5rem; }
+    .gs-arch-grid { grid-template-columns: 1fr; }
+}

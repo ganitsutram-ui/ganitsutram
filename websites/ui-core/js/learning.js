@@ -90,6 +90,7 @@
      */
     async function renderContent(persona, titleEl, descEl, gridEl) {
         const data = LEARNING_DATA[persona];
+        const { API_BASE } = window.GanitConfig;
 
         // Update header
         titleEl.textContent = data.title;
@@ -98,30 +99,39 @@
         // Render grid with animation reset
         gridEl.style.opacity = '0';
 
-        // 1. Static modules
-        let modules = [...data.modules];
+        let displayModules = [];
 
-        // 2. CMS-driven modules
-        try {
-            const lang = localStorage.getItem('gs_locale') || 'en';
-            const res = await fetch(`${window.GanitUI.API_BASE || '/api'}/cms/content?type=lesson&category=${persona}&locale=${lang}`);
-            if (res.ok) {
-                const cmsData = await res.json();
-                const cmsModules = cmsData.content.map(c => ({
-                    icon: c.icon || "📚",
-                    title: c.title,
-                    level: c.difficulty || "Beginner",
-                    desc: c.summary || "",
-                    url: `lesson.html?slug=${c.slug}`
-                }));
-                modules = [...modules, ...cmsModules];
+        // 1. CMS-driven modules for the 'student' (7 Stages)
+        if (persona === 'student') {
+            try {
+                const lang = localStorage.getItem('gs_locale') || 'en';
+                const cmsUrl = `${API_BASE}/cms/content/lesson?locale=${lang}&category=learning-path`;
+                const res = await fetch(cmsUrl);
+                if (res.ok) {
+                    const cmsData = await res.json();
+                    const content = cmsData.data || cmsData.content;
+                    if (content && content.length > 0) {
+                        displayModules = content.map(c => ({
+                            icon: c.icon || "🛡️",
+                            title: c.title,
+                            level: c.difficulty || "Beginner",
+                            desc: c.excerpt || c.summary || "",
+                            url: `lesson.html?slug=${c.slug}`
+                        }));
+                    }
+                }
+            } catch (e) {
+                console.warn("Could not fetch CMS stages", e);
             }
-        } catch (e) {
-            console.warn("Could not fetch CMS lessons", e);
+        }
+
+        // 2. Fallback to static if empty
+        if (displayModules.length === 0) {
+            displayModules = [...data.modules];
         }
 
         setTimeout(() => {
-            gridEl.innerHTML = modules.map(m => `
+            gridEl.innerHTML = displayModules.map(m => `
                 <article class="gs-module-card">
                     <div class="gs-module-icon">${m.icon}</div>
                     <span class="gs-badge badge-${m.level.toLowerCase().replace(/ /g, '-') || 'beginner'}">${m.level}</span>
@@ -133,5 +143,8 @@
             gridEl.style.opacity = '1';
         }, 100);
     }
+
+    // EXPOSE
+    window.GanitLearning = { renderContent };
 
 })();

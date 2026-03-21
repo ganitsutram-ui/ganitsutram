@@ -2,66 +2,76 @@
  * GANITSUTRAM
  * A Living Knowledge Ecosystem for Mathematical Discovery
  *
- * Service Worker — Static-only cache.
- * API calls are NOT cached (they live on a different port in dev).
+ * Advanced Service Worker — "Mahaveer Offline Mode"
+ * Implements Stale-While-Revalidate for premium performance.
  */
 
-const CACHE_NAME = 'gs-static-v1.2';
+const CACHE_NAME = 'gs-pwa-v2.0';
+const STATIC_CACHE = 'gs-static-assets-v1';
 
-// Only cache resources that are guaranteed to exist on port 5001
-const ASSETS = [
-    '/websites/portal/index.html',
-    '/websites/portal/gate.html',
-    '/websites/ui-core/css/main.css',
-    '/websites/ui-core/css/portal.css',
-    '/websites/ui-core/css/i18n.css',
-    '/websites/ui-core/js/config.js',
-    '/websites/ui-core/js/i18n.js',
-    '/websites/ui-core/js/ganit-ui.js'
+// Assets to pre-cache on install
+const PRE_CACHE_ASSETS = [
+    '/',
+    '/index.html',
+    '/portal/index.html',
+    '/portal/gate.html',
+    '/learning/profile.html',
+    '/ui-core/css/main.css',
+    '/ui-core/css/portal.css',
+    '/ui-core/css/i18n.css',
+    '/ui-core/js/config.js',
+    '/ui-core/js/i18n.js',
+    '/ui-core/js/ganit-ui.js',
+    '/ui-core/locales/en.json',
+    '/ui-core/locales/hi.json',
+    '/ui-core/locales/sa.json'
 ];
 
 self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(CACHE_NAME).then((cache) => {
-            // addAll with individual error handling — one bad URL won't kill install
             return Promise.allSettled(
-                ASSETS.map(url =>
-                    cache.add(url).catch(err => {
-                        console.warn('[SW] Failed to cache:', url, err);
-                    })
-                )
+                PRE_CACHE_ASSETS.map(url => cache.add(url))
             );
         })
     );
-    // Immediately take control without waiting for old SW to die
     self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {
-    // Remove stale caches
     event.waitUntil(
         caches.keys().then(keys =>
-            Promise.all(
-                keys.filter(k => k !== CACHE_NAME).map(k => {
-                    console.log('[SW] Removing old cache:', k);
-                    return caches.delete(k);
-                })
-            )
+            Promise.all(keys.filter(k => k !== CACHE_NAME && k !== STATIC_CACHE).map(k => caches.delete(k)))
         )
     );
     return self.clients.claim();
 });
 
 self.addEventListener('fetch', (event) => {
-    // Let API calls (port 5002) pass through — never intercept them
     const url = new URL(event.request.url);
-    if (url.port === '5002' || url.pathname.startsWith('/api/')) {
-        return; // bypass SW for API requests
+
+    // 1. Bypass Service Worker for API calls
+    if (url.pathname.startsWith('/api/') || url.port === '5002' || url.hostname.includes('onrender.com')) {
+        return;
     }
 
+    // 2. Strategy: Stale-While-Revalidate for everything else
     event.respondWith(
-        caches.match(event.request).then((response) => {
-            return response || fetch(event.request);
-        }).catch(() => fetch(event.request))
+        caches.open(CACHE_NAME).then((cache) => {
+            return cache.match(event.request).then((cachedResponse) => {
+                const fetchedResponse = fetch(event.request).then((networkResponse) => {
+                    // Only cache successful GET responses
+                    if (networkResponse.ok && event.request.method === 'GET') {
+                        cache.put(event.request, networkResponse.clone());
+                    }
+                    return networkResponse;
+                }).catch(() => {
+                    // Fallback handled by cachedResponse or return undefined
+                    return cachedResponse;
+                });
+
+                return cachedResponse || fetchedResponse;
+            });
+        })
     );
 });

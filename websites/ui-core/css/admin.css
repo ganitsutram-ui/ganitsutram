@@ -43,21 +43,6 @@ Purpose: School Admin Dashboard specific styles.
     --admin-accent: #0ea5e9;
     --admin-danger: #ef4444;
     --admin-success: #22c55e;
-    --admin-warn: #f59e0b;
-    --admin-card-bg: rgba(255, 255, 255, 0.04);
-    --admin-border: rgba(255, 255, 255, 0.08);
-}
-
-/* ─── LAYOUT ─────────────────────────────────────────────────── */
-.gs-admin-layout {
-    display: grid;
-    gap: 2rem;
-    padding: 2rem 0 4rem;
-}
-
-/* ─── HEADER BAR ──────────────────────────────────────────────── */
-.gs-admin-header {
-    display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 1.5rem 2rem;
