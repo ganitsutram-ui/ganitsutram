@@ -46,6 +46,9 @@ window.GanitConfig = (function () {
     window.location.hostname
   );
 
+  const isCloudflare = window.location.hostname.endsWith('.pages.dev');
+
+
   // Base port for local dev
   const DEV_BASE = window.location.origin;
 
@@ -70,27 +73,27 @@ window.GanitConfig = (function () {
     // ── Site URLs ────────────────────────
     PORTAL_URL: isDev
       ? `${DEV_BASE}${window.location.port === '5173' ? '/websites' : ''}/portal`
-      : `${BASE_PATH}/websites/portal`,
+      : isCloudflare ? `${BASE_PATH}/portal` : `${BASE_PATH}/websites/portal`,
 
     SOLVER_URL: isDev
       ? `${DEV_BASE}${window.location.port === '5173' ? '/websites' : ''}/solver`
-      : `${BASE_PATH}/websites/solver`,
+      : isCloudflare ? `${BASE_PATH}/solver` : `${BASE_PATH}/websites/solver`,
 
     LEARN_URL: isDev
       ? `${DEV_BASE}${window.location.port === '5173' ? '/websites' : ''}/learning`
-      : `${BASE_PATH}/websites/learning`,
+      : isCloudflare ? `${BASE_PATH}/learning` : `${BASE_PATH}/websites/learning`,
 
     DISCOVER_URL: isDev
       ? `${DEV_BASE}${window.location.port === '5173' ? '/websites' : ''}/discoveries`
-      : `${BASE_PATH}/websites/discoveries`,
+      : isCloudflare ? `${BASE_PATH}/discoveries` : `${BASE_PATH}/websites/discoveries`,
 
     MAP_URL: isDev
       ? `${DEV_BASE}${window.location.port === '5173' ? '/websites' : ''}/knowledge-map`
-      : `${BASE_PATH}/websites/knowledge-map`,
+      : isCloudflare ? `${BASE_PATH}/knowledge-map` : `${BASE_PATH}/websites/knowledge-map`,
 
     LAB_URL: isDev
       ? `${DEV_BASE}${window.location.port === '5173' ? '/websites' : ''}/research-lab`
-      : `${BASE_PATH}/websites/research-lab`,
+      : isCloudflare ? `${BASE_PATH}/research-lab` : `${BASE_PATH}/websites/research-lab`,
 
     // ── Canonical base (for SEO) ─────────
     CANONICAL_BASE: isDev
