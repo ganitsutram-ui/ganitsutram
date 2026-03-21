@@ -21,10 +21,22 @@ Purpose: Solver specific styles.
 
 /* ─── FORM ─────────────────────────────────────────────────── */
 .gs-solver-card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    position: relative;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     padding: 3rem;
-    border-radius: 12px;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.gs-solver-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent-primary), transparent);
 }
 
 .gs-form-row {
@@ -69,8 +81,12 @@ Purpose: Solver specific styles.
 /* ─── RESULT PANEL ─────────────────────────────────────────── */
 .gs-result-area {
     margin-top: 3rem;
-    padding-top: 3rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 2.5rem;
+    background: linear-gradient(180deg, rgba(255, 85, 0, 0.05) 0%, transparent 100%);
+    border: 1px solid var(--glass-border);
+    border-top: 2px solid var(--accent-primary);
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(255, 85, 0, 0.1);
 }
 
 .gs-result-header {
@@ -81,6 +97,7 @@ Purpose: Solver specific styles.
     font-family: var(--font-display);
     font-size: 1.5rem;
     text-transform: uppercase;
+    letter-spacing: 0.1em;
 }
 
 .gs-result-sutra {
@@ -91,10 +108,22 @@ Purpose: Solver specific styles.
 }
 
 .gs-equation {
-    font-family: var(--font-display);
-    font-size: 2rem;
-    color: var(--accent-primary);
+    font-family: 'Roboto Mono', monospace; /* Authentic math compute vibe */
+    font-size: 2.5rem;
+    color: var(--fg-main);
+    background: rgba(0, 0, 0, 0.3);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    text-align: center;
     margin: 2rem 0;
+    box-shadow: inset 0 4px 20px rgba(0,0,0,0.5);
+    white-space: pre-wrap; /* Fix long answers breaking layout */
+    word-break: break-all;
+}
+
+.gs-equation strong {
+    color: var(--accent-primary);
 }
 
 /* Pill Chain */
@@ -107,27 +136,32 @@ Purpose: Solver specific styles.
 }
 
 .gs-pill {
-    background: rgba(124, 58, 237, 0.15);
-    border: 1px solid var(--accent-primary);
-    padding: 0.5rem 1.2rem;
+    background: rgba(255, 85, 0, 0.1);
+    border: 1px solid rgba(255, 85, 0, 0.3);
+    padding: 0.6rem 1.2rem;
     border-radius: 50px;
     font-family: var(--font-label);
     font-size: 0.85rem;
-    color: #fff;
+    color: var(--accent-soft);
     font-weight: 700;
+    box-shadow: 0 4px 15px rgba(255, 85, 0, 0.05);
 }
 
 .gs-arrow {
     color: var(--accent-soft);
     font-weight: 700;
+    opacity: 0.5;
 }
 
 /* ─── HISTORY LOG ──────────────────────────────────────────── */
 .gs-history-panel {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     padding: 2rem;
-    border-radius: 8px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .gs-history-header {
@@ -139,7 +173,7 @@ Purpose: Solver specific styles.
 
 .gs-history-table {
     width: 100%;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     border-collapse: collapse;
 }
 
@@ -148,7 +182,7 @@ Purpose: Solver specific styles.
     font-family: var(--font-label);
     color: var(--accent-soft);
     padding-bottom: 1rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid var(--glass-border);
     text-transform: uppercase;
     font-weight: 700;
     letter-spacing: 1px;
@@ -158,6 +192,7 @@ Purpose: Solver specific styles.
     padding: 1rem 0;
     font-family: var(--font-body);
     border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+    color: var(--fg-muted);
 }
 
 /* ─── REFERENCE PANEL ──────────────────────────────────────── */

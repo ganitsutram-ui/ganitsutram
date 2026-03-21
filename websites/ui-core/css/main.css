@@ -249,20 +249,19 @@ textarea {
     left: 0;
     width: 100%;
     z-index: 1000;
-    background: rgba(4, 1, 16, 0.8); /* Refined for full-width */
+    background: var(--bg-primary); /* Use theme variable */
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    border-bottom: 1px solid var(--glass-border);
     border-radius: 0; /* Edge to edge */
     transition: all 0.4s ease;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
-
 .gs-nav.scrolled {
-    background: rgba(4, 1, 16, 0.95);
-    border-bottom: 1px solid rgba(212, 175, 55, 0.5);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--accent-glow);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
 }
 
 
@@ -407,7 +406,7 @@ textarea {
     font-family: var(--font-display);
     font-size: 1.4rem;
     font-weight: 900;
-    color: #fff;
+    color: var(--fg-main);
     text-decoration: none;
     display: flex;
     align-items: center;
