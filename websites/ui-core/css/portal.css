@@ -83,6 +83,28 @@ Purpose: Portal-specific styles, extending ui-core/css/main.css
     background: transparent;
 }
 
+/* ─── LIGHT THEME OVERRIDES ─── */
+[data-theme="light"] .gs-hero {
+    background: var(--bg-primary) !important;
+    animation: none;
+}
+
+[data-theme="light"] .gs-gate-hero {
+    background: var(--bg-primary) !important;
+}
+
+[data-theme="light"] .gs-pillar {
+    background: rgba(255, 255, 255, 0.6) !important;
+    border-color: rgba(0, 0, 0, 0.05) !important;
+    color: var(--fg-main) !important;
+}
+
+[data-theme="light"] .gs-pillar-icon {
+    background: rgba(255, 107, 53, 0.1) !important;
+    color: var(--accent-primary) !important;
+}
+
+
 .gs-video-bg {
     position: absolute;
     top: 0;
@@ -94,10 +116,19 @@ Purpose: Portal-specific styles, extending ui-core/css/main.css
     animation: gsPageFadeIn 0.4s ease-out forwards;
 }
 
-@keyframes gsPageFadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+[data-theme="light"] .gs-hero-sub {
+    color: var(--fg-muted) !important;
 }
+
+[data-theme="light"] .gs-platform-link {
+    color: #E65A2A !important; /* Slightly deeper orange for contrast */
+    font-weight: 600;
+}
+
+[data-theme="light"] .gs-persona-card p {
+    color: var(--fg-muted) !important;
+}
+
 
 .gs-video-bg iframe {
     position: absolute;
@@ -260,6 +291,64 @@ Purpose: Portal-specific styles, extending ui-core/css/main.css
     text-align: center;
 }
 
+/* ════════════════════════════
+   BENTO GRID (.gs-pillars)
+════════════════════════════ */
+.gs-pillars {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.gs-pillar {
+    background: var(--glass-bg);
+    border: 1px solid var(--accent-primary);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 24px;
+    padding: 2.5rem;
+    color: var(--fg-main);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-align: left;
+}
+
+.gs-pillar:hover {
+    background: rgba(212, 175, 55, 0.05);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+}
+
+.gs-pillar-icon {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    color: var(--accent-soft);
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.gs-pillar h3 {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    margin-bottom: 0.8rem;
+    color: var(--fg-main);
+}
+
+.gs-pillar p {
+    font-size: 0.95rem;
+    color: var(--fg-muted);
+    line-height: 1.5;
+}
+
+/* Bento Sizing Overrides */
+.bento-large { grid-column: span 2; grid-row: span 2; }
+.bento-wide { grid-column: span 2; }
+.bento-tall { grid-row: span 2; }
+
 .gs-section-title {
     font-family: var(--font-display);
     font-size: clamp(2rem, 5vw, 3.5rem);
@@ -275,7 +364,9 @@ Purpose: Portal-specific styles, extending ui-core/css/main.css
 
 .gs-platform-card {
     background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    border: 1px solid var(--accent-primary);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     padding: 2.5rem;
     transition: all 0.4s ease;
     text-decoration: none;
@@ -345,7 +436,10 @@ Purpose: Portal-specific styles, extending ui-core/css/main.css
 
 .gs-persona-card {
     background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    border: 1px solid var(--accent-primary);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 12px;
     padding: 2.5rem;
     text-align: left;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -376,12 +470,87 @@ Purpose: Portal-specific styles, extending ui-core/css/main.css
 ════════════════════════════ */
 @media (max-width: 1000px) {
     .gs-persona-grid { grid-template-columns: 1fr 1fr; }
+    .gs-pillars { grid-template-columns: repeat(2, 1fr); }
+    .bento-large { grid-column: span 2; grid-row: auto; }
+    .bento-wide { grid-column: span 2; }
 }
 
 @media (max-width: 768px) {
-    .gs-stats-bar { grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; }
-    .gs-hero { padding-top: 100px; }
-    .gs-persona-grid { grid-template-columns: 1fr; }
+    /* --- VIEWPORT LOCK --- */
+    html, body {
+        overflow-x: hidden !important;
+        width: 100% !important;
+        position: relative !important;
+    }
+
+    /* --- HERO REPAIR --- */
+    .gs-hero {
+        padding: 100px 0 60px !important;
+        min-height: auto !important;
+        overflow: hidden;
+    }
+    .gs-hero-inner {
+        padding: 0 1.5rem;
+    }
+    .gs-hero-cta {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1.2rem !important;
+        width: 100% !important;
+        max-width: 320px !important;
+        margin: 2rem auto 0 !important;
+    }
+    .gs-hero-cta .gs-button {
+        width: 100% !important;
+        margin: 0 !important;
+        display: block !important;
+        text-align: center !important;
+    }
+
+    /* --- STATS BAR REPAIR --- */
+    .gs-stats-bar {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 2.5rem !important;
+        margin: 2rem 1.5rem 0 !important;
+        padding: 3rem 1.5rem !important;
+        width: auto !important;
+    }
+    .gs-stat-item {
+        width: 100% !important;
+    }
+
+    /* --- NAV REPAIR --- */
+    .gs-nav {
+        left: 10px !important;
+        right: 10px !important;
+        width: calc(100% - 20px) !important;
+        transform: none !important;
+        max-width: none !important;
+    }
+    .gs-nav-inner {
+        padding: 0 1.2rem !important;
+    }
+    .gs-nav-links {
+        width: calc(100vw - 40px) !important;
+        right: 0 !important;
+        top: 65px !important;
+    }
+
+    /* --- GRID REPAIR --- */
+    .gs-platform-grid, .gs-persona-grid, .gs-pillars {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1.5rem !important;
+    }
+    .gs-platform-card, .gs-pillar, .gs-persona-card {
+        width: 100% !important;
+        margin-bottom: 0 !important;
+    }
+    .bento-large, .bento-wide, .bento-tall {
+        grid-column: auto !important;
+        grid-row: auto !important;
+    }
 }
 
 /* ════════════════════════════
@@ -592,4 +761,316 @@ Purpose: Portal-specific styles, extending ui-core/css/main.css
     width: 120px; height: 1px;
     background: linear-gradient(to left, rgba(255,255,255,0.8), transparent);
     transform: translateY(-50%);
+}
+/* ════════════════════════════
+   HERO EYEBROW & SECTION SUB  (UX Restructure v2.0)
+════════════════════════════ */
+.gs-hero-eyebrow {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--accent-primary);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    opacity: 0.85;
+}
+
+.gs-section-sub {
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    color: var(--fg-muted);
+    max-width: 640px;
+    margin: -1rem auto 3rem;
+    text-align: center;
+    line-height: 1.65;
+}
+
+/* ════════════════════════════
+   FEATURED CARD BADGE
+════════════════════════════ */
+.gs-card-badge {
+    display: inline-block;
+    background: var(--accent-primary);
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 3px 10px;
+    border-radius: 100px;
+    margin-bottom: 0.75rem;
+    align-self: flex-start;
+}
+.gs-card-featured {
+    border-color: rgba(255, 179, 0, 0.35) !important;
+    background: rgba(255, 179, 0, 0.04) !important;
+}
+
+/* ════════════════════════════
+   DEMO SECTION
+════════════════════════════ */
+.gs-demo-section {
+    padding: 7rem 0 5rem;
+    background: rgba(255, 85, 0, 0.025);
+    border-top: 1px solid rgba(255, 85, 0, 0.08);
+    border-bottom: 1px solid rgba(255, 85, 0, 0.08);
+}
+.gs-demo-sub {
+    font-family: var(--font-body);
+    color: var(--fg-muted);
+    text-align: center;
+    margin: -1.5rem auto 3rem;
+    max-width: 540px;
+    font-size: 1rem;
+    line-height: 1.65;
+}
+.gs-demo-widget {
+    max-width: 880px;
+    margin: 0 auto;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+.gs-demo-steps {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.gs-demo-step {
+    flex: 1;
+    min-width: 170px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.gs-demo-step-num {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent-primary);
+    opacity: 0.8;
+}
+.gs-demo-step-label {
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    color: var(--fg-muted);
+    line-height: 1.4;
+}
+.gs-demo-step-math {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+}
+.gs-demo-num {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 1.2rem;
+    color: var(--fg-main);
+    font-weight: 600;
+}
+.gs-demo-op { color: var(--fg-muted); font-size: 1rem; }
+.gs-demo-result {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.9rem;
+    color: var(--fg-muted);
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.gs-demo-result.revealed { opacity: 1; transform: translateY(0); }
+.gs-demo-result strong { color: var(--accent-primary); }
+.gs-demo-arrow { font-size: 1.3rem; color: var(--fg-muted); opacity: 0.35; flex-shrink: 0; }
+.gs-demo-answer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 2rem;
+    background: rgba(212, 175, 55, 0.05);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 16px;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s ease 0.2s, transform 0.6s ease 0.2s;
+    text-align: center;
+}
+.gs-demo-answer.revealed { opacity: 1; transform: translateY(0); }
+.gs-demo-answer-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent-secondary);
+    opacity: 0.7;
+}
+.gs-demo-answer-val { font-family: 'Roboto Mono', monospace; font-size: 1.5rem; color: var(--fg-main); }
+.gs-demo-answer-val strong { color: var(--accent-secondary); font-size: 1.9rem; }
+.gs-demo-answer-sub { font-size: 0.78rem; color: var(--fg-muted); opacity: 0.65; font-family: 'Roboto Mono', monospace; }
+.gs-demo-cta { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; }
+.gs-demo-hint { font-size: 0.78rem; color: var(--fg-muted); opacity: 0.55; }
+
+/* ════════════════════════════
+   QUOTE WALL
+════════════════════════════ */
+.gs-quotes-section { padding: 7rem 0; border-top: 1px solid rgba(255,255,255,0.04); }
+.gs-quotes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr 1fr;
+    gap: 2rem;
+    margin-top: 3rem;
+    align-items: start;
+}
+.gs-tradition-quote {
+    margin: 0;
+    padding: 2rem 2rem 2rem 2.25rem;
+    border-left: 3px solid var(--glass-border);
+    background: var(--glass-bg);
+    border-radius: 0 16px 16px 0;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: border-color 0.3s ease, transform 0.3s ease;
+}
+.gs-tradition-quote:hover { border-color: var(--accent-secondary); transform: translateX(4px); }
+.gs-quote-featured { background: rgba(212,175,55,0.06); border-left-color: var(--accent-secondary); border-radius: 16px; padding: 2.5rem; }
+.gs-tradition-quote p { font-family: var(--font-ancient,'Cormorant Garamond',serif); font-size: 1.05rem; color: var(--fg-main); line-height: 1.7; margin: 0 0 1rem; font-style: italic; }
+.gs-tradition-quote cite { font-size: 0.78rem; color: var(--accent-primary); font-style: normal; letter-spacing: 0.05em; font-weight: 600; }
+
+/* ════════════════════════════
+   FINAL CTA ENHANCEMENTS
+════════════════════════════ */
+.gs-final-cta-badge {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent-primary);
+    border: 1px solid rgba(255,85,0,0.3);
+    padding: 5px 18px;
+    border-radius: 100px;
+    margin-bottom: 1.5rem;
+}
+.gs-final-cta-btns { display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap; }
+
+/* ════════════════════════════
+   NEW FOOTER COLUMNS
+════════════════════════════ */
+.gs-footer-inner { display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; align-items: start; }
+.gs-footer-nav-cols { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; }
+.gs-footer-col { display: flex; flex-direction: column; gap: 0.75rem; }
+.gs-footer-col-title { font-family: var(--font-heading); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent-secondary); margin-bottom: 0.25rem; }
+.gs-footer-col a { font-size: 0.88rem; color: var(--fg-muted); text-decoration: none; transition: color 0.2s; }
+.gs-footer-col a:hover { color: var(--fg-main); }
+.gs-footer-copy-inline { font-size: 0.8rem; color: var(--fg-muted); opacity: 0.6; margin-top: 0.75rem; }
+.gs-footer-copy-inline a { color: var(--accent-secondary); text-decoration: none; }
+.gs-footer-bottom { border-top: 1px solid rgba(255,255,255,0.05); margin-top: 3rem; padding-top: 1.5rem; text-align: center; font-size: 0.78rem; color: var(--fg-muted); opacity: 0.5; }
+
+/* ════════════════════════════
+   LIGHT THEME: NEW COMPONENTS
+════════════════════════════ */
+[data-theme="light"] .gs-demo-section { background: rgba(255,85,0,0.015); border-color: rgba(255,85,0,0.06); }
+[data-theme="light"] .gs-demo-widget { background: rgba(255,255,255,0.85) !important; border-color: rgba(0,0,0,0.06) !important; }
+[data-theme="light"] .gs-demo-step { background: rgba(0,0,0,0.03); border-color: rgba(0,0,0,0.05); }
+[data-theme="light"] .gs-tradition-quote { background: rgba(255,255,255,0.7); border-color: rgba(0,0,0,0.08); }
+[data-theme="light"] .gs-tradition-quote p { color: var(--fg-main); }
+[data-theme="light"] .gs-quote-featured { background: rgba(212,175,55,0.07); border-color: rgba(212,175,55,0.3); }
+
+/* ════════════════════════════
+   RESPONSIVE: NEW COMPONENTS
+════════════════════════════ */
+@media (max-width: 900px) {
+    .gs-quotes-grid { grid-template-columns: 1fr; }
+    .gs-demo-steps { flex-direction: column; }
+    .gs-demo-arrow { transform: rotate(90deg); }
+    .gs-footer-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .gs-footer-nav-cols { grid-template-columns: repeat(2,1fr); }
+}
+@media (max-width: 600px) {
+    .gs-footer-nav-cols { grid-template-columns: 1fr 1fr; }
+    .gs-demo-widget { padding: 2rem 1.25rem; }
+    .gs-final-cta-btns { flex-direction: column; align-items: center; }
+}
+
+/* ----------------------------
+   GATE PROGRESS INDICATOR
+---------------------------- */
+.gs-gate-progress {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 2.5rem;
+    justify-content: center;
+}
+.gs-gate-step {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--fg-muted);
+    transition: all 0.3s ease;
+}
+.gs-gate-step.active {
+    border-color: var(--accent-primary);
+    background: var(--accent-primary);
+    color: #fff;
+}
+.gs-gate-step-line {
+    flex: 1;
+    max-width: 60px;
+    height: 2px;
+    background: rgba(255,255,255,0.12);
+    border-radius: 2px;
+    transition: background 0.3s ease;
+}
+.gs-gate-step-line.active { background: var(--accent-primary); }
+
+/* ----------------------------
+   PERSONA BEST-FOR TAG
+---------------------------- */
+.gs-persona-best {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent-primary);
+    opacity: 0.75;
+    margin-top: auto;
+    padding-top: 0.75rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+[data-theme="light"] .gs-persona-best {
+    border-top-color: rgba(0,0,0,0.06);
+}
+
+/* ----------------------------
+   PERSONA CARD SELECTED STATE
+---------------------------- */
+.gs-persona-card.selected {
+    border-color: var(--accent-primary) !important;
+    background: rgba(255, 85, 0, 0.08) !important;
+    transform: translateY(-6px) !important;
+    box-shadow: 0 0 0 2px rgba(255,85,0,0.3), 0 12px 32px rgba(255,85,0,0.15) !important;
+}
+.gs-persona-card.selected .gs-persona-icon {
+    color: var(--accent-primary);
 }

@@ -59,8 +59,12 @@ window.GanitConfig = (function () {
     IS_DEV: isDev,
 
     // ── API ──────────────────────────────
+    // In local dev: static server = :5001, FastAPI = :5002
+    // When served from :5173 (Vite), legacy API was on :3000
     API_BASE: isDev
-      ? (window.location.port === '5173' ? 'http://localhost:3000/api' : `${DEV_BASE}/api`)
+      ? (window.location.port === '5173'
+          ? 'http://localhost:3000/api'
+          : 'http://localhost:5002/api')   // always use FastAPI port in dev
       : `${window.RAILWAY_URL}/api`,
 
     // ── Site URLs ────────────────────────
@@ -103,7 +107,9 @@ window.GanitConfig = (function () {
     ENABLE_SW: !isDev,       // service workers prod only
     LOG_LEVEL: isDev ? 'debug' : 'error',
     getBasePath: () => BASE_PATH ? `${BASE_PATH}/websites/` : '/websites/',
-    getApiBase: () => isDev ? `${DEV_BASE}/api` : `${window.RAILWAY_URL}/api`
+    getApiBase: () => isDev
+      ? 'http://localhost:5002/api'
+      : `${window.RAILWAY_URL}/api`
   };
 
   // Freeze to prevent accidental mutation

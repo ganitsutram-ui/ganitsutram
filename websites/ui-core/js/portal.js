@@ -19,13 +19,27 @@ Purpose: Portal-specific logic for the main landing page.
 (function () {
     'use strict';
 
-    const API_BASE = window.location.hostname === 'localhost'
-        ? 'http://localhost:3000/api'
-        : 'http://localhost:3000/api';
+    // Use centralised config — never hardcode ports here
+    const API_BASE = (window.GanitConfig && window.GanitConfig.API_BASE)
+        ? window.GanitConfig.API_BASE
+        : 'http://localhost:5002/api';  // safe fallback for dev
 
     const API_CONCEPTS = `${API_BASE}/concepts`;
     const API_DISCOVERIES = `${API_BASE}/discoveries`;
     const API_PATTERNS = `${API_BASE}/patterns/vedic`;
+
+
+    function getTheme() {
+        return document.documentElement.getAttribute('data-theme') || 'dark';
+    }
+
+    function getThemeColor(baseColor) {
+        if (getTheme() === 'dark') return baseColor;
+        if (baseColor === '#FFF' || baseColor === '#ffffff') return '#1A1A1A';
+        if (baseColor === '#DEB84E') return '#FF6B35';
+        if (baseColor.includes('rgba(222, 184, 78')) return baseColor.replace('rgba(222, 184, 78', 'rgba(255, 107, 53');
+        return baseColor;
+    }
 
     document.addEventListener('DOMContentLoaded', () => {
         if (window.location.pathname.includes('gate.html')) {
@@ -72,7 +86,7 @@ Purpose: Portal-specific logic for the main landing page.
             }
             draw() {
                 ctx.globalAlpha = this.alpha;
-                ctx.fillStyle = this.isBright ? '#FFF' : '#DEB84E';
+                ctx.fillStyle = getThemeColor(this.isBright ? '#FFF' : '#DEB84E');
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.isBright ? this.size * 1.5 : this.size, 0, Math.PI * 2);
                 ctx.fill();
@@ -118,7 +132,7 @@ Purpose: Portal-specific logic for the main landing page.
                 }
             }
             draw() {
-                if (!this.active) return;
+                if (!this.active || this.size <= 0) return;  // guard: size must be positive
                 const grad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size);
                 grad.addColorStop(0, `rgba(255, 255, 255, ${this.alpha})`);
                 grad.addColorStop(0.3, `rgba(222, 184, 78, ${this.alpha * 0.5})`);
@@ -128,6 +142,7 @@ Purpose: Portal-specific logic for the main landing page.
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
             }
+
         }
 
         function init() {
@@ -192,10 +207,10 @@ Purpose: Portal-specific logic for the main landing page.
                 ctx.globalAlpha = this.alpha;
                 if (this.isGlyph) {
                     ctx.font = `${this.size}px "Noto Serif Devanagari", "Cinzel", serif`;
-                    ctx.fillStyle = this.color;
+                    ctx.fillStyle = getThemeColor(this.color);
                     ctx.fillText(this.char, this.x, this.y);
                 } else {
-                    ctx.fillStyle = this.color;
+                    ctx.fillStyle = getThemeColor(this.color);
                     ctx.beginPath();
                     ctx.arc(this.x, this.y, 1, 0, Math.PI * 2);
                     ctx.fill();
@@ -222,7 +237,7 @@ Purpose: Portal-specific logic for the main landing page.
             }
             draw() {
                 ctx.globalAlpha = this.opacity;
-                ctx.strokeStyle = '#DEB84E';
+                ctx.strokeStyle = getThemeColor('#DEB84E');
                 ctx.lineWidth = 0.4;
                 ctx.beginPath();
                 ctx.moveTo(this.x, this.y);
@@ -241,7 +256,7 @@ Purpose: Portal-specific logic for the main landing page.
 
         function loop() {
             ctx.clearRect(0, 0, width, height);
-            ctx.globalCompositeOperation = 'lighter';
+            ctx.globalCompositeOperation = getTheme() === 'dark' ? 'lighter' : 'source-over';
             threads.forEach(t => { t.update(); t.draw(); });
             particles.forEach(p => { p.update(); p.draw(); });
             requestAnimationFrame(loop);
