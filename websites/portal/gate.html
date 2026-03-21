@@ -12,33 +12,20 @@ Organization: AITDL | aitdl.com
 
     <!-- RULE: These three meta tags are mandatory on every HTML page -->
     <meta name="author" content="Jawahar R Mallah">
-    <meta name="company" content="AITDL">
-    <meta name="project" content="GanitSūtram">
-
-    <title>GanitSūtram | Ecosystem Gateway</title>
-
-    <!-- RULE: Always link to ui-core, never write local styles -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;400;700;900&family=DM+Serif+Display:ital@0;1&family=Syne:wght@400;600;700;800&family=Noto+Serif+Devanagari:wght@300;400;700&family=Space+Grotesk:wght@300;400;500;700&display=swap"
-        rel="stylesheet">
-    
-    <!-- DNS prefetch -->
-    <link rel="dns-prefetch" href="//fonts.googleapis.com">
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    
 
     <!-- Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     
+
     <style id="gs-critical-css">
-        :root { --bg-deep: #040110; --fg-main: #ffffff; --accent-primary: #ff5500; }
+        :root { --bg-deep: #04080F; --fg-main: #ffffff; --accent-primary: #DEB84E; }
         body { margin: 0; background: var(--bg-deep); color: var(--fg-main); min-height: 100vh; }
-        .gs-nav { position: fixed; width: 100%; z-index: 1000; background: rgba(4,1,16,0.95); min-height: 72px; }
+        .gs-nav { position: fixed; width: 100%; z-index: 1000; background: rgba(4,8,15,0.95); min-height: 72px; }
     </style>
 
-    <link rel="stylesheet" href="../ui-core/css/main.css">
-    <link rel="stylesheet" href="../ui-core/css/portal.css">
+    <link rel="stylesheet" href="../ui-core/css/main.css?v=1.0">
+    <link rel="stylesheet" href="../ui-core/css/portal.css?v=1.0">
     <link rel="stylesheet" href="../ui-core/css/i18n.css">
 
     <meta name="description" content="Enter the GanitSūtram platform. Choose your learning persona — Student, Teacher, Explorer, or School.">
@@ -62,13 +49,14 @@ Organization: AITDL | aitdl.com
 
 </head>
 
-<body class="gs-gate-body">
+<body class="gs-gate-body gs-gate-hero">
+    <canvas id="hero-canvas"></canvas>
     <a href="#main-content" class="gs-skip-link">Skip to main content</a>
 
     <!-- ═══════════════════ NAV ═══════════════════ -->
     <header class="gs-nav">
         <div class="gs-nav-inner">
-            <a href="/" class="gs-nav-logo">
+            <a href="/" class="gs-nav-logo gs-title">
                 <span class="gs-nav-logo-dev">गणित</span>GanitSūtram
             </a>
             <nav class="gs-nav-links">
@@ -90,29 +78,29 @@ Organization: AITDL | aitdl.com
 
     <!-- ═══════════════════ MAIN CONTENT ═══════════════════ -->
     <main id="main-content">
-        <div class="gs-container">
+        <div class="gs-gate-container">
 
-            <!-- SCENE 1: INTRO -->
+            <!-- SCENE 1: INTRODUCTION -->
             <section id="gs-scene-intro" class="gs-scene active">
-                <div class="gs-section-label" data-i18n="gate.label">The Gate</div>
-                <h1 class="gs-hero-title" data-i18n="gate.title">Enter the Mathematical Universe</h1>
-                <div
-                    style="font-family: 'Noto Serif Devanagari'; font-size: 1.1rem; color: var(--accent-secondary); margin-bottom: 0.5rem; letter-spacing: 0.05em;">
-                    "गणितम् सर्वविद्यानां मूलम्"
+                <div class="gs-section-label" data-i18n="gate.label">Gateway</div>
+                <h1 class="gs-hero-title gs-title gs-gold-foil" data-i18n="gate.title">Enter the Mathematical Universe</h1>
+                <p class="gs-hero-sub" data-i18n="gate.subtitle">Choose your pathway to mathematical clarity.</p>
+
+                <div class="gs-gate-visual">
+                    <!-- Subtle ambient gateway animation -->
+                    <div class="gs-gate-orb"></div>
                 </div>
-                <p class="gs-hero-sub" data-i18n="gate.sanskritMeaning"
-                    style="font-size: 0.85rem; color: rgba(255,255,255,0.5);">Mathematics is the root of all knowledge.
-                </p>
-                <div class="gs-hero-cta" style="margin-top: 2rem;">
-                    <button id="gs-btn-start" class="gs-button gs-button-primary" onclick="GanitUI.gate.start()"
-                        data-i18n="gate.beginBtn">Begin Your Journey →</button>
+
+                <div class="gs-gate-actions">
+                    <button class="gs-button gs-button-primary" onclick="GanitUI.gate.nextScene()"
+                        data-i18n="gate.beginBtn">Begin Your Journey &rarr;</button>
                 </div>
             </section>
 
             <!-- SCENE 2: PERSONA SELECTION -->
             <section id="gs-scene-selection" class="gs-scene">
                 <div class="gs-section-label" data-i18n="gate.label">The Gate</div>
-                <h2 class="gs-section-title" data-i18n="gate.whoAreYou">Who are you?</h2>
+                <h2 class="gs-section-title gs-title gs-gold-foil" data-i18n="gate.whoAreYou">Who are you?</h2>
                 <p class="gs-hero-sub" data-i18n="gate.selectRole" style="margin-bottom: 2rem;">Select your role to
                     personalise your experience</p>
 
@@ -163,9 +151,9 @@ Organization: AITDL | aitdl.com
 
                 <div class="gs-gate-actions">
                     <button id="gs-btn-proceed" class="gs-button gs-button-primary disabled" disabled
-                        onclick="GanitUI.gate.proceed()" data-i18n="gate.proceedBtn">Enter Platform →</button>
+                        onclick="GanitUI.gate.proceed()" data-i18n="gate.proceedBtn">Enter Platform &rarr;</button>
                     <div style="margin-top: 1rem;">
-                        <span data-i18n="gate.exploreLink" style="color: var(--text-dim); font-size: 0.9rem;">or explore
+                        <span data-i18n="gate.exploreLink" style="color: var(--fg-muted); font-size: 0.9rem;">or explore
                             without selecting — no login required</span>
                     </div>
                 </div>
@@ -175,7 +163,7 @@ Organization: AITDL | aitdl.com
             <section id="gs-scene-redirect" class="gs-scene">
                 <div class="gs-redirect-loader">
                     <div class="gs-section-label">Synchronizing</div>
-                    <h2 class="gs-section-title">Connecting to <span id="gs-redirect-persona">...</span></h2>
+                    <h2 class="gs-section-title gs-title gs-gold-foil">Connecting to <span id="gs-redirect-persona">...</span></h2>
                     <p class="gs-hero-sub">Deciphering the mathematical pathway...</p>
                     <!-- Small ambient loader can go here -->
                     <div class="gs-gate-loader"></div>
@@ -207,7 +195,7 @@ Organization: AITDL | aitdl.com
             </div>
         </div>
         <div class="gs-footer-copy">
-            <span data-i18n="footer.copyright">© GanitSūtram | AITDL | aitdl.com</span> &nbsp;|&nbsp;
+            <span data-i18n="footer.copyright">&copy; GanitSūtram | AITDL | aitdl.com</span> &nbsp;|&nbsp;
             <span data-i18n="footer.date">Vikram Samvat: VS 2082 &nbsp;|&nbsp; Gregorian: 2026-03-07</span>
             <br><span data-i18n="footer.rights">All Rights Reserved.</span> <span
                 data-i18n="footer.restriction">Unauthorized copying, reproduction, redistribution, or reuse of this software,
@@ -221,6 +209,7 @@ Organization: AITDL | aitdl.com
     <script src="../ui-core/js/seo.js" defer></script>
     <script src="../ui-core/js/search.js" defer></script>
     <script src="../ui-core/js/ganit-ui.js" defer></script>
+    <script src="../ui-core/js/portal.js" defer></script>
 
 </body>
 

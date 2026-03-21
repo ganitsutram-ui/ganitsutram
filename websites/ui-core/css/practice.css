@@ -13,7 +13,7 @@
 }
 
 .gs-hero-title {
-    font-family: 'Unbounded', sans-serif;
+    font-family: var(--font-display);
     font-size: clamp(3rem, 10vw, 5rem);
     font-weight: 900;
     line-height: 1;
@@ -22,11 +22,12 @@
     letter-spacing: -0.02em;
     background: linear-gradient(135deg, #ffffff 0%, #ff5500 100%);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
 .gs-hero-sub {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: var(--font-body);
     font-size: 1.25rem;
     color: rgba(255, 255, 255, 0.6);
     max-width: 600px;
@@ -34,7 +35,7 @@
 }
 
 .gs-label {
-    font-family: 'Syne', sans-serif;
+    font-family: var(--font-label);
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.3em;
@@ -67,7 +68,7 @@
 .gs-form-group label {
     display: block;
     margin-bottom: 1rem;
-    font-family: 'Syne', sans-serif;
+    font-family: var(--font-label);
     font-weight: 700;
     font-size: 0.8rem;
     text-transform: uppercase;
@@ -81,7 +82,7 @@
     color: white;
     padding: 1.2rem;
     border-radius: 15px;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: var(--font-body);
     font-size: 1rem;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -116,7 +117,7 @@
 .gs-meter-text {
     display: flex;
     justify-content: space-between;
-    font-family: 'Syne', sans-serif;
+    font-family: var(--font-label);
     font-weight: 700;
     text-transform: uppercase;
     font-size: 0.75rem;
@@ -150,7 +151,7 @@
 .gs-badge {
     padding: 8px 16px;
     border-radius: 30px;
-    font-family: 'Syne', sans-serif;
+    font-family: var(--font-label);
     font-weight: 800;
     font-size: 0.7rem;
     text-transform: uppercase;
@@ -166,7 +167,7 @@
 }
 
 .gs-q-text {
-    font-family: 'Unbounded', sans-serif;
+    font-family: var(--font-display);
     font-size: clamp(2.5rem, 6vw, 4rem);
     font-weight: 700;
     margin-bottom: 4rem;
@@ -178,7 +179,7 @@
     border: none;
     border-bottom: 4px solid rgba(255, 255, 255, 0.1);
     color: white;
-    font-family: 'Unbounded', sans-serif;
+    font-family: var(--font-display);
     font-size: 4rem;
     text-align: center;
     margin-bottom: 3rem;
@@ -195,7 +196,7 @@
     margin-top: 3rem;
     padding: 2rem;
     border-radius: 25px;
-    font-family: 'Syne', sans-serif;
+    font-family: var(--font-label);
     font-weight: 800;
     font-size: 1.1rem;
     animation: slideUp 0.4s ease-out;
@@ -222,7 +223,7 @@
     background: none;
     border: none;
     color: rgba(255, 255, 255, 0.3);
-    font-family: 'Syne', sans-serif;
+    font-family: var(--font-label);
     font-weight: 700;
     font-size: 0.8rem;
     text-transform: uppercase;
@@ -241,7 +242,7 @@
     border: 1px dashed rgba(255, 193, 7, 0.2);
     border-radius: 20px;
     color: #ffc107;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: var(--font-body);
 }
 
 /* --- STATS PANEL --- */
@@ -272,7 +273,7 @@
 .gs-chart-label {
     display: flex;
     justify-content: space-between;
-    font-family: 'Syne', sans-serif;
+    font-family: var(--font-label);
     font-weight: 700;
     font-size: 0.8rem;
     text-transform: uppercase;
@@ -300,14 +301,14 @@
 .gs-summary-table th {
     text-align: left;
     color: rgba(255, 255, 255, 0.3);
-    font-family: 'Syne', sans-serif;
+    font-family: var(--font-label);
     padding: 1.5rem 1rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .gs-summary-table td {
     padding: 1.5rem 1rem;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: var(--font-body);
     border-bottom: 1px solid rgba(255, 255, 255, 0.02);
 }
 
@@ -324,4 +325,95 @@
         font-size: 3rem;
         width: 160px;
     }
+}
+
+/* --- PHASE INDICATOR --- */
+.gs-phase-indicator {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.gs-phase-indicator span {
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: rgba(255,255,255,0.2);
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: all 0.3s;
+}
+
+.gs-phase-indicator span.active {
+    color: var(--accent-primary);
+    border-color: var(--accent-primary);
+    background: rgba(255,85,0,0.1);
+}
+
+/* --- UNDERSTAND PHASE --- */
+.gs-understand-overlay {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.gs-sutra-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+.sutra-opt {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 20px;
+    font-family: var(--font-label);
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.sutra-opt:hover {
+    background: rgba(255, 85, 0, 0.1);
+    border-color: var(--accent-primary);
+    transform: translateY(-2px);
+}
+
+/* --- SOLVE PHASE --- */
+.gs-active-sutra {
+    font-family: var(--font-ancient);
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 2rem;
+    animation: fadeIn 0.8s ease-out;
+}
+
+.gs-active-sutra span {
+    font-family: var(--font-label);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    opacity: 0.5;
+}
+
+/* --- OBSERVATION --- */
+.gs-observation-status {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--accent-primary);
+    letter-spacing: 1px;
+    margin-top: 1rem;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }

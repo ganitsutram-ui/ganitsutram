@@ -12,20 +12,6 @@ Organization: AITDL | aitdl.com
 
     <!-- RULE: These three meta tags are mandatory on every HTML page -->
     <meta name="author" content="Jawahar R Mallah">
-    <meta name="company" content="AITDL">
-    <meta name="project" content="GanitSūtram">
-
-    <title>GanitSūtram | Ancient Mathematics. Modern Platform.</title>
-
-    <!-- RULE: Always link to ui-core, never write local styles -->
-    <link
-        href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200;400;700;900&family=DM+Serif+Display:ital@0;1&family=Syne:wght@400;600;700;800&family=Noto+Serif+Devanagari:wght@300;400;700&family=Space+Grotesk:wght@300;400;500;700&display=swap"
-        rel="stylesheet">
-    
-    <!-- DNS prefetch -->
-    <link rel="dns-prefetch" href="//fonts.googleapis.com">
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    
 
     <!-- Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,9 +19,9 @@ Organization: AITDL | aitdl.com
     
 
     <style id="gs-critical-css">
-        :root { --bg-deep: #040110; --fg-main: #ffffff; --accent-primary: #ff5500; }
+        :root { --bg-deep: #04080F; --fg-main: #ffffff; --accent-primary: #DEB84E; }
         body { margin: 0; background: var(--bg-deep); color: var(--fg-main); min-height: 100vh; }
-        .gs-nav { position: fixed; width: 100%; z-index: 1000; background: rgba(4,1,16,0.95); min-height: 72px; }
+        .gs-nav { position: fixed; width: 100%; z-index: 1000; background: rgba(4,8,15,0.95); min-height: 72px; }
     </style>
 
     <link rel="stylesheet" href="../ui-core/css/main.css?v=1.0">
@@ -45,7 +31,7 @@ Organization: AITDL | aitdl.com
     <link rel="stylesheet" href="../ui-core/css/i18n.css">
     <!-- PWA Meta Tags -->
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#ff5500">
+    <meta name="theme-color" content="#DEB84E">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -113,7 +99,7 @@ Organization: AITDL | aitdl.com
     <!-- ═══════════════════ NAV ═══════════════════ -->
     <header class="gs-nav">
         <div class="gs-nav-inner">
-            <a href="/" class="gs-nav-logo">
+            <a href="/" class="gs-nav-logo gs-title">
                 <span class="gs-nav-logo-dev">गणित</span>GanitSūtram
             </a>
             <nav class="gs-nav-links">
@@ -142,13 +128,13 @@ Organization: AITDL | aitdl.com
                 <span class="gs-label-text" data-i18n="hero.label">Ancient Mathematics. Modern Platform.</span>
                 <span class="gs-label-line"></span>
             </div>
-            <h1 class="gs-hero-title">GanitSūtram<br><em>गणितसूत्रम्</em></h1>
+            <h1 class="gs-hero-title gs-title gs-gold-foil">GanitSūtram<br><em>गणितसूत्रम्</em></h1>
             <p class="gs-hero-sub" data-i18n="hero.description">
                 A living knowledge ecosystem built on Vedic mathematics,
                 pattern intelligence, and the ancient science of numbers.
             </p>
             <div
-                style="font-family: 'Noto Serif Devanagari'; font-size: 1.1rem; color: var(--accent-secondary); opacity: 0.8; letter-spacing: 0.05em;">
+                style="font-family: var(--font-ancient); font-size: 1.1rem; color: var(--accent-secondary); opacity: 0.8; letter-spacing: 0.05em;">
                 "एकं सत् विप्रा बहुधा वदन्ति"
             </div>
             <div style="font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-top: 0.5rem;"
@@ -157,8 +143,8 @@ Organization: AITDL | aitdl.com
             </div>
             <div class="gs-hero-cta">
                 <a href='' class="gs-button gs-button-primary"
-                    data-i18n="hero.exploreBtn">Explore Discoveries →</a>
-                <a href="gate.html" class="gs-button gs-button-ghost" data-i18n="hero.enterBtn">Enter Platform →</a>
+                    data-i18n="hero.exploreBtn">Explore Discoveries &rarr;</a>
+                <a href="gate.html" class="gs-button gs-button-ghost" data-i18n="hero.enterBtn">Enter Platform &rarr;</a>
             </div>
 
             <div class="gs-scroll-hint">
@@ -194,7 +180,7 @@ Organization: AITDL | aitdl.com
     <section style="padding: 8rem 0;">
         <div class="gs-container">
             <div class="gs-section-label">Intelligence</div>
-            <h2 class="gs-section-title">Core Mathematical Concepts</h2>
+            <h2 class="gs-section-title gs-title gs-gold-foil">Core Mathematical Concepts</h2>
             <div id="concept-strip" class="gs-concept-strip">
                 <!-- Populated via portal.js -->
             </div>
@@ -205,7 +191,7 @@ Organization: AITDL | aitdl.com
     <section style="padding: 8rem 0; border-top: 1px solid rgba(255,255,255,0.05);">
         <div class="gs-container">
             <div class="gs-section-label">Ecosystem</div>
-            <h2 class="gs-section-title">The GanitSūtram Universe</h2>
+            <h2 class="gs-section-title gs-title gs-gold-foil">The GanitSūtram Universe</h2>
             <div class="gs-platform-grid">
                 <a href="../discoveries/index.html" class="gs-platform-card">
                     <span class="gs-card-icon">🔭</span>
@@ -258,7 +244,7 @@ Organization: AITDL | aitdl.com
     <section style="padding: 10rem 0; background: rgba(0,0,0,0.2);">
         <div class="gs-container">
             <div class="gs-section-label">Vision</div>
-            <h2 class="gs-section-title" style="text-align: center;">Why GanitSūtram?</h2>
+            <h2 class="gs-section-title gs-title gs-gold-foil" style="text-align: center;">Why GanitSūtram?</h2>
             <div class="gs-pillars">
                 <div class="gs-pillar">
                     <span class="gs-pillar-icon">🕉️</span>
@@ -283,11 +269,11 @@ Organization: AITDL | aitdl.com
     <!-- ═══════════════════ FINAL CTA ═══════════════════ -->
     <div class="gs-container">
         <section class="gs-final-cta">
-            <h2 class="gs-hero-title" style="font-size: 3.5rem; margin-bottom: 1rem;">Begin Your Mathematical Journey
+            <h2 class="gs-hero-title gs-title gs-gold-foil" style="font-size: 3.5rem; margin-bottom: 1rem;">Begin Your Mathematical Journey
             </h2>
             <p class="gs-hero-sub" style="margin: 0 auto 3rem;">No login required. Just curiosity.</p>
             <a href="gate.html" class="gs-button gs-button-primary"
-                style="padding: 1.5rem 3.5rem; font-size: 1.1rem;">Enter the Gate →</a>
+                style="padding: 1.5rem 3.5rem; font-size: 1.1rem;">Enter the Gate &rarr;</a>
         </section>
     </div>
 
@@ -313,7 +299,7 @@ Organization: AITDL | aitdl.com
             </div>
         </div>
         <div class="gs-footer-copy">
-            <span data-i18n="footer.copyright">© GanitSūtram | AITDL | aitdl.com</span> &nbsp;|&nbsp;
+            <span data-i18n="footer.copyright">&copy; GanitSūtram | AITDL | aitdl.com</span> &nbsp;|&nbsp;
             <span data-i18n="footer.date">Vikram Samvat: VS 2082 &nbsp;|&nbsp; Gregorian: 2026-03-07</span>
             <br><span data-i18n="footer.rights">All Rights Reserved.</span> <span
                 data-i18n="footer.restriction">Unauthorized copying, reproduction, redistribution, or reuse of this software,

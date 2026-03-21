@@ -5,38 +5,15 @@
  * "यथा शिखा मयूराणां नागानां मणयो यथा
  *  तद्वद् वेदाङ्गशास्त्राणां गणितं मूर्ध्नि वर्तते"
  *
- * As the crest of a peacock, as the gem on the hood
- * of a cobra — so stands mathematics at the crown
- * of all knowledge.
- *                                       — Brahmagupta
- *                                         628 CE · Brahmasphutasiddhanta
- *
  * Creator:   Jawahar R. Mallah
- * Email:     jawahar@aitdl.com
- * GitHub:    https://github.com/jawahar-mallah
- * Websites:  https://ganitsutram.com
- *            https://aitdl.com
- *
- * Then:  628 CE · Brahmasphutasiddhanta
- * Now:   8 March MMXXVI · Vikram Samvat 2082
- *
  * Copyright © 2026 Jawahar R. Mallah · AITDL | GANITSUTRAM
- *
- * Developer Note:
- * If you intend to reuse this code, please respect
- * the creator and the work behind it.
  */
 /*
 Project: GanitSūtram
 Author: Jawahar R Mallah
 Company: AITDL | aitdl.com
-
-Date:
-Vikram Samvat: VS 2082
-Gregorian: 2026-03-07
-
 Purpose: Portal-specific logic for the main landing page.
-         Ambient canvas engine and dynamic stats.
+         Ambient 'Vedic Space' engine and dynamic stats.
 */
 
 (function () {
@@ -51,13 +28,128 @@ Purpose: Portal-specific logic for the main landing page.
     const API_PATTERNS = `${API_BASE}/patterns/vedic`;
 
     document.addEventListener('DOMContentLoaded', () => {
-        initAmbientCanvas();
+        if (window.location.pathname.includes('gate.html')) {
+            initGateCosmos();
+        } else {
+            initAmbientCanvas();
+        }
         initStatsAndConcepts();
         initScrollEffects();
     });
 
     /**
-     * Ambient Canvas Engine: Floating glyphs and particles.
+     * Gate Cosmos Engine: Twinkling stars and bright flares over galaxy background.
+     */
+    function initGateCosmos() {
+        const canvas = document.getElementById('hero-canvas');
+        if (!canvas) return;
+
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let stars = [];
+        let flares = [];
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+
+        class Star {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.size = Math.random() * 1.5 + 0.5;
+                this.alpha = Math.random();
+                this.twinkleFactor = Math.random() * 0.05 + 0.01;
+                this.isBright = Math.random() > 0.98;
+            }
+            update() {
+                this.alpha += this.twinkleFactor;
+                if (this.alpha > 1 || this.alpha < 0.2) this.twinkleFactor *= -1;
+            }
+            draw() {
+                ctx.globalAlpha = this.alpha;
+                ctx.fillStyle = this.isBright ? '#FFF' : '#DEB84E';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.isBright ? this.size * 1.5 : this.size, 0, Math.PI * 2);
+                ctx.fill();
+                if (this.isBright) {
+                    ctx.shadowBlur = 10;
+                    ctx.shadowColor = '#FFF';
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                }
+            }
+        }
+
+        class Flare {
+            constructor() {
+                this.reset();
+                this.active = false;
+            }
+            reset() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.size = 0;
+                this.maxSize = Math.random() * 40 + 20;
+                this.alpha = 0;
+                this.speed = Math.random() * 0.02 + 0.01;
+                this.grow = true;
+            }
+            update() {
+                if (!this.active) {
+                    if (Math.random() > 0.998) this.active = true;
+                    return;
+                }
+                if (this.grow) {
+                    this.size += this.speed * 20;
+                    this.alpha += this.speed;
+                    if (this.alpha >= 0.6) this.grow = false;
+                } else {
+                    this.size -= this.speed * 10;
+                    this.alpha -= this.speed * 0.5;
+                    if (this.alpha <= 0) {
+                        this.active = false;
+                        this.reset();
+                    }
+                }
+            }
+            draw() {
+                if (!this.active) return;
+                const grad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size);
+                grad.addColorStop(0, `rgba(255, 255, 255, ${this.alpha})`);
+                grad.addColorStop(0.3, `rgba(222, 184, 78, ${this.alpha * 0.5})`);
+                grad.addColorStop(1, 'transparent');
+                ctx.fillStyle = grad;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            resize();
+            stars = Array.from({ length: 150 }, () => new Star());
+            flares = Array.from({ length: 3 }, () => new Flare());
+            window.addEventListener('resize', resize);
+            loop();
+        }
+
+        function loop() {
+            ctx.clearRect(0, 0, width, height);
+            stars.forEach(s => { s.update(); s.draw(); });
+            flares.forEach(f => { f.update(); f.draw(); });
+            requestAnimationFrame(loop);
+        }
+
+        init();
+    }
+
+    /**
+     * Ambient 'Vedic Space' Engine: Floating numerals, symbols, and threads.
      */
     function initAmbientCanvas() {
         const canvas = document.getElementById('hero-canvas');
@@ -66,9 +158,10 @@ Purpose: Portal-specific logic for the main landing page.
         const ctx = canvas.getContext('2d');
         let width, height;
         let particles = [];
-        let glyphs = [];
+        let threads = [];
 
-        const devanagari = ['अ', 'इ', 'उ', 'ए', 'ओ', 'क', 'ख', 'ग', 'घ', 'ङ', 'च', 'छ', 'ज', 'झ', 'ञ', 'त', 'थ', 'द', 'ध', 'न', 'प', 'फ', 'ब', 'भ', 'म', 'य', 'र', 'ल', 'व', 'श', 'ष', 'स', 'ह', 'ॐ'];
+        const symbols = ['०', '१', '२', '३', '४', '५', '६', '७', '८', '९', '∞', '∑', '√', 'π', '∆', 'Ω', '∫', '≈'];
+        const colors = ['#DEB84E', '#C9A84C', '#A8832A', 'rgba(222, 184, 78, 0.3)'];
 
         function resize() {
             width = canvas.width = window.innerWidth;
@@ -82,61 +175,75 @@ Purpose: Portal-specific logic for the main landing page.
             reset() {
                 this.x = Math.random() * width;
                 this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * 0.2;
-                this.vy = (Math.random() - 0.5) * 0.2;
-                this.size = Math.random() * 2;
-                this.alpha = Math.random() * 0.5;
+                this.vx = (Math.random() - 0.5) * 0.25;
+                this.vy = (Math.random() - 0.5) * 0.25;
+                this.char = symbols[Math.floor(Math.random() * symbols.length)];
+                this.size = Math.random() * 12 + 8;
+                this.alpha = Math.random() * 0.4;
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.isGlyph = Math.random() > 0.7;
             }
             update() {
                 this.x += this.vx;
                 this.y += this.vy;
-                if (this.x < 0 || this.x > width || this.y < 0 || this.y > height) this.reset();
+                if (this.x < -50 || this.x > width + 50 || this.y < -50 || this.y > height + 50) this.reset();
             }
             draw() {
-                ctx.fillStyle = `rgba(255, 179, 0, ${this.alpha})`;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
+                ctx.globalAlpha = this.alpha;
+                if (this.isGlyph) {
+                    ctx.font = `${this.size}px "Noto Serif Devanagari", "Cinzel", serif`;
+                    ctx.fillStyle = this.color;
+                    ctx.fillText(this.char, this.x, this.y);
+                } else {
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, 1, 0, Math.PI * 2);
+                    ctx.fill();
+                }
             }
         }
 
-        class Glyph {
+        class Thread {
             constructor() {
                 this.reset();
             }
             reset() {
                 this.x = Math.random() * width;
-                this.y = height + 100;
-                this.vy = -(Math.random() * 0.5 + 0.2);
-                this.char = devanagari[Math.floor(Math.random() * devanagari.length)];
-                this.size = Math.random() * 15 + 10;
-                this.alpha = 0;
-                this.targetAlpha = Math.random() * 0.3;
+                this.y = Math.random() * height;
+                this.length = Math.random() * 300 + 150;
+                this.angle = Math.random() * Math.PI * 2;
+                this.speed = Math.random() * 0.4 + 0.1;
+                this.opacity = Math.random() * 0.15;
             }
             update() {
-                this.y += this.vy;
-                if (this.alpha < this.targetAlpha) this.alpha += 0.005;
-                if (this.y < -100) this.reset();
+                this.x += Math.cos(this.angle) * this.speed;
+                this.y += Math.sin(this.angle) * this.speed;
+                if (this.x < -300 || this.x > width + 300 || this.y < -300 || this.y > height + 300) this.reset();
             }
             draw() {
-                ctx.font = `${this.size}px "Noto Serif Devanagari"`;
-                ctx.fillStyle = `rgba(255, 179, 0, ${this.alpha})`;
-                ctx.fillText(this.char, this.x, this.y);
+                ctx.globalAlpha = this.opacity;
+                ctx.strokeStyle = '#DEB84E';
+                ctx.lineWidth = 0.4;
+                ctx.beginPath();
+                ctx.moveTo(this.x, this.y);
+                ctx.lineTo(this.x + Math.cos(this.angle) * this.length, this.y + Math.sin(this.angle) * this.length);
+                ctx.stroke();
             }
         }
 
         function init() {
             resize();
-            for (let i = 0; i < 50; i++) particles.push(new Particle());
-            for (let i = 0; i < 15; i++) glyphs.push(new Glyph());
+            particles = Array.from({ length: 60 }, () => new Particle());
+            threads = Array.from({ length: 12 }, () => new Thread());
             window.addEventListener('resize', resize);
             loop();
         }
 
         function loop() {
             ctx.clearRect(0, 0, width, height);
+            ctx.globalCompositeOperation = 'lighter';
+            threads.forEach(t => { t.update(); t.draw(); });
             particles.forEach(p => { p.update(); p.draw(); });
-            glyphs.forEach(g => { g.update(); g.draw(); });
             requestAnimationFrame(loop);
         }
 
@@ -239,13 +346,14 @@ Purpose: Portal-specific logic for the main landing page.
 
     function initScrollEffects() {
         const nav = document.querySelector('.gs-nav');
+        if (!nav) return;
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
-                nav.style.background = "rgba(4, 1, 16, 0.95)";
-                nav.style.padding = "1rem 0";
+                nav.style.background = "rgba(4, 8, 15, 0.98)";
+                nav.style.padding = "0.8rem 0";
             } else {
-                nav.style.background = "rgba(4, 1, 16, 0.75)";
-                nav.style.padding = "1.4rem 0";
+                nav.style.background = "rgba(4, 8, 15, 0.95)";
+                nav.style.padding = "1.2rem 0";
             }
         });
     }

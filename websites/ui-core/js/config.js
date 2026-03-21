@@ -60,7 +60,7 @@ window.GanitConfig = (function () {
 
     // ── API ──────────────────────────────
     API_BASE: isDev
-      ? `${DEV_BASE}/api`
+      ? (window.location.port === '5173' ? 'http://localhost:3000/api' : `${DEV_BASE}/api`)
       : `${window.RAILWAY_URL}/api`,
 
     // ── Site URLs ────────────────────────

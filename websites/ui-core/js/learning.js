@@ -1,58 +1,25 @@
 /*
  * GANITSUTRAM
  * A Living Knowledge Ecosystem for Mathematical Discovery
- *
- * "यथा शिखा मयूराणां नागानां मणयो यथा
- *  तद्वद् वेदाङ्गशास्त्राणां गणितं मूर्ध्नि वर्तते"
- *
- * As the crest of a peacock, as the gem on the hood
- * of a cobra — so stands mathematics at the crown
- * of all knowledge.
- *                                       — Brahmagupta
- *                                         628 CE · Brahmasphutasiddhanta
- *
+ * 
  * Creator:   Jawahar R. Mallah
- * Email:     jawahar@aitdl.com
- * GitHub:    https://github.com/jawahar-mallah
- * Websites:  https://ganitsutram.com
- *            https://aitdl.com
- *
- * Then:  628 CE · Brahmasphutasiddhanta
- * Now:   8 March MMXXVI · Vikram Samvat 2082
- *
- * Copyright © 2026 Jawahar R. Mallah · AITDL | GANITSUTRAM
- *
- * Developer Note:
- * If you intend to reuse this code, please respect
- * the creator and the work behind it.
  */
-/*
-Project: GanitSūtram
-Author: Jawahar R Mallah
-Company: AITDL | aitdl.com
-
-Date:
-Vikram Samvat: VS 2082
-Gregorian: 2026-03-07
-
-Purpose: Learning Platform interactive logic.
-         Tab management and persona-specific content rendering.
-*/
 
 (function () {
     'use strict';
 
     const LEARNING_DATA = {
         student: {
-            title: "Student Path",
-            desc: "Structured modules from basics to advanced Vedic techniques designed for mastery.",
+            title: "The Seven Stages Path",
+            desc: "The complete self-learning curriculum from 'The Golden Book of Vedic Mathematics'. Follow the stages in order for absolute clarity.",
             modules: [
-                { icon: "🔢", title: "Digital Root & Beejank", level: "Beginner", url: "#" },
-                { icon: "⬛", title: "Squares Ending in 5", level: "Beginner", url: "#" },
-                { icon: "✖️", title: "Multiply by 11", level: "Intermediate", url: "#" },
-                { icon: "🔄", title: "Nikhilam Sutra", level: "Intermediate", url: "#" },
-                { icon: "⬆️", title: "Urdhva Tiryak", level: "Advanced", url: "#" },
-                { icon: "🌀", title: "Pattern Recognition", level: "Advanced", url: "#" }
+                { icon: "🛡️", title: "Stage 1: The Foundation", level: "Ch 0–2", desc: "Pattern recognition, Number sense, and the Mind Reset.", url: "lesson.html?stage=1" },
+                { icon: "⚡", title: "Stage 2: Number Fluency", level: "Integrated", desc: "Addition, Subtraction, and the power of Complements.", url: "lesson.html?stage=2" },
+                { icon: "🕉️", title: "Stage 3: The Vedic World", level: "Ch 3–7", desc: "The Sixteen Sūtras, Base Method, and Squaring logic.", url: "lesson.html?stage=3" },
+                { icon: "✖️", title: "Stage 4: Crosswise Mastery", level: "Ch 8–9", desc: "Ūrdhva-Tiryagbhyām: The universal multiplication algorithm.", url: "lesson.html?stage=4" },
+                { icon: "🌍", title: "Stage 5: Real-Life Maths", level: "Ch 10–12", desc: "Percentages, Distance-Speed-Time, and Budgets.", url: "lesson.html?stage=5" },
+                { icon: "🌉", title: "Stage 6: The Bridge", level: "Ch 13–14", desc: "Word Problems and the transition to pure Algebra.", url: "lesson.html?stage=6" },
+                { icon: "🏆", title: "Stage 7: Mastery", level: "Ch 15", desc: "The 100-Question Mastery Drill and Celebration.", url: "lesson.html?stage=7" }
             ]
         },
         teacher: {
@@ -144,6 +111,7 @@ Purpose: Learning Platform interactive logic.
                     icon: c.icon || "📚",
                     title: c.title,
                     level: c.difficulty || "Beginner",
+                    desc: c.summary || "",
                     url: `lesson.html?slug=${c.slug}`
                 }));
                 modules = [...modules, ...cmsModules];
@@ -154,12 +122,13 @@ Purpose: Learning Platform interactive logic.
 
         setTimeout(() => {
             gridEl.innerHTML = modules.map(m => `
-                <div class="gs-module-card">
+                <article class="gs-module-card">
                     <div class="gs-module-icon">${m.icon}</div>
-                    <span class="gs-badge badge-${m.level.toLowerCase()}">${m.level}</span>
+                    <span class="gs-badge badge-${m.level.toLowerCase().replace(/ /g, '-') || 'beginner'}">${m.level}</span>
                     <h3>${m.title}</h3>
+                    <p class="gs-module-desc">${m.desc || ''}</p>
                     <a href="${m.url}" class="gs-button gs-button-primary">Start →</a>
-                </div>
+                </article>
             `).join('');
             gridEl.style.opacity = '1';
         }, 100);

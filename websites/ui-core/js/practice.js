@@ -53,6 +53,14 @@
         }
     }
 
+    const SUTRA_MAP = {
+        'digital-root': { name: 'Ekānyūnena Pūrveṇa', sa: 'एकाप्यनूनेन पूर्वेण', desc: 'By one less than the previous.' },
+        'squares-ending-5': { name: 'Ekādhikena Pūrveṇa', sa: 'एकाधिकेन पूर्वेण', desc: 'By one more than the previous.' },
+        'multiply-by-11': { name: 'Antyayordaśake’pi', sa: 'अन्त्ययोर्दशकेऽपि', desc: 'The product of the sum...' },
+        'nikhilam': { name: 'Nīkhilaṃ Navataścaramaṃ Daśataḥ', sa: 'निखिलं नवतश्चरमं दशतः', desc: 'All from 9, last from 10.' },
+        'urdhva-tiryak': { name: 'Ūrdhva-Tiryagbhyām', sa: 'ऊर्ध्वतिर्यग्भ्याम्', desc: 'Vertically and crosswise.' }
+    };
+
     // --- FLOW ---
     async function startPractice() {
         const op = document.getElementById('practice-op').value;
@@ -66,7 +74,7 @@
             <div style="text-align:center; padding:10rem 0; animation: fadeIn 0.5s;">
                 <div class="gs-gate-loader" style="margin: 0 auto 2rem;"></div>
                 <div class="gs-label">Initializing Arena</div>
-                <p style="color:rgba(255,255,255,0.4); margin-top:1rem;">Calculating mathematical possibilities...</p>
+                <p style="color:rgba(255,255,255,0.4); margin-top:1rem;">Preparing the "Mind Reset" session...</p>
             </div>
         `;
 
@@ -74,6 +82,7 @@
         const offset = arena.offsetTop - 150;
         window.scrollTo({ top: offset, behavior: 'smooth' });
 
+        // Step 1: FETCH DATA
         currentSet = await fetchPracticeSet(op, diff, count);
         currentIndex = 0;
         results = [];
@@ -83,18 +92,27 @@
             return;
         }
 
-        renderArena();
+        // Step 2: STILLNESS PROTOCOL (If not skipped recently)
+        if (window.GanitStillness) {
+            window.GanitStillness.init(() => {
+                renderArena('SEE');
+            });
+        } else {
+            renderArena('SEE');
+        }
     }
 
-    function renderArena() {
+    function renderArena(phase = 'SEE') {
         const arena = document.getElementById('arena-surface');
         const q = currentSet[currentIndex];
-        startTime = Date.now();
+        const sutra = SUTRA_MAP[q.operation] || { name: 'Vedic Pattern', sa: 'गणितसूत्रम्' };
+        
+        if (phase === 'SEE') startTime = Date.now();
 
         const progressPercent = (currentIndex / currentSet.length) * 100;
 
         arena.innerHTML = `
-            <div class="gs-practice-arena">
+            <div class="gs-practice-arena phase-${phase.toLowerCase()}">
                 <div class="gs-progress-meter">
                     <div class="gs-meter-text">
                         <span>Challenge ${currentIndex + 1} of ${currentSet.length}</span>
@@ -108,35 +126,83 @@
                 <div class="gs-question-card glass-card">
                     <div class="gs-q-meta">
                         <span class="gs-badge badge-op">${formatOpName(q.operation)}</span>
-                        <span class="gs-badge badge-diff">${q.difficulty}</span>
+                        <div class="gs-phase-indicator">
+                            <span class="${phase === 'SEE' ? 'active' : ''}">SEE</span>
+                            <span class="${phase === 'UNDERSTAND' ? 'active' : ''}">UNDERSTAND</span>
+                            <span class="${phase === 'SOLVE' ? 'active' : ''}">SOLVE</span>
+                        </div>
                     </div>
 
-                    <div class="gs-q-text">${q.question}</div>
+                    <div class="gs-q-text-wrap">
+                        <div class="gs-q-text">${q.question}</div>
+                        ${phase === 'SEE' ? '<div class="gs-observation-status">Observing numerical structure... (3s)</div>' : ''}
+                    </div>
 
-                    <div class="gs-q-input-wrap">
-                        <input type="text" id="practice-ans" class="gs-q-input" autocomplete="off" placeholder="?" maxlength="10">
-                        <div style="margin-top: 2rem;">
-                            <button id="btn-submit-ans" class="gs-button gs-button-primary" style="width:100%">Submit Answer &rarr;</button>
-                        </div>
-                        
-                        <button class="btn-hint" style="margin-top: 2rem;" onclick="document.getElementById('practice-hint').style.display='block'">Reveal Hint</button>
-                        <div id="practice-hint" class="gs-hint-box" style="display:none;">${q.hint}</div>
+                    <div class="gs-q-interactive">
+                        ${renderPhaseContent(phase, q, sutra)}
                     </div>
 
                     <div id="q-feedback"></div>
-                    
                     <button id="btn-next-q" class="gs-button gs-button-primary" style="display:none; margin-top:3rem; width:100%">Next Challenge &rarr;</button>
                 </div>
             </div>
         `;
 
-        const input = document.getElementById('practice-ans');
-        input.focus();
+        // PHASE LOGIC
+        if (phase === 'SEE') {
+            setTimeout(() => renderArena('UNDERSTAND'), 3000);
+        } else if (phase === 'SOLVE') {
+            const input = document.getElementById('practice-ans');
+            if (input) {
+                input.focus();
+                input.onkeypress = (e) => { if (e.key === 'Enter') handleAnswer(); };
+            }
+            const submitBtn = document.getElementById('btn-submit-ans');
+            if (submitBtn) submitBtn.onclick = handleAnswer;
+        }
+    }
 
-        document.getElementById('btn-submit-ans').onclick = handleAnswer;
-        input.onkeypress = (e) => {
-            if (e.key === 'Enter') handleAnswer();
-        };
+    function renderPhaseContent(phase, q, sutra) {
+        if (phase === 'UNDERSTAND') {
+            return `
+                <div class="gs-understand-overlay">
+                    <div class="gs-label">Identify the Governing Sūtra</div>
+                    <p style="color:rgba(255,255,255,0.5); font-size:0.9rem; margin-bottom:2rem;">Which principle handles this pattern?</p>
+                    <div class="gs-sutra-options">
+                        <button class="sutra-opt" onclick="window.GanitPractice.checkSutra('${sutra.name}')">${sutra.name}</button>
+                        <button class="sutra-opt" onclick="window.GanitPractice.checkSutra('Wrong')">Ūrdhva-Tiryagbhyām</button>
+                        <button class="sutra-opt" onclick="window.GanitPractice.checkSutra('Wrong')">Parāvartya Yojayet</button>
+                    </div>
+                    <div id="sutra-feedback" style="margin-top:1rem;"></div>
+                </div>
+            `;
+        }
+
+        if (phase === 'SOLVE') {
+            return `
+                <div class="gs-q-input-wrap">
+                    <div class="gs-active-sutra">${sutra.sa} <br> <span>${sutra.name}</span></div>
+                    <input type="text" id="practice-ans" class="gs-q-input" autocomplete="off" placeholder="?" maxlength="10">
+                    <div style="margin-top: 2rem;">
+                        <button id="btn-submit-ans" class="gs-button gs-button-primary" style="width:100%">Final Solve &rarr;</button>
+                    </div>
+                </div>
+            `;
+        }
+        return '';
+    }
+
+    function checkSutra(choice) {
+        const q = currentSet[currentIndex];
+        const sutra = SUTRA_MAP[q.operation];
+        const feedback = document.getElementById('sutra-feedback');
+        
+        if (choice === sutra.name) {
+            feedback.innerHTML = `<span style="color:#00ff7f">✓ Exact. Proceed to SOLVE.</span>`;
+            setTimeout(() => renderArena('SOLVE'), 800);
+        } else {
+            feedback.innerHTML = `<span style="color:#ff4d4d">Pattern Mismatch. Observe again.</span>`;
+        }
     }
 
     async function handleAnswer() {
@@ -329,6 +395,7 @@
 
     window.GanitPractice = {
         start: startPractice,
+        checkSutra: checkSutra,
         loadStats
     };
 
