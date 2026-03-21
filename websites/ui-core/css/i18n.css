@@ -80,8 +80,65 @@ Purpose: i18n Script-specific & Switcher Styles
     font-size: 1.05rem;
 }
 
-/* Ensure Devanagari renders in correct font limit */
+/* Ensure Devanagari renders in correct font */
 [data-i18n]:lang(hi),
 [data-i18n]:lang(sa-Deva) {
     font-family: var(--font-ancient);
+}
+
+/* ════════════════════════════
+   DEVANAGARI SCRIPT SAFETY
+   letter-spacing and text-transform BREAK
+   Devanagari matras and conjunct consonants —
+   vowel marks visually detach from their base.
+   Zero out both for ALL Hindi / Sanskrit views.
+════════════════════════════ */
+
+/* Global reset — cascade covers all child elements */
+:lang(hi),
+:lang(sa-Deva) {
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+}
+
+/* Explicit overrides for components with heavy letter-spacing */
+:lang(hi) .gs-hero-label,
+:lang(sa-Deva) .gs-hero-label,
+:lang(hi) .gs-label-text,
+:lang(sa-Deva) .gs-label-text,
+:lang(hi) .gs-section-label,
+:lang(sa-Deva) .gs-section-label,
+:lang(hi) .gs-title,
+:lang(sa-Deva) .gs-title,
+:lang(hi) .gs-section-title,
+:lang(sa-Deva) .gs-section-title,
+:lang(hi) .gs-hero-title,
+:lang(sa-Deva) .gs-hero-title,
+:lang(hi) .gs-ancient-text,
+:lang(sa-Deva) .gs-ancient-text,
+:lang(hi) .gs-stat-lbl,
+:lang(sa-Deva) .gs-stat-lbl,
+:lang(hi) .gs-card-badge,
+:lang(sa-Deva) .gs-card-badge,
+:lang(hi) .gs-platform-link,
+:lang(sa-Deva) .gs-platform-link,
+:lang(hi) .gs-button,
+:lang(sa-Deva) .gs-button,
+:lang(hi) .gs-footer-col-title,
+:lang(sa-Deva) .gs-footer-col-title {
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+}
+
+/* Devanagari titles need a little extra line height for top descenders */
+:lang(hi) .gs-hero-title,
+:lang(sa-Deva) .gs-hero-title {
+    line-height: 1.35 !important;
+}
+
+:lang(hi) .gs-hero-label,
+:lang(sa-Deva) .gs-hero-label,
+:lang(hi) .gs-section-label,
+:lang(sa-Deva) .gs-section-label {
+    line-height: 1.8 !important;
 }

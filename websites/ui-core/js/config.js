@@ -52,8 +52,8 @@ window.GanitConfig = (function () {
   // For GitHub Pages, detect if we are in a subfolder (e.g. /ganitsutram)
   const BASE_PATH = window.location.pathname.startsWith('/ganitsutram') ? '/ganitsutram' : '';
 
-  // Railway API URL goes here. Replace this when deployed.
-  window.RAILWAY_URL = 'https://ganitsutram-production.up.railway.app';
+  // Render API URL goes here. Replace this when deployed.
+  window.RAILWAY_URL = 'https://ganitsutram.onrender.com';
 
   const config = {
     IS_DEV: isDev,
