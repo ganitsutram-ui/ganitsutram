@@ -241,7 +241,14 @@
         const userOps = Object.entries(breakdown).map(([op, count]) => ({ operation: op, count }));
 
         if (userOps.length === 0) {
-            container.innerHTML = '<div class="history-empty">Solve problems to build mastery.</div>';
+            container.innerHTML = `
+                <div class="gs-empty-state-card" style="text-align: center; padding: 2rem; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.1);">
+                    <div style="font-size: 3rem; margin-bottom: 0.5rem; opacity: 0.8;">🔲</div>
+                    <div style="font-size: 1.25rem; font-weight: bold; margin-bottom: 0.5rem;">The Slate is Clean</div>
+                    <div style="color: var(--profile-fg-dim); margin-bottom: 1.5rem;">Mastery takes time and practice. Enter the arena to begin tracking your progress across the ancient Sutras.</div>
+                    <a href="../learning/practice.html" class="gs-button gs-button-primary" style="padding: 0.5rem 1rem;">Enter the Practice Arena</a>
+                </div>
+            `;
             return;
         }
 
@@ -298,7 +305,14 @@
                 </div>
             </div>
             <div class="practice-details">
-                ${rows || '<div class="history-empty">Start practicing in the Arena.</div>'}
+                ${rows || `
+                    <div class="gs-empty-state-card" style="text-align: center; padding: 2rem; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.1); margin-top: 1rem;">
+                        <div style="font-size: 3rem; margin-bottom: 0.5rem; opacity: 0.8;">🎯</div>
+                        <div style="font-size: 1.25rem; font-weight: bold; margin-bottom: 0.5rem;">Step into the Arena</div>
+                        <div style="color: var(--profile-fg-dim); margin-bottom: 1.5rem;">Test your knowledge in a timed, gamified environment and earn spiritual badges.</div>
+                        <a href="../learning/practice.html" class="gs-button gs-button-primary" style="padding: 0.5rem 1rem;">Start Practice</a>
+                    </div>
+                `}
             </div>
         `;
     }
@@ -323,7 +337,18 @@
         if (append) {
             container.innerHTML += rows;
         } else {
-            container.innerHTML = rows || '<tr><td colspan="4" class="history-empty">No solves yet. Visit the Solver &rarr;</td></tr>';
+            container.innerHTML = rows || `
+                <tr>
+                    <td colspan="4" style="padding: 2rem;">
+                        <div class="gs-empty-state-card" style="text-align: center; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.1); padding: 2rem;">
+                            <div style="font-size: 3rem; margin-bottom: 0.5rem; opacity: 0.8;">⏳</div>
+                            <div style="font-size: 1.25rem; font-weight: bold; margin-bottom: 0.5rem;">Your Journey Awaits</div>
+                            <div style="color: var(--profile-fg-dim); margin-bottom: 1.5rem;">You haven't solved any problems yet. The ancient algorithms await your command.</div>
+                            <a href="../solver/index.html" class="gs-button gs-button-primary" style="padding: 0.5rem 1rem;">Open the Solver</a>
+                        </div>
+                    </td>
+                </tr>
+            `;
         }
 
         const loadMoreBtn = document.getElementById('btnLoadMore');

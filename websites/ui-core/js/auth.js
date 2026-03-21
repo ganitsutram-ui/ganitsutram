@@ -197,7 +197,7 @@
             navRight.innerHTML = `
                 ${switcherHTML}
                 <button class="nav-link btn-ghost" onclick="window.GanitAuth.openModal('login')" data-i18n="nav.signIn">Sign In</button>
-                <a href="gate.html" class="gs-nav-cta" data-i18n="nav.enterPlatform">Enter Platform &rarr;</a>
+                <a href="${window.GanitConfig.PORTAL_URL}/gate.html" class="gs-nav-cta" data-i18n="nav.enterPlatform">Enter Platform &rarr;</a>
             `;
         }
 

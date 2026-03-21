@@ -227,6 +227,18 @@ window.GanitLeaderboard = (function () {
                 .filter(b => b.progress > 0 && b.progress < 100);
         }
 
+        if (badgesToShow.length === 0) {
+            eBadgeGrid.innerHTML = `
+                <div class="gs-empty-state-card" style="text-align: center; padding: 3rem; border-radius: 12px; background: rgba(255,255,255,0.03); border: 1px dashed rgba(255,255,255,0.1); width: 100%; grid-column: 1 / -1; margin-top: 1rem;">
+                    <div style="font-size: 3rem; margin-bottom: 0.5rem; opacity: 0.8; filter: grayscale(1);">🔒</div>
+                    <div style="font-size: 1.25rem; font-weight: bold; margin-bottom: 0.5rem;">Spiritual Growth Pending</div>
+                    <div style="color: var(--profile-fg-dim); margin-bottom: 1.5rem;">You have not unlocked any achievements yet. Master the sutras in the Arena to prove your wisdom.</div>
+                    <a href="../learning/practice.html" class="gs-button gs-button-ghost" style="border: 1px solid var(--gs-color-primary); color: var(--gs-color-primary);">Step into the Arena</a>
+                </div>
+            `;
+            return;
+        }
+
         badgesToShow.forEach(b => {
             const extra = b.isEarned
                 ? `<div class="badge-date">Earned on ${new Date(b.date).toLocaleDateString()}</div>`

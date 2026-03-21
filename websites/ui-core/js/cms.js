@@ -79,7 +79,7 @@
         checkAdminAuth: async function () {
             const token = localStorage.getItem('gs_token');
             if (!token) {
-                window.location.href = 'gate.html?return=cms.html';
+                window.location.href = `${window.GanitConfig.PORTAL_URL}/gate.html?return=cms.html`;
                 return null;
             }
 
@@ -95,7 +95,7 @@
                 }
                 return data;
             } catch (err) {
-                window.location.href = 'gate.html';
+                window.location.href = `${window.GanitConfig.PORTAL_URL}/gate.html`;
                 return null;
             }
         },
