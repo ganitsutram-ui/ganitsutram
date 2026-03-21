@@ -361,7 +361,17 @@ const migrations = [
         auto_blocked  SMALLINT DEFAULT 0
     )`,
 
-    `CREATE INDEX IF NOT EXISTS idx_threat_log_ip_date ON threat_log(ip, detected_at DESC)`
+    `CREATE INDEX IF NOT EXISTS idx_threat_log_ip_date ON threat_log(ip, detected_at DESC)`,
+
+    `CREATE TABLE IF NOT EXISTS system_errors (
+        error_id      VARCHAR(36) PRIMARY KEY,
+        session_id    VARCHAR(255),
+        url           TEXT,
+        message       TEXT NOT NULL,
+        stack         TEXT,
+        user_agent    TEXT,
+        created_at    TIMESTAMP NOT NULL
+    )`
 ];
 
 module.exports = { migrations };

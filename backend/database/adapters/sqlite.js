@@ -64,6 +64,7 @@ function init() {
         db.pragma('journal_mode = WAL');
         // Integrity: Enforce foreign key constraints
         db.pragma('foreign_keys = ON');
+        db.prepare("CREATE TABLE IF NOT EXISTS system_errors (error_id TEXT PRIMARY KEY, session_id TEXT, url TEXT, message TEXT NOT NULL, stack TEXT, user_agent TEXT, created_at DATETIME NOT NULL)").run();
     } catch (error) {
         console.error(`[SQLite] Failed to open database at ${DB_PATH}:`, error);
         process.exit(1);

@@ -196,5 +196,17 @@ module.exports = {
     getPracticeAccuracyOverall,
     getHourlyDistribution,
     getPlatformSummary,
-    getSolvesPerDay
+    getSolvesPerDay,
+    insertSystemError
 };
+
+async function insertSystemError(error) {
+    return await db.run(
+        INSERT INTO system_errors (
+            error_id, session_id, url, message, stack, user_agent, created_at
+        ) VALUES (?, ?, ?, ?, ?, ?, ?)
+    ,
+        error.error_id, error.session_id, error.url,
+        error.message, error.stack, error.user_agent, error.created_at
+    );
+}

@@ -42,6 +42,43 @@ Gregorian: 2026-03-07
  */
 const { API_BASE, PORTAL_URL } = window.GanitConfig;
 
+/**
+ * Global Error Beacon
+ * Silently catches unhandled exceptions and promise rejections to improve ecosystem health.
+ */
+function sendErrorBeacon(message, stack) {
+    if (window.GanitConfig && window.GanitConfig.IS_DEV) return; // Do not spam dev DB
+    
+    // Attempt graceful beacon
+    const payload = JSON.stringify({
+        message: message,
+        stack: stack || '',
+        url: window.location.href,
+        sessionId: localStorage.getItem('gs_token') ? 'authenticated' : 'anonymous'
+    });
+
+    try {
+        if (navigator.sendBeacon) {
+            navigator.sendBeacon(`${API_BASE}/analytics/error-log`, new Blob([payload], { type: 'application/json' }));
+        } else {
+            fetch(`${API_BASE}/analytics/error-log`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: payload,
+                keepalive: true
+            }).catch(() => {});
+        }
+    } catch(e) {}
+}
+
+window.addEventListener('error', (event) => {
+    sendErrorBeacon(event.message, event.error ? event.error.stack : '');
+});
+
+window.addEventListener('unhandledrejection', (event) => {
+    sendErrorBeacon(event.reason ? event.reason.toString() : 'Unhandled Promise Rejection', event.reason && event.reason.stack ? event.reason.stack : '');
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     console.log("%cGANITSUTRAM", "color: #ff5500; font-weight: bold; font-size: 20px;");
     console.log("System Architect: Jawahar R Mallah");
