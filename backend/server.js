@@ -3,7 +3,7 @@
  * A Living Knowledge Ecosystem for Mathematical Discovery
  *
  * "यथा शिखा मयूराणां नागानां मणयो यथा
- *  तद्वद् वेदाङ्गशास्त्राणां गणितं मूर्ध्नि वर्तते"
+ *  तद्वद् वेदाङ्गशास्त्रणां गणितं मूर्ध्नि वर्तते"
  *
  * As the crest of a peacock, as the gem on the hood
  * of a cobra — so stands mathematics at the crown
@@ -81,7 +81,7 @@ app.use(express.static(path.join(__dirname, '../websites')));
 
 // Static routing for the root
 app.get('/', (req, res) => {
-    res.redirect('/portal/index.html');
+    res.redirect('/portal/gate.html');
 });
 
 // Routes

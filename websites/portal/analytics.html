@@ -34,8 +34,8 @@ Organization: AITDL | aitdl.com
 
     <style id="gs-critical-css">
         :root { --bg-deep: #040110; --fg-main: #ffffff; --accent-primary: #ff5500; }
-        body { margin: 0; background: var(--bg-deep); color: var(--fg-main); }
-        .gs-nav { position: fixed; width: 100%; z-index: 100; background: rgba(4,1,16,0.95); }
+        body { margin: 0; background: var(--bg-deep); color: var(--fg-main); min-height: 100vh; }
+        .gs-nav { position: fixed; width: 100%; z-index: 1000; background: rgba(4,1,16,0.95); min-height: 72px; }
     </style>
 
     <link rel="stylesheet" href="../ui-core/css/main.css">
@@ -68,11 +68,11 @@ Organization: AITDL | aitdl.com
     <!-- Header -->
     <header class="gs-header">
         <div class="gs-nav">
-            <a href="../portal/index.html" class="gs-nav-logo">
+            <a href="../portal/gate.html" class="gs-nav-logo">
                 <span class="gs-nav-logo-dev">गणित</span>GanitSūtram
             </a>
             <nav class="nav-links">
-                <a href="../portal/index.html">Portal</a>
+                <a href="../portal/gate.html">Portal</a>
                 <a href="../learning/index.html">Learning</a>
                 <a href=''>Solver</a>
                 <div class="nav-right" id="authNavRight">
@@ -191,7 +191,7 @@ Organization: AITDL | aitdl.com
                 <p data-i18n="footer.tagline">A mathematical knowledge ecosystem by AITDL.</p>
             </div>
             <div class="gs-footer-links">
-                <a href="../portal/index.html" data-i18n="footer.portal">Portal</a>
+                <a href="../portal/gate.html" data-i18n="footer.portal">Portal</a>
                 <a href="../discoveries/index.html" data-i18n="nav.discover">Discover</a>
                 <a href="../learning/index.html" data-i18n="nav.learn">Learn</a>
                 <a href="../knowledge-map/index.html" data-i18n="nav.map">Map</a>
@@ -212,6 +212,7 @@ Organization: AITDL | aitdl.com
     </footer>
 
     <script src="../ui-core/js/seo.js" defer></script>
+    <script src="../ui-core/js/search.js" defer></script>
     <script src="../ui-core/js/ganit-ui.js" defer></script>
     <script src="../ui-core/js/auth.js" defer></script>
     <script src="../ui-core/js/analytics.js" defer></script>

@@ -154,38 +154,57 @@
         const navRight = document.querySelector('.nav-right');
         if (!navRight) return;
 
+        // Capture switcher if it exists to prevent wiping it out
+        const langSwitcher = document.getElementById('langSwitcher');
+        const switcherHTML = langSwitcher ? langSwitcher.outerHTML : `
+            <div class="gs-lang-switcher" id="langSwitcher">
+                <button class="gs-lang-btn active" data-lang="en">EN</button>
+                <button class="gs-lang-btn" data-lang="hi">हि</button>
+                <button class="gs-lang-btn" data-lang="sa">सं</button>
+            </div>`;
+
         if (currentUser) {
             const initial = currentUser.email.charAt(0).toUpperCase();
             const learnBase = window.location.hostname === 'localhost' ? '/learning' : '';
             navRight.innerHTML = `
-                        <div class="user-profile-wrap">
-                            <div class="user-avatar-circle" id="userAvatarTrigger">
-                                ${initial}
-                            </div>
-                            <div class="user-email-display">${currentUser.email.split('@')[0]}</div>
-                            <div class="user-dropdown" id="userAuthDropdown">
-                                <a href="${learnBase}/profile.html" class="dropdown-item">My Profile</a>
-                                <a href="${learnBase}/profile.html#progress" class="dropdown-item">My Progress</a>
-                                ${currentUser.role === 'admin' ? '<div class="dropdown-divider"></div><a href="/portal/analytics.html" class="dropdown-item" style="color:var(--color-primary);font-weight:bold;">🛡️ Analytics</a>' : ''}
-                                <div class="dropdown-divider"></div>
-                                <div class="dropdown-item" onclick="window.GanitAuth.logout()">Logout</div>
-                            </div>
-                        </div>
-                    `;
+                ${switcherHTML}
+                <div class="user-profile-wrap">
+                    <div class="user-avatar-circle" id="userAvatarTrigger">
+                        ${initial}
+                    </div>
+                    <div class="user-email-display">${currentUser.email.split('@')[0]}</div>
+                    <div class="user-dropdown" id="userAuthDropdown">
+                        <a href="${learnBase}/profile.html" class="dropdown-item">My Profile</a>
+                        <a href="${learnBase}/profile.html#progress" class="dropdown-item">My Progress</a>
+                        ${currentUser.role === 'admin' ? '<div class="dropdown-divider"></div><a href="/portal/analytics.html" class="dropdown-item" style="color:var(--color-primary);font-weight:bold;">🛡️ Analytics</a>' : ''}
+                        <div class="dropdown-divider"></div>
+                        <div class="dropdown-item" onclick="window.GanitAuth.logout()">Logout</div>
+                    </div>
+                </div>
+            `;
 
             // Dropdown Toggle
             const trigger = document.getElementById('userAvatarTrigger');
             const dropdown = document.getElementById('userAuthDropdown');
-            trigger.addEventListener('click', (e) => {
-                e.stopPropagation();
-                dropdown.classList.toggle('active');
-            });
-            document.addEventListener('click', () => dropdown.classList.remove('active'));
+            if (trigger && dropdown) {
+                trigger.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    dropdown.classList.toggle('active');
+                });
+                document.addEventListener('click', () => dropdown.classList.remove('active'));
+            }
         } else {
             navRight.innerHTML = `
-                <button class="nav-link btn-ghost" onclick="window.GanitAuth.openModal('login')">Sign In</button>
-                <a href="gate.html" class="nav-cta">Enter Platform &rarr;</a>
+                ${switcherHTML}
+                <button class="nav-link btn-ghost" onclick="window.GanitAuth.openModal('login')" data-i18n="nav.signIn">Sign In</button>
+                <a href="gate.html" class="gs-nav-cta" data-i18n="nav.enterPlatform">Enter Platform &rarr;</a>
             `;
+        }
+
+        // Re-initialize i18n logic for the newly injected/preserved switcher
+        if (window.GanitI18n) {
+            if (window.GanitI18n.initSwitcher) window.GanitI18n.initSwitcher();
+            if (window.GanitI18n.translatePage) window.GanitI18n.translatePage();
         }
     }
 
@@ -435,9 +454,11 @@
     function initEventHandlers() {
         // Overlay Click Close
         const overlay = document.getElementById('gs-auth-overlay');
-        overlay.addEventListener('click', (e) => {
-            if (e.target === overlay) closeModal();
-        });
+        if (overlay) {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) closeModal();
+            });
+        }
 
         // Toggle Password Visibility
         document.querySelectorAll('.gs-auth-toggle').forEach(btn => {
@@ -462,7 +483,8 @@
                     ensureForgotPanel();
                     document.querySelectorAll('.gs-auth-tab').forEach(t => t.classList.remove('active'));
                     document.querySelectorAll('.gs-auth-panel').forEach(p => p.classList.remove('active'));
-                    document.getElementById('forgotPanel').classList.add('active');
+                    const forgotPanel = document.getElementById('forgotPanel');
+                    if (forgotPanel) forgotPanel.classList.add('active');
                 });
             }
         });
@@ -481,58 +503,68 @@
         const bar = document.querySelector('.gs-auth-strength-bar');
         const text = document.querySelector('.gs-auth-strength-text');
 
-        regPass.addEventListener('input', () => {
-            if (!regPass.value) {
-                strengthDiv.style.display = 'none';
-                return;
-            }
-            strengthDiv.style.display = 'block';
-            const { score, label, color } = checkPassStrength(regPass.value);
-            bar.style.width = `${(score / 4) * 100}%`;
-            bar.style.background = color;
-            text.textContent = `Strength: ${label}`;
-        });
+        if (regPass && strengthDiv) {
+            regPass.addEventListener('input', () => {
+                if (!regPass.value) {
+                    strengthDiv.style.display = 'none';
+                    return;
+                }
+                strengthDiv.style.display = 'block';
+                const { score, label, color } = checkPassStrength(regPass.value);
+                if (bar) {
+                    bar.style.width = `${(score / 4) * 100}%`;
+                    bar.style.background = color;
+                }
+                if (text) text.textContent = `Strength: ${label}`;
+            });
+        }
 
         // Login Submit
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const form = e.target;
-            const email = form.querySelector('[name="email"]').value;
-            const pass = form.querySelector('[name="password"]').value;
-            const btn = form.querySelector('button[type="submit"]');
-            const spinner = btn.querySelector('.gs-auth-spinner');
+        const loginForm = document.getElementById('loginForm');
+        if (loginForm) {
+            loginForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const form = e.target;
+                const email = form.querySelector('[name="email"]').value;
+                const pass = form.querySelector('[name="password"]').value;
+                const btn = form.querySelector('button[type="submit"]');
+                const spinner = btn.querySelector('.gs-auth-spinner');
 
-            if (!validateEmail(email)) return showToast("Invalid email format", "error");
+                if (!validateEmail(email)) return showToast("Invalid email format", "error");
 
-            btn.disabled = true;
-            if (spinner) spinner.style.display = 'block';
-            await apiLogin(email, pass);
-            btn.disabled = false;
-            if (spinner) spinner.style.display = 'none';
-        });
+                btn.disabled = true;
+                if (spinner) spinner.style.display = 'block';
+                await apiLogin(email, pass);
+                btn.disabled = false;
+                if (spinner) spinner.style.display = 'none';
+            });
+        }
 
         // Register Submit
-        document.getElementById('registerForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const form = e.target;
-            const email = form.querySelector('[name="email"]').value;
-            const pass = form.querySelector('[name="password"]').value;
-            const confirm = form.querySelector('[name="confirmPassword"]').value;
-            const roleEl = form.querySelector('.gs-auth-role.active');
-            const btn = form.querySelector('button[type="submit"]');
-            const spinner = btn.querySelector('.gs-auth-spinner');
+        const registerForm = document.getElementById('registerForm');
+        if (registerForm) {
+            registerForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const form = e.target;
+                const email = form.querySelector('[name="email"]').value;
+                const pass = form.querySelector('[name="password"]').value;
+                const confirm = form.querySelector('[name="confirmPassword"]').value;
+                const roleEl = form.querySelector('.gs-auth-role.active');
+                const btn = form.querySelector('button[type="submit"]');
+                const spinner = btn.querySelector('.gs-auth-spinner');
 
-            if (!validateEmail(email)) return showToast("Invalid email", "error");
-            if (pass.length < 8) return showToast("Password too short", "error");
-            if (pass !== confirm) return showToast("Passwords do not match", "error");
-            if (!roleEl) return showToast("Please select a role", "error");
+                if (!validateEmail(email)) return showToast("Invalid email", "error");
+                if (pass.length < 8) return showToast("Password too short", "error");
+                if (pass !== confirm) return showToast("Passwords do not match", "error");
+                if (!roleEl) return showToast("Please select a role", "error");
 
-            btn.disabled = true;
-            if (spinner) spinner.style.display = 'block';
-            await apiRegister(email, pass, roleEl.dataset.role);
-            btn.disabled = false;
-            if (spinner) spinner.style.display = 'none';
-        });
+                btn.disabled = true;
+                if (spinner) spinner.style.display = 'block';
+                await apiRegister(email, pass, roleEl.dataset.role);
+                btn.disabled = false;
+                if (spinner) spinner.style.display = 'none';
+            });
+        }
     }
 
     // --- INITIALIZATION ---
@@ -545,8 +577,8 @@
     window.GanitAuth = {
         openModal,
         closeModal,
-        isLoggedIn: () => !!token,
-        getToken: () => token,
+        isLoggedIn: () => !!_getTokenSync(),
+        getToken: _getTokenSync,
         getUser: () => currentUser,
         logout: apiLogout,
         init

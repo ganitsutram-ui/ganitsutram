@@ -150,6 +150,144 @@ textarea {
     border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+/* ════════════════════════════
+   GLOBAL NAVIGATION & HEADER
+════════════════════════════ */
+
+.gs-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: rgba(4, 1, 16, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+.gs-nav-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+}
+
+.gs-nav-logo {
+    font-family: var(--font-logo);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.gs-nav-logo-dev {
+    color: var(--accent-primary);
+    font-family: var(--font-ancient);
+    font-size: 1.8rem;
+}
+
+.gs-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-right {
+    display: flex !important;
+    align-items: center !important;
+    gap: 1.2rem !important;
+}
+
+.nav-link {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.nav-link:hover {
+    color: var(--accent-primary);
+}
+
+/* Ghost Button Styling */
+.btn-ghost {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    padding: 0.5rem 1.2rem !important;
+    border-radius: 6px !important;
+    font-weight: 600 !important;
+    color: #fff !important;
+    min-height: auto !important;
+}
+
+.btn-ghost:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Primary CTA Styling */
+.gs-nav-cta {
+    background: var(--accent-primary) !important;
+    color: #fff !important;
+    padding: 0.6rem 1.4rem !important;
+    border-radius: 6px !important;
+    font-weight: 700 !important;
+    text-decoration: none !important;
+    transition: all 0.3s ease !important;
+    white-space: nowrap !important;
+    min-height: auto !important;
+}
+
+.gs-nav-cta:hover {
+    background: #ff6622 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(255, 85, 0, 0.3);
+}
+
+/* Language Switcher Styling */
+.gs-lang-switcher {
+    display: flex;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 4px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.gs-lang-btn {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.5);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.gs-lang-btn:hover {
+    color: #fff;
+}
+
+.gs-lang-btn.active {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--accent-primary);
+}
+
 /* Accessibility Focus Styles */
 :focus-visible {
     outline: 2px solid var(--accent-primary);
