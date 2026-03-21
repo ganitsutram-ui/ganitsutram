@@ -230,6 +230,13 @@ textarea {
     color: rgba(255, 255, 255, 0.3);
     line-height: 1.8;
     border-top: 1px solid rgba(255, 255, 255, 0.05);
+    background: var(--bg-primary);
+}
+
+[data-theme="light"] .gs-footer {
+    background: var(--bg-secondary) !important;
+    color: var(--fg-muted) !important;
+    border-top-color: rgba(0, 0, 0, 0.08) !important;
 }
 
 /* ════════════════════════════

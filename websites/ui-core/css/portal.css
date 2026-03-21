@@ -971,11 +971,11 @@ Purpose: Portal-specific styles, extending ui-core/css/main.css
 .gs-footer-inner { display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; align-items: start; }
 .gs-footer-nav-cols { display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; }
 .gs-footer-col { display: flex; flex-direction: column; gap: 0.75rem; }
-.gs-footer-col-title { font-family: var(--font-heading); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent-secondary); margin-bottom: 0.25rem; }
+.gs-footer-col-title { font-family: var(--font-heading); font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent-soft); margin-bottom: 0.25rem; }
 .gs-footer-col a { font-size: 0.88rem; color: var(--fg-muted); text-decoration: none; transition: color 0.2s; }
 .gs-footer-col a:hover { color: var(--fg-main); }
 .gs-footer-copy-inline { font-size: 0.8rem; color: var(--fg-muted); opacity: 0.6; margin-top: 0.75rem; }
-.gs-footer-copy-inline a { color: var(--accent-secondary); text-decoration: none; }
+.gs-footer-copy-inline a { color: var(--accent-soft); text-decoration: none; }
 .gs-footer-bottom { border-top: 1px solid rgba(255,255,255,0.05); margin-top: 3rem; padding-top: 1.5rem; text-align: center; font-size: 0.78rem; color: var(--fg-muted); opacity: 0.5; }
 
 /* ════════════════════════════
@@ -987,6 +987,43 @@ Purpose: Portal-specific styles, extending ui-core/css/main.css
 [data-theme="light"] .gs-tradition-quote { background: rgba(255,255,255,0.7); border-color: rgba(0,0,0,0.08); }
 [data-theme="light"] .gs-tradition-quote p { color: var(--fg-main); }
 [data-theme="light"] .gs-quote-featured { background: rgba(212,175,55,0.07); border-color: rgba(212,175,55,0.3); }
+
+/* ════════════════════════════
+   LIGHT THEME: FOOTER (full override)
+════════════════════════════ */
+[data-theme="light"] .gs-footer {
+    background: #FFFFFF !important;
+    border-top-color: rgba(0, 0, 0, 0.08) !important;
+}
+[data-theme="light"] .gs-footer-col-title {
+    color: var(--accent-primary) !important;  /* AITDL orange — good contrast on white */
+}
+[data-theme="light"] .gs-footer-col a {
+    color: rgba(0, 0, 0, 0.55) !important;
+}
+[data-theme="light"] .gs-footer-col a:hover {
+    color: var(--fg-main) !important;
+}
+[data-theme="light"] .gs-footer-copy-inline {
+    color: rgba(0, 0, 0, 0.45) !important;
+}
+[data-theme="light"] .gs-footer-copy-inline a {
+    color: var(--accent-primary) !important;
+}
+[data-theme="light"] .gs-footer-bottom {
+    border-top-color: rgba(0, 0, 0, 0.08) !important;
+    color: rgba(0, 0, 0, 0.45) !important;
+    opacity: 1 !important;
+}
+[data-theme="light"] .gs-nav-logo-dev {
+    color: var(--accent-primary) !important;
+}
+[data-theme="light"] .gs-footer .gs-nav-logo {
+    color: var(--fg-main) !important;
+}
+[data-theme="light"] .gs-footer p[data-i18n] {
+    color: rgba(0, 0, 0, 0.55) !important;
+}
 
 /* ════════════════════════════
    RESPONSIVE: NEW COMPONENTS
