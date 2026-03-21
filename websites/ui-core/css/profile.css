@@ -59,7 +59,7 @@ Purpose: User Profile & Progress Dashboard styles.
 body.profile-body {
     background-color: var(--profile-bg);
     color: var(--profile-fg);
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: var(--font-main);
     margin: 0;
     padding: 0;
 }
@@ -197,7 +197,7 @@ body.profile-body {
 
 /* --- ACHIEVEMENT BADGES --- */
 .section-title {
-    font-family: 'Unbounded', sans-serif;
+    font-family: var(--font-display);
     font-size: 1.25rem;
     font-weight: 700;
     margin: 2rem 0 1.25rem;
@@ -328,7 +328,7 @@ body.profile-body {
 }
 
 .stat-value {
-    font-family: 'Unbounded', sans-serif;
+    font-family: var(--font-display);
     font-size: 1.75rem;
     font-weight: 700;
     color: var(--profile-fg);
@@ -532,7 +532,7 @@ body.profile-body {
 }
 
 .accuracy-val {
-    font-family: 'Unbounded', sans-serif;
+    font-family: var(--font-display);
     font-size: 1.5rem;
     font-weight: 700;
 }
