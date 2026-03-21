@@ -118,6 +118,27 @@ textarea {
 }
 
 /* ════════════════════════════
+   ACCESSIBILITY & UTILITIES
+════════════════════════════ */
+.gs-skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--accent-primary);
+    color: var(--bg-primary);
+    padding: 8px 16px;
+    z-index: 9999;
+    font-family: var(--font-heading);
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: top 0.2s ease;
+}
+
+.gs-skip-link:focus {
+    top: 0;
+}
+
+/* ════════════════════════════
    SHARED UI COMPONENTS
 ════════════════════════════ */
 
