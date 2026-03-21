@@ -171,6 +171,33 @@ body.profile-body {
 .member-since {
     font-size: 0.85rem;
     color: var(--profile-fg-dim);
+    margin-bottom: 0.75rem;
+}
+
+.profile-meta-btns {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.gs-profile-mini-btn {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--profile-border);
+    color: var(--profile-fg-dim);
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.gs-profile-mini-btn:hover {
+    background: rgba(255, 85, 0, 0.1);
+    border-color: var(--profile-accent);
+    color: var(--profile-fg);
 }
 
 .profile-actions {
@@ -275,6 +302,36 @@ body.profile-body {
     right: 10px;
     font-size: 0.8rem;
     opacity: 0.5;
+}
+
+.badge-share-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(255, 85, 0, 0.2);
+    border: 1px solid rgba(255, 85, 0, 0.4);
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    cursor: pointer;
+    color: #fff;
+    opacity: 0;
+    transform: translateY(-5px);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.badge-item.earned:hover .badge-share-btn {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.badge-share-btn:hover {
+    background: var(--profile-accent);
+    transform: scale(1.1) !important;
 }
 
 .badge-item.earned .badge-lock {

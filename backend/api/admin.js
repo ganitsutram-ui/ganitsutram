@@ -30,13 +30,7 @@
 Project: GanitSūtram
 Author: Jawahar R Mallah
 Company: AITDL | aitdl.com
-
-Date:
-Vikram Samvat: VS 2082
-Gregorian: 2026-03-07
-
-Purpose: Admin API router for school management.
-         Handles school creation, enrollment, and dashboard data.
+Purpose: Admin API router for management and analytics.
 */
 
 const express = require('express');
@@ -49,6 +43,8 @@ const {
     removeStudent
 } = require('../services/school-service');
 const repo = require('../database/school-repository');
+const analyticsService = require('../services/analytics-service');
+const cmsService = require('../services/cms-service');
 const { errorResponse, successResponse } = require('../services/i18n-service');
 
 const ATTR = 'GanitSūtram | AITDL';
@@ -134,6 +130,46 @@ router.delete('/students/:enrollmentId', async (req, res) => {
 
         await removeStudent(school.school_id, req.params.enrollmentId, req.user.userId);
         res.json({ message: 'Student removed.', attribution: ATTR });
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+});
+
+/**
+ * GET /api/admin/global-stats
+ * Returns platform-wide analytics. restricted to global admins.
+ */
+router.get('/global-stats', requireRole('admin'), async (req, res) => {
+    try {
+        const stats = await analyticsService.getPlatformDashboard({ days: req.query.days || 30 });
+        res.json({ stats, attribution: ATTR });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+/**
+ * GET /api/admin/cms-content
+ * Returns all CMS content for management. restricted to global admins.
+ */
+router.get('/cms-content', requireRole('admin'), async (req, res) => {
+    try {
+        const type = req.query.type || 'all';
+        const content = await cmsService.getContentForAdmin(type === 'all' ? null : type);
+        res.json({ data: content, attribution: ATTR });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+/**
+ * POST /api/admin/cms-content
+ * Creates new content. Restricted to global admins.
+ */
+router.post('/cms-content', requireRole('admin'), async (req, res) => {
+    try {
+        const content = await cmsService.createContent(req.user.userId, req.body);
+        res.status(201).json({ content, attribution: ATTR });
     } catch (err) {
         res.status(400).json({ error: err.message });
     }

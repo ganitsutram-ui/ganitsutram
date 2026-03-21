@@ -76,8 +76,9 @@
                     ${rankBadge}
                 </div>
                 <div class="member-since">Member since ${createdAt}</div>
-                <div style="margin-top: 8px;">
-                     <button class="btn-clear" onclick="window.GanitProfile.editDisplayName()" style="padding: 2px 8px; font-size: 0.75rem;">Edit Name</button>
+                <div class="profile-meta-btns">
+                     <button class="gs-profile-mini-btn" onclick="window.GanitProfile.editDisplayName()" title="Edit Display Name">✎ Edit Name</button>
+                     <button class="gs-profile-mini-btn" onclick="window.GanitProfile.copyProfileLink()" title="Copy Link">🔗 Copy Link</button>
                 </div>
             </div>
             <div class="profile-actions">
@@ -95,9 +96,11 @@
         container.innerHTML = Object.entries(BADGE_VISUALS).map(([id, def]) => {
             const earned = earnedIds.includes(id);
             const statusText = earned ? "Earned!" : `Requirement: ${def.desc}`;
+            const shareBtn = earned ? `<button class="badge-share-btn" onclick="window.GanitProfile.shareAchievement('${id}')" title="Share Achievement">📤</button>` : '';
             return `
                 <div class="badge-item ${earned ? 'earned' : ''}">
                     <div class="badge-lock">🔒</div>
+                    ${shareBtn}
                     <div class="badge-icon">${def.icon}</div>
                     <div class="badge-title">${def.title}</div>
                     <div class="badge-desc">${def.desc}</div>
@@ -165,6 +168,30 @@
         } catch (e) {
             alert("Failed to update name.");
         }
+    }
+
+    // --- SOCIAL & SHARING ---
+
+    function shareAchievement(badgeId) {
+        const badge = BADGE_VISUALS[badgeId];
+        if (!badge) return;
+        const text = `I just earned the "${badge.title}" badge on GanitSūtram! 🕉️✨ ${badge.desc}\n\nJoin me in exploring ancient mathematics at https://ganitsutram.com`;
+        const url = window.location.href;
+        
+        // Native share if supported
+        if (navigator.share) {
+            navigator.share({ title: 'GanitSūtram Achievement', text, url }).catch(() => {});
+        } else {
+            const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
+            window.open(twitterUrl, '_blank');
+        }
+    }
+
+    function copyProfileLink() {
+        const url = window.location.href;
+        navigator.clipboard.writeText(url).then(() => {
+            alert("Profile link copied to clipboard!");
+        });
     }
 
     // (Re-including the rest of the rendering logic from the original profile.js)
@@ -485,7 +512,9 @@
         revokeAllOtherSessions, 
         openAvatarModal, 
         updateAvatar, 
-        editDisplayName 
+        editDisplayName,
+        shareAchievement,
+        copyProfileLink
     };
 
     if (document.readyState === 'loading') {

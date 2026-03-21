@@ -70,12 +70,12 @@
             "explore": "गणित की खोज"
         },
         "personaDesc": {
-            "student": "Explore Vedic maths, practise problems, and track your learning progress.",
-            "teacher": "Access classroom tools, concept libraries, and student progress dashboards.",
-            "parent": "Guide your child's mathematical journey with curated resources.",
-            "adult": "Rediscover mathematics at your own pace with structured adult pathways.",
-            "school": "Institution-level tools, curriculum alignment, and research lab access.",
-            "explore": "No agenda. Just curiosity. Dive into patterns, discoveries, and the beauty of numbers."
+            "student": "वैदिक गणित की खोज करें, समस्याओं का अभ्यास करें और अपनी सीखने की प्रगति को ट्रैक करें।",
+            "teacher": "कक्षा के उपकरण, अवधारणा पुस्तकालयों और विद्यार्थी प्रगति डैशबोर्ड तक पहुँच प्राप्त करें।",
+            "parent": "क्यूरेटेड संसाधनों के साथ अपने बच्चे की गणितीय यात्रा का मार्गदर्शन करें।",
+            "adult": "वयस्क शिक्षण पथों के साथ अपनी गति से गणित को पुनः खोजें।",
+            "school": "संस्था-स्तर के उपकरण, पाठ्यक्रम संरेखण और शोध प्रयोगशाला तक पहुँच।",
+            "explore": "कोई एजेंडा नहीं। बस जिज्ञासा। पैटर्न, खोज और संख्याओं की सुंदरता में डूब जाएं।"
         }
     },
     "solver": {
@@ -128,7 +128,9 @@
             "adult": "वयस्क शिक्षार्थी"
         },
         "progressNudge": "अपनी प्रगति सहेजें — एक निःशुल्क खाता बनाएँ",
-        "signUpBtn": "निःशुल्क पंजीकरण →"
+        "signUpBtn": "निःशुल्क पंजीकरण →",
+        "studentPath": "विद्यार्थी मार्ग",
+        "studentDesc": "विद्यार्थियों के लिए विशेष रूप से डिज़ाइन किया गया मार्ग।"
     },
     "auth": {
         "loginTab": "लॉगिन",
@@ -172,6 +174,47 @@
         "search": "खोजें",
         "noResults": "कोई परिणाम नहीं मिला।",
         "attribution": "GanitSūtram | AITDL"
+    },
+    "practice": {
+        "label": "अभ्यास",
+        "title": "अभ्यास क्षेत्र",
+        "subtitle": "अपनी गति से गणितीय कौशल को निखारें।",
+        "opLabel": "संक्रिया",
+        "diffLabel": "कठिनाई",
+        "countLabel": "प्रश्नों की संख्या",
+        "startBtn": "अभ्यास शुरू करें →"
+    },
+    "search": {
+        "placeholder": "खोजें (जैसे: डिजिटल रूट, सूत्र)…",
+        "heading": "खोज परिणाम",
+        "resultsFor": "\"{{query}}\" के लिए परिणाम",
+        "noResults": "क्षमा करें, हमें कुछ भी नहीं मिला।",
+        "trySearch": "कुछ और खोजने का प्रयास करें:",
+        "popular": "लोकप्रिय खोजें",
+        "trending": "ट्रेंडिंग",
+        "filterAll": "सभी",
+        "filterDiscoveries": "खोजें",
+        "filterLessons": "पाठ",
+        "filterOperations": "संक्रियाएं",
+        "filterSutras": "सूत्र",
+        "filterConcepts": "अवधारणाएं",
+        "tryInSolver": "सॉल्वर में देखें",
+        "readMore": "और पढ़ें",
+        "startLearning": "सीखना शुरू करें",
+        "exploreMap": "नक्शा खोजें"
+    },
+    "graph": {
+        "heading": "ज्ञान मानचित्र",
+        "searchNodes": "नोड्स खोजें…",
+        "findPath": "पथ खोजें",
+        "fromNode": "से",
+        "toNode": "तक",
+        "pathLength": "पथ की लंबाई: {{n}}",
+        "noPath": "कोई पथ नहीं मिला।",
+        "focusMode": "फोकस मोड",
+        "related": "संबंधित",
+        "viewInSolver": "सॉल्वर में देखें",
+        "findPathFrom": "यहाँ से पथ खोजें"
     },
     "notifications": {
         "heading": "सूचनाएँ",

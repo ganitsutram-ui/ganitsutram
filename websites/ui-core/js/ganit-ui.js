@@ -195,17 +195,9 @@ window.GanitUI.pwa = (function () {
 
     function initInstallPrompt() {
         window.addEventListener('beforeinstallprompt', (e) => {
-            // Prevent the mini-infobar from appearing on mobile
             e.preventDefault();
-            // Stash the event so it can be triggered later.
             deferredPrompt = e;
-
-            // Check if user previously dismissed it
-            if (localStorage.getItem('gs_install_dismissed')) {
-                return;
-            }
-
-            // Show custom banner after 30 seconds
+            if (localStorage.getItem('gs_install_dismissed')) return;
             setTimeout(showInstallBanner, 30000);
         });
 
@@ -218,65 +210,40 @@ window.GanitUI.pwa = (function () {
 
     function showInstallBanner() {
         if (!deferredPrompt || document.getElementById('gs-pwa-banner')) return;
-
         const banner = document.createElement('div');
         banner.id = 'gs-pwa-banner';
         banner.style.cssText = `
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: var(--bg-deep, #040110);
-            border-top: 1px solid var(--accent-soft, rgba(255,179,0,0.4));
-            padding: 1rem 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            z-index: 10000;
-            font-family: var(--font-main, sans-serif);
-            transform: translateY(100%);
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            color: white;
-            box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: var(--bg-primary); border-top: 1px solid var(--accent-primary);
+            padding: 1rem 1.5rem; display: flex; align-items: center;
+            justify-content: space-between; z-index: 10000;
+            transform: translateY(100%); transition: transform 0.4s ease;
+            color: white; box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
         `;
-
         banner.innerHTML = `
             <div style="display:flex; align-items:center; gap: 1rem;">
                 <div style="font-size: 1.5rem;">📱</div>
                 <div style="font-size: 0.9rem; font-weight: 500;">Install GanitSūtram as an app</div>
             </div>
             <div style="display:flex; align-items:center; gap: 1rem;">
-                <button id="pwa-install-btn" style="background:var(--accent-primary, #ff5500); color:white; border:none; padding:8px 16px; border-radius:4px; font-weight:bold; cursor:pointer;">Install &rarr;</button>
-                <button id="pwa-dismiss-btn" style="background:transparent; border:none; color:rgba(255,255,255,0.5); font-size:1.2rem; cursor:pointer;" aria-label="Dismiss">&times;</button>
+                <button id="pwa-install-btn" class="gs-nav-cta" style="border:none; cursor:pointer;">Install &rarr;</button>
+                <button id="pwa-dismiss-btn" style="background:transparent; border:none; color:rgba(255,255,255,0.5); font-size:1.5rem; cursor:pointer;">&times;</button>
             </div>
         `;
-
         document.body.appendChild(banner);
+        requestAnimationFrame(() => banner.style.transform = 'translateY(0)');
 
-        // Slide up
-        requestAnimationFrame(() => {
-            banner.style.transform = 'translateY(0)';
-        });
-
-        document.getElementById('pwa-install-btn').addEventListener('click', async () => {
+        document.getElementById('pwa-install-btn').onclick = async () => {
             hideInstallBanner();
             if (deferredPrompt) {
                 deferredPrompt.prompt();
-                const { outcome } = await deferredPrompt.userChoice;
-                if (outcome === 'accepted') {
-                    window.GanitUI.sendBeacon('pwa_install_accepted');
-                } else {
-                    window.GanitUI.sendBeacon('pwa_install_dismissed');
-                }
                 deferredPrompt = null;
             }
-        });
-
-        document.getElementById('pwa-dismiss-btn').addEventListener('click', () => {
+        };
+        document.getElementById('pwa-dismiss-btn').onclick = () => {
             localStorage.setItem('gs_install_dismissed', '1');
-            window.GanitUI.sendBeacon('pwa_prompt_dismissed');
             hideInstallBanner();
-        });
+        };
     }
 
     function hideInstallBanner() {
@@ -287,7 +254,34 @@ window.GanitUI.pwa = (function () {
         }
     }
 
-    return { init: initInstallPrompt };
+    function initConnectivityMonitor() {
+        window.addEventListener('online', () => showConnectivityToast('online'));
+        window.addEventListener('offline', () => showConnectivityToast('offline'));
+        if (!navigator.onLine) showConnectivityToast('offline');
+    }
+
+    function showConnectivityToast(status) {
+        let toast = document.getElementById('gs-connectivity-toast');
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.id = 'gs-connectivity-toast';
+            toast.className = 'gs-connectivity-toast';
+            document.body.appendChild(toast);
+        }
+        const isOffline = status === 'offline';
+        const icon = isOffline ? '📡' : '✨';
+        const message = isOffline ? 'You are Offline (Mahaveer Mode)' : 'Back Online! Syncing...';
+        toast.className = `gs-connectivity-toast active ${status}`;
+        toast.innerHTML = `<div class="toast-icon">${icon}</div><div class="toast-text">${message}</div>`;
+        if (!isOffline) setTimeout(() => toast.classList.remove('active'), 3000);
+    }
+
+    return {
+        init: () => {
+            initInstallPrompt();
+            initConnectivityMonitor();
+        }
+    };
 })();
 
 // ─── SEARCH BAR ──────────────────────────────────────────────

@@ -296,15 +296,15 @@ Purpose: Portal-specific logic for the main landing page.
             }
 
             // Concept Strip
-            const strip = document.getElementById('concept-strip');
             if (strip && concepts.length) {
                 strip.innerHTML = concepts.map(c => `
-                    <a href='' class="gs-concept-card">
-                        <span class="gs-concept-icon">${getIconFor(c.id)}</span>
+                    <div class="gs-concept-card">
+                        <div class="gs-concept-icon">${getIconFor(c.id)}</div>
                         <h3>${c.title}</h3>
-                        <span class="gs-concept-sutra">${c.sutra}</span>
-                        <p class="gs-eco-tag" style="opacity:0.6">${c.desc}</p>
-                    </a>
+                        <div class="gs-concept-sutra">${c.sutra || ''}</div>
+                        <p class="gs-eco-tag">${c.desc}</p>
+                        <a href="../discoveries/index.html?id=${c.id}" class="gs-platform-link" style="margin-top:auto">Explore Discovery &rarr;</a>
+                    </div>
                 `).join('');
             }
 
