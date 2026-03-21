@@ -63,6 +63,7 @@ const adminRoutes = require('./api/admin');
 const patternRoutes = require('./api/patterns');
 const securityRoutes = require('./api/security');
 const cmsRoutes = require('./api/cms');
+const authRoutes = require('./api/auth');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -96,6 +97,7 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/patterns', patternRoutes);
 app.use('/api/security', securityRoutes);
 app.use('/api/cms', cmsRoutes);
+app.use('/api/auth', authRoutes);
 
 // Health Check
 app.get('/api/health', (req, res) => {

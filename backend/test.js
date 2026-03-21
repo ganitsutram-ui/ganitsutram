@@ -21,35 +21,56 @@
  * Now:   8 March MMXXVI · Vikram Samvat 2082
  *
  * Copyright © 2026 Jawahar R. Mallah · AITDL | GANITSUTRAM
- *
- * Developer Note:
- * If you intend to reuse this code, please respect
- * the creator and the work behind it.
  */
+
 async function runTests() {
+    const BASE_URL = 'http://localhost:3000';
+    
+    console.log('--- GANITSUTRAM INTEGRATION TEST ---');
+    
+    // 0. Health Check
+    console.log('0. Checking health...');
+    try {
+        let hRes = await fetch(`${BASE_URL}/api/health`);
+        console.log('Health:', hRes.status, await hRes.json());
+    } catch (e) {
+        console.error('Health check failed. Is the server running?');
+        return;
+    }
+
+    // 1. Registering user
     console.log('1. Registering user...');
-    let res = await fetch('http://localhost:3000/api/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: 'test-reset@ganitsutram.com', password: 'Password123!', role: 'student' })
-    });
-    console.log(res.status, await res.json());
+    try {
+        let res = await fetch(`${BASE_URL}/api/auth/register`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                email: `test-${Date.now()}@ganitsutram.com`, 
+                password: 'Password123!', 
+                role: 'student' 
+            })
+        });
+        console.log('Register Status:', res.status);
+        const data = await res.json();
+        console.log('Register Data:', data);
+    } catch (e) {
+        console.error('Register failed:', e.message);
+    }
 
-    console.log('2. Requesting forgot-password (unknown)...');
-    res = await fetch('http://localhost:3000/api/auth/forgot-password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: 'unknown@ganitsutram.com' })
-    });
-    console.log(res.status, await res.json());
+    // 2. Forgot password
+    console.log('2. Requesting forgot-password...');
+    try {
+        let res = await fetch(`${BASE_URL}/api/auth/forgot-password`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: 'unknown@ganitsutram.com' })
+        });
+        console.log('Forgot-Password Status:', res.status, await res.json());
+    } catch (e) {
+        console.error('Forgot-password failed:', e.message);
+    }
 
-    console.log('3. Requesting forgot-password (known)...');
-    res = await fetch('http://localhost:3000/api/auth/forgot-password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: 'test-reset@ganitsutram.com' })
-    });
-    console.log(res.status, await res.json());
+    console.log('--- TESTS COMPLETED ---');
 }
 
 runTests();
