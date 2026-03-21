@@ -19,9 +19,9 @@ Organization: AITDL | aitdl.com
     
 
     <style id="gs-critical-css">
-        :root { --bg-deep: #04080F; --fg-main: #ffffff; --accent-primary: #DEB84E; }
+        :root { --bg-deep: #040110; --fg-main: #ffffff; --accent-primary: #ff5500; }
         body { margin: 0; background: var(--bg-deep); color: var(--fg-main); min-height: 100vh; }
-        .gs-nav { position: fixed; width: 100%; z-index: 1000; background: rgba(4,8,15,0.95); min-height: 72px; }
+        .gs-nav { position: fixed; width: 100%; z-index: 1000; background: rgba(4,1,16,0.95); min-height: 72px; }
     </style>
 
     <link rel="stylesheet" href="../ui-core/css/main.css?v=1.0">
@@ -99,7 +99,7 @@ Organization: AITDL | aitdl.com
     <!-- ═══════════════════ NAV ═══════════════════ -->
     <header class="gs-nav">
         <div class="gs-nav-inner">
-            <a href="/" class="gs-nav-logo gs-title">
+            <a href="../portal/index.html" class="gs-nav-logo">
                 <span class="gs-nav-logo-dev">गणित</span>GanitSūtram
             </a>
             <nav class="gs-nav-links">
@@ -111,7 +111,7 @@ Organization: AITDL | aitdl.com
                     </div>
                     <button class="nav-link btn-ghost" onclick="window.GanitAuth ? window.GanitAuth.openModal('login') : location.href='../portal/index.html#login'"
                         data-i18n="nav.signIn">Sign In</button>
-                    <a href="/" class="gs-nav-cta" data-i18n="nav.enterPlatform">Enter Platform &rarr;</a>
+                    <a href="../portal/index.html" class="gs-nav-cta" data-i18n="nav.enterPlatform">Enter Platform &rarr;</a>
                 </div>
             </nav>
             <button class="gs-nav-hamburger"
@@ -120,7 +120,37 @@ Organization: AITDL | aitdl.com
     </header>
 
     <!-- ═══════════════════ HERO ═══════════════════ -->
-    <section class="gs-hero">
+    <section class="gs-hero gs-gate-video">
+        <!-- Archival Galaxy Background -->
+        <div id="gs-archival-bg" class="gs-archival-bg">
+            <img id="galaxy-img" src="../ui-core/assets/archival-galaxy.jpg">
+            <div class="nebula-bloom bloom-1"></div>
+            <div class="nebula-bloom bloom-2"></div>
+            <div class="nebula-bloom bloom-3"></div>
+            <div id="ring-overlay"></div>
+            <canvas id="starfield"></canvas>
+            <div class="lum-star" style="top:8%;left:48%;--sz:9px;--lt:3.2s;--lf:7s;--lo:0.7;--fx:3px;--fy:-4px;width:9px;height:9px;"></div>
+            <div class="lum-star" style="top:62%;left:78%;--sz:7px;--lt:4.5s;--lf:9s;--lo:0.6;--fx:-4px;--fy:3px;width:7px;height:7px;"></div>
+            <div class="lum-star" style="top:75%;left:18%;--sz:8px;--lt:3.8s;--lf:11s;--lo:0.65;--fx:5px;--fy:5px;width:8px;height:8px;"></div>
+            <div class="lum-star" style="top:22%;left:82%;--sz:11px;--lt:5s;--lf:8s;--lo:0.6;--fx:-3px;--fy:-5px;width:11px;height:11px;"></div>
+            <div class="lum-star" style="top:88%;left:55%;--sz:7px;--lt:4.1s;--lf:10s;--lo:0.7;--fx:4px;--fy:-3px;width:7px;height:7px;"></div>
+            <div class="lum-star" style="top:40%;left:5%;--sz:6px;--lt:3.5s;--lf:12s;--lo:0.55;--fx:-2px;--fy:4px;width:6px;height:6px;"></div>
+            <div class="lum-star" style="top:50%;left:93%;--sz:10px;--lt:4.8s;--lf:9.5s;--lo:0.65;--fx:2px;--fy:-3px;width:10px;height:10px;"></div>
+            <div class="lum-star" style="top:15%;left:25%;--sz:3px;--lt:2.8s;--lf:6s;--lo:0.5;--fx:2px;--fy:-2px;width:3px;height:3px;"></div>
+            <div class="lum-star" style="top:33%;left:60%;--sz:3px;--lt:3.3s;--lf:8s;--lo:0.45;--fx:-2px;--fy:3px;width:3px;height:3px;"></div>
+            <div class="lum-star" style="top:55%;left:40%;--sz:2px;--lt:2.5s;--lf:7s;--lo:0.4;--fx:3px;--fy:2px;width:2px;height:2px;"></div>
+            <div class="lum-star" style="top:70%;left:70%;--sz:3px;--lt:4s;--lf:9s;--lo:0.5;--fx:-3px;--fy:-2px;width:3px;height:3px;"></div>
+            <div class="lum-star" style="top:48%;left:88%;--sz:2px;--lt:3s;--lf:6.5s;--lo:0.45;--fx:2px;--fy:-3px;width:2px;height:2px;"></div>
+            <div class="lum-star" style="top:92%;left:30%;--sz:3px;--lt:2.9s;--lf:7.5s;--lo:0.5;--fx:-1px;--fy:3px;width:3px;height:3px;"></div>
+            <div class="lum-star" style="top:5%;left:70%;--sz:2px;--lt:3.6s;--lf:8.5s;--lo:0.4;--fx:3px;--fy:1px;width:2px;height:2px;"></div>
+            <div class="lum-star" style="top:78%;left:92%;--sz:3px;--lt:4.2s;--lf:10s;--lo:0.45;--fx:-2px;--fy:-4px;width:3px;height:3px;"></div>
+            <div class="lum-star" style="top:28%;left:14%;--sz:2px;--lt:3.1s;--lf:7s;--lo:0.4;--fx:2px;--fy:2px;width:2px;height:2px;"></div>
+            <div class="lum-star" style="top:66%;left:48%;--sz:3px;--lt:2.7s;--lf:6s;--lo:0.5;--fx:-2px;--fy:-1px;width:3px;height:3px;"></div>
+            <div class="flare" style="top:8%;left:48%;--fs:6px;--fd:4s;animation-delay:-1s;"></div>
+            <div class="flare" style="top:62%;left:78%;--fs:4px;--fd:6s;animation-delay:-3s;"></div>
+            <div class="flare" style="top:75%;left:18%;--fs:5px;--fd:5s;animation-delay:-2s;"></div>
+            <div id="vignette"></div>
+        </div>
         <canvas id="hero-canvas"></canvas>
         <div class="gs-hero-inner">
             <div class="gs-hero-label">
@@ -287,7 +317,7 @@ Organization: AITDL | aitdl.com
                 <p data-i18n="footer.tagline">A mathematical knowledge ecosystem by AITDL.</p>
             </div>
             <div class="gs-footer-links">
-                <a href="../portal/gate.html" data-i18n="footer.portal">Portal</a>
+                <a href="../portal/index.html" data-i18n="footer.portal">Portal</a>
                 <a href="../discoveries/index.html" data-i18n="nav.discover">Discover</a>
                 <a href="../learning/index.html" data-i18n="nav.learn">Learn</a>
                 <a href="../knowledge-map/index.html" data-i18n="nav.map">Map</a>
@@ -299,7 +329,7 @@ Organization: AITDL | aitdl.com
             </div>
         </div>
         <div class="gs-footer-copy">
-            <span data-i18n="footer.copyright">&copy; GanitSūtram | AITDL | aitdl.com</span> &nbsp;|&nbsp;
+            <span data-i18n="footer.copyright">© GanitSūtram | AITDL | aitdl.com</span> &nbsp;|&nbsp;
             <span data-i18n="footer.date">Vikram Samvat: VS 2082 &nbsp;|&nbsp; Gregorian: 2026-03-07</span>
             <br><span data-i18n="footer.rights">All Rights Reserved.</span> <span
                 data-i18n="footer.restriction">Unauthorized copying, reproduction, redistribution, or reuse of this software,
@@ -414,6 +444,13 @@ Organization: AITDL | aitdl.com
     <script src="../ui-core/js/search.js" defer></script>
     <script src="../ui-core/js/ganit-ui.js" defer></script>
     <script src="../ui-core/js/portal.js" defer></script>
+    <script src="../ui-core/js/archival-bg.js" defer></script>
+    <!-- Archival Galaxy JS Engine -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.initArchivalBg) window.initArchivalBg();
+        });
+    </script>
     <script src="../ui-core/js/auth.js?v=1.1" defer></script>
     <!-- PWA Service Worker Registration -->
     <script>

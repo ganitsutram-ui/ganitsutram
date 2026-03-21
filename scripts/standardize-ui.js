@@ -48,7 +48,7 @@ files.forEach(filePath => {
     const newNav = `
     <header class="gs-nav">
         <div class="gs-nav-inner">
-            <a href="/" class="gs-nav-logo">
+            <a href="${toWebsites}portal/index.html" class="gs-nav-logo">
                 <span class="gs-nav-logo-dev">गणित</span>GanitSūtram
             </a>
             <nav class="gs-nav-links">
@@ -60,7 +60,7 @@ files.forEach(filePath => {
                     </div>
                     <button class="nav-link btn-ghost" onclick="window.GanitAuth ? window.GanitAuth.openModal('login') : location.href='${toWebsites}portal/index.html#login'\"
                         data-i18n="nav.signIn">Sign In</button>
-                    <a href="/" class="gs-nav-cta" data-i18n="nav.enterPlatform">Enter Platform &rarr;</a>
+                    <a href="${toWebsites}portal/index.html" class="gs-nav-cta" data-i18n="nav.enterPlatform">Enter Platform &rarr;</a>
                 </div>
             </nav>
             <button class="gs-nav-hamburger"
@@ -84,7 +84,7 @@ files.forEach(filePath => {
                 <p data-i18n="footer.tagline">A mathematical knowledge ecosystem by AITDL.</p>
             </div>
             <div class="gs-footer-links">
-                <a href="${toWebsites}portal/gate.html" data-i18n="footer.portal">Portal</a>
+                <a href="${toWebsites}portal/index.html" data-i18n="footer.portal">Portal</a>
                 <a href="${toWebsites}discoveries/index.html" data-i18n="nav.discover">Discover</a>
                 <a href="${toWebsites}learning/index.html" data-i18n="nav.learn">Learn</a>
                 <a href="${toWebsites}knowledge-map/index.html" data-i18n="nav.map">Map</a>
@@ -126,13 +126,9 @@ files.forEach(filePath => {
         content = content.replace(/<script src="([^"]*?)ganit-ui\.js" defer><\/script>/, `<script src="${toUiCore}js/search.js" defer></script>\n    <script src="${toUiCore}js/ganit-ui.js" defer></script>`);
     }
 
-    // 6. Global Branding Links: portal/index.html -> portal/gate.html
-    // This catches logo links and navbar link text targets
-    // We use a regex that matches the relative path structure used in the templates
-    const portalIndexRegex = new RegExp(`href=["'](\\.\\.\\/)*portal\\/index\\.html["']`, 'g');
-    content = content.replace(portalIndexRegex, (match) => {
-        return match.replace('index.html', 'gate.html');
-    });
+    // 6. DEPRECATED: Global Branding Links: portal/index.html -> portal/gate.html
+    // The architecture now exclusively enforces index.html as the entry point.
+    // (This rewrite rule has been intentionally removed).
 
     // Clean up redundant inline styles in nav-right if any
     content = content.replace(/<div class="nav-right" style="[^"]*">/g, '<div class="nav-right">');
