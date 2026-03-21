@@ -95,7 +95,7 @@
         }
     }
 
-    const API_BASE = '/api';
+    const API_BASE = window.GanitConfig ? window.GanitConfig.API_BASE : '/api';
 
     const AUTH_BASE = `${API_BASE}/auth`;
 
