@@ -236,8 +236,15 @@ Purpose: Advanced Solver interactive logic.
         if (data.inputA !== undefined) {
             eq = `${window.GanitI18n.formatResult(data.inputA)} × ${window.GanitI18n.formatResult(data.inputB)} = ${window.GanitI18n.formatResult(data.result)}`;
         } else {
-            const symbol = concept.id === 'squares-ending-5' ? '²' : ' × 11';
-            eq = `${window.GanitI18n.formatResult(data.input)}${symbol} = ${window.GanitI18n.formatResult(data.result)}`;
+            if (concept.id === 'squares-ending-5') {
+                eq = `${window.GanitI18n.formatResult(data.input)}² = ${window.GanitI18n.formatResult(data.result)}`;
+            } else if (concept.id === 'multiply-by-11') {
+                eq = `${window.GanitI18n.formatResult(data.input)} × 11 = ${window.GanitI18n.formatResult(data.result)}`;
+            } else if (concept.id === 'digital-root') {
+                eq = `ρ(${window.GanitI18n.formatResult(data.input)}) = ${window.GanitI18n.formatResult(data.result)}`;
+            } else {
+                eq = `${window.GanitI18n.formatResult(data.input)} ➝ ${window.GanitI18n.formatResult(data.result)}`;
+            }
         }
         document.getElementById('res-eq').textContent = eq;
 
