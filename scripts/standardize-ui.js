@@ -5,14 +5,14 @@ function walk(dir) {
     let results = [];
     const list = fs.readdirSync(dir);
     list.forEach(file => {
-        file = path.join(dir, file);
-        const stat = fs.statSync(file);
+        const fullPath = path.join(dir, file);
+        const stat = fs.statSync(fullPath);
         if (stat && stat.isDirectory()) {
-            if (!file.includes('node_modules') && !file.includes('.git')) {
-                results = results.concat(walk(file));
+            if (!file.includes('node_modules') && !file.includes('.git') && !file.includes('ui-core')) {
+                results = results.concat(walk(fullPath));
             }
         } else if (file.endsWith('.html')) {
-            results.push(file);
+            results.push(fullPath);
         }
     });
     return results;
@@ -30,12 +30,25 @@ files.forEach(filePath => {
     const toWebsites = depth === 0 ? './' : '../'.repeat(depth);
     const toUiCore = toWebsites + 'ui-core/';
     
-    // 1. Standardize Header
+    // 1. Standardize Critical CSS
+    const criticalCssRegex = /<style id="gs-critical-css">[\s\S]*?<\/style>/;
+    const newCriticalCss = `
+    <style id="gs-critical-css">
+        :root { --bg-deep: #040110; --fg-main: #ffffff; --accent-primary: #ff5500; }
+        body { margin: 0; background: var(--bg-deep); color: var(--fg-main); min-height: 100vh; }
+        .gs-nav { position: fixed; width: 100%; z-index: 1000; background: rgba(4,1,16,0.95); min-height: 72px; }
+    </style>`;
+    if (criticalCssRegex.test(content)) {
+        content = content.replace(criticalCssRegex, newCriticalCss.trim());
+    }
+
+    // 2. Standardize Header (Unified for all modules)
+    // IMPORTANT: The Logo now leads to GATE.HTML
     const navRegex = /<header class="gs-nav">[\s\S]*?<\/header>/;
     const newNav = `
     <header class="gs-nav">
         <div class="gs-nav-inner">
-            <a href="${toWebsites}portal/index.html" class="gs-nav-logo">
+            <a href="/" class="gs-nav-logo">
                 <span class="gs-nav-logo-dev">गणित</span>GanitSūtram
             </a>
             <nav class="gs-nav-links">
@@ -45,9 +58,9 @@ files.forEach(filePath => {
                         <button class="gs-lang-btn" data-lang="hi">हि</button>
                         <button class="gs-lang-btn" data-lang="sa">सं</button>
                     </div>
-                    <button class="nav-link btn-ghost" onclick="window.GanitAuth ? window.GanitAuth.openModal('login') : location.href='${toWebsites}portal/index.html#login'"
+                    <button class="nav-link btn-ghost" onclick="window.GanitAuth ? window.GanitAuth.openModal('login') : location.href='${toWebsites}portal/index.html#login'\"
                         data-i18n="nav.signIn">Sign In</button>
-                    <a href="${toWebsites}portal/gate.html" class="gs-nav-cta" data-i18n="nav.enterPlatform">Enter Platform &rarr;</a>
+                    <a href="/" class="gs-nav-cta" data-i18n="nav.enterPlatform">Enter Platform &rarr;</a>
                 </div>
             </nav>
             <button class="gs-nav-hamburger"
@@ -59,7 +72,7 @@ files.forEach(filePath => {
         content = content.replace(navRegex, newNav.trim());
     }
 
-    // 2. Standardize Footer
+    // 3. Standardize Footer
     const footerRegex = /<footer class="gs-footer">[\s\S]*?<\/footer>/;
     const newFooter = `
     <footer class="gs-footer">
@@ -71,7 +84,7 @@ files.forEach(filePath => {
                 <p data-i18n="footer.tagline">A mathematical knowledge ecosystem by AITDL.</p>
             </div>
             <div class="gs-footer-links">
-                <a href="${toWebsites}portal/index.html" data-i18n="footer.portal">Portal</a>
+                <a href="${toWebsites}portal/gate.html" data-i18n="footer.portal">Portal</a>
                 <a href="${toWebsites}discoveries/index.html" data-i18n="nav.discover">Discover</a>
                 <a href="${toWebsites}learning/index.html" data-i18n="nav.learn">Learn</a>
                 <a href="${toWebsites}knowledge-map/index.html" data-i18n="nav.map">Map</a>
@@ -95,41 +108,36 @@ files.forEach(filePath => {
         content = content.replace(footerRegex, newFooter.trim());
     }
 
-    // 3. Fix Portal Cards (only in index.html)
-    if (relativeFromWebsites === 'portal/index.html') {
-        const cardMap = {
-            'Discoveries': '../discoveries/index.html',
-            'Knowledge Map': '../knowledge-map/index.html',
-            'Learning': '../learning/index.html',
-            'Research Lab': '../research-lab/index.html',
-            'Leaderboard': '../learning/leaderboard.html',
-            'Solver': '../solver/index.html'
-        };
-
-        Object.keys(cardMap).forEach(key => {
-            const regex = new RegExp(`<a href=['"]['"] class="gs-platform-card">\\s+<span class="gs-card-icon">[^<]+<\\/span>\\s+<h3>${key}<\\/h3>`, 'g');
-            content = content.replace(regex, `<a href="${cardMap[key]}" class="gs-platform-card">\n                    <span class="gs-card-icon">icon</span>\n                    <h3>${key}</h3>`);
-        });
-
-        // Also fix the text labels like discover.ganitsutram.com
-        content = content.replace(/discover\.ganitsutram\.com/g, 'ganitsutram.com/discover');
-        content = content.replace(/map\.ganitsutram\.com/g, 'ganitsutram.com/map');
-        content = content.replace(/learn\.ganitsutram\.com/g, 'ganitsutram.com/learn');
-        content = content.replace(/lab\.ganitsutram\.com/g, 'ganitsutram.com/lab');
-        content = content.replace(/solve\.ganitsutram\.com/g, 'ganitsutram.com/solve');
+    // 4. Fix PWA SW Registration
+    const swRegex = /navigator\.serviceWorker\.register\(['"](.*?)['"]\)/;
+    if (swRegex.test(content)) {
+        content = content.replace(swRegex, "navigator.serviceWorker.register('/websites/sw.js')");
     }
 
-    // 4. Normalize Meta Tags (Remove absolute domain)
-    content = content.replace(/https:\/\/ganitsutram\.com\//g, '/');
-
-    // 5. Fix Scripts and CSS paths
+    // 5. Fix Paths and and Script loading (Ensuring search.js is present)
     content = content.replace(/(href|src)="(\.\.\/)*ui-core\//g, `$1="${toUiCore}`);
     
-    // Ensure config.js is before i18n.js
+    // Script Sequence Standardization
     if (content.includes('i18n.js') && !content.includes('config.js')) {
         content = content.replace(/<script src="([^"]*?)i18n\.js" defer><\/script>/, `<script src="${toUiCore}js/config.js" defer></script>\n    <script src="${toUiCore}js/i18n.js" defer></script>`);
     }
+    
+    if (content.includes('ganit-ui.js') && !content.includes('search.js')) {
+        content = content.replace(/<script src="([^"]*?)ganit-ui\.js" defer><\/script>/, `<script src="${toUiCore}js/search.js" defer></script>\n    <script src="${toUiCore}js/ganit-ui.js" defer></script>`);
+    }
+
+    // 6. Global Branding Links: portal/index.html -> portal/gate.html
+    // This catches logo links and navbar link text targets
+    // We use a regex that matches the relative path structure used in the templates
+    const portalIndexRegex = new RegExp(`href=["'](\\.\\.\\/)*portal\\/index\\.html["']`, 'g');
+    content = content.replace(portalIndexRegex, (match) => {
+        return match.replace('index.html', 'gate.html');
+    });
+
+    // Clean up redundant inline styles in nav-right if any
+    content = content.replace(/<div class="nav-right" style="[^"]*">/g, '<div class="nav-right">');
 
     fs.writeFileSync(filePath, content, 'utf8');
-    console.log(`Standardized: ${relativeFromWebsites}`);
 });
+
+console.log('Ecosystem Standardization & Gateway Migration Complete.');

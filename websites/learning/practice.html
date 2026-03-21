@@ -57,8 +57,8 @@
 
     <style id="gs-critical-css">
         :root { --bg-deep: #040110; --fg-main: #ffffff; --accent-primary: #ff5500; }
-        body { margin: 0; background: var(--bg-deep); color: var(--fg-main); }
-        .gs-nav { position: fixed; width: 100%; z-index: 100; background: rgba(4,1,16,0.95); }
+        body { margin: 0; background: var(--bg-deep); color: var(--fg-main); min-height: 100vh; }
+        .gs-nav { position: fixed; width: 100%; z-index: 1000; background: rgba(4,1,16,0.95); min-height: 72px; }
     </style>
 
     <link rel="stylesheet" href="../ui-core/css/base.css">
@@ -170,7 +170,7 @@
                 <p data-i18n="footer.tagline">A mathematical knowledge ecosystem by AITDL.</p>
             </div>
             <div class="gs-footer-links">
-                <a href="../portal/index.html" data-i18n="footer.portal">Portal</a>
+                <a href="../portal/gate.html" data-i18n="footer.portal">Portal</a>
                 <a href="../discoveries/index.html" data-i18n="nav.discover">Discover</a>
                 <a href="../learning/index.html" data-i18n="nav.learn">Learn</a>
                 <a href="../knowledge-map/index.html" data-i18n="nav.map">Map</a>

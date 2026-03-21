@@ -4,46 +4,14 @@
  *
  * "यथा शिखा मयूराणां नागानां मणयो यथा
  *  तद्वद् वेदाङ्गशास्त्राणां गणितं मूर्ध्नि वर्तते"
- *
- * As the crest of a peacock, as the gem on the hood
- * of a cobra — so stands mathematics at the crown
- * of all knowledge.
- *                                       — Brahmagupta
- *                                         628 CE · Brahmasphutasiddhanta
- *
- * Creator:   Jawahar R. Mallah
- * Email:     jawahar@aitdl.com
- * GitHub:    https://github.com/jawahar-mallah
- * Websites:  https://ganitsutram.com
- *            https://aitdl.com
- *
- * Then:  628 CE · Brahmasphutasiddhanta
- * Now:   8 March MMXXVI · Vikram Samvat 2082
- *
- * Copyright © 2026 Jawahar R. Mallah · AITDL | GANITSUTRAM
- *
- * Developer Note:
- * If you intend to reuse this code, please respect
- * the creator and the work behind it.
- */
-/*
- * Project: GanitSūtram
- * Author: Jawahar R Mallah
- * Company: AITDL | aitdl.com
- *
- * Date:
- * Vikram Samvat: VS 2082
- * Gregorian: 2026-03-08
- *
- * Purpose: Global search frontend — autocomplete bar, results page logic,
- *          and click tracking. Works on every page.
  */
 
 (function () {
     'use strict';
 
-    const { API_BASE, PORTAL_URL } = window.GanitConfig;
-    const API = `${API_BASE.replace('/api', '')}/api/search`;
+    const API = (window.GanitConfig && window.GanitConfig.API_BASE) 
+        ? `${window.GanitConfig.API_BASE.replace('/api', '')}/api/search`
+        : '/api/search';
 
     // ─── SEARCH BAR (NAV AUTOCOMPLETE) ─────────────────────────────────────
 
@@ -106,7 +74,7 @@
                 btn.addEventListener('click', () => {
                     const filter = btn.dataset.filter;
                     setActiveFilter(filter);
-                    runSearch(q || searchInput.value, filter);
+                    runSearch(q || (searchInput ? searchInput.value : ''), filter);
                 });
             });
 
@@ -165,13 +133,21 @@
     }
 
     window.GanitSearch._navigate = function (encodedQ) {
-        window.location.href = `/portal/search.html?q=${encodedQ}`;
+        const portalUrl = window.GanitConfig ? window.GanitConfig.PORTAL_URL : '/websites/portal';
+        window.location.href = `${portalUrl}/search.html?q=${encodedQ}`;
     };
 
     window.GanitSearch._clickResult = function (query, docId, url) {
         logClick(query, docId);
-        if (url) window.location.href = url;
-        else window.location.href = `/portal/search.html?q=${encodeURIComponent(query)}`;
+        if (url) {
+            const portalUrl = window.GanitConfig ? window.GanitConfig.PORTAL_URL : '/websites/portal';
+            const fixedUrl = url.startsWith('/portal/') ? url.replace('/portal/', `${portalUrl}/`) : url;
+            window.location.href = fixedUrl;
+        }
+        else {
+            const portalUrl = window.GanitConfig ? window.GanitConfig.PORTAL_URL : '/websites/portal';
+            window.location.href = `${portalUrl}/search.html?q=${encodeURIComponent(query)}`;
+        }
     };
 
     function hideDropdown() {
@@ -180,7 +156,8 @@
     }
 
     function navigateToSearch(q) {
-        window.location.href = `/portal/search.html?q=${encodeURIComponent(q)}`;
+        const portalUrl = window.GanitConfig ? window.GanitConfig.PORTAL_URL : '/websites/portal';
+        window.location.href = `${portalUrl}/search.html?q=${encodeURIComponent(q)}`;
     }
 
     // ─── RESULTS PAGE HELPERS ───────────────────────────────────────────────
@@ -227,12 +204,13 @@
         };
         const color = typeColors[r.doc_type] || '#6b7280';
 
+        const portalUrl = window.GanitConfig ? window.GanitConfig.PORTAL_URL : '/websites/portal';
         const actions = {
             operation: `<a href="/solver/index.html?op=${r.slug || ''}" class="gs-result-action">Try in Solver →</a>`,
             discovery: `<a href="/discoveries/index.html#${r.slug || ''}" class="gs-result-action">Read More →</a>`,
             lesson: `<a href="/learning/index.html" class="gs-result-action">Start Learning →</a>`
         };
-        const actionBtn = actions[r.doc_type] || `<a href="/portal/search.html?q=${encodeURIComponent(q)}" class="gs-result-action">Explore →</a>`;
+        const actionBtn = actions[r.doc_type] || `<a href="${portalUrl}/search.html?q=${encodeURIComponent(q)}" class="gs-result-action">Explore →</a>`;
 
         return `
         <div class="gs-result-card" data-result-click="${r.doc_id}">
@@ -268,10 +246,11 @@
             const popData = await popRes.json();
             const trendData = await trendRes.json();
 
+            const portalUrl = window.GanitConfig ? window.GanitConfig.PORTAL_URL : '/websites/portal';
             const popularEl = document.getElementById('gs-popular-list');
             if (popularEl && popData.popular) {
                 popularEl.innerHTML = popData.popular.slice(0, 8).map(p =>
-                    `<a href="/portal/search.html?q=${encodeURIComponent(p.query)}" class="gs-sidebar-tag">${escapeHtml(p.query)}</a>`
+                    `<a href="${portalUrl}/search.html?q=${encodeURIComponent(p.query)}" class="gs-sidebar-tag">${escapeHtml(p.query)}</a>`
                 ).join('');
             }
 
@@ -282,7 +261,7 @@
                     trendEl.innerHTML = `<span class="gs-sidebar-tag">digital root</span><span class="gs-sidebar-tag">nikhilam</span>`;
                 } else {
                     trendEl.innerHTML = trending.map(t =>
-                        `<a href="/portal/search.html?q=${encodeURIComponent(t.query)}" class="gs-sidebar-tag">${escapeHtml(t.query)}</a>`
+                        `<a href="${portalUrl}/search.html?q=${encodeURIComponent(t.query)}" class="gs-sidebar-tag">${escapeHtml(t.query)}</a>`
                     ).join('');
                 }
             }

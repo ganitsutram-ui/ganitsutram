@@ -42,8 +42,8 @@ Organization: AITDL | aitdl.com
 
     <style id="gs-critical-css">
         :root { --bg-deep: #040110; --fg-main: #ffffff; --accent-primary: #ff5500; }
-        body { margin: 0; background: var(--bg-deep); color: var(--fg-main); }
-        .gs-nav { position: fixed; width: 100%; z-index: 100; background: rgba(4,1,16,0.95); }
+        body { margin: 0; background: var(--bg-deep); color: var(--fg-main); min-height: 100vh; }
+        .gs-nav { position: fixed; width: 100%; z-index: 1000; background: rgba(4,1,16,0.95); min-height: 72px; }
     </style>
 
     <link rel="stylesheet"
@@ -153,6 +153,7 @@ Organization: AITDL | aitdl.com
 
     <!-- RULE: Always link to ui-core scripts, not local JS -->
     <script src="../ui-core/js/seo.js" defer></script>
+    <script src="../ui-core/js/search.js" defer></script>
     <script src="../ui-core/js/ganit-ui.js" defer></script>
     <script src="../ui-core/js/auth.js" defer></script>
     <script src="../ui-core/js/api-docs.js" defer></script>

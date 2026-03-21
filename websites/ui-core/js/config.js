@@ -47,7 +47,7 @@ window.GanitConfig = (function () {
   );
 
   // Base port for local dev
-  const DEV_BASE = 'http://localhost:3000';
+  const DEV_BASE = window.location.origin;
 
   // For GitHub Pages, detect if we are in a subfolder (e.g. /ganitsutram)
   const BASE_PATH = window.location.pathname.startsWith('/ganitsutram') ? '/ganitsutram' : '';
@@ -65,27 +65,27 @@ window.GanitConfig = (function () {
 
     // ── Site URLs ────────────────────────
     PORTAL_URL: isDev
-      ? `${DEV_BASE}/portal`
+      ? `${DEV_BASE}${window.location.port === '5173' ? '/websites' : ''}/portal`
       : `${BASE_PATH}/websites/portal`,
 
     SOLVER_URL: isDev
-      ? `${DEV_BASE}/solver`
+      ? `${DEV_BASE}${window.location.port === '5173' ? '/websites' : ''}/solver`
       : `${BASE_PATH}/websites/solver`,
 
     LEARN_URL: isDev
-      ? `${DEV_BASE}/learning`
+      ? `${DEV_BASE}${window.location.port === '5173' ? '/websites' : ''}/learning`
       : `${BASE_PATH}/websites/learning`,
 
     DISCOVER_URL: isDev
-      ? `${DEV_BASE}/discoveries`
+      ? `${DEV_BASE}${window.location.port === '5173' ? '/websites' : ''}/discoveries`
       : `${BASE_PATH}/websites/discoveries`,
 
     MAP_URL: isDev
-      ? `${DEV_BASE}/knowledge-map`
+      ? `${DEV_BASE}${window.location.port === '5173' ? '/websites' : ''}/knowledge-map`
       : `${BASE_PATH}/websites/knowledge-map`,
 
     LAB_URL: isDev
-      ? `${DEV_BASE}/research-lab`
+      ? `${DEV_BASE}${window.location.port === '5173' ? '/websites' : ''}/research-lab`
       : `${BASE_PATH}/websites/research-lab`,
 
     // ── Canonical base (for SEO) ─────────
