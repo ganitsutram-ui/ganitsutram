@@ -208,7 +208,8 @@ Organization: AITDL | aitdl.com
 
     <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/websites/sw.js')
+            const swPath = window.GanitConfig ? `${window.GanitConfig.getBasePath()}sw.js` : '/sw.js';
+            navigator.serviceWorker.register(swPath)
                 .then(reg => console.log('SW registered', reg.scope))
                 .catch(err => console.warn('SW failed', err));
         }
