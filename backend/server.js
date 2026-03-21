@@ -71,6 +71,11 @@ const authRoutes = require('./api/auth');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Trust proxies (Cloudflare & Render)
+// This ensures `req.ip` is the real user IP, not the load balancer IP.
+// Required for express-rate-limit to function correctly in prod.
+app.set('trust proxy', 1);
+
 // Middleware
 app.use(ipBlacklist); // 1. IP Blacklist (FIRST)
 app.use(helmet());     // 2. Security headers

@@ -101,4 +101,37 @@ router.post('/beacon', beaconLimiter, (req, res) => {
     res.status(200).json({ ok: true });
 });
 
+/**
+ * POST /api/analytics/error-log
+ * Public. Used by frontend UI to silently report JavaScript crashes and API failures.
+ */
+router.post('/error-log', beaconLimiter, async (req, res) => {
+    try {
+        const payload = req.body;
+        if (!payload || !payload.message) {
+            return res.status(400).json({ ok: false });
+        }
+
+        const errorData = {
+            error_id: require('crypto').randomUUID(),
+            session_id: payload.sessionId || null,
+            url: payload.url || req.get('Referrer') || 'unknown',
+            message: payload.message,
+            stack: payload.stack || '',
+            user_agent: req.get('User-Agent') || 'unknown',
+            created_at: new Date().toISOString()
+        };
+
+        // Fire and forget storage
+        analyticsService.insertSystemError(errorData).catch(err => {
+            console.error('[ErrorLog] Failed to save telemetry:', err.message);
+        });
+
+        res.status(200).json({ ok: true, attribution: ATTRIBUTION });
+    } catch (err) {
+        console.error('[ErrorLog] Failure parsing beacon:', err.message);
+        res.status(500).json({ ok: false });
+    }
+});
+
 module.exports = router;

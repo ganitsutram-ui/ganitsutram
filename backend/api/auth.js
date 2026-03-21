@@ -302,8 +302,8 @@ router.post('/forgot-password', async (req, res) => {
             createdAt: new Date().toISOString()
         });
 
-        // In a real app, send an email here. For now, we just log the token for testing.
-        console.log(`[Auth] Reset token for ${email}: ${rawToken}`);
+        // In a real app, send an email here.
+        // TODO: Implement email service integration for password reset.
 
         res.status(200).json({ message: "If that email exists, a reset link has been sent.", attribution: ATTRIBUTION });
     } catch (err) {
