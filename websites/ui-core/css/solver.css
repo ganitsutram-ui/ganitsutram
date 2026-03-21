@@ -111,13 +111,13 @@ Purpose: Solver specific styles.
     font-family: 'Roboto Mono', monospace; /* Authentic math compute vibe */
     font-size: 2.5rem;
     color: var(--fg-main);
-    background: rgba(0, 0, 0, 0.3);
+    background: var(--glass-bg);
     padding: 1.5rem;
     border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
     text-align: center;
     margin: 2rem 0;
-    box-shadow: inset 0 4px 20px rgba(0,0,0,0.5);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Gentle outer drop shadow */
     white-space: pre-wrap; /* Fix long answers breaking layout */
     word-break: break-all;
 }
@@ -191,7 +191,7 @@ Purpose: Solver specific styles.
 .gs-history-table td {
     padding: 1rem 0;
     font-family: var(--font-body);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+    border-bottom: 1px solid var(--glass-border);
     color: var(--fg-muted);
 }
 
@@ -203,13 +203,13 @@ Purpose: Solver specific styles.
 .gs-ref-item {
     margin-bottom: 1.5rem;
     padding-bottom: 1.5rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+    border-bottom: 1px solid var(--glass-border);
 }
 
 .gs-ref-title {
     font-family: var(--font-label);
     font-weight: 800;
-    color: var(--accent-secondary);
+    color: var(--accent-primary);
     text-transform: uppercase;
 }
 
