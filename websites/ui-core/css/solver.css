@@ -1,40 +1,11 @@
 /*
  * GANITSUTRAM
  * A Living Knowledge Ecosystem for Mathematical Discovery
- *
- * "यथा शिखा मयूराणां नागानां मणयो यथा
- *  तद्वद् वेदाङ्गशास्त्राणां गणितं मूर्ध्नि वर्तते"
- *
- * As the crest of a peacock, as the gem on the hood
- * of a cobra — so stands mathematics at the crown
- * of all knowledge.
- *                                       — Brahmagupta
- *                                         628 CE · Brahmasphutasiddhanta
- *
- * Creator:   Jawahar R. Mallah
- * Email:     jawahar@aitdl.com
- * GitHub:    https://github.com/jawahar-mallah
- * Websites:  https://ganitsutram.com
- *            https://aitdl.com
- *
- * Then:  628 CE · Brahmasphutasiddhanta
- * Now:   8 March MMXXVI · Vikram Samvat 2082
- *
- * Copyright © 2026 Jawahar R. Mallah · AITDL | GANITSUTRAM
- *
- * Developer Note:
- * If you intend to reuse this code, please respect
- * the creator and the work behind it.
  */
 /*
 Project: GanitSūtram
 Author: Jawahar R Mallah
 Company: AITDL | aitdl.com
-
-Date:
-Vikram Samvat: VS 2082
-Gregorian: 2026-03-07
-
 Purpose: Solver specific styles.
          Adaptive forms, pill-chain step visualization, and history layouts.
 */
@@ -77,6 +48,7 @@ Purpose: Solver specific styles.
 }
 
 .gs-input-group label {
+    font-family: var(--font-label);
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -106,19 +78,20 @@ Purpose: Solver specific styles.
 }
 
 .gs-result-title {
-    font-family: var(--font-logo);
+    font-family: var(--font-display);
     font-size: 1.5rem;
+    text-transform: uppercase;
 }
 
 .gs-result-sutra {
-    font-family: var(--font-main);
+    font-family: var(--font-body);
     font-style: italic;
     color: var(--accent-soft);
     font-size: 0.9rem;
 }
 
 .gs-equation {
-    font-family: var(--font-mono);
+    font-family: var(--font-display);
     font-size: 2rem;
     color: var(--accent-primary);
     margin: 2rem 0;
@@ -138,8 +111,10 @@ Purpose: Solver specific styles.
     border: 1px solid var(--accent-primary);
     padding: 0.5rem 1.2rem;
     border-radius: 50px;
+    font-family: var(--font-label);
     font-size: 0.85rem;
     color: #fff;
+    font-weight: 700;
 }
 
 .gs-arrow {
@@ -170,13 +145,18 @@ Purpose: Solver specific styles.
 
 .gs-history-table th {
     text-align: left;
+    font-family: var(--font-label);
     color: var(--accent-soft);
     padding-bottom: 1rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1px;
 }
 
 .gs-history-table td {
     padding: 1rem 0;
+    font-family: var(--font-body);
     border-bottom: 1px solid rgba(255, 255, 255, 0.02);
 }
 
@@ -192,19 +172,23 @@ Purpose: Solver specific styles.
 }
 
 .gs-ref-title {
-    font-weight: 700;
+    font-family: var(--font-label);
+    font-weight: 800;
     color: var(--accent-secondary);
+    text-transform: uppercase;
 }
 
 .gs-ref-sutra {
     display: block;
-    font-size: 0.75rem;
+    font-family: var(--font-ancient);
+    font-size: 0.9rem;
     font-style: italic;
     margin: 0.25rem 0;
 }
 
 .gs-ref-desc {
-    font-size: 0.8rem;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
     opacity: 0.7;
 }
 

@@ -32,40 +32,62 @@ Author: Jawahar R Mallah
 Company: AITDL | aitdl.com
 */
 
-@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Cinzel+Decorative:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Noto+Serif+Devanagari:wght@300;400;700&family=Space+Grotesk:wght@300;400;500;700&display=swap');
 
 :root {
-    /* GanitSūtram Design Tokens */
-    --bg-deep: #040110;
-    --fg-main: #ffffff;
-    --accent-primary: #ff5500;
-    --accent-secondary: #ffb300;
-    --accent-soft: rgba(255, 179, 0, 0.4);
-
-    /* Typography from Book Cover */
-    --font-logo: 'Cinzel Decorative', serif;
-    --font-main: 'Cormorant Garamond', serif;
+    /* ─── TYPOGRAPHY (The Golden Manuscript Edition) ─── */
+    --font-display: 'Cinzel Decorative', cursive;
+    --font-heading: 'Cinzel', serif;
+    --font-label: 'Cinzel', serif;
+    --font-body: 'Cormorant Garamond', serif;
     --font-ancient: 'Noto Serif Devanagari', serif;
-    --font-serif: 'Cinzel', serif;
+    --font-accent: 'Cinzel', serif; /* Consistent with branding */
+
+    /* ─── COLOR PALETTE (Deep Navy & Gold) ─── */
+    --bg-primary: #04080F;      /* Deep Navy Black */
+    --bg-secondary: #081226;    /* Midnight Blue */
+    --fg-main: #FFFFFF;
+    --fg-muted: rgba(255, 255, 255, 0.7);
+    
+    --accent-primary: #DEB84E;   /* Rich Gold */
+    --accent-soft: #C9A84C;      /* Antique Gold */
+    --accent-secondary: #1A3060; /* Royal Blue */
+    --accent-glow: rgba(222, 184, 78, 0.3);
+
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.08);
 
     /* Mobile Tokens */
     --nav-height-mobile: 56px;
     --content-padding-mobile: 1rem;
     --font-size-hero-mobile: clamp(1.8rem, 8vw, 2.8rem);
 }
+
+/* ─── GLOBAL RESET ─── */
 * {
-    box-sizing: border-box;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    background-color: var(--bg-deep);
+    background-color: var(--bg-primary);
     color: var(--fg-main);
-    font-family: var(--font-main);
+    font-family: var(--font-body);
+    font-size: 1.1rem; /* Slightly larger for Garamond readability */
     line-height: 1.6;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
     -webkit-overflow-scrolling: touch;
+}
+
+/* ─── PREMIUM UTILITIES ─── */
+.gs-gold-foil {
+    background: linear-gradient(135deg, #FFF8E7 0%, #DEB84E 50%, #A07820 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 4px 15px rgba(222, 184, 78, 0.2);
 }
 
 /* ════════════════════════════
@@ -106,7 +128,7 @@ textarea {
 }
 
 .gs-title {
-    font-family: var(--font-logo);
+    font-family: var(--font-display);
     font-weight: 900;
     text-transform: uppercase;
     letter-spacing: -0.02em;
@@ -178,20 +200,23 @@ textarea {
 }
 
 .gs-nav-logo {
-    font-family: var(--font-logo);
+    font-family: var(--font-display);
     font-size: 1.4rem;
-    font-weight: 700;
+    font-weight: 900;
     color: #fff;
     text-decoration: none;
     display: flex;
     align-items: center;
     gap: 0.8rem;
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
 }
 
 .gs-nav-logo-dev {
     color: var(--accent-primary);
     font-family: var(--font-ancient);
     font-size: 1.8rem;
+    font-weight: 400;
 }
 
 .gs-nav-links {

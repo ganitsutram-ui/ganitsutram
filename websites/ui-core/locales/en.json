@@ -53,6 +53,7 @@
     "gate": {
         "label": "The Gate",
         "title": "Enter the Mathematical Universe",
+        "subtitle": "Choose your pathway to mathematical clarity.",
         "sanskrit": "गणितम् सर्वविद्यानां मूलम्",
         "sanskritMeaning": "Mathematics is the root of all knowledge.",
         "beginBtn": "Begin Your Journey →",
@@ -111,12 +112,14 @@
         "practiceThis": "Practice This →"
     },
     "learning": {
-        "heading": "Learn Mathematics",
-        "subheading": "Your path. Your pace. Ancient wisdom.",
+        "heading": "The Seven Stages Path",
+        "subheading": "Ancient wisdom adapted for the modern mind.",
         "sanskrit": "विद्या ददाति विनयम्",
         "sanskritMeaning": "Knowledge gives humility.",
         "practiceBtn": "Practice Arena →",
         "startBtn": "Start →",
+        "studentPath": "The Seven Stages Path",
+        "studentDesc": "The complete self-learning curriculum from 'The Golden Book of Vedic Mathematics'.",
         "tabs": {
             "student": "Student",
             "teacher": "Teacher",
@@ -125,6 +128,15 @@
         },
         "progressNudge": "Save your progress — create a free account",
         "signUpBtn": "Sign Up Free →"
+    },
+    "practice": {
+        "label": "अभ्यासात् निपुणता",
+        "title": "Practice Arena",
+        "subtitle": "Transcend numbers. Master the underlying patterns of Vedic mathematics.",
+        "opLabel": "Operation",
+        "diffLabel": "Difficulty",
+        "countLabel": "Challenges",
+        "startBtn": "Initialize Arena"
     },
     "auth": {
         "loginTab": "Login",

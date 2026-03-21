@@ -12,29 +12,11 @@
  *                                         628 CE · Brahmasphutasiddhanta
  *
  * Creator:   Jawahar R. Mallah
- * Email:     jawahar@aitdl.com
- * GitHub:    https://github.com/jawahar-mallah
- * Websites:  https://ganitsutram.com
- *            https://aitdl.com
- *
- * Then:  628 CE · Brahmasphutasiddhanta
- * Now:   8 March MMXXVI · Vikram Samvat 2082
- *
- * Copyright © 2026 Jawahar R. Mallah · AITDL | GANITSUTRAM
- *
- * Developer Note:
- * If you intend to reuse this code, please respect
- * the creator and the work behind it.
  */
 /*
 Project: GanitSūtram
 Author: Jawahar R Mallah
 Company: AITDL | aitdl.com
-
-Date:
-Vikram Samvat: VS 2082
-Gregorian: 2026-03-07
-
 Purpose: Learning Platform specific styles.
          Tab systems, module grids, and level badges.
 */
@@ -72,12 +54,15 @@ Purpose: Learning Platform specific styles.
     background: none;
     border: none;
     color: rgba(255, 255, 255, 0.5);
-    font-family: var(--font-logo);
+    font-family: var(--font-label);
     font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
     padding: 0.75rem 1.5rem;
     cursor: pointer;
     transition: color 0.3s, border-bottom 0.3s;
     position: relative;
+    letter-spacing: 0.05em;
 }
 
 .gs-tab-btn:hover {
@@ -114,13 +99,14 @@ Purpose: Learning Platform specific styles.
 }
 
 .gs-panel-title {
-    font-family: var(--font-logo);
+    font-family: var(--font-display);
     font-size: 2rem;
     margin-bottom: 1rem;
+    text-transform: uppercase;
 }
 
 .gs-panel-desc {
-    font-family: var(--font-main);
+    font-family: var(--font-body);
     color: rgba(255, 255, 255, 0.6);
     max-width: 600px;
 }
@@ -153,20 +139,22 @@ Purpose: Learning Platform specific styles.
 }
 
 .gs-module-card h3 {
-    font-family: var(--font-logo);
+    font-family: var(--font-display);
     font-size: 1.1rem;
     color: var(--fg-main);
+    text-transform: uppercase;
 }
 
 .gs-badge {
     display: inline-block;
-    font-family: var(--font-main);
+    font-family: var(--font-label);
     font-size: 0.65rem;
-    font-weight: 700;
+    font-weight: 800;
     text-transform: uppercase;
-    padding: 0.3rem 0.75rem;
+    padding: 0.35rem 0.85rem;
     border-radius: 4px;
     align-self: flex-start;
+    letter-spacing: 0.05em;
 }
 
 /* ─── BADGE COLORS ─────────────────────────────────────────── */
@@ -219,8 +207,9 @@ Purpose: Learning Platform specific styles.
 }
 
 .gs-nudge-text {
-    font-family: var(--font-logo);
+    font-family: var(--font-display);
     font-size: 1.25rem;
+    text-transform: uppercase;
 }
 
 /* ─── RESPONSIVE ───────────────────────────────────────────── */

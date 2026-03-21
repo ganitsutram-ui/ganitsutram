@@ -1,290 +1,419 @@
 /*
  * GANITSUTRAM
- * A Living Knowledge Ecosystem for Mathematical Discovery
- *
- * "यथा शिखा मयूराणां नागानां मणयो यथा
- *  तद्वद् वेदाङ्गशास्त्राणां गणितं मूर्ध्नि वर्तते"
- *
- * As the crest of a peacock, as the gem on the hood
- * of a cobra — so stands mathematics at the crown
- * of all knowledge.
- *                                       — Brahmagupta
- *                                         628 CE · Brahmasphutasiddhanta
- *
- * Creator:   Jawahar R. Mallah
- * Email:     jawahar@aitdl.com
- * GitHub:    https://github.com/jawahar-mallah
- * Websites:  https://ganitsutram.com
- *            https://aitdl.com
- *
- * Then:  628 CE · Brahmasphutasiddhanta
- * Now:   8 March MMXXVI · Vikram Samvat 2082
- *
- * Copyright © 2026 Jawahar R. Mallah · AITDL | GANITSUTRAM
- *
- * Developer Note:
- * If you intend to reuse this code, please respect
- * the creator and the work behind it.
- */
-/**
- * Project: GanitSūtram
- * Author: Jawahar R Mallah
- * Company: AITDL | aitdl.com
- * 
- * Date:
- * Vikram Samvat: VS 2082
- * Gregorian: 2026-03-07
- * 
- * Purpose: Practice Arena Styles.
+ * Practice Arena Premium Styling
  */
 
-.gs-practice-layout {
-    margin-top: 3rem;
+.gs-practice-body {
+    background: radial-gradient(circle at top right, #0a0420 0%, #040110 100%);
+}
+
+.gs-practice-hero {
+    padding: 10rem 0 5rem;
+    text-align: center;
+}
+
+.gs-hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 10vw, 5rem);
+    font-weight: 900;
+    line-height: 1;
+    margin: 1.5rem 0;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #ffffff 0%, #ff5500 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.gs-hero-sub {
+    font-family: var(--font-body);
+    font-size: 1.25rem;
+    color: rgba(255, 255, 255, 0.6);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.gs-label {
+    font-family: var(--font-label);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--accent-primary);
+    font-size: 0.85rem;
+}
+
+/* --- GLASS CARD --- */
+.glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 40px;
+    padding: 3rem;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
 }
 
 .gs-practice-controls {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    align-items: flex-end;
-    background: var(--bg-card);
-    padding: 2rem;
-    border-radius: 20px;
-    border: 1px solid var(--border-color);
-    margin-bottom: 3rem;
+    max-width: 1000px;
+    margin: 0 auto 5rem;
 }
 
-.gs-practice-controls .gs-form-group {
-    flex: 1;
-    min-width: 200px;
+.gs-form-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+}
+
+.gs-form-group label {
+    display: block;
+    margin-bottom: 1rem;
+    font-family: var(--font-label);
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.gs-select {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 1.2rem;
+    border-radius: 15px;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.gs-select:focus {
+    border-color: var(--accent-primary);
+    background: rgba(255, 85, 0, 0.05);
+    outline: none;
+}
+
+.gs-controls-action {
+    text-align: right;
 }
 
 /* --- ARENA --- */
 .gs-practice-arena {
     max-width: 800px;
-    margin: 0 auto;
+    margin: 0 auto 10rem;
+    animation: fadeInScale 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@keyframes fadeInScale {
+    from { opacity: 0; transform: scale(0.95) translateY(20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
 .gs-progress-meter {
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
 }
 
 .gs-meter-text {
     display: flex;
     justify-content: space-between;
-    font-size: 0.9rem;
-    color: var(--text-dim);
-    margin-bottom: 0.8rem;
+    font-family: var(--font-label);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    color: var(--accent-primary);
+    margin-bottom: 1rem;
 }
 
 .gs-meter-bar {
-    height: 8px;
+    height: 6px;
     background: rgba(255, 255, 255, 0.05);
-    border-radius: 4px;
+    border-radius: 10px;
     overflow: hidden;
 }
 
 .gs-meter-fill {
     height: 100%;
-    background: var(--accent-primary);
-    width: 0%;
-    transition: width 0.4s ease;
+    background: linear-gradient(90deg, var(--accent-primary), #ffb300);
+    border-radius: 10px;
+    transition: width 0.6s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .gs-question-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 30px;
-    padding: 3rem;
-    text-align: center;
     position: relative;
-    overflow: hidden;
+    text-align: center;
 }
 
 .gs-q-meta {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
 }
 
 .gs-badge {
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 700;
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: 0.7rem;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .badge-op {
-    background: rgba(0, 163, 255, 0.1);
+    background: rgba(255, 85, 0, 0.1);
     color: var(--accent-primary);
-}
-
-.badge-diff {
-    background: rgba(255, 255, 255, 0.05);
-    color: var(--text-dim);
+    border-color: rgba(255, 85, 0, 0.2);
 }
 
 .gs-q-text {
-    font-family: 'DM Serif Display', serif;
-    font-size: 2.2rem;
-    color: var(--text-primary);
-    margin-bottom: 2.5rem;
-    line-height: 1.3;
-}
-
-.gs-q-input-wrap {
-    max-width: 300px;
-    margin: 0 auto;
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 700;
+    margin-bottom: 4rem;
 }
 
 .gs-q-input {
-    font-size: 2rem;
+    width: 200px;
+    background: none;
+    border: none;
+    border-bottom: 4px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    font-family: var(--font-display);
+    font-size: 4rem;
     text-align: center;
-    padding: 1rem;
-    background: rgba(255, 255, 255, 0.02);
-    border: 2px solid var(--border-color);
-    border-radius: 15px;
-    color: var(--accent-primary);
-    width: 100%;
-    margin-bottom: 1.5rem;
+    margin-bottom: 3rem;
+    transition: all 0.3s ease;
 }
 
 .gs-q-input:focus {
-    border-color: var(--accent-primary);
     outline: none;
-    background: rgba(0, 163, 255, 0.02);
+    border-bottom-color: var(--accent-primary);
+    color: var(--accent-primary);
 }
 
-.btn-hint {
-    display: block;
-    margin: 1.5rem auto 0;
-    font-size: 0.85rem;
-    color: var(--text-dim);
-    background: none;
-    border: none;
-    cursor: pointer;
-    text-decoration: underline;
-}
-
-.gs-hint-box {
-    margin-top: 1.5rem;
-    padding: 1rem;
-    background: rgba(255, 193, 7, 0.05);
-    border: 1px dashed rgba(255, 193, 7, 0.3);
-    border-radius: 10px;
-    font-size: 0.9rem;
-    color: #ffc107;
-    display: none;
-}
-
-/* --- RESULT FEEDBACK --- */
 .gs-feedback {
-    margin-top: 2rem;
-    padding: 1.5rem;
-    border-radius: 15px;
-    display: none;
-    font-weight: 600;
+    margin-top: 3rem;
+    padding: 2rem;
+    border-radius: 25px;
+    font-family: var(--font-label);
+    font-weight: 800;
+    font-size: 1.1rem;
+    animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .feedback-correct {
-    background: rgba(0, 255, 127, 0.1);
+    background: rgba(0, 255, 127, 0.05);
     color: #00ff7f;
-    border: 1px solid rgba(0, 255, 127, 0.2);
+    border: 1px solid rgba(0, 255, 127, 0.1);
 }
 
 .feedback-wrong {
-    background: rgba(255, 77, 77, 0.1);
+    background: rgba(255, 77, 77, 0.05);
     color: #ff4d4d;
-    border: 1px solid rgba(255, 77, 77, 0.2);
+    border: 1px solid rgba(255, 77, 77, 0.1);
 }
 
-/* --- SUMMARY --- */
+.btn-hint {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.3);
+    font-family: var(--font-label);
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.btn-hint:hover {
+    color: var(--accent-primary);
+}
+
+.gs-hint-box {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: rgba(255, 193, 7, 0.03);
+    border: 1px dashed rgba(255, 193, 7, 0.2);
+    border-radius: 20px;
+    color: #ffc107;
+    font-family: var(--font-body);
+}
+
+/* --- STATS PANEL --- */
+.gs-stats-panel {
+    max-width: 1000px;
+    margin: 0 auto 5rem;
+}
+
+.gs-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+
+.gs-stats-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 2.5rem;
+    border-radius: 30px;
+    text-align: center;
+}
+
+.gs-chart-item {
+    margin-bottom: 2rem;
+}
+
+.gs-chart-label {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-label);
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+}
+
+.gs-chart-bar-wrap {
+    height: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.gs-chart-bar {
+    height: 100%;
+    border-radius: 10px;
+}
+
+/* --- TABLE --- */
 .gs-summary-table {
     width: 100%;
     border-collapse: collapse;
-    margin: 2rem 0;
+    margin-top: 3rem;
 }
 
 .gs-summary-table th {
     text-align: left;
-    padding: 12px;
-    color: var(--text-dim);
-    font-size: 0.8rem;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.gs-summary-table td {
-    padding: 15px 12px;
+    color: rgba(255, 255, 255, 0.3);
+    font-family: var(--font-label);
+    padding: 1.5rem 1rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.summary-res-tag {
-    font-weight: 700;
-    font-size: 0.75rem;
+.gs-summary-table td {
+    padding: 1.5rem 1rem;
+    font-family: var(--font-body);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.02);
 }
 
-.res-correct {
-    color: #00ff7f;
-}
-
-.res-wrong {
-    color: #ff4d4d;
-}
-
-/* --- STATS PANEL --- */
-.gs-stats-nudge {
-    background: rgba(0, 163, 255, 0.03);
-    border: 1px solid var(--border-color);
-    padding: 1.5rem;
-    border-radius: 15px;
-    text-align: center;
-    margin-top: 3rem;
-}
-
-/* ─── RESPONSIVE ───────────────────────────────────────────── */
-@media (max-width: 600px) {
-    .gs-practice-controls {
-        flex-direction: column;
-        align-items: stretch;
+@media (max-width: 800px) {
+    .gs-form-grid {
+        grid-template-columns: 1fr;
     }
-
-    .gs-practice-controls .gs-form-group {
-        width: 100%;
-    }
-
-    .gs-question-card {
-        padding: 2rem 1.5rem;
-    }
-
-    .btn-hint {
-        padding: 0.5rem 1rem;
-        min-height: 44px;
-        /* Touch target size */
-    }
-}
-
-@media (max-width: 480px) {
-    .gs-hero-section {
-        padding-top: 2rem;
-        padding-bottom: 2rem !important;
-    }
-
-    .gs-hero-title {
-        font-size: clamp(2rem, 8vw, 2.5rem);
-    }
-
-    .gs-practice-controls {
-        padding: 1.5rem 1rem;
-    }
-
+    
     .gs-q-text {
-        font-size: 1.8rem;
+        font-size: 2.5rem;
     }
-
+    
     .gs-q-input {
-        font-size: 1.5rem;
+        font-size: 3rem;
+        width: 160px;
     }
+}
+
+/* --- PHASE INDICATOR --- */
+.gs-phase-indicator {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.gs-phase-indicator span {
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: rgba(255,255,255,0.2);
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: all 0.3s;
+}
+
+.gs-phase-indicator span.active {
+    color: var(--accent-primary);
+    border-color: var(--accent-primary);
+    background: rgba(255,85,0,0.1);
+}
+
+/* --- UNDERSTAND PHASE --- */
+.gs-understand-overlay {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.gs-sutra-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+}
+
+.sutra-opt {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 20px;
+    font-family: var(--font-label);
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.sutra-opt:hover {
+    background: rgba(255, 85, 0, 0.1);
+    border-color: var(--accent-primary);
+    transform: translateY(-2px);
+}
+
+/* --- SOLVE PHASE --- */
+.gs-active-sutra {
+    font-family: var(--font-ancient);
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 2rem;
+    animation: fadeIn 0.8s ease-out;
+}
+
+.gs-active-sutra span {
+    font-family: var(--font-label);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    opacity: 0.5;
+}
+
+/* --- OBSERVATION --- */
+.gs-observation-status {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--accent-primary);
+    letter-spacing: 1px;
+    margin-top: 1rem;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
