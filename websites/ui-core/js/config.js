@@ -55,6 +55,11 @@ window.GanitConfig = (function () {
   // For GitHub Pages, detect if we are in a subfolder (e.g. /ganitsutram)
   const BASE_PATH = window.location.pathname.startsWith('/ganitsutram') ? '/ganitsutram' : '';
 
+  // If we are on Cloudflare (*.pages.dev) or a custom domain, we are likely at the root.
+  // GitHub Pages usually has the /ganitsutram suffix in the URL path.
+  const isRootHosting = (BASE_PATH === '');
+
+
   // Render API URL goes here. Replace this when deployed.
   window.RAILWAY_URL = 'https://ganitsutram.onrender.com';
 
@@ -73,27 +78,27 @@ window.GanitConfig = (function () {
     // ── Site URLs ────────────────────────
     PORTAL_URL: isDev
       ? `${DEV_BASE}${window.location.port === '5173' ? '/websites' : ''}/portal`
-      : isCloudflare ? `${BASE_PATH}/portal` : `${BASE_PATH}/websites/portal`,
+      : isRootHosting ? `${BASE_PATH}/portal` : `${BASE_PATH}/websites/portal`,
 
     SOLVER_URL: isDev
       ? `${DEV_BASE}${window.location.port === '5173' ? '/websites' : ''}/solver`
-      : isCloudflare ? `${BASE_PATH}/solver` : `${BASE_PATH}/websites/solver`,
+      : isRootHosting ? `${BASE_PATH}/solver` : `${BASE_PATH}/websites/solver`,
 
     LEARN_URL: isDev
       ? `${DEV_BASE}${window.location.port === '5173' ? '/websites' : ''}/learning`
-      : isCloudflare ? `${BASE_PATH}/learning` : `${BASE_PATH}/websites/learning`,
+      : isRootHosting ? `${BASE_PATH}/learning` : `${BASE_PATH}/websites/learning`,
 
     DISCOVER_URL: isDev
       ? `${DEV_BASE}${window.location.port === '5173' ? '/websites' : ''}/discoveries`
-      : isCloudflare ? `${BASE_PATH}/discoveries` : `${BASE_PATH}/websites/discoveries`,
+      : isRootHosting ? `${BASE_PATH}/discoveries` : `${BASE_PATH}/websites/discoveries`,
 
     MAP_URL: isDev
       ? `${DEV_BASE}${window.location.port === '5173' ? '/websites' : ''}/knowledge-map`
-      : isCloudflare ? `${BASE_PATH}/knowledge-map` : `${BASE_PATH}/websites/knowledge-map`,
+      : isRootHosting ? `${BASE_PATH}/knowledge-map` : `${BASE_PATH}/websites/knowledge-map`,
 
     LAB_URL: isDev
       ? `${DEV_BASE}${window.location.port === '5173' ? '/websites' : ''}/research-lab`
-      : isCloudflare ? `${BASE_PATH}/research-lab` : `${BASE_PATH}/websites/research-lab`,
+      : isRootHosting ? `${BASE_PATH}/research-lab` : `${BASE_PATH}/websites/research-lab`,
 
     // ── Canonical base (for SEO) ─────────
     CANONICAL_BASE: isDev
