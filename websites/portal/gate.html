@@ -113,9 +113,14 @@ Organization: AITDL | aitdl.com
 
             <!-- SCENE 1: INTRODUCTION -->
             <section id="gs-scene-intro" class="gs-scene active">
+                <div class="gs-gate-progress">
+                    <span class="gs-gate-step active">1</span>
+                    <span class="gs-gate-step-line"></span>
+                    <span class="gs-gate-step">2</span>
+                </div>
                 <div class="gs-section-label" data-i18n="gate.label">Gateway</div>
                 <h1 class="gs-hero-title gs-title gs-gold-foil" data-i18n="gate.title">Enter the Mathematical Universe</h1>
-                <p class="gs-hero-sub" data-i18n="gate.subtitle">Choose your pathway to mathematical clarity.</p>
+                <p class="gs-hero-sub" data-i18n="gate.subtitle">1,500 years of Vedic wisdom — choose your pathway to mathematical clarity.</p>
 
                 <div class="gs-gate-visual">
                     <!-- Subtle ambient gateway animation -->
@@ -125,67 +130,73 @@ Organization: AITDL | aitdl.com
                 <div class="gs-gate-actions">
                     <button class="gs-button gs-button-primary" onclick="GanitUI.gate.nextScene()"
                         data-i18n="gate.beginBtn">Begin Your Journey &rarr;</button>
+                    <div style="margin-top: 1rem;">
+                        <a href="../discoveries/index.html" style="color: var(--fg-muted); font-size: 0.88rem; text-decoration: none; opacity: 0.7;" data-i18n="gate.skipIntro">Skip — just explore without selecting</a>
+                    </div>
                 </div>
             </section>
 
             <!-- SCENE 2: PERSONA SELECTION -->
             <section id="gs-scene-selection" class="gs-scene">
+                <div class="gs-gate-progress">
+                    <span class="gs-gate-step">1</span>
+                    <span class="gs-gate-step-line active"></span>
+                    <span class="gs-gate-step active">2</span>
+                </div>
                 <div class="gs-section-label" data-i18n="gate.label">The Gate</div>
                 <h2 class="gs-section-title gs-title gs-gold-foil" data-i18n="gate.whoAreYou">Who are you?</h2>
-                <p class="gs-hero-sub" data-i18n="gate.selectRole" style="margin-bottom: 2rem;">Select your role to
-                    personalise your experience</p>
+                <p class="gs-hero-sub" data-i18n="gate.selectRole" style="margin-bottom: 2rem;">Select your role to personalise your experience</p>
 
                 <div class="gs-persona-grid">
                     <div class="gs-persona-card" data-url="../learning/profile.html"
                         onclick="GanitUI.gate.select(this)">
                         <div class="gs-persona-icon">01</div>
                         <h3 data-i18n="gate.personas.student">Student</h3>
-                        <p data-i18n="gate.personaDesc.student">Explore Vedic maths, practise problems, and track your
-                            learning progress.</p>
+                        <p data-i18n="gate.personaDesc.student">Explore Vedic maths, practise problems, and track your learning progress.</p>
+                        <span class="gs-persona-best">Best for: School &amp; college learners</span>
                     </div>
                     <div class="gs-persona-card" data-url="../learning/admin.html"
                         onclick="GanitUI.gate.select(this)">
                         <div class="gs-persona-icon">02</div>
                         <h3 data-i18n="gate.personas.teacher">Teacher</h3>
-                        <p data-i18n="gate.personaDesc.teacher">Access classroom tools, concept libraries, and student
-                            progress dashboards.</p>
+                        <p data-i18n="gate.personaDesc.teacher">Access classroom tools, concept libraries, and student progress dashboards.</p>
+                        <span class="gs-persona-best">Best for: Educators &amp; tutors</span>
                     </div>
                     <div class="gs-persona-card" data-url="../learning/index.html"
                         onclick="GanitUI.gate.select(this)">
                         <div class="gs-persona-icon">03</div>
                         <h3 data-i18n="gate.personas.parent">Parent</h3>
-                        <p data-i18n="gate.personaDesc.parent">Guide your child's mathematical journey with curated
-                            resources.</p>
+                        <p data-i18n="gate.personaDesc.parent">Guide your child's mathematical journey with curated resources.</p>
+                        <span class="gs-persona-best">Best for: Parents &amp; guardians</span>
                     </div>
                     <div class="gs-persona-card" data-url="../solver/index.html"
                         onclick="GanitUI.gate.select(this)">
                         <div class="gs-persona-icon">04</div>
                         <h3 data-i18n="gate.personas.adult">Adult Learner</h3>
-                        <p data-i18n="gate.personaDesc.adult">Rediscover mathematics at your own pace with structured
-                            adult pathways.</p>
+                        <p data-i18n="gate.personaDesc.adult">Rediscover mathematics at your own pace with structured adult pathways.</p>
+                        <span class="gs-persona-best">Best for: Self-paced learners</span>
                     </div>
                     <div class="gs-persona-card" data-url="../research-lab/index.html"
                         onclick="GanitUI.gate.select(this)">
                         <div class="gs-persona-icon">05</div>
-                        <h3 data-i18n="gate.personas.school">School</h3>
-                        <p data-i18n="gate.personaDesc.school">Institution-level tools, curriculum alignment, and
-                            research lab access.</p>
+                        <h3 data-i18n="gate.personas.school">School / Institution</h3>
+                        <p data-i18n="gate.personaDesc.school">Institution-level tools, curriculum alignment, and research lab access.</p>
+                        <span class="gs-persona-best">Best for: Schools &amp; universities</span>
                     </div>
                     <div class="gs-persona-card" data-url="../discoveries/index.html"
                         onclick="GanitUI.gate.select(this)">
                         <div class="gs-persona-icon">06</div>
                         <h3 data-i18n="gate.personas.explore">Explore Maths</h3>
-                        <p data-i18n="gate.personaDesc.explore">No agenda. Just curiosity. Dive into patterns,
-                            discoveries, and the beauty of numbers.</p>
+                        <p data-i18n="gate.personaDesc.explore">No agenda. Just curiosity. Dive into patterns, discoveries, and the beauty of numbers.</p>
+                        <span class="gs-persona-best">Best for: The curious &amp; explorers</span>
                     </div>
                 </div>
 
                 <div class="gs-gate-actions">
                     <button id="gs-btn-proceed" class="gs-button gs-button-primary disabled" disabled
                         onclick="GanitUI.gate.proceed()" data-i18n="gate.proceedBtn">Enter Platform &rarr;</button>
-                    <div style="margin-top: 1rem;">
-                        <span data-i18n="gate.exploreLink" style="color: var(--fg-muted); font-size: 0.9rem;">or explore
-                            without selecting — no login required</span>
+                    <div style="margin-top: 1.25rem;">
+                        <a href="../discoveries/index.html" style="color: var(--fg-muted); font-size: 0.88rem; text-decoration: none; opacity: 0.7;" data-i18n="gate.exploreLink">or explore without selecting — no login required</a>
                     </div>
                 </div>
             </section>

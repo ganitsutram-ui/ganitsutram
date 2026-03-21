@@ -50,6 +50,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
 window.GanitUI = window.GanitUI || {};
 
+// ─── THEME ENGINE (AITDL Light/Dark Toggle) ────────────────
+window.GanitUI.theme = {
+    init() {
+        const savedTheme = localStorage.getItem('gs_theme') || 'dark';
+        this.setTheme(savedTheme);
+        this.injectToggle();
+    },
+    setTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('gs_theme', theme);
+        const icon = theme === 'light' ? '🌙' : '☀️';
+        const label = theme === 'light' ? 'Midnight' : 'Gurukul';
+        const btn = document.getElementById('gs-theme-toggle');
+        if (btn) {
+            btn.innerHTML = `<span class="theme-icon">${icon}</span> <span class="theme-label">${label}</span>`;
+            btn.title = `Switch to ${theme === 'light' ? 'Dark' : 'Light'} Mode`;
+        }
+    },
+    toggle() {
+        const current = document.documentElement.getAttribute('data-theme') || 'dark';
+        const next = current === 'dark' ? 'light' : 'dark';
+        this.setTheme(next);
+        window.GanitUI.sendBeacon('theme_change', { theme: next });
+    },
+    injectToggle() {
+        // Find navbar links to inject toggle
+        const navLinks = document.querySelector('.gs-nav-links');
+        if (navLinks && !document.getElementById('gs-theme-toggle')) {
+            const toggleBtn = document.createElement('button');
+            toggleBtn.id = 'gs-theme-toggle';
+            toggleBtn.className = 'gs-nav-cta btn-ghost theme-toggle-btn';
+            toggleBtn.style.marginLeft = '10px';
+            toggleBtn.onclick = () => this.toggle();
+            
+            // Initial state
+            const current = document.documentElement.getAttribute('data-theme') || 'dark';
+            const icon = current === 'light' ? '🌙' : '☀️';
+            const label = current === 'light' ? 'Midnight' : 'Gurukul';
+            toggleBtn.innerHTML = `<span class="theme-icon">${icon}</span> <span class="theme-label">${label}</span>`;
+            
+            navLinks.appendChild(toggleBtn);
+        }
+    }
+};
+
 /**
  * Basic Markdown to HTML renderer using regex.
  */
@@ -318,6 +363,9 @@ window.GanitUI.injectBell = function () {
 // Automatically track page views on load for every page linking UI Core
 // and initialize PWA install prompt listeners
 function initCoreSystems() {
+    if (window.GanitUI && window.GanitUI.theme) {
+        window.GanitUI.theme.init();
+    }
     window.GanitUI.sendBeacon('page_view', { page: document.title });
     window.GanitUI.pwa.init();
     if (window.GanitSEO) {
@@ -347,3 +395,77 @@ if (document.readyState === 'loading') {
 } else {
     initCoreSystems();
 }
+
+// ─── GATE MODULE ────────────────────────────────────────────
+// Handles the 2-scene persona selection flow on gate.html
+window.GanitUI.gate = {
+    _selectedCard: null,
+
+    /** Move from Scene 1 (intro) to Scene 2 (persona picker) */
+    nextScene() {
+        const intro = document.getElementById('gs-scene-intro');
+        const selection = document.getElementById('gs-scene-selection');
+        if (!intro || !selection) return;
+
+        intro.style.opacity = '0';
+        intro.style.transform = 'translateY(-20px)';
+        intro.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+
+        setTimeout(() => {
+            intro.classList.remove('active');
+            selection.classList.add('active');
+            selection.style.opacity = '0';
+            selection.style.transform = 'translateY(20px)';
+            selection.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+
+            // Force reflow then animate in
+            requestAnimationFrame(() => {
+                selection.style.opacity = '1';
+                selection.style.transform = 'translateY(0)';
+            });
+        }, 400);
+    },
+
+    /** Highlight the selected persona card and enable the proceed button */
+    select(card) {
+        // Deselect all
+        document.querySelectorAll('.gs-persona-card').forEach(c => {
+            c.classList.remove('selected');
+        });
+
+        // Select this one
+        card.classList.add('selected');
+        this._selectedCard = card;
+
+        // Enable proceed button
+        const btn = document.getElementById('gs-btn-proceed');
+        if (btn) {
+            btn.disabled = false;
+            btn.classList.remove('disabled');
+        }
+    },
+
+    /** Navigate to the URL stored on the selected persona card */
+    proceed() {
+        if (!this._selectedCard) return;
+        const url = this._selectedCard.getAttribute('data-url');
+        if (!url) return;
+
+        // Show redirect scene
+        const selection = document.getElementById('gs-scene-selection');
+        const redirect = document.getElementById('gs-scene-redirect');
+        const personaLabel = document.getElementById('gs-redirect-persona');
+
+        // Get persona name
+        const personaName = this._selectedCard.querySelector('h3')?.textContent || 'your path';
+        if (personaLabel) personaLabel.textContent = personaName;
+
+        if (selection) selection.classList.remove('active');
+        if (redirect) redirect.classList.add('active');
+
+        // Gold ripple then navigate
+        setTimeout(() => {
+            window.location.href = url;
+        }, 900);
+    }
+};
