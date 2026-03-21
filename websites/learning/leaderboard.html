@@ -256,7 +256,10 @@ Purpose: Public Leaderboard and gamification showcase.
     <script src="../ui-core/js/leaderboard.js" defer></script>
     <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/websites/sw.js');
+            const swPath = window.GanitConfig ? `${window.GanitConfig.getBasePath()}sw.js` : '/sw.js';
+            navigator.serviceWorker.register(swPath)
+                .then(reg => console.log('SW registered', reg.scope))
+                .catch(err => console.warn('SW failed', err));
         }
     </script>
 </body>

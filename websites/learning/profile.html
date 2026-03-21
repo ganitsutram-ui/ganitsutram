@@ -202,11 +202,22 @@ Organization: AITDL | aitdl.com
     </div>
 
     <!-- RULE: Always link to ui-core scripts, not local JS -->
+    <script src="../ui-core/js/config.js" defer></script>
+    <script src="../ui-core/js/i18n.js" defer></script>
     <script src="../ui-core/js/seo.js" defer></script>
     <script src="../ui-core/js/search.js" defer></script>
     <script src="../ui-core/js/ganit-ui.js" defer></script>
     <script src="../ui-core/js/auth.js" defer></script>
     <script src="../ui-core/js/profile.js" defer></script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            const swPath = window.GanitConfig ? `${window.GanitConfig.getBasePath()}sw.js` : '/sw.js';
+            navigator.serviceWorker.register(swPath)
+                .then(reg => console.log('SW registered', reg.scope))
+                .catch(err => console.warn('SW failed', err));
+        }
+    </script>
 
 </body>
 
