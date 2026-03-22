@@ -235,7 +235,7 @@
 
     function init() {
         if (!window.GanitAuth || !window.GanitAuth.isLoggedIn()) {
-            window.location.href = '../portal/index.html';
+            window.location.href = (window.GanitConfig && window.GanitConfig.PORTAL_URL) ? window.GanitConfig.PORTAL_URL : '/portal';
             return;
         }
 

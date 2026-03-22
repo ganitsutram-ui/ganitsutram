@@ -9,12 +9,9 @@ VS 2082 | 2026-03-08
 const cors = require('cors');
 
 const PROD_ORIGINS = [
-    'http://localhost:5173',
-    '',
-    '',
-    '',
-    '',
-    ''
+    'https://ganitsutram.com',
+    'https://www.ganitsutram.com',
+    'http://localhost:5173'
 ];
 
 const DEV_ORIGINS = [

@@ -246,7 +246,7 @@
                     <div style="font-size: 3rem; margin-bottom: 0.5rem; opacity: 0.8;">🔲</div>
                     <div style="font-size: 1.25rem; font-weight: bold; margin-bottom: 0.5rem;">The Slate is Clean</div>
                     <div style="color: var(--profile-fg-dim); margin-bottom: 1.5rem;">Mastery takes time and practice. Enter the arena to begin tracking your progress across the ancient Sutras.</div>
-                    <a href="../learning/practice.html" class="gs-button gs-button-primary" style="padding: 0.5rem 1rem;">Enter the Practice Arena</a>
+                    <a href="${(window.GanitConfig && window.GanitConfig.LEARN_URL) ? window.GanitConfig.LEARN_URL : '/learning'}/practice.html" class="gs-button gs-button-primary" style="padding: 0.5rem 1rem;">Enter the Practice Arena</a>
                 </div>
             `;
             return;
@@ -310,7 +310,7 @@
                         <div style="font-size: 3rem; margin-bottom: 0.5rem; opacity: 0.8;">🎯</div>
                         <div style="font-size: 1.25rem; font-weight: bold; margin-bottom: 0.5rem;">Step into the Arena</div>
                         <div style="color: var(--profile-fg-dim); margin-bottom: 1.5rem;">Test your knowledge in a timed, gamified environment and earn spiritual badges.</div>
-                        <a href="../learning/practice.html" class="gs-button gs-button-primary" style="padding: 0.5rem 1rem;">Start Practice</a>
+                        <a href="${(window.GanitConfig && window.GanitConfig.LEARN_URL) ? window.GanitConfig.LEARN_URL : '/learning'}/practice.html" class="gs-button gs-button-primary" style="padding: 0.5rem 1rem;">Start Practice</a>
                     </div>
                 `}
             </div>
@@ -344,7 +344,7 @@
                             <div style="font-size: 3rem; margin-bottom: 0.5rem; opacity: 0.8;">⏳</div>
                             <div style="font-size: 1.25rem; font-weight: bold; margin-bottom: 0.5rem;">Your Journey Awaits</div>
                             <div style="color: var(--profile-fg-dim); margin-bottom: 1.5rem;">You haven't solved any problems yet. The ancient algorithms await your command.</div>
-                            <a href="../solver/index.html" class="gs-button gs-button-primary" style="padding: 0.5rem 1rem;">Open the Solver</a>
+                            <a href="${(window.GanitConfig && window.GanitConfig.SOLVER_URL) ? window.GanitConfig.SOLVER_URL : '/solver'}/index.html" class="gs-button gs-button-primary" style="padding: 0.5rem 1rem;">Open the Solver</a>
                         </div>
                     </td>
                 </tr>
@@ -488,7 +488,7 @@
         if (!window.GanitAuth) return;
 
         if (!window.GanitAuth.isLoggedIn()) {
-            window.location.href = '../portal/index.html';
+            window.location.href = (window.GanitConfig && window.GanitConfig.PORTAL_URL) ? window.GanitConfig.PORTAL_URL : '/portal';
             return;
         }
 

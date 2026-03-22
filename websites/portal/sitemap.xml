@@ -1,23 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!-- ═══════ PORTAL (Root) ═══════ -->
   <url>
     <loc>https://ganitsutram.com/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <lastmod>2026-03-22</lastmod>
+    <image:image>
+      <image:loc>https://ganitsutram.com/assets/og-image.png</image:loc>
+      <image:title>GanitSūtram — Ancient Vedic Mathematics Modern Platform</image:title>
+    </image:image>
   </url>
+
   <url>
-    <loc>https://ganitsutram.com/gate.html</loc>
+    <loc>https://ganitsutram.com/portal/gate.html</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
+    <lastmod>2026-03-22</lastmod>
   </url>
+
   <url>
-    <loc>https://ganitsutram.com/search.html</loc>
+    <loc>https://ganitsutram.com/portal/search.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+    <lastmod>2026-03-22</lastmod>
   </url>
+
   <url>
-    <loc>https://ganitsutram.com/api-docs.html</loc>
+    <loc>https://ganitsutram.com/portal/api-docs.html</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.5</priority>
+    <lastmod>2026-03-22</lastmod>
   </url>
+
+  <!-- ═══════ SOLVER ═══════ -->
+  <url>
+    <loc>https://ganitsutram.com/solver/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <lastmod>2026-03-22</lastmod>
+  </url>
+
+  <!-- ═══════ LEARNING ═══════ -->
+  <url>
+    <loc>https://ganitsutram.com/learning/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <lastmod>2026-03-22</lastmod>
+  </url>
+
+  <url>
+    <loc>https://ganitsutram.com/learning/practice.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <lastmod>2026-03-22</lastmod>
+  </url>
+
+  <url>
+    <loc>https://ganitsutram.com/learning/leaderboard.html</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-03-22</lastmod>
+  </url>
+
+  <!-- ═══════ DISCOVERIES ═══════ -->
+  <url>
+    <loc>https://ganitsutram.com/discoveries/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <lastmod>2026-03-22</lastmod>
+  </url>
+
+  <!-- ═══════ KNOWLEDGE MAP ═══════ -->
+  <url>
+    <loc>https://ganitsutram.com/knowledge-map/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+    <lastmod>2026-03-22</lastmod>
+  </url>
+
+  <!-- ═══════ RESEARCH LAB ═══════ -->
+  <url>
+    <loc>https://ganitsutram.com/research-lab/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-03-22</lastmod>
+  </url>
+
 </urlset>
