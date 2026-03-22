@@ -233,18 +233,18 @@ Purpose: Advanced Solver interactive logic.
         document.getElementById('res-sutra').textContent = concept.sutra;
 
         let eq = '';
-        if (data.inputA !== undefined) {
+        const num = data.input !== undefined ? data.input : data.inputA;
+
+        if (concept.id === 'squares-ending-5') {
+            eq = `${window.GanitI18n.formatResult(num)}² = ${window.GanitI18n.formatResult(data.result)}`;
+        } else if (concept.id === 'multiply-by-11') {
+            eq = `${window.GanitI18n.formatResult(num)} × 11 = ${window.GanitI18n.formatResult(data.result)}`;
+        } else if (concept.id === 'digital-root') {
+            eq = `ρ(${window.GanitI18n.formatResult(num)}) = ${window.GanitI18n.formatResult(data.result)}`;
+        } else if (data.inputA !== undefined && data.inputB !== undefined) {
             eq = `${window.GanitI18n.formatResult(data.inputA)} × ${window.GanitI18n.formatResult(data.inputB)} = ${window.GanitI18n.formatResult(data.result)}`;
         } else {
-            if (concept.id === 'squares-ending-5') {
-                eq = `${window.GanitI18n.formatResult(data.input)}² = ${window.GanitI18n.formatResult(data.result)}`;
-            } else if (concept.id === 'multiply-by-11') {
-                eq = `${window.GanitI18n.formatResult(data.input)} × 11 = ${window.GanitI18n.formatResult(data.result)}`;
-            } else if (concept.id === 'digital-root') {
-                eq = `ρ(${window.GanitI18n.formatResult(data.input)}) = ${window.GanitI18n.formatResult(data.result)}`;
-            } else {
-                eq = `${window.GanitI18n.formatResult(data.input)} ➝ ${window.GanitI18n.formatResult(data.result)}`;
-            }
+            eq = `${window.GanitI18n.formatResult(num)} ➝ ${window.GanitI18n.formatResult(data.result)}`;
         }
         document.getElementById('res-eq').textContent = eq;
 

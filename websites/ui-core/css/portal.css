@@ -1160,6 +1160,19 @@ Purpose: Portal-specific styles, extending ui-core/css/main.css
     .gs-footer-nav-cols { grid-template-columns: 1fr 1fr; }
     .gs-demo-widget { padding: 2rem 1.25rem; }
     .gs-final-cta-btns { flex-direction: column; align-items: center; }
+    
+    /* --- UX Audit Polish: Compact cards & legible text --- */
+    .gs-persona-grid { 
+        grid-template-columns: 1fr; 
+        gap: 1.25rem; 
+        margin: 2rem auto; 
+    }
+    .gs-persona-card { 
+        padding: 1.5rem; 
+    }
+    .gs-persona-card p {
+        font-size: 0.9rem; /* Approx ~14.4px scalable floor */
+    }
 }
 
 /* ----------------------------
