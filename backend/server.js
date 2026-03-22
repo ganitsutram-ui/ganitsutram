@@ -67,6 +67,8 @@ const patternRoutes = require('./api/patterns');
 const securityRoutes = require('./api/security');
 const cmsRoutes = require('./api/cms');
 const authRoutes = require('./api/auth');
+const graphRoutes = require('./api/graph');
+const searchRoutes = require('./api/search');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -106,6 +108,8 @@ app.use('/api/patterns', patternRoutes);
 app.use('/api/security', securityRoutes);
 app.use('/api/cms', cmsRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/graph', graphRoutes);
+app.use('/api/search', searchRoutes);
 
 // Health Check
 app.get('/api/health', (req, res) => {
