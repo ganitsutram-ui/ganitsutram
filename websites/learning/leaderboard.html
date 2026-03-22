@@ -255,7 +255,7 @@ Purpose: Public Leaderboard and gamification showcase.
     <script src="../ui-core/js/ganit-ui.js" defer></script>
     <script src="../ui-core/js/leaderboard.js" defer></script>
     <script>
-        if ('serviceWorker' in navigator) {
+        if ('serviceWorker' in navigator && (!window.GanitConfig || window.GanitConfig.ENABLE_SW)) {
             const swPath = window.GanitConfig ? `${window.GanitConfig.getBasePath()}sw.js` : '/sw.js';
             navigator.serviceWorker.register(swPath)
                 .then(reg => console.log('SW registered', reg.scope))

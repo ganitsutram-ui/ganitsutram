@@ -254,7 +254,7 @@ Organization: AITDL | aitdl.com
     </script>
     <!-- PWA Service Worker Registration -->
     <script>
-        if ('serviceWorker' in navigator) {
+        if ('serviceWorker' in navigator && (!window.GanitConfig || window.GanitConfig.ENABLE_SW)) {
             window.addEventListener('load', () => {
                 const swPath = window.GanitConfig ? `${window.GanitConfig.getBasePath()}sw.js` : '/sw.js';
                 navigator.serviceWorker.register(swPath)
