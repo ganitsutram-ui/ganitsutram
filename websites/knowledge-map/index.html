@@ -33,38 +33,48 @@ Organization: AITDL | aitdl.com
     <meta name="apple-mobile-web-app-title" content="GanitSūtram">
 
     <meta name="description" content="Explore the GanitSūtram Knowledge Graph — an interactive map of Vedic mathematics concepts, sutras, and their relationships.">
-    <meta name="keywords" content="Vedic mathematics, GanitSūtram, digital root, nikhilam, ancient maths, AITDL, Jawahar R Mallah">
-    <link rel="canonical" href="https://map.ganitsutram.com/">
+    <meta name="keywords" content="Vedic mathematics graph, GanitSūtram map, digital root graph, sutra connections, AITDL">
+    <link rel="canonical" href="https://ganitsutram.com/knowledge-map/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="GanitSūtram">
     <meta property="og:title" content="GanitSūtram | Knowledge Map">
     <meta property="og:description" content="Explore the GanitSūtram Knowledge Graph — an interactive map of Vedic mathematics concepts, sutras, and their relationships.">
-    <meta property="og:url" content="https://map.ganitsutram.com/">
-    <meta property="og:image" content="/assets/og-image.png">
+    <meta property="og:url" content="https://ganitsutram.com/knowledge-map/">
+    <meta property="og:image" content="https://ganitsutram.com/assets/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="GanitSūtram Knowledge Map — Interactive Graph">
     <meta property="og:locale" content="en_IN">
     <meta property="og:locale:alternate" content="hi_IN">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@aitdl">
     <meta name="twitter:title" content="GanitSūtram | Knowledge Map">
     <meta name="twitter:description" content="Explore the GanitSūtram Knowledge Graph — an interactive map of Vedic mathematics concepts, sutras, and their relationships.">
-    <meta name="twitter:image" content="/assets/og-image.png">
+    <meta name="twitter:image" content="https://ganitsutram.com/assets/og-image.png">
+    <meta name="twitter:image:alt" content="GanitSūtram Knowledge Map">
 
 
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "Dataset",
-  "name": "GanitSūtram Knowledge Graph",
-  "description": "Knowledge graph of Vedic mathematics concepts, operations, sutras and their relationships.",
-  "url": '',
-  "creator": {
-    "@type": "Organization",
-    "name": "AITDL"
-  },
-  "license": "https://aitdl.com/license",
-  "isAccessibleForFree": true
+  "@graph": [
+    {
+      "@type": "Dataset",
+      "name": "GanitSūtram Knowledge Graph",
+      "description": "Knowledge graph of Vedic mathematics concepts, operations, sutras and their relationships.",
+      "url": "https://ganitsutram.com/knowledge-map/",
+      "creator": { "@type": "Organization", "name": "AITDL" },
+      "license": "https://aitdl.com/license",
+      "isAccessibleForFree": true
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://ganitsutram.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Knowledge Map", "item": "https://ganitsutram.com/knowledge-map/" }
+      ]
+    }
+  ]
 }
     </script>
 </head>

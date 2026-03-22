@@ -62,8 +62,8 @@ export function renderPersonaSelector(grid) {
     btn.addEventListener('click', (e) => {
       const p = e.currentTarget.getAttribute('data-p');
       console.log(`Entering as ${p}`);
-      window.location.href = `../g.html?persona=${p}`;
+      const portalUrl = (window.GanitConfig && window.GanitConfig.PORTAL_URL) ? window.GanitConfig.PORTAL_URL : '/portal';
+      window.location.href = `${portalUrl}/gate.html?persona=${p}`;
     });
   });
 }
-

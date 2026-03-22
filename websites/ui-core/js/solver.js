@@ -251,8 +251,37 @@ Purpose: Advanced Solver interactive logic.
         // Steps
         const chain = document.getElementById('res-steps');
         chain.innerHTML = '';
-        if (data.steps) {
-            data.steps.forEach((s, i) => {
+        
+        let localSteps = data.steps || [];
+        
+        // Client-side Step Logic builders for better User Help
+        if (!localSteps.length) {
+            if (concept.id === 'digital-root') {
+                let n = String(num);
+                while (n.length > 1) {
+                    const digits = n.split('').map(Number);
+                    const sum = digits.reduce((a, b) => a + b, 0);
+                    localSteps.push(`${digits.join(' + ')} = ${sum}`);
+                    n = String(sum);
+                }
+            } else if (concept.id === 'squares-ending-5') {
+                const nStr = String(num);
+                const tens = parseInt(nStr.substring(0, nStr.length - 1)) || 0;
+                localSteps.push(`Step 1: ${tens} × (${tens} + 1) = ${tens * (tens + 1)}`);
+                localSteps.push(`Step 2: Append 25`);
+            } else if (concept.id === 'multiply-by-11') {
+                const nStr = String(num);
+                if (nStr.length === 2) {
+                    const d1 = parseInt(nStr[0]);
+                    const d2 = parseInt(nStr[1]);
+                    localSteps.push(`Step 1: ${d1} + ${d2} = ${d1 + d2}`);
+                    localSteps.push(`Step 2: Insert sum between ${d1} and ${d2}`);
+                }
+            }
+        }
+
+        if (localSteps && localSteps.length) {
+            localSteps.forEach((s, i) => {
                 const pill = document.createElement('div');
                 pill.className = 'gs-pill';
                 pill.textContent = String(s).replace(/\d+/g, match => window.GanitI18n.formatResult(match));

@@ -165,7 +165,7 @@
 
         if (currentUser) {
             const initial = currentUser.email.charAt(0).toUpperCase();
-            const learnBase = window.location.hostname === 'localhost' ? '/learning' : '';
+            const learnBase = (window.GanitConfig && window.GanitConfig.LEARN_URL) ? window.GanitConfig.LEARN_URL : '/learning';
             navRight.innerHTML = `
                 ${switcherHTML}
                 <div class="user-profile-wrap">
