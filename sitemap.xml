@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+   <sitemap>
+      <loc>https://ganitsutram.com/discoveries/sitemap.xml</loc>
+   </sitemap>
+   <sitemap>
+      <loc>https://ganitsutram.com/knowledge-map/sitemap.xml</loc>
+   </sitemap>
+   <sitemap>
+      <loc>https://ganitsutram.com/learning/sitemap.xml</loc>
+   </sitemap>
+   <sitemap>
+      <loc>https://ganitsutram.com/portal/sitemap.xml</loc>
+   </sitemap>
+   <sitemap>
+      <loc>https://ganitsutram.com/research-lab/sitemap.xml</loc>
+   </sitemap>
+   <sitemap>
+      <loc>https://ganitsutram.com/solver/sitemap.xml</loc>
+   </sitemap>
+</sitemapindex>
