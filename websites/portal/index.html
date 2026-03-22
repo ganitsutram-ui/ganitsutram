@@ -585,7 +585,7 @@ Organization: AITDL | aitdl.com
     <script src="../ui-core/js/auth.js?v=1.1" defer></script>
     <!-- PWA Service Worker Registration -->
     <script>
-        if ('serviceWorker' in navigator) {
+        if ('serviceWorker' in navigator && (!window.GanitConfig || window.GanitConfig.ENABLE_SW)) {
             const swPath = window.GanitConfig ? `${window.GanitConfig.getBasePath()}sw.js` : '/sw.js';
             navigator.serviceWorker.register(swPath)
                 .then(reg => console.log('SW registered', reg.scope))

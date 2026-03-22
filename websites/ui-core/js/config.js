@@ -109,7 +109,12 @@ window.GanitConfig = (function () {
     ENABLE_ANALYTICS_BEACON: !isDev,
     ENABLE_SW: !isDev,       // service workers prod only
     LOG_LEVEL: isDev ? 'debug' : 'error',
-    getBasePath: () => isRootHosting ? '/' : `${BASE_PATH}/websites/`,
+    getBasePath: () => {
+      if (window.location.pathname.includes('/websites/')) {
+        return `${BASE_PATH || ''}/websites/`;
+      }
+      return isRootHosting ? '/' : `${BASE_PATH}/websites/`;
+    },
     getApiBase: () => `${window.RAILWAY_URL}/api`
   };
 
