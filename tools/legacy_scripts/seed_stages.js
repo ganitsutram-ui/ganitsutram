@@ -1,3 +1,10 @@
+/*
+Ganitsutram | AITDL Network © 2026 | Vikram Samvat 2083
+Author: Jawahar R Mallah
+Website: https://www.aitdl.com
+Contact: aitdlnetwork@outlook.com | jawahar.mallah@gmail.com
+*/
+
 // seed_stages.js
 const db = require('./backend/database/db');
 const crypto = require('crypto');

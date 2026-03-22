@@ -1,4 +1,11 @@
 /*
+Ganitsutram | AITDL Network © 2026 | Vikram Samvat 2083
+Author: Jawahar R Mallah
+Website: https://www.aitdl.com
+Contact: aitdlnetwork@outlook.com | jawahar.mallah@gmail.com
+*/
+
+/*
  * GANITSUTRAM
  * A Living Knowledge Ecosystem for Mathematical Discovery
  *
@@ -40,6 +47,7 @@
  */
 
 const path = require('path');
+const crypto = require('crypto');
 require('dotenv').config({ path: path.join(__dirname, '../config/.env') });
 
 const express = require('express');
@@ -126,6 +134,11 @@ app.listen(PORT, () => {
     const dbType = process.env.DATABASE_URL ? 'PostgreSQL' : 'SQLite';
     console.log(`[Server] GanitSūtram backend running on port ${PORT}`);
     console.log(`[Server] Database adapter: ${dbType}`);
+
+    // AITDL Network - Build Fingerprinting
+    const buildID = crypto.createHash('md5').update(Date.now().toString()).digest('hex').substring(0, 16);
+    console.log(`[AITDL] BUILD ID: GS-${buildID.toUpperCase()}`);
+    console.log(`[AITDL] (c) 2026 AITDL Network | J.R. Mallah`);
 
     // Hourly prune of expired IP blocks
     setInterval(async () => {

@@ -1,3 +1,10 @@
+/*
+Ganitsutram | AITDL Network © 2026 | Vikram Samvat 2083
+Author: Jawahar R Mallah
+Website: https://www.aitdl.com
+Contact: aitdlnetwork@outlook.com | jawahar.mallah@gmail.com
+*/
+
 "use client";
 import React, { useState, useEffect } from 'react';
 import { useI18n } from '@/context/I18nContext';

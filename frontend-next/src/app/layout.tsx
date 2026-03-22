@@ -1,9 +1,17 @@
+/*
+Ganitsutram | AITDL Network © 2026 | Vikram Samvat 2083
+Author: Jawahar R Mallah
+Website: https://www.aitdl.com
+Contact: aitdlnetwork@outlook.com | jawahar.mallah@gmail.com
+*/
+
 import type { Metadata } from "next";
 import { Cinzel, Cinzel_Decorative, Cormorant_Garamond, Noto_Serif_Devanagari, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/context/Providers";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import SecurityWatermark from "@/components/SecurityWatermark";
 
 const cinzel = Cinzel({
   variable: "--font-heading",
@@ -73,6 +81,7 @@ export default function RootLayout({
             <AuthModal />
             {children}
             <Footer />
+            <SecurityWatermark />
         </Providers>
       </body>
     </html>
