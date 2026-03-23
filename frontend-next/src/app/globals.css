@@ -24,6 +24,8 @@ Contact: aitdlnetwork@outlook.com | jawahar.mallah@gmail.com
 }
 
 :root {
+  --gs-font-scale: 1;
+  font-size: calc(100% * var(--gs-font-scale));
   --bg-primary: #04080F;
   --bg-secondary: #081226;
   --bg-card: #0c0a1a;

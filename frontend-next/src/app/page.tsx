@@ -34,29 +34,27 @@ export default function Home() {
         }, 1500);
         return () => clearTimeout(timer);
     }, []);
-
-    return (
+    return (
         <main id="main-content">
             {/* HERO SECTION */}
             <section className="gs-hero">
                 <ArchivalBg />
                 <div className="gs-hero-inner">
                     <div className="gs-hero-eyebrow">
-                        Ancient India's mental math system — rediscovered for the modern age.
+                        {t('hero.eyebrow')}
                     </div>
                     <div className="gs-hero-label">
                         <span className="gs-label-line"></span>
-                        <span className="gs-label-text">Ancient Mathematics. Modern Platform.</span>
+                        <span className="gs-label-text">{t('hero.label')}</span>
                         <span className="gs-label-line"></span>
                     </div>
-                    <h1 className="gs-hero-title">GanitSūtram<br /><em>गणितसूत्रम्</em></h1>
+                    <h1 className="gs-hero-title">{t('hero.title')}<br /><em>{t('hero.subtitle')}</em></h1>
                     <p className="gs-hero-sub">
-                        A living knowledge ecosystem built on Vedic mathematics,
-                        pattern intelligence, and the ancient science of numbers.
+                        {t('hero.description')}
                     </p>
                     <div className="gs-hero-cta">
-                        <Link href="/gate" className="gs-btn gs-btn-primary">Explore Free &rarr;</Link>
-                        <Link href="/solver" className="gs-btn gs-btn-secondary">Try the Solver</Link>
+                        <Link href="/gate" className="gs-btn gs-btn-primary">{t('hero.exploreBtn')}</Link>
+                        <Link href="/solver" className="gs-btn gs-btn-secondary">{t('nav.solver')}</Link>
                     </div>
                 </div>
             </section>
@@ -64,23 +62,23 @@ export default function Home() {
             {/* LIVE DEMO SECTION */}
             <section className="gs-demo-section">
                 <div className="gs-container">
-                    <div className="gs-section-label">Try It Live</div>
-                    <h2 className="gs-section-title">Multiply 97 × 98 in 3 Steps</h2>
-                    <p className="gs-demo-sub">Experience the Nikhilam Sutra — the method that predates calculators by 1,500 years.</p>
+                    <div className="gs-section-label">{t('demo.label')}</div>
+                    <h2 className="gs-section-title">{t('demo.title')}</h2>
+                    <p className="gs-demo-sub">{t('demo.subtitle')}</p>
                     
                     <div className="gs-demo-widget">
                         <div className="gs-demo-steps">
                             <div className="gs-demo-step">
-                                <div className="gs-demo-step-num">Step 1</div>
-                                <div className="gs-demo-step-label">Find the deficiency from 100</div>
+                                <div className="gs-demo-step-num">{t('demo.step')} 1</div>
+                                <div className="gs-demo-step-label">{t('demo.step1Desc')}</div>
                                 <div className="gs-demo-step-math">
                                     <div className="gs-demo-num">97 → 100 - 97 = <strong>3</strong></div>
                                     <div className="gs-demo-num">98 → 100 - 98 = <strong>2</strong></div>
                                 </div>
                             </div>
                             <div className="gs-demo-step">
-                                <div className="gs-demo-step-num">Step 2</div>
-                                <div className="gs-demo-step-label">Cross-subtract for the left part</div>
+                                <div className="gs-demo-step-num">{t('demo.step')} 2</div>
+                                <div className="gs-demo-step-label">{t('demo.step2Desc')}</div>
                                 <div className="gs-demo-step-math">
                                     <div className={`gs-demo-result ${demoSteps[1] ? 'revealed' : ''}`}>
                                         97 - 2 = <strong>95</strong>
@@ -88,8 +86,8 @@ export default function Home() {
                                 </div>
                             </div>
                             <div className="gs-demo-step">
-                                <div className="gs-demo-step-num">Step 3</div>
-                                <div className="gs-demo-step-label">Multiply the deficiencies</div>
+                                <div className="gs-demo-step-num">{t('demo.step')} 3</div>
+                                <div className="gs-demo-step-label">{t('demo.step3Desc')}</div>
                                 <div className="gs-demo-step-math">
                                     <div className={`gs-demo-result ${demoSteps[2] ? 'revealed' : ''}`}>
                                         3 × 2 = <strong>06</strong>
@@ -99,8 +97,8 @@ export default function Home() {
                         </div>
                         
                         <div className={`gs-demo-answer ${showResult ? 'revealed' : ''}`}>
-                            <div className="gs-demo-answer-val">Result: 9506</div>
-                            <div className="gs-demo-answer-sub">Combine the parts: 95 | 06</div>
+                            <div className="gs-demo-answer-val">{t('demo.result')}: 9506</div>
+                            <div className="gs-demo-answer-sub">{t('demo.combine')}: 95 | 06</div>
                         </div>
                     </div>
                 </div>
@@ -111,19 +109,19 @@ export default function Home() {
                 <div className="gs-stats-bar">
                     <div className="gs-stat-item">
                         <span className="gs-stat-val">7</span>
-                        <span className="gs-stat-lbl">Vedic Operations</span>
+                        <span className="gs-stat-lbl">{t('stats.vedicOperations')}</span>
                     </div>
                     <div className="gs-stat-item">
                         <span className="gs-stat-val">8</span>
-                        <span className="gs-stat-lbl">Pattern Discoveries</span>
+                        <span className="gs-stat-lbl">{t('stats.patternDiscoveries')}</span>
                     </div>
                     <div className="gs-stat-item">
                         <span className="gs-stat-val">16</span>
-                        <span className="gs-stat-lbl">Vedic Sūtras</span>
+                        <span className="gs-stat-lbl">{t('stats.vedicSutras')}</span>
                     </div>
                     <div className="gs-stat-item">
                         <span className="gs-stat-val">1,500+</span>
-                        <span className="gs-stat-lbl">Years of Heritage</span>
+                        <span className="gs-stat-lbl">{t('stats.yearsHeritage')}</span>
                     </div>
                 </div>
             </div>
@@ -131,32 +129,32 @@ export default function Home() {
             {/* PLATFORM GRID */}
             <section style={{ padding: '8rem 0' }}>
                 <div className="gs-container">
-                    <div className="gs-section-label">Ecosystem</div>
-                    <h2 className="gs-section-title">The GanitSūtram Universe</h2>
+                    <div className="gs-section-label">{t('ecosystem.label')}</div>
+                    <h2 className="gs-section-title">{t('ecosystem.title')}</h2>
                     <div className="gs-platform-grid">
                         <Link href="/gate" className="gs-platform-card">
                             <span className="gs-card-icon">🚪</span>
-                            <h3>Enter Gate</h3>
-                            <p>Select your persona — Student, Teacher, Explorer, School — and begin your journey.</p>
-                            <span className="gs-platform-link">Learn More &rarr;</span>
+                            <h3>{t('ecosystem.gateTitle')}</h3>
+                            <p>{t('ecosystem.gateDesc')}</p>
+                            <span className="gs-platform-link">{t('ecosystem.gateCTA')} &rarr;</span>
                         </Link>
                         <Link href="/solver" className="gs-platform-card">
                             <span className="gs-card-icon">⚡</span>
-                            <h3>Vedic Solver</h3>
-                            <p>Compute any operation with step-by-step Vedic logic. Instant, visual, and explained.</p>
-                            <span className="gs-platform-link">ganitsutram.com/solve</span>
+                            <h3>{t('solver.heading')}</h3>
+                            <p>{t('solver.subheading')}</p>
+                            <span className="gs-platform-link">{t('nav.solver')}</span>
                         </Link>
                         <Link href="/discoveries" className="gs-platform-card">
                             <span className="gs-card-icon">🔭</span>
-                            <h3>Discoveries</h3>
-                            <p>Explore mathematical patterns hidden in numbers — digital roots, casting out nines, and more.</p>
-                            <span className="gs-platform-link">ganitsutram.com/discover</span>
+                            <h3>{t('discoveries.heading')}</h3>
+                            <p>{t('discoveries.subheading')}</p>
+                            <span className="gs-platform-link">{t('discoveries.exploreBtn')}</span>
                         </Link>
                         <Link href="/knowledge-map" className="gs-platform-card">
                             <span className="gs-card-icon">🗺️</span>
-                            <h3>Knowledge Map</h3>
-                            <p>Navigate the web of interconnected concepts — see how Vedic maths connects everything.</p>
-                            <span className="gs-platform-link">ganitsutram.com/map</span>
+                            <h3>{t('search.knowledgeMap')}</h3>
+                            <p>{t('search.visualizeCosmic')}</p>
+                            <span className="gs-platform-link">{t('search.viewGraph')}</span>
                         </Link>
                     </div>
                 </div>
@@ -165,23 +163,23 @@ export default function Home() {
             {/* LINEAGE SECTION */}
             <section style={{ padding: '8rem 0', background: 'rgba(0,0,0,0.2)' }}>
                 <div className="gs-container">
-                    <div className="gs-section-label">Lineage</div>
-                    <h2 className="gs-section-title">Standing on the Shoulders of Giants</h2>
+                    <div className="gs-section-label">{t('lineage.label')}</div>
+                    <h2 className="gs-section-title">{t('lineage.title')}</h2>
                     <div className="gs-pillars">
                         <div className="gs-pillar">
                             <span className="gs-pillar-icon">आ</span>
                             <h3>Āryabhaṭa (476 CE)</h3>
-                            <p>Pioneered the place-value system and zero, laying the structural foundation for modern math.</p>
+                            <p>{t('lineage.aryabhata')}</p>
                         </div>
                         <div className="gs-pillar">
                             <span className="gs-pillar-icon">ब्र</span>
                             <h3>Brahmagupta (598 CE)</h3>
-                            <p>Established the definitive mathematical rules for computing with zero and negative numbers.</p>
+                            <p>{t('lineage.brahmagupta')}</p>
                         </div>
                         <div className="gs-pillar">
                             <span className="gs-pillar-icon">भा</span>
                             <h3>Bhāskara II (1114 CE)</h3>
-                            <p>Mastered advanced calculus concepts centuries before their European formalization.</p>
+                            <p>{t('lineage.bhaskara')}</p>
                         </div>
                     </div>
                 </div>
@@ -190,8 +188,8 @@ export default function Home() {
             {/* QUOTE WALL */}
             <section className="gs-quotes-section">
                 <div className="gs-container">
-                    <div className="gs-section-label">Voices</div>
-                    <h2 className="gs-section-title">What the Great Minds Said</h2>
+                    <div className="gs-section-label">{t('voices.label')}</div>
+                    <h2 className="gs-section-title">{t('voices.title')}</h2>
                     <div className="gs-quotes-grid">
                         <blockquote className="gs-tradition-quote">
                             <p>"Mathematics is the queen of the sciences, and number theory is the queen of mathematics."</p>
@@ -208,11 +206,11 @@ export default function Home() {
             {/* FINAL CTA */}
             <section className="gs-container">
                 <div className="gs-final-cta">
-                    <h2 className="gs-hero-title">Begin Your Mathematical Journey</h2>
-                    <p className="gs-hero-sub">1,500 years of wisdom. One platform. Free to explore.</p>
+                    <h2 className="gs-hero-title">{t('hero.title')}</h2>
+                    <p className="gs-hero-sub">{t('common.tagline')}</p>
                     <div className="gs-hero-cta">
-                        <Link href="/gate" className="gs-btn gs-btn-primary">Enter the Gate &rarr;</Link>
-                        <Link href="/solver" className="gs-btn gs-btn-secondary">Open Solver</Link>
+                        <Link href="/gate" className="gs-btn gs-btn-primary">{t('ecosystem.gateCTA')} &rarr;</Link>
+                        <Link href="/solver" className="gs-btn gs-btn-secondary">{t('nav.solver')}</Link>
                     </div>
                 </div>
             </section>

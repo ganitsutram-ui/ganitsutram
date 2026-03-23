@@ -51,17 +51,18 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
         if (!SUPPORTED_LOCALES.includes(newLocale)) return;
         setIsLoaded(false);
         
-        // Always ensure English fallback is loaded
+        const locToLoad = [newLocale];
         if (newLocale !== 'en' && !translations['en']) {
-            await fetchLocaleData('en');
+            locToLoad.push('en');
         }
-        
-        if (!translations[newLocale]) {
-            await fetchLocaleData(newLocale);
-        }
+
+        const fetchPromises = locToLoad.filter(l => !translations[l]).map(l => fetchLocaleData(l));
+        await Promise.all(fetchPromises);
         
         localStorage.setItem('gs_locale', newLocale);
         document.documentElement.lang = newLocale === 'sa' ? 'sa-Deva' : newLocale;
+        
+        // Single state update for predictability
         setLocaleState(newLocale);
         setIsLoaded(true);
     };

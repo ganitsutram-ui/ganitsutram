@@ -8,9 +8,11 @@ Contact: aitdlnetwork@outlook.com | jawahar.mallah@gmail.com
 "use client";
 import React, { useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
+import { useI18n } from '@/context/I18nContext';
 
 export default function AuthModal() {
     const { isAuthModalOpen, closeAuthModal, authModalTab, openAuthModal, login, register, isLoading } = useAuth();
+    const { t } = useI18n();
     
     const [loginEmail, setLoginEmail] = useState('');
     const [loginPassword, setLoginPassword] = useState('');
@@ -30,7 +32,7 @@ export default function AuthModal() {
         try {
             await login(loginEmail, loginPassword);
         } catch (err: any) {
-            setError(err.message || 'Login failed');
+            setError(err.message || t('auth.errorLogin'));
         }
     };
 
@@ -38,13 +40,13 @@ export default function AuthModal() {
         e.preventDefault();
         setError('');
         if (regPassword !== regConfirm) {
-            setError("Passwords do not match");
+            setError(t('auth.errorMatch'));
             return;
         }
         try {
             await register(regEmail, regPassword, role);
         } catch (err: any) {
-            setError(err.message || 'Registration failed');
+            setError(err.message || t('auth.errorRegister'));
         }
     };
 
@@ -54,20 +56,20 @@ export default function AuthModal() {
                 <button className="gs-auth-close" onClick={closeAuthModal}>&times;</button>
                 <div className="gs-auth-header">
                     <div className="gs-auth-logo">
-                        <span className="sanskrit">गणित</span> GanitSūtram
+                        <span className="sanskrit">गणित</span> {t('common.brand')}
                     </div>
                     <div className="gs-auth-tabs">
                         <button 
                             className={`gs-auth-tab ${authModalTab === 'login' ? 'active' : ''}`}
                             onClick={() => openAuthModal('login')}
                         >
-                            Login
+                            {t('auth.loginTab')}
                         </button>
                         <button 
                             className={`gs-auth-tab ${authModalTab === 'register' ? 'active' : ''}`}
                             onClick={() => openAuthModal('register')}
                         >
-                            Register
+                            {t('auth.registerTab')}
                         </button>
                     </div>
                 </div>
@@ -77,23 +79,23 @@ export default function AuthModal() {
                         <div className="gs-auth-panel active">
                             <form onSubmit={handleLogin}>
                                 <div className="gs-auth-group">
-                                    <label className="gs-auth-label">Email Address</label>
-                                    <input type="email" value={loginEmail} onChange={(e)=>setLoginEmail(e.target.value)} className="gs-auth-input" placeholder="you@example.com" required />
+                                    <label className="gs-auth-label">{t('auth.emailLabel')}</label>
+                                    <input type="email" value={loginEmail} onChange={(e)=>setLoginEmail(e.target.value)} className="gs-auth-input" placeholder={t('auth.emailPlaceholder')} required />
                                 </div>
                                 <div className="gs-auth-group">
-                                    <label className="gs-auth-label">Password</label>
+                                    <label className="gs-auth-label">{t('auth.passwordLabel')}</label>
                                     <div className="gs-auth-input-wrap">
-                                        <input type="password" value={loginPassword} onChange={(e)=>setLoginPassword(e.target.value)} className="gs-auth-input" placeholder="••••••••" required />
+                                        <input type="password" value={loginPassword} onChange={(e)=>setLoginPassword(e.target.value)} className="gs-auth-input" placeholder={t('auth.passwordPlaceholder')} required />
                                     </div>
                                 </div>
                                 {error && <div className="gs-auth-error" style={{ display: 'block', marginBottom: '10px' }}>{error}</div>}
                                 <button type="submit" className="gs-auth-submit" disabled={isLoading}>
                                     {isLoading ? <span className="gs-auth-spinner" style={{display: 'inline-block'}}></span> : null}
-                                    Login &rarr;
+                                    {t('auth.loginBtn')}
                                 </button>
                             </form>
                             <div className="gs-auth-switch">
-                                No account? <span className="gs-auth-switch-link" onClick={() => openAuthModal('register')}>Register &rarr;</span>
+                                {t('auth.noAccount')} <span className="gs-auth-switch-link" onClick={() => openAuthModal('register')}>{t('auth.registerTab')} &rarr;</span>
                             </div>
                         </div>
                     )}
@@ -102,21 +104,21 @@ export default function AuthModal() {
                         <div className="gs-auth-panel active">
                             <form onSubmit={handleRegister}>
                                 <div className="gs-auth-group">
-                                    <label className="gs-auth-label">Email Address</label>
-                                    <input type="email" value={regEmail} onChange={(e)=>setRegEmail(e.target.value)} className="gs-auth-input" placeholder="you@example.com" required />
+                                    <label className="gs-auth-label">{t('auth.emailLabel')}</label>
+                                    <input type="email" value={regEmail} onChange={(e)=>setRegEmail(e.target.value)} className="gs-auth-input" placeholder={t('auth.emailPlaceholder')} required />
                                 </div>
                                 <div className="gs-auth-group">
-                                    <label className="gs-auth-label">Create Password</label>
+                                    <label className="gs-auth-label">{t('auth.passwordLabel')}</label>
                                     <div className="gs-auth-input-wrap">
-                                        <input type="password" value={regPassword} onChange={(e)=>setRegPassword(e.target.value)} className="gs-auth-input" placeholder="••••••••" required />
+                                        <input type="password" value={regPassword} onChange={(e)=>setRegPassword(e.target.value)} className="gs-auth-input" placeholder={t('auth.passwordPlaceholder')} required />
                                     </div>
                                 </div>
                                 <div className="gs-auth-group">
-                                    <label className="gs-auth-label">Confirm Password</label>
-                                    <input type="password" value={regConfirm} onChange={(e)=>setRegConfirm(e.target.value)} className="gs-auth-input" placeholder="••••••••" required />
+                                    <label className="gs-auth-label">{t('auth.confirmPasswordLabel')}</label>
+                                    <input type="password" value={regConfirm} onChange={(e)=>setRegConfirm(e.target.value)} className="gs-auth-input" placeholder={t('auth.passwordPlaceholder')} required />
                                 </div>
                                 <div className="gs-auth-group">
-                                    <label className="gs-auth-label">I am a...</label>
+                                    <label className="gs-auth-label">{t('auth.roleLabel')}</label>
                                     <div className="gs-auth-roles">
                                         {['student', 'teacher', 'parent', 'adult', 'school', 'admin'].map((r) => (
                                             <div 
@@ -124,7 +126,12 @@ export default function AuthModal() {
                                                 className={`gs-auth-role ${role === r ? 'active' : ''}`} 
                                                 onClick={() => setRole(r)}
                                             >
-                                                {r === 'student' ? '🎓 Student' : r === 'teacher' ? '📋 Teacher' : r === 'parent' ? '🏠 Parent' : r === 'adult' ? '🧠 Adult Learner' : r === 'school' ? '🏫 School' : '🛡️ Admin'}
+                                                {r === 'student' ? t('auth.roleStudent') : 
+                                                 r === 'teacher' ? t('auth.roleTeacher') : 
+                                                 r === 'parent' ? t('auth.roleParent') : 
+                                                 r === 'adult' ? t('auth.roleAdult') : 
+                                                 r === 'school' ? t('auth.roleSchool') : 
+                                                 t('auth.roleAdmin')}
                                             </div>
                                         ))}
                                     </div>
@@ -132,18 +139,18 @@ export default function AuthModal() {
                                 {error && <div className="gs-auth-error" style={{ display: 'block', marginBottom: '10px' }}>{error}</div>}
                                 <button type="submit" className="gs-auth-submit" disabled={isLoading}>
                                     {isLoading ? <span className="gs-auth-spinner" style={{display: 'inline-block'}}></span> : null}
-                                    Create Account &rarr;
+                                    {t('auth.registerBtn')}
                                 </button>
                             </form>
                             <div className="gs-auth-switch">
-                                Have an account? <span className="gs-auth-switch-link" onClick={() => openAuthModal('login')}>Login &rarr;</span>
+                                {t('auth.hasAccount')} <span className="gs-auth-switch-link" onClick={() => openAuthModal('login')}>{t('auth.loginTab')} &rarr;</span>
                             </div>
                         </div>
                     )}
                 </div>
 
                 <div className="gs-auth-footer">
-                    GanitSūtram | Ancient Roots. Modern Clarity.
+                    {t('common.brand')} | {t('common.tagline')}
                 </div>
             </div>
         </div>

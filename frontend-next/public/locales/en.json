@@ -20,9 +20,12 @@
         "myProgress": "My Progress",
         "leaderboard": "Leaderboard",
         "logout": "Logout",
-        "darkMode": "Dark Theme",
-        "lightMode": "Light Theme",
-        "manuscriptMode": "Manuscript Theme"
+        "darkMode": "Switch to Dark Mode",
+        "lightMode": "Switch to Light Mode",
+        "manuscriptMode": "Switch to Manuscript Mode",
+        "fontDecrease": "Decrease Font Size",
+        "fontReset": "Reset Font Size",
+        "fontIncrease": "Increase Font Size"
     },
     "leaderboard": {
         "sanskrit": "श्रेष्ठो भव",
@@ -45,6 +48,7 @@
     },
     "hero": {
         "label": "Ancient Mathematics. Modern Platform.",
+        "eyebrow": "ARCHIVAL KNOWLEDGE SYSTEM",
         "title": "GanitSūtram",
         "subtitle": "गणितसूत्रम्",
         "description": "A living knowledge ecosystem built on Vedic mathematics, pattern intelligence, and the ancient science of numbers.",
@@ -52,6 +56,21 @@
         "invocationMeaning": "Truth is one, the wise call it by many names.",
         "exploreBtn": "Explore Discoveries →",
         "enterBtn": "Enter Platform →"
+    },
+    "stats": {
+        "vedicOperations": "Vedic Operations",
+        "patternDiscoveries": "Pattern Discoveries",
+        "vedicSutras": "Vedic Sutras",
+        "yearsHeritage": "Years of Heritage"
+    },
+    "ecosystem": {
+        "label": "THE ECOSYSTEM",
+        "title": "Beyond Calculations",
+        "subtitle": "A cosmic architecture for rapid mental mastery.",
+        "featuredBadge": "FEATURED",
+        "gateTitle": "The Gate",
+        "gateDesc": "Access the core archival knowledge and cosmic visual graph.",
+        "gateCTA": "Enter Gate"
     },
     "gate": {
         "label": "The Gate",
@@ -144,6 +163,28 @@
         "countLabel": "Challenges",
         "startBtn": "Initialize Arena"
     },
+    "demo": {
+        "label": "Try It Live",
+        "title": "Multiply 97 × 98 in 3 Steps",
+        "subtitle": "Experience the Nikhilam Sutra — the method that predates calculators by 1,500 years.",
+        "step": "Step",
+        "step1Desc": "Find the deficiency from 100",
+        "step2Desc": "Cross-subtract for the left part",
+        "step3Desc": "Multiply the deficiencies",
+        "result": "Result",
+        "combine": "Combine the parts"
+    },
+    "lineage": {
+        "label": "Lineage",
+        "title": "Standing on the Shoulders of Giants",
+        "aryabhata": "Pioneered the place-value system and zero, laying the structural foundation for modern math.",
+        "brahmagupta": "Established the definitive mathematical rules for computing with zero and negative numbers.",
+        "bhaskara": "Mastered advanced calculus concepts centuries before their European formalization."
+    },
+    "voices": {
+        "label": "Voices",
+        "title": "What the Great Minds Said"
+    },
     "auth": {
         "loginTab": "Login",
         "registerTab": "Register",
@@ -160,7 +201,19 @@
         "resetSuccess": "Check your email for a reset link.",
         "welcomeToast": "Welcome to GanitSūtram!",
         "loginSuccessToast": "Welcome back!",
-        "logoutToast": "Logged out."
+        "logoutToast": "Logged out.",
+        "emailPlaceholder": "you@example.com",
+        "passwordPlaceholder": "••••••••",
+        "rolePlaceholder": "Select your role...",
+        "roleStudent": "🎓 Student",
+        "roleTeacher": "📋 Teacher",
+        "roleParent": "🏠 Parent",
+        "roleAdult": "🧠 Adult Learner",
+        "roleSchool": "🏫 School",
+        "roleAdmin": "🛡️ Admin",
+        "errorLogin": "Login failed",
+        "errorRegister": "Registration failed",
+        "errorMatch": "Passwords do not match"
     },
     "footer": {
         "tagline": "A mathematical knowledge ecosystem by AITDL.",
@@ -174,6 +227,8 @@
         "vikramLabel": "Vikram Samvat"
     },
     "common": {
+        "brand": "GanitSūtram",
+        "tagline": "Ancient Roots. Modern Clarity.",
         "loading": "Loading…",
         "error": "An error occurred.",
         "retry": "Retry",
@@ -188,7 +243,8 @@
         "edit": "Edit",
         "search": "Search",
         "noResults": "No results found.",
-        "attribution": "GanitSūtram | AITDL"
+        "attribution": "GanitSūtram | AITDL",
+        "skipToMain": "Skip to main content"
     },
     "notifications": {
         "heading": "Notifications",

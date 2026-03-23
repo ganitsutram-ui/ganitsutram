@@ -13,23 +13,32 @@ type Theme = 'dark' | 'light' | 'manuscript';
 interface ThemeContextType {
     theme: Theme;
     setTheme: (theme: Theme) => void;
+    fontScale: number;
+    setFontScale: (scale: number) => void;
 }
 
 const ThemeContext = createContext<ThemeContextType>({
     theme: 'dark',
     setTheme: () => {},
+    fontScale: 1,
+    setFontScale: () => {},
 });
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const [theme, setThemeState] = useState<Theme>('dark');
+    const [fontScale, setFontScaleState] = useState<number>(1);
 
     useEffect(() => {
         const savedTheme = localStorage.getItem('gs_theme') as Theme;
         if (savedTheme) {
             setTheme(savedTheme);
         } else {
-            // Default to dark
             setTheme('dark');
+        }
+
+        const savedScale = localStorage.getItem('gs_font_scale');
+        if (savedScale) {
+            setFontScale(parseFloat(savedScale));
         }
     }, []);
 
@@ -39,8 +48,16 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         document.documentElement.setAttribute('data-theme', newTheme);
     };
 
+    const setFontScale = (scale: number) => {
+        // Clamp scale between 0.8 and 1.5
+        const clampedScale = Math.min(Math.max(scale, 0.8), 1.5);
+        setFontScaleState(clampedScale);
+        localStorage.setItem('gs_font_scale', clampedScale.toString());
+        document.documentElement.style.setProperty('--gs-font-scale', clampedScale.toString());
+    };
+
     return (
-        <ThemeContext.Provider value={{ theme, setTheme }}>
+        <ThemeContext.Provider value={{ theme, setTheme, fontScale, setFontScale }}>
             {children}
         </ThemeContext.Provider>
     );
