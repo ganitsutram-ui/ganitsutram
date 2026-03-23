@@ -14,12 +14,14 @@ export default function ArchivalBg() {
     const containerRef = useRef<HTMLDivElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const galaxyImgRef = useRef<HTMLImageElement>(null);
+    const galaxyAnimLayerRef = useRef<HTMLDivElement>(null);
     const ringOverlayRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const canvas = canvasRef.current;
         const container = containerRef.current;
         const galaxyImg = galaxyImgRef.current;
+        const galaxyAnimLayer = galaxyAnimLayerRef.current;
         const ringOverlay = ringOverlayRef.current;
 
         if (!canvas || !container || !galaxyImg) return;
@@ -123,7 +125,7 @@ export default function ArchivalBg() {
         }
         const elapsed = (Date.now() - parseInt(epoch)) / 1000;
         
-        galaxyImg.style.animationDelay = `-${elapsed}s, -${elapsed}s`;
+        if (galaxyAnimLayer) galaxyAnimLayer.style.animationDelay = `-${elapsed}s, -${elapsed}s`;
         if (ringOverlay) ringOverlay.style.animationDelay = `-${elapsed}s`;
 
         const blooms = container.querySelectorAll('.nebula-bloom') as NodeListOf<HTMLElement>;
@@ -143,12 +145,14 @@ export default function ArchivalBg() {
 
     return (
         <div id="gs-archival-bg" className="gs-archival-bg" ref={containerRef}>
-            <img 
-                id="galaxy-img" 
-                src="/assets/archival-galaxy.jpg" 
-                alt="Cosmic galaxy background" 
-                ref={galaxyImgRef} 
-            />
+            <div className="galaxy-anim-layer" ref={galaxyAnimLayerRef}>
+                <img 
+                    id="galaxy-img" 
+                    src="/assets/archival-galaxy.jpg" 
+                    alt={t('common.archivalBgAlt') || "Cosmic galaxy background"} 
+                    ref={galaxyImgRef} 
+                />
+            </div>
             <div className="nebula-bloom bloom-1"></div>
             <div className="nebula-bloom bloom-2"></div>
             <div className="nebula-bloom bloom-3"></div>

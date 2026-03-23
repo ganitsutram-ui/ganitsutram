@@ -19,7 +19,7 @@ const cinzel = Cinzel({
 });
 
 const cinzelDecorative = Cinzel_Decorative({
-  weight: ["400", "700", "900"],
+  weight: ["400"],
   variable: "--font-display",
   subsets: ["latin"],
 });
