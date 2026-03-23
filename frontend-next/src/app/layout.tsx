@@ -43,25 +43,49 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 import AuthModal from "@/components/AuthModal";
+import JsonLd from "@/components/JsonLd";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://ganitsutram.com"),
   title: {
     template: "%s | GaṇitSūtram",
-    default: "GaṇitSūtram - Vedic Mathematics Learning Portal",
+    default: "GaṇitSūtram - Ancient Vedic Mathematics Learning Portal",
   },
-  description: "Learn Vedic Mathematics through interactive solvers and detailed modules.",
+  description: "Master Vedic Mathematics with GaṇitSūtram. Discover ancient sutras, interactive solvers, and a cosmic visual knowledge map for rapid mental calculation.",
+  keywords: ["Vedic Mathematics", "Vedic Maths", "GanitSutram", "Mental Math", "Indian Mathematics", "Sutras", "Speed Calculation"],
+  authors: [{ name: "Jawahar R Mallah", url: "https://www.aitdl.com" }],
+  creator: "AITDL Network",
+  publisher: "AITDL Network",
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: "GaṇitSūtram",
-    description: "Learn Vedic Mathematics through interactive solvers and detailed modules.",
+    title: "GaṇitSūtram - Vedic Mathematics Learning Portal",
+    description: "Master Vedic Mathematics with GaṇitSūtram. Discover ancient sutras, interactive solvers, and a cosmic visual knowledge map.",
     url: "https://ganitsutram.com",
     siteName: "GaṇitSūtram",
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "GaṇitSūtram Vedic Mathematics",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "GaṇitSūtram",
-    description: "Learn Vedic Mathematics through interactive solvers and detailed modules.",
+    title: "GaṇitSūtram - Vedic Science of Numbers",
+    description: "Discover the power of mental mathematics through ancient Indian wisdom.",
+    creator: "@aitdlnetwork",
+    images: ["/og-image.png"],
+  },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon-32x32.png",
+    apple: "/apple-touch-icon.png",
   },
 };
 
@@ -77,6 +101,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <Providers>
+            <JsonLd />
             <Navbar />
             <AuthModal />
             {children}
