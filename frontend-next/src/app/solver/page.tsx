@@ -123,7 +123,7 @@ export default function SolverPage() {
                                     <label htmlFor="op-selector">{t('solver.operationLabel') || 'Select Operation'}</label>
                                     <select 
                                         id="op-selector" 
-                                        className="gs-input" 
+                                        className="gs-input gs-select" 
                                         value={selectedOp} 
                                         onChange={(e) => setSelectedOp(e.target.value)}
                                         required
