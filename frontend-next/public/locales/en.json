@@ -375,5 +375,28 @@
         "paramInput": "Single operand",
         "reqYes": "Yes",
         "reqNo": "No"
+    },
+    "admin": {
+        "title": "Admin Console",
+        "subtitle": "Platform Command & Control",
+        "welcome": "Welcome back, Admin.",
+        "metricUsers": "Total Users",
+        "metricActive": "Active 24h",
+        "metricContent": "Archival Items",
+        "metricUptime": "API Uptime",
+        "cardCMSTitle": "Archival CMS",
+        "cardCMSDesc": "Manage sutras, discoveries, and lessons.",
+        "cardAnalyticsTitle": "Platform Analytics",
+        "cardAnalyticsDesc": "Live telemetry and growth metrics.",
+        "cardAPITitle": "API Documentation",
+        "cardAPIDesc": "Reference for external integrations.",
+        "cardUsersTitle": "User Audit",
+        "cardUsersDesc": "Manage users and permissions.",
+        "recentActivity": "Recent Activity",
+        "systemStatus": "System Status",
+        "unauthorized": "Access Denied. Admin privileges required.",
+        "backToPortal": "Back to Portal",
+        "actionManage": "Manage →",
+        "actionView": "View →"
     }
 }
