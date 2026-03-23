@@ -9,6 +9,7 @@ Contact: aitdlnetwork@outlook.com | jawahar.mallah@gmail.com
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useI18n } from '@/context/I18nContext';
+import { VedicEngine } from '@/lib/vedic-engine';
 
 const FALLBACK_CONCEPTS = [
     { id: "digital-root", title: "Digital Root", sutra: "Beejank", desc: "Reduce any number to a single digit.", inputs: 1, operations: ["digital-root", "digital-root-steps"] },
@@ -84,44 +85,23 @@ export default function SolverPage() {
         setIsSolving(true);
         setResultData(null);
 
-        const API_BASE = '/api';
-
         try {
-            const body: any = { operation: selectedOp };
-            if (activeConcept.inputs === 2) {
-                body.inputA = inputA;
-                body.inputB = inputB;
-            } else if (activeConcept.inputType === 'sequence') {
-                body.input = inputSeq;
-            } else {
-                body.input = inputA;
-            }
-
-            const res = await fetch(`${API_BASE}/solve`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(body)
-            });
-
-            const data = await res.json();
-
-            if (res.ok) {
-                setResultData({ data: data, concept: activeConcept });
-                
-                const histEntry = {
-                    op: activeConcept.title,
-                    sutra: activeConcept.sutra,
-                    inputA: data.inputA || data.input,
-                    inputB: data.inputB,
-                    result: data.result,
-                    time: new Date()
-                };
-                setHistory(prev => [histEntry, ...prev].slice(0, 10));
-            } else {
-                setWarning(data.error || 'Solver encountered an error.');
-            }
-        } catch (err) {
-            setWarning('Failed to connect to mathematical engine.');
+            // Use Client-side VedicEngine instead of API
+            const result = VedicEngine.solve(selectedOp, inputA, inputB);
+            
+            setResultData({ data: result, concept: activeConcept });
+            
+            const histEntry = {
+                op: activeConcept.title,
+                sutra: activeConcept.sutra,
+                inputA: result.inputA || result.input,
+                inputB: result.inputB,
+                result: result.result,
+                time: new Date()
+            };
+            setHistory(prev => [histEntry, ...prev].slice(0, 10));
+        } catch (err: any) {
+            setWarning(err.message || 'Solver encountered an error.');
         } finally {
             setIsSolving(false);
         }
