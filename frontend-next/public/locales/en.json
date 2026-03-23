@@ -98,6 +98,7 @@
         "emptyHistory": "No computations yet.",
         "referenceHeading": "What can the Solver do?",
         "loading": "Computing…",
+        "loadingOps": "Select an operation...",
         "error": "Something went wrong. Please try again."
     },
     "discoveries": {

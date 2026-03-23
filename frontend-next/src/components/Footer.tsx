@@ -15,29 +15,30 @@ export default function Footer() {
 
     return (
         <footer className="gs-footer">
-            <div className="gs-footer-inner">
-                <div className="gs-footer-brand">
-                    <div className="gs-nav-logo">
-                        <span className="gs-nav-logo-dev">गणित</span>GanitSūtram
+            <div className="gs-container">
+                <div className="gs-footer-content">
+                    <div className="gs-footer-brand">
+                        <Link href="/" className="gs-nav-logo">
+                            <span className="gs-nav-logo-dev">गणित</span>GanitSūtram
+                        </Link>
+                        <p className="gs-footer-tagline">{t('footer.tagline')}</p>
                     </div>
-                    <p>{t('footer.tagline')}</p>
-                </div>
-                <div className="gs-footer-nav-cols">
-                    <div className="gs-footer-col">
-                        <div className="gs-footer-col-title">{t('nav.learn')}</div>
-                        <Link href="/gate">{t('footer.enterGate')}</Link>
-                        <Link href="/learning">{t('footer.learningHub')}</Link>
+
+                    <div className="gs-footer-nav">
+                        <Link href="/gate" className="gs-footer-link">{t('footer.enterGate')}</Link>
+                        <Link href="/learning" className="gs-footer-link">{t('footer.learningHub')}</Link>
+                        <Link href="/solver" className="gs-footer-link">{t('nav.solver')}</Link>
+                    </div>
+
+                    <div className="gs-vikram-badge-sleek">
+                        <span className="label">{t('footer.vikramLabel')}</span>
+                        <span className="value">VS 2083</span>
                     </div>
                 </div>
-            </div>
-            <div className="gs-footer-center">
-                <div className="gs-vikram-badge">
-                    <span className="gs-vikram-label">{t('footer.vikramLabel')}</span>
-                    <span className="gs-vikram-val">VS 2083</span>
+
+                <div className="gs-footer-bottom">
+                    <p className="gs-footer-copy">{t('footer.copyright')}</p>
                 </div>
-            </div>
-            <div className="gs-footer-copy">
-                <span>{t('footer.copyright')}</span>
             </div>
         </footer>
     );

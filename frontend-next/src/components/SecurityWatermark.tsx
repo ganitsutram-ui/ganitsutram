@@ -21,7 +21,10 @@ const SecurityWatermark: React.FC = () => {
             id="aitdl-security-watermark"
             className="fixed bottom-4 right-4 z-[9999] pointer-events-none select-none"
         >
-            <div className="text-[10px] font-ancient text-white/5 tracking-widest whitespace-nowrap">
+            <div 
+                className="text-[10px] font-ancient tracking-widest whitespace-nowrap"
+                style={{ color: 'var(--fg-main)', opacity: 0.05 }}
+            >
                 GANITSUTRAM | AITDL NETWORK © 2026
             </div>
         </div>

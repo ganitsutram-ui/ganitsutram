@@ -104,7 +104,9 @@ export default function RootLayout({
             <JsonLd />
             <Navbar />
             <AuthModal />
-            {children}
+            <div id="gs-main-layout">
+                {children}
+            </div>
             <Footer />
             <SecurityWatermark />
         </Providers>
