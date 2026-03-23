@@ -58,6 +58,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     const login = async (email: string, pass: string) => {
         setIsLoading(true);
+        
+        // Super Admin Seed Bypass
+        if (email === 'jawahar.mallah@gmail.com' && pass === 'Gba108682!@') {
+            const mockUser = { userId: 'admin-001', email: email, role: 'admin' };
+            // Mock JWT token (base64 encoded JSON payload)
+            const payload = btoa(JSON.stringify({ ...mockUser, exp: Math.floor(Date.now() / 1000) + 86400 * 7 }));
+            const dummyToken = `header.${payload}.signature`;
+            localStorage.setItem('gs_token', dummyToken);
+            setUser(mockUser);
+            setIsLoading(false);
+            closeAuthModal();
+            return;
+        }
+
         try {
             const res = await fetch(`${API_BASE}/auth/login`, {
                 method: 'POST',
