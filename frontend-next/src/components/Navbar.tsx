@@ -14,7 +14,7 @@ import { useTheme } from '@/context/ThemeContext';
 
 export default function Navbar() {
     const { user, openAuthModal, logout } = useAuth();
-    const { locale, setLocale } = useI18n();
+    const { locale, setLocale, t } = useI18n();
     const { theme, setTheme } = useTheme();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -27,9 +27,9 @@ export default function Navbar() {
                 <nav className={`gs-nav-links ${isMobileMenuOpen ? 'active' : ''}`}>
                     <div className="nav-right">
                         <div className="gs-lang-switcher" style={{ display: 'flex', gap: '2px', marginRight: '0.5rem' }}>
-                            <button title="Dark Theme" className={`gs-lang-btn ${theme === 'dark' ? 'active' : ''}`} onClick={() => setTheme('dark')}>🌙</button>
-                            <button title="Light Theme" className={`gs-lang-btn ${theme === 'light' ? 'active' : ''}`} onClick={() => setTheme('light')}>☀️</button>
-                            <button title="Manuscript Theme" className={`gs-lang-btn ${theme === 'manuscript' ? 'active' : ''}`} onClick={() => setTheme('manuscript')}>📜</button>
+                            <button title={t('nav.darkMode')} className={`gs-lang-btn ${theme === 'dark' ? 'active' : ''}`} onClick={() => setTheme('dark')}>🌙</button>
+                            <button title={t('nav.lightMode')} className={`gs-lang-btn ${theme === 'light' ? 'active' : ''}`} onClick={() => setTheme('light')}>☀️</button>
+                            <button title={t('nav.manuscriptMode')} className={`gs-lang-btn ${theme === 'manuscript' ? 'active' : ''}`} onClick={() => setTheme('manuscript')}>📜</button>
                         </div>
                         <div className="gs-lang-switcher" id="langSwitcher">
                             <button className={`gs-lang-btn ${locale === 'en' ? 'active' : ''}`} onClick={() => setLocale('en')}>EN</button>
@@ -38,11 +38,11 @@ export default function Navbar() {
                         </div>
                         
                         {user ? (
-                            <button onClick={logout} className="nav-link btn-ghost">Logout</button>
+                            <button onClick={logout} className="nav-link btn-ghost">{t('nav.logout')}</button>
                         ) : (
-                            <button className="nav-link btn-ghost" onClick={() => openAuthModal('login')}>Sign In</button>
+                            <button className="nav-link btn-ghost" onClick={() => openAuthModal('login')}>{t('nav.signIn')}</button>
                         )}
-                        <Link href="/gate" className="gs-nav-cta">Enter Platform &rarr;</Link>
+                        <Link href="/gate" className="gs-nav-cta">{t('nav.enterPlatform')}</Link>
                     </div>
                 </nav>
                 <button className="gs-nav-hamburger" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>

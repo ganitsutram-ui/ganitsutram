@@ -19,7 +19,10 @@
         "myProfile": "My Profile",
         "myProgress": "My Progress",
         "leaderboard": "Leaderboard",
-        "logout": "Logout"
+        "logout": "Logout",
+        "darkMode": "Dark Theme",
+        "lightMode": "Light Theme",
+        "manuscriptMode": "Manuscript Theme"
     },
     "leaderboard": {
         "sanskrit": "श्रेष्ठो भव",
@@ -164,7 +167,10 @@
         "copyright": "© GanitSūtram | AITDL | aitdl.com",
         "date": "Vikram Samvat: VS 2082 | Gregorian: 2026-03-07",
         "rights": "All Rights Reserved.",
-        "restriction": "Unauthorized copying, reproduction, redistribution, or reuse of this software, algorithms, or educational content is prohibited without written permission from AITDL."
+        "restriction": "Unauthorized copying, reproduction, redistribution, or reuse of this software, algorithms, or educational content is prohibited without written permission from AITDL.",
+        "enterGate": "Enter Gate",
+        "learningHub": "Learning Hub",
+        "vikramLabel": "Vikram Samvat"
     },
     "common": {
         "loading": "Loading…",
@@ -220,10 +226,19 @@
         "filterOperations": "Operations",
         "filterSutras": "Sutras",
         "filterConcepts": "Concepts",
+        "filterNodes": "Nodes",
         "tryInSolver": "Try in Solver →",
         "readMore": "Read More →",
         "startLearning": "Start Learning →",
-        "exploreMap": "Explore the Knowledge Map →"
+        "exploreMap": "Explore the Knowledge Map →",
+        "heroTitle": "Search GanitSūtram",
+        "heroPlaceholder": "Search discoveries, concepts, sutras...",
+        "searching": "Searching for ancient wisdom...",
+        "viewGraph": "View Graph map →",
+        "knowledgeMap": "Knowledge Map",
+        "visualizeCosmic": "Visualize the cosmic connections between mathematical concepts.",
+        "discoverSecrets": "Discover the secrets of numbers.",
+        "beginDiscovery": "Type a keyword above to begin your discovery."
     },
     "graph": {
         "heading": "Knowledge Graph",

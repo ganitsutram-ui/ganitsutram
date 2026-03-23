@@ -90,11 +90,11 @@ export default function SearchClient() {
         <main className="gs-search-page">
             <div className="gs-search-results-column">
                 <form onSubmit={handleSearchInput} className="gs-search-hero">
-                    <h1 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '1.5rem' }}>Search GanitSūtram</h1>
+                    <h1 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '1.5rem' }}>{t('search.heroTitle')}</h1>
                     <input 
                         type="text" 
                         className="gs-search-hero-input" 
-                        placeholder="Search discoveries, concepts, sutras..." 
+                        placeholder={t('search.heroPlaceholder')} 
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
                     />
@@ -107,14 +107,18 @@ export default function SearchClient() {
                             className={`gs-filter-btn ${filter === type ? 'active' : ''}`}
                             onClick={() => handleFilterChange(type)}
                         >
-                            {type === '' ? 'All' : type === 'discovery' ? 'Discoveries' : type.charAt(0).toUpperCase() + type.slice(1) + 's'}
+                            {type === '' ? t('search.filterAll') : 
+                             type === 'discovery' ? t('search.filterDiscoveries') : 
+                             type === 'concept' ? t('search.filterConcepts') : 
+                             type === 'node' ? t('search.filterNodes') : 
+                             type.charAt(0).toUpperCase() + type.slice(1) + 's'}
                         </button>
                     ))}
                 </div>
 
                 <div className="gs-results-container">
                     {loading ? (
-                        <div style={{ padding: '3rem', textAlign: 'center', color: 'var(--fg-muted)' }}>Searching for ancient wisdom...</div>
+                        <div style={{ padding: '3rem', textAlign: 'center', color: 'var(--fg-muted)' }}>{t('search.searching')}</div>
                     ) : results.length > 0 ? (
                         results.map(r => (
                             <div key={`${r.doc_type}-${r.doc_id}`} className="gs-result-card">
@@ -122,45 +126,45 @@ export default function SearchClient() {
                                 {r.category && <span style={{ marginLeft: '0.75rem', fontSize: '0.75rem', color: 'var(--fg-muted)' }}>{r.category}</span>}
                                 <h3 className="gs-result-title">{r.title}</h3>
                                 <p className="gs-result-excerpt">{r.excerpt}</p>
-                                <div style={{ marginTop: '1rem', fontSize: '0.85rem', color: 'var(--accent-primary)', fontWeight: 600 }}>Explore →</div>
+                                <div style={{ marginTop: '1rem', fontSize: '0.85rem', color: 'var(--accent-primary)', fontWeight: 600 }}>{t('discoveries.exploreBtn')}</div>
                             </div>
                         ))
                     ) : query && (
                         <div className="gs-search-empty">
                             <div className="gs-search-empty-icon">🔍</div>
-                            <p>No results found for "{query}"</p>
-                            <p className="gs-search-empty-hint">Try adjusting your filters or searching for terms like "nikhilam" or "digital root".</p>
+                            <p>{t('search.noResults', { query })}</p>
+                            <p className="gs-search-empty-hint">{t('search.trySearch')}</p>
                         </div>
                     )}
                     {!query && (
                         <div className="gs-search-empty">
                             <div className="gs-search-empty-icon">✨</div>
-                            <p>Discover the secrets of numbers.</p>
-                            <p className="gs-search-empty-hint">Type a keyword above to begin your discovery.</p>
+                            <p>{t('search.discoverSecrets')}</p>
+                            <p className="gs-search-empty-hint">{t('search.beginDiscovery')}</p>
                         </div>
                     )}
                 </div>
             </div>
 
             <aside className="gs-search-sidebar">
-                <div className="gs-sidebar-heading">Popular Searches</div>
+                <div className="gs-sidebar-heading">{t('search.popular')}</div>
                 <div className="gs-sidebar-tags" style={{ marginBottom: '2.5rem' }}>
                     {popular.map(p => (
                         <button key={p} className="gs-sidebar-tag" onClick={() => { setQuery(p); performSearch(p, filter); }}>{p}</button>
                     ))}
                 </div>
 
-                <div className="gs-sidebar-heading">Trending Now</div>
+                <div className="gs-sidebar-heading">{t('search.trending')}</div>
                 <div className="gs-sidebar-tags">
-                    {trending.map(t => (
-                        <button key={t} className="gs-sidebar-tag" onClick={() => { setQuery(t); performSearch(t, filter); }}>{t}</button>
+                    {trending.map(t_item => (
+                        <button key={t_item} className="gs-sidebar-tag" onClick={() => { setQuery(t_item); performSearch(t_item, filter); }}>{t_item}</button>
                     ))}
                 </div>
 
                 <div style={{ marginTop: '3rem', padding: '1.5rem', background: 'rgba(255,85,0,0.05)', borderRadius: '12px', border: '1px solid rgba(255,85,0,0.2)' }}>
-                    <h4 style={{ fontSize: '0.9rem', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--accent-primary)' }}>Knowledge Map</h4>
-                    <p style={{ fontSize: '0.8rem', color: 'var(--fg-muted)', marginBottom: '1rem' }}>Visualize the cosmic connections between mathematical concepts.</p>
-                    <a href="/portal/knowledge-map" style={{ fontSize: '0.85rem', fontWeight: 700, color: '#fff', textDecoration: 'none' }}>View Graph map →</a>
+                    <h4 style={{ fontSize: '0.9rem', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--accent-primary)' }}>{t('search.knowledgeMap')}</h4>
+                    <p style={{ fontSize: '0.8rem', color: 'var(--fg-muted)', marginBottom: '1rem' }}>{t('search.visualizeCosmic')}</p>
+                    <a href="/portal/knowledge-map" style={{ fontSize: '0.85rem', fontWeight: 700, color: '#fff', textDecoration: 'none' }}>{t('search.viewGraph')}</a>
                 </div>
             </aside>
         </main>

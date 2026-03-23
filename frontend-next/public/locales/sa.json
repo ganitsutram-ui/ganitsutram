@@ -19,7 +19,10 @@
         "myProfile": "मम परिचयः",
         "myProgress": "मम प्रगतिः",
         "leaderboard": "अग्रगण्य-पट्टिका",
-        "logout": "निर्गच्छतु"
+        "logout": "निर्गच्छतु",
+        "darkMode": "कृष्ण वर्णः",
+        "lightMode": "प्रकाश वर्णः",
+        "manuscriptMode": "पाण्डुलिपि रूपम्"
     },
     "leaderboard": {
         "sanskrit": "श्रेष्ठो भव",
@@ -220,10 +223,19 @@
         "filterOperations": "क्रियाः",
         "filterSutras": "सूत्राणि",
         "filterConcepts": "संकल्पाः",
+        "filterNodes": "ग्रन्थयः",
         "tryInSolver": "गणके प्रायोगयतु →",
         "readMore": "अधिकं पठतु →",
         "startLearning": "अध्ययनं आरभतु →",
-        "exploreMap": "ज्ञानचित्रम् अन्वेषयतु →"
+        "exploreMap": "ज्ञानचित्रम् अन्वेषयतु →",
+        "heroTitle": "गणितसूत्रम् अन्वेषणं",
+        "heroPlaceholder": "अन्वेषणं, अवधारणाः, सूत्राणि...",
+        "searching": "प्राचीनज्ञानस्य अन्वेषणं क्रियते...",
+        "viewGraph": "ग्राफ मानचित्रं पश्यतु →",
+        "knowledgeMap": "ज्ञान मानचित्रं",
+        "visualizeCosmic": "गणितीय-अवधारणानां मध्ये ब्रह्माण्डीय-सम्बन्धानां दर्शनं कुर्वन्तु।",
+        "discoverSecrets": "संख्यानां रहस्यानि अन्वेषयन्तु।",
+        "beginDiscovery": "स्वस्य अन्वेषणं आरभितुं उपरि बीजपदं टङ्कयन्तु।"
     },
     "graph": {
         "heading": "ज्ञानग्रन्थिजालम्",
