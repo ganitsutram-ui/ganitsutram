@@ -16,6 +16,7 @@ type I18nContextType = {
     isLoaded: boolean;
     formatNumber: (n: number) => string;
     formatDate: (date: string | Date) => string;
+    formatYear: (year: number) => string;
 };
 
 const SUPPORTED_LOCALES = ['en', 'hi', 'sa'];
@@ -56,30 +57,58 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
             locToLoad.push('en');
         }
 
-        const fetchPromises = locToLoad.filter(l => !translations[l]).map(l => fetchLocaleData(l));
-        await Promise.all(fetchPromises);
+        // Fetch missing data
+        for (const loc of locToLoad) {
+            if (!translations[loc]) {
+                try {
+                    const res = await fetch(`/locales/${loc}.json`);
+                    if (res.ok) {
+                        const data = await res.json();
+                        // Update translations map locally to ensure atomic-like update if needed,
+                        // but setTranslations is still needed for global state.
+                        setTranslations(prev => ({ ...prev, [loc]: data }));
+                        // We also store it in a temporary object if we wanted to be super safe,
+                        // but React state batching in async handlers usually suffices.
+                    }
+                } catch (e) {
+                    console.error(`Failed to load locale ${loc}`);
+                }
+            }
+        }
         
         localStorage.setItem('gs_locale', newLocale);
         document.documentElement.lang = newLocale === 'sa' ? 'sa-Deva' : newLocale;
         
-        // Single state update for predictability
+        // Final state updates
         setLocaleState(newLocale);
         setIsLoaded(true);
     };
 
     const resolveKey = (obj: any, path: string) => {
         if (!obj) return undefined;
-        return path.split('.').reduce((acc, part) => acc && acc[part], obj);
+        const value = path.split('.').reduce((acc, part) => acc && acc[part], obj);
+        if (value === undefined && process.env.NODE_ENV === 'development') {
+            // Optional: log missing keys in dev
+        }
+        return value;
     };
 
     const t = useCallback((key: string, vars: Record<string, string> = {}) => {
         let result = resolveKey(translations[locale], key);
+        
+        // Fallback to English
         if (result === undefined && locale !== 'en') {
             result = resolveKey(translations['en'], key);
         }
-        if (result === undefined) return key;
+        
+        if (result === undefined) {
+            if (process.env.NODE_ENV === 'development') {
+                console.warn(`[I18n] Missing key: ${key} for locale: ${locale}`);
+            }
+            return key;
+        }
 
-        if (typeof result !== 'string') return result;
+        if (typeof result !== 'string') return String(result);
 
         return result.replace(/\{\{(.*?)\}\}/g, (match, p1) => {
             const varName = p1.trim();
@@ -98,8 +127,13 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
         return new Intl.DateTimeFormat(dfLocale, { day: 'numeric', month: 'short', year: 'numeric' }).format(d);
     }, [locale]);
 
+    const formatYear = useCallback((year: number) => {
+        const yLocale = (locale === 'hi' || locale === 'sa') ? 'hi-IN-u-nu-deva' : 'en-IN';
+        return new Intl.NumberFormat(yLocale, { useGrouping: false }).format(year);
+    }, [locale]);
+
     return (
-        <I18nContext.Provider value={{ locale, setLocale, t, isLoaded, formatNumber, formatDate }}>
+        <I18nContext.Provider value={{ locale, setLocale, t, isLoaded, formatNumber, formatDate, formatYear }}>
             {children}
         </I18nContext.Provider>
     );

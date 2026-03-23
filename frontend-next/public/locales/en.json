@@ -61,7 +61,11 @@
         "vedicOperations": "Vedic Operations",
         "patternDiscoveries": "Pattern Discoveries",
         "vedicSutras": "Vedic Sutras",
-        "yearsHeritage": "Years of Heritage"
+        "yearsHeritage": "Years of Heritage",
+        "valOperations": "7",
+        "valDiscoveries": "8",
+        "valSutras": "16",
+        "valHeritage": "1,500+"
     },
     "ecosystem": {
         "label": "THE ECOSYSTEM",
@@ -118,7 +122,19 @@
         "referenceHeading": "What can the Solver do?",
         "loading": "Computing…",
         "loadingOps": "Select an operation...",
-        "error": "Something went wrong. Please try again."
+        "error": "Something went wrong. Please try again.",
+        "seqLabel": "Number Sequence",
+        "firstLabel": "First Number",
+        "secondLabel": "Second Number",
+        "numLabel": "Number",
+        "thOperation": "Operation",
+        "thInput": "Input(s)",
+        "thResult": "Result",
+        "thSutra": "Sutra",
+        "thTime": "Time",
+        "noOps": "No operations solved yet.",
+        "journeyStart": "Your mathematical journey is just beginning.",
+        "welcomeBack": "Welcome back! Your operations are securely synced."
     },
     "discoveries": {
         "heading": "Mathematical Discoveries",
@@ -172,18 +188,31 @@
         "step2Desc": "Cross-subtract for the left part",
         "step3Desc": "Multiply the deficiencies",
         "result": "Result",
-        "combine": "Combine the parts"
+        "combine": "Combine the parts",
+        "demo97": "97 → 100 - 97 = ",
+        "demo98": "98 → 100 - 98 = ",
+        "demoSub": "97 - 2 = ",
+        "demoMul": "3 × 2 = ",
+        "demoAns": "9506",
+        "demoParts": "95 | 06"
     },
     "lineage": {
         "label": "Lineage",
         "title": "Standing on the Shoulders of Giants",
         "aryabhata": "Pioneered the place-value system and zero, laying the structural foundation for modern math.",
         "brahmagupta": "Established the definitive mathematical rules for computing with zero and negative numbers.",
-        "bhaskara": "Mastered advanced calculus concepts centuries before their European formalization."
+        "bhaskara": "Mastered advanced calculus concepts centuries before their European formalization.",
+        "aryabhataName": "Āryabhaṭa (476 CE)",
+        "brahmaguptaName": "Brahmagupta (598 CE)",
+        "bhaskaraName": "Bhāskara II (1114 CE)"
     },
     "voices": {
         "label": "Voices",
-        "title": "What the Great Minds Said"
+        "title": "What the Great Minds Said",
+        "quoteGauss": "Mathematics is the queen of the sciences, and number theory is the queen of mathematics.",
+        "citeGauss": "Carl Friedrich Gauss",
+        "quoteVeda": "As the crest of a peacock, as the gem on a serpent's head, so stands Mathematics at the top of all sciences.",
+        "citeVeda": "Vedāṅga Jyotiṣa (1200 BCE)"
     },
     "auth": {
         "loginTab": "Login",
@@ -218,13 +247,14 @@
     "footer": {
         "tagline": "A mathematical knowledge ecosystem by AITDL.",
         "portal": "Portal",
-        "copyright": "© GanitSūtram | AITDL | aitdl.com",
-        "date": "Vikram Samvat: VS 2082 | Gregorian: 2026-03-07",
+        "copyright": "© {{year}} GanitSūtram | AITDL",
+        "date": "Vikram Samvat: VS {{vsYear}} | Gregorian: {{year}}",
         "rights": "All Rights Reserved.",
         "restriction": "Unauthorized copying, reproduction, redistribution, or reuse of this software, algorithms, or educational content is prohibited without written permission from AITDL.",
         "enterGate": "Enter Gate",
         "learningHub": "Learning Hub",
-        "vikramLabel": "Vikram Samvat"
+        "vikramLabel": "Vikram Samvat",
+        "vikramPrefix": "VS"
     },
     "common": {
         "brand": "GanitSūtram",
@@ -244,7 +274,8 @@
         "search": "Search",
         "noResults": "No results found.",
         "attribution": "GanitSūtram | AITDL",
-        "skipToMain": "Skip to main content"
+        "skipToMain": "Skip to main content",
+        "galaxyAlt": "Cosmic galaxy background"
     },
     "notifications": {
         "heading": "Notifications",
@@ -295,7 +326,8 @@
         "knowledgeMap": "Knowledge Map",
         "visualizeCosmic": "Visualize the cosmic connections between mathematical concepts.",
         "discoverSecrets": "Discover the secrets of numbers.",
-        "beginDiscovery": "Type a keyword above to begin your discovery."
+        "beginDiscovery": "Type a keyword above to begin your discovery.",
+        "loadingSearch": "Loading Search..."
     },
     "graph": {
         "heading": "Knowledge Graph",
@@ -308,6 +340,40 @@
         "focusMode": "Focus Mode",
         "related": "Related",
         "viewInSolver": "View in Solver →",
-        "findPathFrom": "Find path from here"
+        "findPathFrom": "Find path from here",
+        "labelTitle": "Title",
+        "labelBody": "Body (Markdown)",
+        "placeholderBody": "Write your mathematical discovery here...",
+        "previewPlaceholder": "Preview will appear here..."
+    },
+    "api": {
+        "title": "GanitSūtram API",
+        "desc": "The GanitSūtram API provides programmatic access to Vedic mathematical algorithms, pattern detection, and knowledge graph data. Use this reference to integrate Vedic discovery into your own applications.",
+        "baseUrl": "Base URL",
+        "navOverview": "Overview",
+        "thName": "Name",
+        "thType": "Type",
+        "thReq": "Req",
+        "thDesc": "Description",
+        "exampleRequest": "Example Request",
+        "successResponse": "Success Response",
+        "tryItOut": "Try It Out",
+        "sendRequest": "Send Request",
+        "authPublic": "Public",
+        "authPrivate": "Auth",
+        "sectionAuth": "Authentication",
+        "sectionSolver": "Solver",
+        "regDesc": "Register a new user account. Returns a JWT token on success.",
+        "loginDesc": "Authenticate an existing user. Returns a JWT token.",
+        "solveDesc": "Run any Vedic mathematical operation. Authenticated users have results auto-saved to progress.",
+        "paramEmail": "Valid email address",
+        "paramPass": "Min 8 characters",
+        "paramRole": "student | teacher | parent | adult | school | admin",
+        "paramRegEmail": "Registered email",
+        "paramRegPass": "Account password",
+        "paramOp": "Operation (e.g. digital-root, nikhilam)",
+        "paramInput": "Single operand",
+        "reqYes": "Yes",
+        "reqNo": "No"
     }
 }

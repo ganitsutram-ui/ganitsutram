@@ -9,17 +9,17 @@ Contact: aitdlnetwork@outlook.com | jawahar.mallah@gmail.com
 import React, { useState, useEffect } from 'react';
 import { useI18n } from '@/context/I18nContext';
 
-const SECTIONS = [
+const getSections = (t: any) => [
     {
-        id: 'auth', label: 'Authentication',
+        id: 'auth', label: t('api.sectionAuth'),
         endpoints: [
             {
                 id: 'auth-register', method: 'POST', path: '/auth/register', auth: 'public',
-                desc: 'Register a new user account. Returns a JWT token on success.',
+                desc: t('api.regDesc'),
                 params: [
-                    { name: 'email', type: 'string', req: true, desc: 'Valid email address' },
-                    { name: 'password', type: 'string', req: true, desc: 'Min 8 characters' },
-                    { name: 'role', type: 'string', req: true, desc: 'student | teacher | parent | adult | school | admin' }
+                    { name: 'email', type: 'string', req: true, desc: t('api.paramEmail') },
+                    { name: 'password', type: 'string', req: true, desc: t('api.paramPass') },
+                    { name: 'role', type: 'string', req: true, desc: t('api.paramRole') }
                 ],
                 curl: `curl -X POST /api/auth/register \\
   -H "Content-Type: application/json" \\
@@ -28,10 +28,10 @@ const SECTIONS = [
             },
             {
                 id: 'auth-login', method: 'POST', path: '/auth/login', auth: 'public',
-                desc: 'Authenticate an existing user. Returns a JWT token.',
+                desc: t('api.loginDesc'),
                 params: [
-                    { name: 'email', type: 'string', req: true, desc: 'Registered email' },
-                    { name: 'password', type: 'string', req: true, desc: 'Account password' }
+                    { name: 'email', type: 'string', req: true, desc: t('api.paramRegEmail') },
+                    { name: 'password', type: 'string', req: true, desc: t('api.paramRegPass') }
                 ],
                 curl: `curl -X POST /api/auth/login \\
   -H "Content-Type: application/json" \\
@@ -41,14 +41,14 @@ const SECTIONS = [
         ]
     },
     {
-        id: 'solver', label: 'Solver',
+        id: 'solver', label: t('api.sectionSolver'),
         endpoints: [
             {
                 id: 'solve', method: 'POST', path: '/solve', auth: 'public',
-                desc: 'Run any Vedic mathematical operation. Authenticated users have results auto-saved to progress.',
+                desc: t('api.solveDesc'),
                 params: [
-                    { name: 'operation', type: 'string', req: true, desc: 'Operation (e.g. digital-root, nikhilam)' },
-                    { name: 'input', type: 'number', req: false, desc: 'Single operand' }
+                    { name: 'operation', type: 'string', req: true, desc: t('api.paramOp') },
+                    { name: 'input', type: 'number', req: false, desc: t('api.paramInput') }
                 ],
                 curl: `curl -X POST /api/solve \\
   -H "Content-Type: application/json" \\
@@ -61,6 +61,7 @@ const SECTIONS = [
 
 export default function ApiDocs() {
     const { t } = useI18n();
+    const SECTIONS = getSections(t);
     const [activeSection, setActiveSection] = useState('overview');
     const [openSandbox, setOpenSandbox] = useState<string | null>(null);
     const [sandboxResponse, setSandboxResponse] = useState<Record<string, any>>({});
@@ -78,7 +79,7 @@ export default function ApiDocs() {
             {/* Sidebar */}
             <aside className="docs-sidebar">
                 <nav>
-                    <a href="#overview" className={`docs-nav-link ${activeSection === 'overview' ? 'active' : ''}`} onClick={() => setActiveSection('overview')}>Overview</a>
+                    <a href="#overview" className={`docs-nav-link ${activeSection === 'overview' ? 'active' : ''}`} onClick={() => setActiveSection('overview')}>{t('api.navOverview')}</a>
                     {SECTIONS.map(s => (
                         <div key={s.id} style={{ marginTop: '1.5rem' }}>
                             <div style={{ padding: '0 1.25rem', fontSize: '0.7rem', color: 'var(--fg-muted)', textTransform: 'uppercase', fontWeight: 700 }}>{s.label}</div>
@@ -101,14 +102,12 @@ export default function ApiDocs() {
             {/* Content */}
             <div className="docs-content">
                 <section id="overview" style={{ marginBottom: '4rem' }}>
-                    <h1 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '1rem' }}>GanitSūtram API</h1>
+                    <h1 style={{ fontSize: '2.5rem', fontWeight: 900, marginBottom: '1rem' }}>{t('api.title')}</h1>
                     <p style={{ color: 'var(--fg-muted)', fontSize: '1.1rem', lineHeight: 1.6 }}>
-                        The GanitSūtram API provides programmatic access to Vedic mathematical algorithms, 
-                        pattern detection, and knowledge graph data. Use this reference to integrate Vedic 
-                        discovery into your own applications.
+                        {t('api.desc')}
                     </p>
                     <div style={{ marginTop: '2rem', padding: '1.5rem', background: '#18181f', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)' }}>
-                        <div style={{ fontSize: '0.7rem', color: 'var(--fg-muted)', textTransform: 'uppercase', marginBottom: '0.5rem' }}>Base URL</div>
+                        <div style={{ fontSize: '0.7rem', color: 'var(--fg-muted)', textTransform: 'uppercase', marginBottom: '0.5rem' }}>{t('api.baseUrl')}</div>
                         <code style={{ fontSize: '1rem', color: '#0ea5e9' }}>https://api.ganitsutram.com/api</code>
                     </div>
                 </section>
@@ -122,20 +121,20 @@ export default function ApiDocs() {
                                     <span className={`method-badge ${ep.method}`}>{ep.method}</span>
                                     <span className="docs-endpoint-path">/api{ep.path}</span>
                                     <span className={`auth-badge ${ep.auth === 'public' ? 'public' : 'auth'}`} style={{ marginLeft: 'auto', fontSize: '0.7rem', padding: '2px 8px', borderRadius: '12px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)' }}>
-                                        {ep.auth === 'public' ? '🔓 Public' : '🔒 Auth'}
+                                        {ep.auth === 'public' ? `🔓 ${t('api.authPublic')}` : `🔒 ${t('api.authPrivate')}`}
                                     </span>
                                 </div>
                                 <div style={{ padding: '1.25rem 1.5rem', fontSize: '0.9rem', color: 'var(--fg-muted)', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>{ep.desc}</div>
                                 
                                 <div style={{ padding: '1.5rem' }}>
-                                    <h4 style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: 'var(--fg-muted)', marginBottom: '0.75rem' }}>Parameters</h4>
+                                    <h4 style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: 'var(--fg-muted)', marginBottom: '0.75rem' }}>{t('api.thName')}</h4>
                                     <table className="params-table">
                                         <thead>
                                             <tr>
-                                                <th>Name</th>
-                                                <th>Type</th>
-                                                <th>Req</th>
-                                                <th>Description</th>
+                                                <th>{t('api.thName')}</th>
+                                                <th>{t('api.thType')}</th>
+                                                <th>{t('api.thReq')}</th>
+                                                <th>{t('api.thDesc')}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -143,7 +142,7 @@ export default function ApiDocs() {
                                                 <tr key={p.name}>
                                                     <td className="param-name">{p.name}</td>
                                                     <td style={{ color: '#a78bfa', fontFamily: 'monospace' }}>{p.type}</td>
-                                                    <td style={{ color: p.req ? 'var(--accent-primary)' : 'inherit' }}>{p.req ? 'Yes' : 'No'}</td>
+                                                    <td style={{ color: p.req ? 'var(--accent-primary)' : 'inherit' }}>{p.req ? t('api.reqYes') : t('api.reqNo')}</td>
                                                     <td>{p.desc}</td>
                                                 </tr>
                                             ))}
@@ -151,7 +150,7 @@ export default function ApiDocs() {
                                     </table>
 
                                     <div style={{ marginTop: '2rem' }}>
-                                        <h4 style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: 'var(--fg-muted)', marginBottom: '0.75rem' }}>Example Request</h4>
+                                        <h4 style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: 'var(--fg-muted)', marginBottom: '0.75rem' }}>{t('api.exampleRequest')}</h4>
                                         <div className="docs-code-block">
                                             <div className="docs-code-block-header"><span>CURL</span></div>
                                             <pre><code>{ep.curl}</code></pre>
@@ -159,7 +158,7 @@ export default function ApiDocs() {
                                     </div>
 
                                     <div style={{ marginTop: '2rem' }}>
-                                        <h4 style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: 'var(--fg-muted)', marginBottom: '0.75rem' }}>Success Response</h4>
+                                        <h4 style={{ fontSize: '0.7rem', textTransform: 'uppercase', color: 'var(--fg-muted)', marginBottom: '0.75rem' }}>{t('api.successResponse')}</h4>
                                         <div className="docs-code-block">
                                             <div className="docs-code-block-header"><span>JSON</span></div>
                                             <pre><code>{ep.successBody}</code></pre>
@@ -169,7 +168,7 @@ export default function ApiDocs() {
 
                                 <div className="docs-try-it">
                                     <button className="docs-try-it-toggle" onClick={() => handleTryIt(ep.id)}>
-                                        ⚡ Try It Out
+                                        ⚡ {t('api.tryItOut')}
                                         <span>{openSandbox === ep.id ? '▲' : '▼'}</span>
                                     </button>
                                     {openSandbox === ep.id && (
@@ -182,7 +181,7 @@ export default function ApiDocs() {
                                                     </div>
                                                 ))}
                                             </div>
-                                            <button className="gs-btn gs-btn-primary" style={{ marginTop: '1rem', width: 'fit-content' }} onClick={() => sendRequest(ep.id)}>Send Request →</button>
+                                            <button className="gs-btn gs-btn-primary" style={{ marginTop: '1rem', width: 'fit-content' }} onClick={() => sendRequest(ep.id)}>{t('api.sendRequest')} →</button>
                                             {sandboxResponse[ep.id] && (
                                                 <div className="try-it-response">{sandboxResponse[ep.id]}</div>
                                             )}

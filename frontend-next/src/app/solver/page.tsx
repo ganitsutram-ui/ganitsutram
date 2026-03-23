@@ -172,7 +172,7 @@ export default function SolverPage() {
                                 {activeConcept && activeConcept.inputType === 'sequence' && (
                                     <div className="gs-form-row">
                                         <div className="gs-input-group" style={{ gridColumn: 'span 2' }}>
-                                            <label>Number Sequence</label>
+                                            <label>{t('solver.seqLabel')}</label>
                                             <textarea 
                                                 className="gs-input" 
                                                 rows={3} 
@@ -188,7 +188,7 @@ export default function SolverPage() {
                                 {activeConcept && activeConcept.inputs === 2 && activeConcept.inputType !== 'sequence' && (
                                     <div className="gs-form-row">
                                         <div className="gs-input-group">
-                                            <label>First Number</label>
+                                            <label>{t('solver.firstLabel')}</label>
                                             <input 
                                                 type="number" 
                                                 className="gs-input" 
@@ -199,7 +199,7 @@ export default function SolverPage() {
                                             />
                                         </div>
                                         <div className="gs-input-group">
-                                            <label>Second Number</label>
+                                            <label>{t('solver.secondLabel')}</label>
                                             <input 
                                                 type="number" 
                                                 className="gs-input" 
@@ -215,7 +215,7 @@ export default function SolverPage() {
                                 {activeConcept && activeConcept.inputs === 1 && activeConcept.inputType !== 'sequence' && (
                                     <div className="gs-form-row">
                                         <div className="gs-input-group">
-                                            <label>Number</label>
+                                            <label>{t('solver.numLabel')}</label>
                                             <input 
                                                 type="number" 
                                                 className="gs-input" 
@@ -278,11 +278,11 @@ export default function SolverPage() {
                             <table className="gs-history-table">
                                 <thead>
                                     <tr>
-                                        <th>Operation</th>
-                                        <th>Input(s)</th>
-                                        <th>Result</th>
-                                        <th>Sutra</th>
-                                        <th>Time</th>
+                                        <th>{t('solver.thOperation')}</th>
+                                        <th>{t('solver.thInput')}</th>
+                                        <th>{t('solver.thResult')}</th>
+                                        <th>{t('solver.thSutra')}</th>
+                                        <th>{t('solver.thTime')}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -296,7 +296,7 @@ export default function SolverPage() {
                                         </tr>
                                     ))}
                                     {history.length === 0 && (
-                                        <tr><td colSpan={5} style={{ textAlign: 'center', opacity: 0.5 }}>No operations solved yet.</td></tr>
+                                        <tr><td colSpan={5} style={{ textAlign: 'center', opacity: 0.5 }}>{t('solver.noOps')}</td></tr>
                                     )}
                                 </tbody>
                             </table>
@@ -309,14 +309,14 @@ export default function SolverPage() {
                             </div>
                             {!user ? (
                                 <div className="gs-progress-nudge">
-                                    <p style={{ marginBottom: '1rem', color: 'var(--text-dim)' }}>Your mathematical journey is just beginning.</p>
+                                    <p style={{ marginBottom: '1rem', color: 'var(--text-dim)' }}>{t('solver.journeyStart')}</p>
                                     <button onClick={() => openAuthModal('register')} className="gs-button gs-button-primary">
                                         Sign in to Save Progress &rarr;
                                     </button>
                                 </div>
                             ) : (
                                 <div className="gs-progress-nudge">
-                                    <p style={{ marginBottom: '1rem', color: 'var(--accent-primary)' }}>Welcome back! Your operations are securely synced.</p>
+                                    <p style={{ marginBottom: '1rem', color: 'var(--accent-primary)' }}>{t('solver.welcomeBack')}</p>
                                 </div>
                             )}
                         </section>

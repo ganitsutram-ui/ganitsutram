@@ -64,11 +64,11 @@ export default function CMS() {
                         <div className="gs-nav-logo">
                             <span className="gs-nav-logo-dev">गणित</span>GanitSūtram
                         </div>
-                        <span style={{ fontSize: '0.7rem', background: 'var(--accent-primary)', color: '#fff', padding: '2px 8px', borderRadius: '4px', fontWeight: 700 }}>CMS ADMIN</span>
+                        <span style={{ fontSize: '0.7rem', background: 'var(--accent-primary)', color: '#fff', padding: '2px 8px', borderRadius: '4px', fontWeight: 700 }}>{t('cms.title')}</span>
                     </div>
                     <div className="cms-top-actions">
-                        <button className="gs-btn gs-btn-secondary" style={{ padding: '0.4rem 1rem', fontSize: '0.85rem' }}>Sync Discoveries</button>
-                        <div className="cms-user-pill">Admin</div>
+                        <button className="gs-btn gs-btn-secondary" style={{ padding: '0.4rem 1rem', fontSize: '0.85rem' }}>{t('cms.syncBtn')}</button>
+                        <div className="cms-user-pill">{t('cms.userAdmin')}</div>
                     </div>
                 </div>
             </header>
@@ -77,7 +77,7 @@ export default function CMS() {
                 {/* Sidebar */}
                 <aside className="cms-sidebar">
                     <div className="cms-sidebar-section">
-                        <label className="cms-label">Content Type</label>
+                        <label className="cms-label">{t('cms.labelType')}</label>
                         <nav className="cms-filter-nav">
                             {['all', 'discovery', 'lesson', 'sutra', 'concept'].map(type => (
                                 <button 
@@ -85,13 +85,17 @@ export default function CMS() {
                                     className={`cms-filter-btn ${filter === type ? 'active' : ''}`}
                                     onClick={() => setFilter(type)}
                                 >
-                                    {type.charAt(0).toUpperCase() + type.slice(1)}
+                                    {type === 'all' ? t('cms.filterAll') : 
+                                     type === 'discovery' ? t('cms.filterDiscovery') :
+                                     type === 'lesson' ? t('cms.filterLesson') :
+                                     type === 'sutra' ? t('cms.filterSutra') :
+                                     t('cms.filterConcept')}
                                 </button>
                             ))}
                         </nav>
                     </div>
 
-                    <button className="gs-btn gs-btn-primary" style={{ width: '100%' }} onClick={() => openEditor()}>New Content +</button>
+                    <button className="gs-btn gs-btn-primary" style={{ width: '100%' }} onClick={() => openEditor()}>{t('cms.newBtn')}</button>
                 </aside>
 
                 {/* Main Content */}
@@ -99,19 +103,19 @@ export default function CMS() {
                     {loading ? (
                         <div className="cms-placeholder">
                             <div className="gs-loader"></div>
-                            <p>Loading Content...</p>
+                            <p>{t('cms.loading')}</p>
                         </div>
                     ) : (
                         <div className="cms-table-wrapper">
                             <table className="gs-table">
                                 <thead>
                                     <tr>
-                                        <th>Type</th>
-                                        <th>Title</th>
-                                        <th>Status</th>
-                                        <th>Category</th>
-                                        <th>Updated</th>
-                                        <th style={{ textAlign: 'right' }}>Actions</th>
+                                        <th>{t('cms.thType')}</th>
+                                        <th>{t('cms.thTitle')}</th>
+                                        <th>{t('cms.thStatus')}</th>
+                                        <th>{t('cms.thCategory')}</th>
+                                        <th>{t('cms.thUpdated')}</th>
+                                        <th style={{ textAlign: 'right' }}>{t('cms.thActions')}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -121,13 +125,13 @@ export default function CMS() {
                                             <td><strong>{item.title_en}</strong><br/><small style={{ color: 'var(--fg-muted)' }}>{item.slug}</small></td>
                                             <td>
                                                 <span className={`cms-pill ${item.published ? 'cms-pill-published' : 'cms-pill-draft'}`}>
-                                                    {item.published ? 'Published' : 'Draft'}
+                                                    {item.published ? t('cms.statusPublished') : t('cms.statusDraft')}
                                                 </span>
                                             </td>
                                             <td>{item.category}</td>
                                             <td>{new Date(item.updated_at).toLocaleDateString()}</td>
                                             <td style={{ textAlign: 'right' }}>
-                                                <button className="gs-btn gs-btn-secondary" style={{ padding: '0.3rem 0.6rem', fontSize: '0.8rem' }} onClick={() => openEditor(item)}>Edit</button>
+                                                <button className="gs-btn gs-btn-secondary" style={{ padding: '0.3rem 0.6rem', fontSize: '0.8rem' }} onClick={() => openEditor(item)}>{t('cms.editBtn')}</button>
                                             </td>
                                         </tr>
                                     ))}
@@ -143,25 +147,25 @@ export default function CMS() {
                 <div className="cms-modal-overlay">
                     <div className="cms-editor-panel">
                         <header className="cms-editor-header">
-                            <h2>{editingItem ? 'Edit Content' : 'New Content'}</h2>
+                            <h2>{editingItem ? t('cms.editHeading') : t('cms.newHeading')}</h2>
                             <div style={{ display: 'flex', gap: '1rem' }}>
-                                <button className="gs-btn gs-btn-secondary" onClick={closeEditor}>Cancel</button>
-                                <button className="gs-btn gs-btn-primary">Save & Publish</button>
+                                <button className="gs-btn gs-btn-secondary" onClick={closeEditor}>{t('cms.cancelBtn')}</button>
+                                <button className="gs-btn gs-btn-primary">{t('cms.saveBtn')}</button>
                             </div>
                         </header>
                         <div className="cms-editor-body">
                             <div className="cms-form-grid">
                                 <aside className="cms-editor-meta">
                                     <div className="cms-field">
-                                        <label>Slug</label>
+                                        <label>{t('cms.labelSlug')}</label>
                                         <input type="text" className="cms-input" defaultValue={editingItem?.slug} />
                                     </div>
                                     <div className="cms-field">
-                                        <label>Icon (Emoji)</label>
+                                        <label>{t('cms.labelIcon')}</label>
                                         <input type="text" className="cms-input" placeholder="🌟" />
                                     </div>
                                     <div className="cms-field">
-                                        <label>Category</label>
+                                        <label>{t('cms.labelCategory')}</label>
                                         <input type="text" className="cms-input" defaultValue={editingItem?.category} />
                                     </div>
                                 </aside>
@@ -173,17 +177,17 @@ export default function CMS() {
                                                 className={`cms-tab-btn ${activeTab === lang ? 'active' : ''}`}
                                                 onClick={() => setActiveTab(lang)}
                                             >
-                                                {lang === 'en' ? 'English' : lang === 'hi' ? 'Hindi' : 'Sanskrit'}
+                                                {lang === 'en' ? t('nav.home') === 'Home' ? 'English' : 'English' : lang === 'hi' ? 'हिन्दी' : 'संस्कृतम्'}
                                             </button>
                                         ))}
                                     </div>
                                     <div className="cms-tab-content">
                                         <div className="cms-field">
-                                            <label>Title ({activeTab.toUpperCase()})</label>
+                                            <label>{t('cms.labelTitle')} ({activeTab.toUpperCase()})</label>
                                             <input type="text" className={`cms-input ${activeTab !== 'en' ? 'font-hi' : ''}`} defaultValue={activeTab === 'en' ? editingItem?.title_en : ''} />
                                         </div>
                                         <div className="cms-field">
-                                            <label>Body (Markdown)</label>
+                                            <label>{t('cms.labelBody')}</label>
                                             <div className="cms-md-container">
                                                 <div className="cms-md-toolbar">
                                                     <button>B</button>
@@ -192,9 +196,9 @@ export default function CMS() {
                                                     <button>Code</button>
                                                 </div>
                                                 <div className="cms-md-split">
-                                                    <textarea className={`cms-textarea-lg ${activeTab !== 'en' ? 'font-hi' : ''}`} placeholder="Write your mathematical discovery here..." />
+                                                    <textarea className={`cms-textarea-lg ${activeTab !== 'en' ? 'font-hi' : ''}`} placeholder={t('cms.placeholderBody')} />
                                                     <div className={`cms-preview-panel gs-markdown ${activeTab !== 'en' ? 'font-hi' : ''}`}>
-                                                        <p>Preview will appear here...</p>
+                                                        <p>{t('cms.previewPlaceholder')}</p>
                                                     </div>
                                                 </div>
                                             </div>

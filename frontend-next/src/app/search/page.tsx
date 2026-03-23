@@ -7,6 +7,7 @@ Contact: aitdlnetwork@outlook.com | jawahar.mallah@gmail.com
 
 import React, { Suspense } from 'react';
 import SearchClient from '@/components/SearchClient';
+import SearchFallback from '@/components/SearchFallback';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -16,7 +17,7 @@ export const metadata: Metadata = {
 
 export default function SearchPage() {
     return (
-        <Suspense fallback={<div style={{ padding: '3rem', textAlign: 'center' }}>Loading Search...</div>}>
+        <Suspense fallback={<SearchFallback />}>
             <SearchClient />
         </Suspense>
     );

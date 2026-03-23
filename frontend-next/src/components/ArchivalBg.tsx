@@ -7,8 +7,10 @@ Contact: aitdlnetwork@outlook.com | jawahar.mallah@gmail.com
 
 "use client";
 import React, { useEffect, useRef } from 'react';
+import { useI18n } from '@/context/I18nContext';
 
 export default function ArchivalBg() {
+    const { t } = useI18n();
     const containerRef = useRef<HTMLDivElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const galaxyImgRef = useRef<HTMLImageElement>(null);

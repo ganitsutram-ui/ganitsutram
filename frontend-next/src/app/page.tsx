@@ -72,8 +72,8 @@ export default function Home() {
                                 <div className="gs-demo-step-num">{t('demo.step')} 1</div>
                                 <div className="gs-demo-step-label">{t('demo.step1Desc')}</div>
                                 <div className="gs-demo-step-math">
-                                    <div className="gs-demo-num">97 → 100 - 97 = <strong>3</strong></div>
-                                    <div className="gs-demo-num">98 → 100 - 98 = <strong>2</strong></div>
+                                    <div className="gs-demo-num">{t('demo.demo97')}<strong>3</strong></div>
+                                    <div className="gs-demo-num">{t('demo.demo98')}<strong>2</strong></div>
                                 </div>
                             </div>
                             <div className="gs-demo-step">
@@ -81,7 +81,7 @@ export default function Home() {
                                 <div className="gs-demo-step-label">{t('demo.step2Desc')}</div>
                                 <div className="gs-demo-step-math">
                                     <div className={`gs-demo-result ${demoSteps[1] ? 'revealed' : ''}`}>
-                                        97 - 2 = <strong>95</strong>
+                                        {t('demo.demoSub')}<strong>95</strong>
                                     </div>
                                 </div>
                             </div>
@@ -90,15 +90,15 @@ export default function Home() {
                                 <div className="gs-demo-step-label">{t('demo.step3Desc')}</div>
                                 <div className="gs-demo-step-math">
                                     <div className={`gs-demo-result ${demoSteps[2] ? 'revealed' : ''}`}>
-                                        3 × 2 = <strong>06</strong>
+                                        {t('demo.demoMul')}<strong>06</strong>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         
                         <div className={`gs-demo-answer ${showResult ? 'revealed' : ''}`}>
-                            <div className="gs-demo-answer-val">{t('demo.result')}: 9506</div>
-                            <div className="gs-demo-answer-sub">{t('demo.combine')}: 95 | 06</div>
+                            <div className="gs-demo-answer-val">{t('demo.result')}: {t('demo.demoAns')}</div>
+                            <div className="gs-demo-answer-sub">{t('demo.combine')}: {t('demo.demoParts')}</div>
                         </div>
                     </div>
                 </div>
@@ -108,19 +108,19 @@ export default function Home() {
             <div className="gs-container">
                 <div className="gs-stats-bar">
                     <div className="gs-stat-item">
-                        <span className="gs-stat-val">7</span>
+                        <span className="gs-stat-val">{t('stats.valOperations')}</span>
                         <span className="gs-stat-lbl">{t('stats.vedicOperations')}</span>
                     </div>
                     <div className="gs-stat-item">
-                        <span className="gs-stat-val">8</span>
+                        <span className="gs-stat-val">{t('stats.valDiscoveries')}</span>
                         <span className="gs-stat-lbl">{t('stats.patternDiscoveries')}</span>
                     </div>
                     <div className="gs-stat-item">
-                        <span className="gs-stat-val">16</span>
+                        <span className="gs-stat-val">{t('stats.valSutras')}</span>
                         <span className="gs-stat-lbl">{t('stats.vedicSutras')}</span>
                     </div>
                     <div className="gs-stat-item">
-                        <span className="gs-stat-val">1,500+</span>
+                        <span className="gs-stat-val">{t('stats.valHeritage')}</span>
                         <span className="gs-stat-lbl">{t('stats.yearsHeritage')}</span>
                     </div>
                 </div>
@@ -168,17 +168,17 @@ export default function Home() {
                     <div className="gs-pillars">
                         <div className="gs-pillar">
                             <span className="gs-pillar-icon">आ</span>
-                            <h3>Āryabhaṭa (476 CE)</h3>
+                            <h3>{t('lineage.aryabhataName')}</h3>
                             <p>{t('lineage.aryabhata')}</p>
                         </div>
                         <div className="gs-pillar">
                             <span className="gs-pillar-icon">ब्र</span>
-                            <h3>Brahmagupta (598 CE)</h3>
+                            <h3>{t('lineage.brahmaguptaName')}</h3>
                             <p>{t('lineage.brahmagupta')}</p>
                         </div>
                         <div className="gs-pillar">
                             <span className="gs-pillar-icon">भा</span>
-                            <h3>Bhāskara II (1114 CE)</h3>
+                            <h3>{t('lineage.bhaskaraName')}</h3>
                             <p>{t('lineage.bhaskara')}</p>
                         </div>
                     </div>
@@ -192,12 +192,12 @@ export default function Home() {
                     <h2 className="gs-section-title">{t('voices.title')}</h2>
                     <div className="gs-quotes-grid">
                         <blockquote className="gs-tradition-quote">
-                            <p>"Mathematics is the queen of the sciences, and number theory is the queen of mathematics."</p>
-                            <cite>— Carl Friedrich Gauss</cite>
+                            <p>"{t('voices.quoteGauss')}"</p>
+                            <cite>— {t('voices.citeGauss')}</cite>
                         </blockquote>
                         <blockquote className="gs-tradition-quote">
-                            <p>"As the crest of a peacock, as the gem on a serpent's head, so stands Mathematics at the top of all sciences."</p>
-                            <cite>— Vedāṅga Jyotiṣa (1200 BCE)</cite>
+                            <p>"{t('voices.quoteVeda')}"</p>
+                            <cite>— {t('voices.citeVeda')}</cite>
                         </blockquote>
                     </div>
                 </div>

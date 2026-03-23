@@ -63,19 +63,19 @@ export default function PortalPage() {
             <div className="gs-container gs-reveal">
                 <div className="gs-stats-bar">
                     <div className="gs-stat-item">
-                        <span className="gs-stat-val">7</span>
+                        <span className="gs-stat-val">{t('stats.valOperations')}</span>
                         <span className="gs-stat-lbl">{t('stats.vedicOperations')}</span>
                     </div>
                     <div className="gs-stat-item">
-                        <span className="gs-stat-val">8</span>
+                        <span className="gs-stat-val">{t('stats.valDiscoveries')}</span>
                         <span className="gs-stat-lbl">{t('stats.patternDiscoveries')}</span>
                     </div>
                     <div className="gs-stat-item">
-                        <span className="gs-stat-val">16</span>
+                        <span className="gs-stat-val">{t('stats.valSutras')}</span>
                         <span className="gs-stat-lbl">{t('stats.vedicSutras')}</span>
                     </div>
                     <div className="gs-stat-item">
-                        <span className="gs-stat-val">1,500+</span>
+                        <span className="gs-stat-val">{t('stats.valHeritage')}</span>
                         <span className="gs-stat-lbl">{t('stats.yearsHeritage')}</span>
                     </div>
                 </div>
