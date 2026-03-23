@@ -12,8 +12,7 @@ backend/data/*.db-wal
 # Dependencies
 node_modules/
 **/node_modules/
-package-lock.json
-**/package-lock.json
+# package-lock.json is required for npm ci in Cloudflare!
 
 # Next.js
 .next/
