@@ -6,7 +6,7 @@ Contact: aitdlnetwork@outlook.com | jawahar.mallah@gmail.com
 */
 
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useI18n } from '@/context/I18nContext';
 
@@ -169,8 +169,8 @@ function SearchContent() {
 
 export default function SearchPage() {
     return (
-        <React.Suspense fallback={<div style={{ padding: '3rem', textAlign: 'center' }}>Loading Search...</div>}>
+        <Suspense fallback={<div style={{ padding: '3rem', textAlign: 'center' }}>Loading Search...</div>}>
             <SearchContent />
-        </React.Suspense>
+        </Suspense>
     );
 }
