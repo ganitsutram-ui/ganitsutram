@@ -19,7 +19,7 @@ interface SearchResult {
     slug?: string;
 }
 
-export default function SearchPage() {
+function SearchContent() {
     const searchParams = useSearchParams();
     const router = useRouter();
     const { t } = useI18n();
@@ -164,5 +164,13 @@ export default function SearchPage() {
                 </div>
             </aside>
         </main>
+    );
+}
+
+export default function SearchPage() {
+    return (
+        <React.Suspense fallback={<div style={{ padding: '3rem', textAlign: 'center' }}>Loading Search...</div>}>
+            <SearchContent />
+        </React.Suspense>
     );
 }

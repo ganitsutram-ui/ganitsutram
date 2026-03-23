@@ -1,0 +1,6 @@
+# Cloudflare Pages Redirects
+# Proxy API requests to the Railway backend
+/api/*  https://ganitsutram-backend.up.railway.app/api/:splat  200
+
+# Catch-all for SPA routing (Next.js App Router)
+/*      /index.html                                          200

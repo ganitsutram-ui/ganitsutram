@@ -4,11 +4,12 @@
   "description": "GaṇitSūtram - Split Architecture (GitHub Pages + Railway)",
   "private": true,
   "scripts": {
-    "install:all": "npm install && cd backend && npm install && cd ../websites/portal && npm install",
+    "install:all": "npm install && cd backend && npm install && cd ../frontend-next && npm install",
     "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
     "dev:backend": "cd backend && node server.js",
-    "dev:frontend": "npx vite . --open /",
-    "build": "echo \"This project uses unbuilt vanilla HTML/JS for GitHub Pages. No frontend build step required!\""
+    "dev:frontend": "cd frontend-next && npm run dev -- -p 3005",
+    "build": "cd frontend-next && npm run build",
+    "start": "concurrently \"npm run dev:backend\" \"cd frontend-next && npm run start -- -p 3005\""
   },
   "devDependencies": {
     "concurrently": "^8.2.2"

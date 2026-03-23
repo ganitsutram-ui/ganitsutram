@@ -1797,8 +1797,67 @@ body {
     background: rgba(0, 0, 0, 0.2);
 }
 
-.gs-auth-error {
-    color: #ff4d4d;
-    font-size: 0.85rem;
-    margin-bottom: 10px;
+/* ════════════════════════════
+   FOOTER ENHANCEMENTS
+   ════════════════════════════ */
+.gs-footer {
+    padding: 4rem 0 2rem;
+    border-top: 1px solid var(--glass-border);
+    background: rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gs-footer-inner {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+    padding: 0 2rem;
+}
+
+.gs-footer-center {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+.gs-vikram-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.75rem 2rem;
+    background: rgba(212, 175, 55, 0.05);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 50px;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
+}
+
+.gs-vikram-label {
+    font-family: var(--font-heading);
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    color: var(--accent-primary);
+    opacity: 0.8;
+}
+
+.gs-vikram-val {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent-primary);
+    letter-spacing: 0.05rem;
+}
+
+.gs-footer-copy {
+    width: 100%;
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid var(--glass-border);
+    font-size: 0.8rem;
+    color: var(--fg-muted);
 }

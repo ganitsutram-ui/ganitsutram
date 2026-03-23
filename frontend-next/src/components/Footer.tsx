@@ -26,9 +26,14 @@ export default function Footer() {
                     </div>
                 </div>
             </div>
+            <div className="gs-footer-center">
+                <div className="gs-vikram-badge">
+                    <span className="gs-vikram-label">Vikram Samvat</span>
+                    <span className="gs-vikram-val">VS 2083</span>
+                </div>
+            </div>
             <div className="gs-footer-copy">
-                <span>© GanitSūtram | AITDL | aitdl.com</span> &nbsp;|&nbsp;
-                <span>Vikram Samvat: VS 2082 &nbsp;|&nbsp; Gregorian: 2026-03-07</span>
+                <span>© 2026 GanitSūtram | AITDL Network | aitdl.com</span>
             </div>
         </footer>
     );
