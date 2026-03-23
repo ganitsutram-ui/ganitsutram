@@ -59,34 +59,51 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const login = async (email: string, pass: string) => {
         setIsLoading(true);
         
+        const normalizedEmail = email.trim().toLowerCase();
+        const normalizedPass = pass.trim();
+
         // Super Admin Seed Bypass
-        if (email === 'jawahar.mallah@gmail.com' && pass === 'Gba108682!@') {
-            const mockUser = { userId: 'admin-001', email: email, role: 'admin' };
-            // Mock JWT token (base64 encoded JSON payload)
-            const payload = btoa(JSON.stringify({ ...mockUser, exp: Math.floor(Date.now() / 1000) + 86400 * 7 }));
-            const dummyToken = `header.${payload}.signature`;
-            localStorage.setItem('gs_token', dummyToken);
-            setUser(mockUser);
-            setIsLoading(false);
-            closeAuthModal();
-            return;
+        if (normalizedEmail === 'jawahar.mallah@gmail.com' && normalizedPass === 'Gba108682!@') {
+            const mockUser = { userId: 'admin-001', email: normalizedEmail, role: 'admin' };
+            try {
+                // Mock JWT token (base64 encoded JSON payload)
+                const payload = btoa(JSON.stringify({ ...mockUser, exp: Math.floor(Date.now() / 1000) + 86400 * 7 }));
+                const dummyToken = `header.${payload}.signature`;
+                localStorage.setItem('gs_token', dummyToken);
+                setUser(mockUser);
+                setIsLoading(false);
+                closeAuthModal();
+                return;
+            } catch (e) {
+                console.error("Auth Bypass Error:", e);
+                // Fall through to real API if mock fails
+            }
         }
 
         try {
             const res = await fetch(`${API_BASE}/auth/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password: pass })
+                body: JSON.stringify({ email: normalizedEmail, password: normalizedPass })
             });
-            const data = await res.json();
+
+            let data;
+            try {
+                data = await res.json();
+            } catch (e) {
+                throw new Error('Server returned an invalid response. Please try again later.');
+            }
+
             if (res.ok && data.token) {
                 localStorage.setItem('gs_token', data.token);
                 if (data.refreshToken) localStorage.setItem('gs_refresh_token', data.refreshToken);
                 setUser(data.user);
                 closeAuthModal();
             } else {
-                throw new Error(data.error || 'Login failed');
+                throw new Error(data?.error || 'Login failed. Please check your credentials.');
             }
+        } catch (err: any) {
+            throw err;
         } finally {
             setIsLoading(false);
         }
